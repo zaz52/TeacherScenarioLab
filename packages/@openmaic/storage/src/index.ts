@@ -149,6 +149,18 @@ export {
   type ReassignDocumentFoldersInput,
   type StorageLockUnavailableReason,
 } from './document/pg.js';
+export {
+  PgTrainingStore,
+  TRAINING_PG_MIGRATIONS,
+  TRAINING_PG_SCHEMA,
+  TrainingNotFoundError,
+  ensureTrainingSchema,
+  type PgTrainingStoreOptions,
+  type TrainingEventRecord,
+  type TrainingMessageRecord,
+  type TrainingRecord,
+  type TrainingSnapshotRecord,
+} from './training/pg.js';
 
 export type {
   RuntimeStore,
