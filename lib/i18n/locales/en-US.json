@@ -2556,6 +2556,8 @@
     "scriptedBadge": "script",
     "sendFailed": "Failed to send. Please retry.",
     "replyFailed": "Failed to get a reply. Please retry.",
-    "startFailed": "Failed to start. Please retry."
+    "startFailed": "Failed to start. Please retry.",
+    "directorChoice": "Let the director choose",
+    "directorPicked": "Director picked"
   }
 }

@@ -1,10 +1,11 @@
 /**
- * TeacherScenarioLab training API: one single-role character reply.
+ * TeacherScenarioLab training API: one character reply.
  *
- * POST { characterId, mode? } — mode defaults to 'model' (the real
+ * POST { characterId?, mode? } — mode defaults to 'model' (the real
  * experience); 'scripted' plays the character pack's deterministic demo
- * script and is how the room works without model keys. The reply is
- * persisted as a `character` message and ledgered with its mode.
+ * script and is how the room works without model keys. When characterId is
+ * omitted, the director picks the responder and the pick is returned. The
+ * reply is persisted as a `character` message and ledgered with its mode.
  */
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
@@ -32,10 +33,10 @@ export async function POST(
   } catch {
     return apiError('INVALID_REQUEST', 400, 'invalid JSON body');
   }
-  const characterId = typeof body.characterId === 'string' ? body.characterId : '';
-  if (!characterId) {
-    return apiError('MISSING_REQUIRED_FIELD', 400, 'characterId is required');
-  }
+  const characterId =
+    typeof body.characterId === 'string' && body.characterId !== ''
+      ? body.characterId
+      : undefined;
   const mode: ReplyMode =
     body.mode === 'scripted' || body.mode === 'model' ? body.mode : 'model';
   return withRequestOwner(req, async (principal) => {
@@ -45,7 +46,12 @@ export async function POST(
         mode,
       });
       return NextResponse.json(
-        { success: true, message: result.message, mode: result.mode },
+        {
+          success: true,
+          message: result.message,
+          mode: result.mode,
+          director: result.director ?? null,
+        },
         { status: 201 },
       );
     } catch (error) {

@@ -59,6 +59,7 @@ export default function TrainingRoomPage() {
   const [replying, setReplying] = useState(false);
   const [error, setError] = useState('');
   const [scriptedIds, setScriptedIds] = useState<Set<string>>(new Set());
+  const [directorNote, setDirectorNote] = useState('');
 
   const loadMessages = useCallback(async () => {
     const res = await fetch(`/api/training/trainings/${trainingId}/messages`);
@@ -81,7 +82,6 @@ export default function TrainingRoomPage() {
       const scenarioData = await scenarioRes.json();
       if (scenarioData.success) {
         setScenario(scenarioData.scenario);
-        setCharacterId((current) => current || scenarioData.scenario.characters[0]?.id || '');
       }
       await loadMessages();
     })().catch(() => setError(t('loadFailed')));
@@ -106,7 +106,7 @@ export default function TrainingRoomPage() {
 
   const handleSend = async () => {
     const content = input.trim();
-    if (!content || !characterId || busy || replying) return;
+    if (!content || busy || replying) return;
     setBusy(true);
     setError('');
     try {
@@ -124,12 +124,25 @@ export default function TrainingRoomPage() {
         const replyRes = await fetch(`/api/training/trainings/${trainingId}/reply`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ characterId, mode }),
+          body: JSON.stringify({
+            ...(characterId ? { characterId } : {}),
+            mode,
+          }),
         });
         const replyData = await replyRes.json();
         if (!replyData.success) throw new Error(replyData.error);
         if (replyData.mode === 'scripted') {
           setScriptedIds((prev) => new Set(prev).add(replyData.message.id));
+        }
+        if (replyData.director) {
+          const picked = scenario?.characters.find(
+            (c) => c.id === replyData.director.characterId,
+          );
+          setDirectorNote(
+            `${t('directorPicked')}: ${picked?.name ?? replyData.director.characterId} — ${replyData.director.reason}`,
+          );
+        } else {
+          setDirectorNote('');
         }
         await loadMessages();
       } catch {
@@ -206,6 +219,7 @@ export default function TrainingRoomPage() {
           </div>
         ))}
         {replying && <p className="text-sm text-gray-500">{t('replying')}</p>}
+        {directorNote && <p className="text-xs text-gray-500">{directorNote}</p>}
       </section>
       {training.state !== 'created' && (
         <section className="flex flex-col gap-2">
@@ -217,6 +231,7 @@ export default function TrainingRoomPage() {
                 onChange={(event) => setCharacterId(event.target.value)}
                 className="rounded border px-2 py-2"
               >
+                <option value="">{t('directorChoice')}</option>
                 {(scenario?.characters ?? []).map((character) => (
                   <option key={character.id} value={character.id}>
                     {character.name}

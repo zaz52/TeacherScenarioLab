@@ -2556,6 +2556,8 @@
     "scriptedBadge": "脚本",
     "sendFailed": "发送失败，请重试。",
     "replyFailed": "对方回复失败，请重试。",
-    "startFailed": "开始训练失败，请重试。"
+    "startFailed": "开始训练失败，请重试。",
+    "directorChoice": "由导演选择",
+    "directorPicked": "导演选择"
   }
 }

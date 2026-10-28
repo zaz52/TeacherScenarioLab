@@ -95,6 +95,26 @@ describePg('single-role reply (PostgreSQL contract)', () => {
     expect(seenSystem).not.toContain('学校瞒报');
   });
 
+  test('director picks the responder when characterId is omitted', async () => {
+    await appendUserMessage('owner-1', trainingId, { content: '停课的事到底怎么定？' });
+    const result = await generateCharacterReply('owner-1', trainingId, {
+      mode: 'scripted',
+    });
+    expect(result.director).toMatchObject({
+      characterId: 'principal-1',
+      reason: '话题：停课与上报决策',
+    });
+    expect(result.message.characterId).toBe('principal-1');
+    expect(result.message.content).toContain('要按流程报上级决定');
+    const events = await listEvents('owner-1', trainingId);
+    const reply = events.find((e) => e.type === 'character-reply');
+    expect(reply?.payload).toMatchObject({
+      characterId: 'principal-1',
+      mode: 'scripted',
+      director: { characterId: 'principal-1', reason: '话题：停课与上报决策' },
+    });
+  });
+
   test('unknown characters, pack-less characters, wrong states, foreign owners fail', async () => {
     await expect(
       generateCharacterReply('owner-1', trainingId, {
@@ -102,9 +122,29 @@ describePg('single-role reply (PostgreSQL contract)', () => {
         mode: 'scripted',
       }),
     ).rejects.toMatchObject({ status: 400 });
+    // A character without a roleplay pack cannot reply, even in scripted mode.
+    const store = await getTrainingStore();
+    await store.saveScenarioVersion({
+      scenarioId: 'packless-test',
+      version: 1,
+      title: '无包测试',
+      setting: '测试',
+      goal: '测试',
+      rules: [],
+      learnerRole: '小学教师',
+      characters: [{ id: 'ghost-1', name: '幽灵', role: 'other' }],
+      facts: [],
+      disclosureConditions: {},
+      publishedAt: 1000,
+    });
+    const ghost = await createTraining('owner-1', {
+      scenarioId: 'packless-test',
+      scenarioVersion: 1,
+    });
+    await startTraining('owner-1', ghost.id);
     await expect(
-      generateCharacterReply('owner-1', trainingId, {
-        characterId: 'student-1',
+      generateCharacterReply('owner-1', ghost.id, {
+        characterId: 'ghost-1',
         mode: 'scripted',
       }),
     ).rejects.toMatchObject({ status: 400 });

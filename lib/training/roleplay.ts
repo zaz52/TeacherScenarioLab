@@ -13,12 +13,20 @@ import { randomUUID } from 'node:crypto';
 
 import type { TrainingMessageRecord } from '@openmaic/storage/training/pg';
 
-import { getCharacterPack, type RoleplayPack } from './character-packs';
+import {
+  getCharacterPack,
+  getScenarioPacks,
+  type RoleplayPack,
+} from './character-packs';
+import { selectResponder, type DirectorPick } from './director';
 import { toScenarioVersion, type ScenarioVersion } from './scenario';
 import { getTrainingStore } from './server';
 import { TrainingServiceError } from './store';
 
 export type ReplyMode = 'scripted' | 'model';
+
+/** Prompt history cap: the tail of the character-visible transcript. */
+export const MAX_PROMPT_MESSAGES = 30;
 
 /** Injectable model call, so tests can stub the model without keys. */
 export type GenerateModelReply = (system: string, prompt: string) => Promise<string>;
@@ -27,7 +35,11 @@ const MESSAGEABLE_STATES = ['briefing', 'fact-checking', 'coordination', 'propos
 
 /**
  * Build the character prompt. Pure function — unit-tested for the
- * information boundary (own private facts in, others' and hidden out).
+ * information boundary (own private facts in, others' and hidden out) and
+ * for per-role context trimming: the transcript keeps only the teacher's
+ * messages and this character's own replies (the fiction is a sequence of
+ * 1:1 exchanges, so other characters' replies are not visible here),
+ * capped at the most recent MAX_PROMPT_MESSAGES.
  */
 export function buildCharacterPrompt(
   scenario: ScenarioVersion,
@@ -53,7 +65,14 @@ export function buildCharacterPrompt(
     `你知道的事实：${knownFacts.map((fact) => fact.content).join('；')}`,
     '只扮演这个角色。不要透露你不知道的事，不要替其他角色说话，不要编造医学诊断。回复用中文，简短自然，像真人说话。',
   ].join('\n');
-  const transcript = history
+  const visibleHistory = history
+    .filter(
+      (message) =>
+        message.role === 'user' ||
+        (message.role === 'character' && message.characterId === pack.characterId),
+    )
+    .slice(-MAX_PROMPT_MESSAGES);
+  const transcript = visibleHistory
     .map((message) =>
       message.role === 'user' ? `教师：${message.content}` : `${characterName}：${message.content}`,
     )
@@ -65,15 +84,21 @@ export function buildCharacterPrompt(
 }
 
 /**
- * Generate and persist one character reply. `generateModelReply` defaults to
- * the training-roleplay stage model call; pass a stub in tests.
+ * Generate and persist one character reply. `characterId` is optional: when
+ * omitted, the director picks the responder from the latest user message
+ * and the pick is returned alongside the message. `generateModelReply`
+ * defaults to the training-roleplay stage model call; pass a stub in tests.
  */
 export async function generateCharacterReply(
   ownerId: string,
   trainingId: string,
-  input: { characterId: string; mode?: ReplyMode },
+  input: { characterId?: string; mode?: ReplyMode },
   deps: { generateModelReply?: GenerateModelReply } = {},
-): Promise<{ message: TrainingMessageRecord; mode: ReplyMode }> {
+): Promise<{
+  message: TrainingMessageRecord;
+  mode: ReplyMode;
+  director?: DirectorPick;
+}> {
   const mode = input.mode ?? 'model';
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);
@@ -103,25 +128,42 @@ export async function generateCharacterReply(
       `training ${trainingId} pins scenario with an unknown disclosure state`,
     );
   }
-  const character = scenario.characters.find((entry) => entry.id === input.characterId);
+  const history = await store.listMessages(trainingId, { includeSuperseded: false });
+  let characterId = input.characterId;
+  let director: DirectorPick | undefined;
+  if (!characterId) {
+    const eligible = getScenarioPacks(training.scenarioId).map((pack) => pack.characterId);
+    const lastUserMessage =
+      [...history].reverse().find((message) => message.role === 'user')?.content ?? '';
+    const pick = selectResponder(scenario, eligible, history, lastUserMessage);
+    if (!pick) {
+      throw new TrainingServiceError(
+        400,
+        'INVALID_REQUEST',
+        `scenario ${training.scenarioId} has no character with a roleplay pack`,
+      );
+    }
+    characterId = pick.characterId;
+    director = pick;
+  }
+  const character = scenario.characters.find((entry) => entry.id === characterId);
   if (!character) {
     throw new TrainingServiceError(
       400,
       'INVALID_REQUEST',
-      `character ${input.characterId} is not in scenario ${training.scenarioId}`,
+      `character ${characterId} is not in scenario ${training.scenarioId}`,
     );
   }
-  const pack = getCharacterPack(training.scenarioId, input.characterId);
+  const pack = getCharacterPack(training.scenarioId, characterId);
   if (!pack) {
     throw new TrainingServiceError(
       400,
       'INVALID_REQUEST',
-      `character ${input.characterId} has no roleplay pack`,
+      `character ${characterId} has no roleplay pack`,
     );
   }
-  const history = await store.listMessages(trainingId, { includeSuperseded: false });
   const priorReplies = history.filter(
-    (message) => message.role === 'character' && message.characterId === input.characterId,
+    (message) => message.role === 'character' && message.characterId === characterId,
   ).length;
 
   let text: string;
@@ -130,7 +172,7 @@ export async function generateCharacterReply(
       throw new TrainingServiceError(
         400,
         'INVALID_REQUEST',
-        `character ${input.characterId} has no scripted replies`,
+        `character ${characterId} has no scripted replies`,
       );
     }
     text = pack.scriptedReplies[Math.min(priorReplies, pack.scriptedReplies.length - 1)] as string;
@@ -156,7 +198,7 @@ export async function generateCharacterReply(
     const message = await tx.appendMessage({
       id: randomUUID(),
       trainingId,
-      characterId: input.characterId,
+      characterId: characterId as string,
       role: 'character',
       content: text,
       idempotencyKey: null,
@@ -166,10 +208,15 @@ export async function generateCharacterReply(
       id: randomUUID(),
       trainingId,
       type: 'character-reply',
-      payload: { messageId: message.message.id, characterId: input.characterId, mode },
+      payload: {
+        messageId: message.message.id,
+        characterId: characterId as string,
+        mode,
+        director: director ? { characterId: director.characterId, reason: director.reason } : null,
+      },
       createdAt: now,
     });
-    return { message: message.message, mode };
+    return { message: message.message, mode, director };
   });
 }
 

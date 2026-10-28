@@ -45,10 +45,80 @@ describe('buildCharacterPrompt information boundary', () => {
   });
 });
 
+describe('buildCharacterPrompt per-role trimming', () => {
+  const parent = getCharacterPack('epi-class-fever', 'parent-1')!;
+  const history = [
+    {
+      id: 'u1',
+      trainingId: 't1',
+      characterId: null,
+      role: 'user',
+      content: '家长您好',
+      idempotencyKey: null,
+      createdAt: 1,
+      supersededBy: null,
+    },
+    {
+      id: 'c1',
+      trainingId: 't1',
+      characterId: 'parent-1',
+      role: 'character',
+      content: '家长自己的上一句',
+      idempotencyKey: null,
+      createdAt: 2,
+      supersededBy: null,
+    },
+    {
+      id: 'c2',
+      trainingId: 't1',
+      characterId: 'principal-1',
+      role: 'character',
+      content: '校长的上一句，其他角色不应看见',
+      idempotencyKey: null,
+      createdAt: 3,
+      supersededBy: null,
+    },
+  ];
+  const { prompt } = buildCharacterPrompt(EPIDEMIC_SCENARIO_V1_DRAFT, parent, '乐乐妈妈', history);
+
+  test('keeps teacher messages and the speaker’s own replies only', () => {
+    expect(prompt).toContain('教师：家长您好');
+    expect(prompt).toContain('乐乐妈妈：家长自己的上一句');
+    expect(prompt).not.toContain('校长的上一句，其他角色不应看见');
+  });
+
+  test('caps the transcript at the most recent messages', () => {
+    const longHistory = Array.from({ length: 35 }, (_, i) => ({
+      id: `u${i}`,
+      trainingId: 't1',
+      characterId: null,
+      role: 'user',
+      content: `msg-${i}`,
+      idempotencyKey: null,
+      createdAt: i,
+      supersededBy: null,
+    }));
+    const { prompt: longPrompt } = buildCharacterPrompt(
+      EPIDEMIC_SCENARIO_V1_DRAFT,
+      parent,
+      '乐乐妈妈',
+      longHistory,
+    );
+    expect(longPrompt).not.toContain('msg-0');
+    expect(longPrompt).toContain('msg-34');
+  });
+});
+
 describe('getCharacterPack', () => {
-  test('returns the parent pack; unknown characters have no pack', () => {
+  test('returns packs for all epidemic characters; unknown ones have none', () => {
     expect(getCharacterPack('epi-class-fever', 'parent-1')?.characterId).toBe('parent-1');
-    expect(getCharacterPack('epi-class-fever', 'student-1')).toBeUndefined();
+    expect(getCharacterPack('epi-class-fever', 'student-1')?.characterId).toBe('student-1');
+    expect(getCharacterPack('epi-class-fever', 'teacher-1')?.characterId).toBe('teacher-1');
+    expect(getCharacterPack('epi-class-fever', 'doctor-1')?.characterId).toBe('doctor-1');
+    expect(getCharacterPack('epi-class-fever', 'principal-1')?.characterId).toBe(
+      'principal-1',
+    );
+    expect(getCharacterPack('epi-class-fever', 'no-such-character')).toBeUndefined();
     expect(getCharacterPack('no-such-scenario', 'parent-1')).toBeUndefined();
   });
 });
