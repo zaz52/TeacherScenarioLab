@@ -2560,6 +2560,15 @@
     "directorChoice": "由导演选择",
     "directorPicked": "导演选择",
     "disclosures": "新了解到的情况",
-    "disclosuresEmpty": "还没有新了解到的情况。"
+    "disclosuresEmpty": "还没有新了解到的情况。",
+    "evaluate": "开始评价",
+    "evaluating": "评价中…",
+    "evaluationTitle": "训练评价",
+    "dimCommunication": "沟通能力",
+    "dimFactChecking": "信息核实",
+    "dimJudgment": "教育判断",
+    "dimCoordination": "协同处置",
+    "dimResponsibility": "专业责任",
+    "evaluateFailed": "评价失败，请重试。"
   }
 }

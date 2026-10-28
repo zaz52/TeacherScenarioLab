@@ -2560,6 +2560,15 @@
     "directorChoice": "Let the director choose",
     "directorPicked": "Director picked",
     "disclosures": "Newly learned facts",
-    "disclosuresEmpty": "Nothing newly learned yet."
+    "disclosuresEmpty": "Nothing newly learned yet.",
+    "evaluate": "Evaluate",
+    "evaluating": "Evaluating…",
+    "evaluationTitle": "Training evaluation",
+    "dimCommunication": "Communication",
+    "dimFactChecking": "Fact-checking",
+    "dimJudgment": "Judgment",
+    "dimCoordination": "Coordination",
+    "dimResponsibility": "Responsibility",
+    "evaluateFailed": "Evaluation failed, please try again."
   }
 }

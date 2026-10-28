@@ -203,12 +203,23 @@ CREATE INDEX IF NOT EXISTS training_scenarios_scenario_idx
   ON training_scenarios (scenario_id, version);
 `;
 
+/** Evaluations (v3): one row per training, latest evaluation wins. */
+const TRAINING_PG_EVALUATIONS = `
+CREATE TABLE IF NOT EXISTS training_evaluations (
+  training_id TEXT PRIMARY KEY REFERENCES trainings(id) ON DELETE CASCADE,
+  data JSONB NOT NULL,
+  created_at DOUBLE PRECISION NOT NULL,
+  updated_at DOUBLE PRECISION NOT NULL
+);
+`;
+
 /** The training backend's migrations, recorded under the store `training`. */
 export const TRAINING_PG_MIGRATIONS: SchemaMigrationSet = {
   store: 'training',
   migrations: [
     { version: 1, name: 'baseline', up: TRAINING_PG_BASELINE, transaction: false },
     { version: 2, name: 'scenarios', up: TRAINING_PG_SCENARIOS, transaction: true },
+    { version: 3, name: 'evaluations', up: TRAINING_PG_EVALUATIONS, transaction: true },
   ],
 };
 
@@ -691,6 +702,49 @@ export class PgTrainingStore {
     );
     return result.rows.map(mapScenarioRow);
   }
+
+  /**
+   * Evaluations are owner data: the upsert only fires when the training
+   * belongs to the bound owner (or when unbound), and reads join trainings
+   * for the same check. The service layer loads the training first, so a
+   * failed upsert here surfaces as TrainingNotFoundError, never as a
+   * silent no-op.
+   */
+  async saveEvaluation(
+    record: TrainingEvaluationRecord,
+  ): Promise<TrainingEvaluationRecord> {
+    const ownerClause = this.ownerId !== null ? ` AND t.owner_id = $5` : '';
+    const params: unknown[] = [
+      record.trainingId,
+      record,
+      record.createdAt,
+      record.createdAt,
+      ...(this.ownerId !== null ? [this.ownerId] : []),
+    ];
+    const result = await this.queryable.query<TrainingEvaluationRow>(
+      `INSERT INTO training_evaluations (training_id, data, created_at, updated_at)
+       SELECT $1, $2, $3, $4 FROM trainings t WHERE t.id = $1${ownerClause}
+       ON CONFLICT (training_id) DO UPDATE
+         SET data = EXCLUDED.data, updated_at = EXCLUDED.updated_at
+       RETURNING training_id, data, created_at, updated_at`,
+      params,
+    );
+    if (result.rows[0]) return mapEvaluationRow(result.rows[0]);
+    throw new TrainingNotFoundError(record.trainingId);
+  }
+
+  async getEvaluation(trainingId: string): Promise<TrainingEvaluationRecord | null> {
+    const ownerClause = this.ownerId !== null ? ` AND t.owner_id = $2` : '';
+    const params: unknown[] = [trainingId, ...(this.ownerId !== null ? [this.ownerId] : [])];
+    const result = await this.queryable.query<TrainingEvaluationRow>(
+      `SELECT e.training_id, e.data, e.created_at, e.updated_at
+         FROM training_evaluations e
+         JOIN trainings t ON t.id = e.training_id
+        WHERE e.training_id = $1${ownerClause}`,
+      params,
+    );
+    return result.rows[0] ? mapEvaluationRow(result.rows[0]) : null;
+  }
 }
 
 type TrainingScenarioRow = {
@@ -699,6 +753,38 @@ type TrainingScenarioRow = {
   data: ScenarioVersionRecord;
   published_at: number | null;
 };
+
+export type TrainingEvaluationDimensionRecord = {
+  dimension: string;
+  score: number;
+  evidence: string[];
+  comment: string;
+};
+
+export type TrainingEvaluationRecord = {
+  trainingId: string;
+  dimensions: TrainingEvaluationDimensionRecord[];
+  summary: string;
+  suggestions: string[];
+  createdAt: number;
+};
+
+type TrainingEvaluationRow = {
+  training_id: string;
+  data: TrainingEvaluationRecord;
+  created_at: number;
+  updated_at: number;
+};
+
+function mapEvaluationRow(row: TrainingEvaluationRow): TrainingEvaluationRecord {
+  return {
+    trainingId: row.training_id,
+    dimensions: row.data.dimensions,
+    summary: row.data.summary,
+    suggestions: row.data.suggestions,
+    createdAt: row.created_at,
+  };
+}
 
 function mapScenarioRow(row: TrainingScenarioRow): ScenarioVersionRecord {
   return {

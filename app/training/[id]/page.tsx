@@ -61,6 +61,17 @@ export default function TrainingRoomPage() {
   const [scriptedIds, setScriptedIds] = useState<Set<string>>(new Set());
   const [directorNote, setDirectorNote] = useState('');
   const [disclosures, setDisclosures] = useState<Array<{ id: string; content: string }>>([]);
+  const [evaluation, setEvaluation] = useState<{
+    dimensions: Array<{
+      dimension: string;
+      score: number;
+      evidence: string[];
+      comment: string;
+    }>;
+    summary: string;
+    suggestions: string[];
+  } | null>(null);
+  const [evaluating, setEvaluating] = useState(false);
 
   const loadMessages = useCallback(async () => {
     const res = await fetch(`/api/training/trainings/${trainingId}/messages`);
@@ -73,6 +84,30 @@ export default function TrainingRoomPage() {
     const data = await res.json();
     if (data.success) setDisclosures(data.facts);
   }, [trainingId]);
+
+  const loadEvaluation = useCallback(async () => {
+    const res = await fetch(`/api/training/trainings/${trainingId}/evaluation`);
+    const data = await res.json();
+    if (data.success) setEvaluation(data.evaluation);
+  }, [trainingId]);
+
+  const handleEvaluate = async () => {
+    if (evaluating) return;
+    setEvaluating(true);
+    setError('');
+    try {
+      const res = await fetch(`/api/training/trainings/${trainingId}/evaluate`, {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error);
+      setEvaluation(data.evaluation);
+    } catch {
+      setError(t('evaluateFailed'));
+    } finally {
+      setEvaluating(false);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -92,8 +127,9 @@ export default function TrainingRoomPage() {
       }
       await loadMessages();
       await loadDisclosures();
+      await loadEvaluation();
     })().catch(() => setError(t('loadFailed')));
-  }, [trainingId, loadMessages, loadDisclosures]);
+  }, [trainingId, loadMessages, loadDisclosures, loadEvaluation]);
 
   const handleStart = async () => {
     setBusy(true);
@@ -238,6 +274,57 @@ export default function TrainingRoomPage() {
               <li key={fact.id}>{fact.content}</li>
             ))}
           </ul>
+        </section>
+      )}
+      {training.state === 'evaluation' && (
+        <section className="rounded border p-4">
+          <button
+            type="button"
+            onClick={handleEvaluate}
+            disabled={evaluating}
+            className="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
+          >
+            {evaluating ? t('evaluating') : t('evaluate')}
+          </button>
+        </section>
+      )}
+      {evaluation && (
+        <section className="rounded border p-4">
+          <h2 className="font-medium">{t('evaluationTitle')}</h2>
+          <p className="mt-2 text-sm">{evaluation.summary}</p>
+          <ul className="mt-2 flex flex-col gap-2">
+            {evaluation.dimensions.map((dimension) => (
+              <li key={dimension.dimension} className="text-sm">
+                <span className="font-medium">
+                  {t(
+                    `dim${dimension.dimension
+                      .split('-')
+                      .map((part) => part[0].toUpperCase() + part.slice(1))
+                      .join('')}`,
+                  )}
+                  ：{dimension.score}
+                </span>
+                <span> — {dimension.comment}</span>
+                {dimension.evidence.length > 0 && (
+                  <span className="block text-xs text-gray-500">
+                    {dimension.evidence
+                      .map(
+                        (id) =>
+                          messages.find((m) => m.id === id)?.content.slice(0, 40) ?? id,
+                      )
+                      .join('；')}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          {evaluation.suggestions.length > 0 && (
+            <ul className="mt-2 list-disc pl-5 text-sm">
+              {evaluation.suggestions.map((suggestion, index) => (
+                <li key={index}>{suggestion}</li>
+              ))}
+            </ul>
+          )}
         </section>
       )}
       {training.state !== 'created' && (

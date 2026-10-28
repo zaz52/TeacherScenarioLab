@@ -37,6 +37,7 @@ const EXPECTED_STAGE_SLOTS: Record<LlmStage, SlotId> = {
   'maic-agent-driver': 'agent',
   'conversation-title': 'agent.title',
   'training-roleplay': 'classroom',
+  'training-evaluation': 'classroom',
 };
 
 const EXPECTED_ROOTS = {
