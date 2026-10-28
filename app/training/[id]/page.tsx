@@ -13,6 +13,7 @@ import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
+import { MESSAGEABLE_STATES } from '@/lib/training/state-machine';
 
 interface Training {
   id: string;
@@ -327,7 +328,7 @@ export default function TrainingRoomPage() {
           )}
         </section>
       )}
-      {training.state !== 'created' && (
+      {(MESSAGEABLE_STATES as readonly string[]).includes(training.state) && (
         <section className="flex flex-col gap-2">
           <div className="flex gap-2">
             <label className="flex flex-1 flex-col text-sm">

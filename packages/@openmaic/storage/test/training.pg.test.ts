@@ -14,6 +14,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, test } from 'vitest'
 import {
   ensureTrainingSchema,
   PgTrainingStore,
+  TrainingAccountNotFoundError,
   TrainingNotFoundError,
   TrainingScenarioFrozenError,
   type Queryable,
@@ -408,5 +409,101 @@ describePg('PgTrainingStore scenarios (PostgreSQL contract)', () => {
       store.saveScenarioVersion(scenario({ title: 'Published', publishedAt: 3000 })),
     ).rejects.toBeInstanceOf(TrainingScenarioFrozenError);
     expect((await store.getScenarioVersion('test-scenario', 1))?.title).toBe('Published');
+  });
+});
+
+describePg('PgTrainingStore accounts, sessions and claims (PostgreSQL contract)', () => {
+  let pool: Pool;
+  let store: PgTrainingStore;
+
+  beforeAll(async () => {
+    pool = new Pool({ connectionString: contractUrl });
+    await ensureTrainingSchema(pool);
+    store = new PgTrainingStore(pool, {
+      withTransaction: transactionFor(pool),
+    });
+  });
+
+  afterAll(async () => {
+    await pool.end();
+  });
+
+  beforeEach(async () => {
+    await pool.query('DELETE FROM training_sessions');
+    await pool.query('DELETE FROM training_accounts');
+    await pool.query('DELETE FROM training_snapshots');
+    await pool.query('DELETE FROM training_events');
+    await pool.query('DELETE FROM training_messages');
+    await pool.query('DELETE FROM trainings');
+  });
+
+  test('v4 tables exist', async () => {
+    const result = await pool.query(
+      `SELECT tablename FROM pg_tables
+        WHERE schemaname = 'public' AND tablename IN ('training_accounts', 'training_sessions')
+        ORDER BY tablename`,
+    );
+    expect(result.rows.map((row) => row.tablename as string)).toEqual([
+      'training_accounts',
+      'training_sessions',
+    ]);
+  });
+
+  test('account + session round-trip, unknown hash is null', async () => {
+    const account = await store.createAccount({
+      accountId: 'acct:1',
+      displayName: '学员',
+      roles: [],
+      createdAt: 1000,
+    });
+    expect(account.accountId).toBe('acct:1');
+    expect(await store.getAccount('acct:nope')).toBeNull();
+    await store.createSession({
+      tokenHash: 'hash-1',
+      accountId: 'acct:1',
+      createdAt: 1000,
+      expiresAt: 2000,
+    });
+    const found = await store.getSessionByTokenHash('hash-1');
+    expect(found?.account.displayName).toBe('学员');
+    expect(found?.session.expiresAt).toBe(2000);
+    expect(await store.getSessionByTokenHash('hash-nope')).toBeNull();
+    expect(await store.deleteSession('hash-1')).toBe(true);
+    expect(await store.deleteSession('hash-1')).toBe(false);
+  });
+
+  test('session for a missing account is refused', async () => {
+    await expect(
+      store.createSession({
+        tokenHash: 'hash-x',
+        accountId: 'acct:missing',
+        createdAt: 1000,
+        expiresAt: 2000,
+      }),
+    ).rejects.toBeInstanceOf(TrainingAccountNotFoundError);
+  });
+
+  test('claimTrainings moves rows and counts them', async () => {
+    const anon = store.forOwner('anon:abc');
+    const first = await anon.createTraining({
+      id: randomUUID(),
+      ownerId: 'anon:abc',
+      scenarioId: 's',
+      scenarioVersion: 1,
+      state: 'created',
+      now: 1000,
+    });
+    const second = await anon.createTraining({
+      id: randomUUID(),
+      ownerId: 'anon:abc',
+      scenarioId: 's',
+      scenarioVersion: 1,
+      state: 'created',
+      now: 1000,
+    });
+    expect(await store.claimTrainings('anon:abc', 'acct:9')).toBe(2);
+    expect(await store.claimTrainings('anon:abc', 'acct:9')).toBe(0);
+    expect(await store.forOwner('anon:abc').getTraining(first.id)).toBeNull();
+    expect((await store.forOwner('acct:9').getTraining(second.id))?.id).toBe(second.id);
   });
 });

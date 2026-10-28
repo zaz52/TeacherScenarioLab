@@ -8,7 +8,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { apiError } from '@/lib/server/api-response';
-import { withRequestOwner } from '@/lib/server/identity/with-owner';
+import { withTrainingOwner } from '@/lib/training/with-training-owner';
 import { trainingErrorResponse } from '@/lib/training/http';
 import { createTraining, listTrainings } from '@/lib/training/store';
 
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
   } catch {
     return apiError('INVALID_REQUEST', 400, 'invalid JSON body');
   }
-  return withRequestOwner(req, async (principal) => {
+  return withTrainingOwner(req, async (principal) => {
     try {
       const training = await createTraining(principal.ownerId, {
         scenarioId: typeof body.scenarioId === 'string' ? body.scenarioId : '',
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  return withRequestOwner(req, async (principal) => {
+  return withTrainingOwner(req, async (principal) => {
     try {
       const trainings = await listTrainings(principal.ownerId);
       return NextResponse.json({ success: true, trainings });

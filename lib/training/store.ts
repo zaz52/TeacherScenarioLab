@@ -20,13 +20,17 @@ import type {
 import { isValidIdempotencyKey } from './idempotency';
 import { toScenarioVersion, validateScenarioVersion } from './scenario';
 import { getTrainingStore } from './server';
-import { canTransition, isTrainingState, type TrainingState } from './state-machine';
+import {
+  canTransition,
+  isTrainingState,
+  MESSAGEABLE_STATES,
+  type TrainingState,
+} from './state-machine';
 
 /** User message text cap; mirrors the agent session text cap. */
 export const TRAINING_MESSAGE_MAX_LENGTH = 100_000;
 
 /** States in which the learner may send a message. */
-const MESSAGEABLE_STATES = ['briefing', 'fact-checking', 'coordination', 'proposal'];
 
 export class TrainingServiceError extends Error {
   readonly status: number;
@@ -265,7 +269,7 @@ export async function appendUserMessage(
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);
   if (!training) throw notFound('training', trainingId);
-  if (!MESSAGEABLE_STATES.includes(training.state)) {
+  if (!(MESSAGEABLE_STATES as readonly string[]).includes(training.state)) {
     throw new TrainingServiceError(
       409,
       'TRAINING_STATE_CONFLICT',

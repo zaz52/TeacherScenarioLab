@@ -9,7 +9,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { apiError } from '@/lib/server/api-response';
-import { withRequestOwner } from '@/lib/server/identity/with-owner';
+import { withTrainingOwner } from '@/lib/training/with-training-owner';
 import { trainingErrorResponse } from '@/lib/training/http';
 import { appendUserMessage, listMessages } from '@/lib/training/store';
 
@@ -31,7 +31,7 @@ export async function POST(
   } catch {
     return apiError('INVALID_REQUEST', 400, 'invalid JSON body');
   }
-  return withRequestOwner(req, async (principal) => {
+  return withTrainingOwner(req, async (principal) => {
     try {
       const result = await appendUserMessage(principal.ownerId, id, {
         content: typeof body.content === 'string' ? body.content : '',
@@ -57,7 +57,7 @@ export async function GET(
   const { id } = await params;
   const includeSuperseded =
     new URL(req.url).searchParams.get('includeSuperseded') === 'true';
-  return withRequestOwner(req, async (principal) => {
+  return withTrainingOwner(req, async (principal) => {
     try {
       const messages = await listMessages(principal.ownerId, id, includeSuperseded);
       return NextResponse.json({ success: true, messages });

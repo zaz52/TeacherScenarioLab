@@ -70,6 +70,31 @@ export interface TrainingSnapshotRecord {
 }
 
 /**
+ * A training account: an `acct:<uuid>` owner with a display name and roles.
+ * Accounts are platform-level rows (like scenarios): account methods ignore
+ * any owner binding, because the session token — not the request owner —
+ * proves which account a caller speaks for.
+ */
+export interface TrainingAccountRecord {
+  accountId: string;
+  displayName: string;
+  roles: string[];
+  createdAt: number;
+}
+
+/**
+ * One login session: the SHA-256 hex of a random token (the raw token is
+ * never stored), its account, and its expiry. Expired sessions authenticate
+ * as invalid, never as anonymous.
+ */
+export interface TrainingSessionRecord {
+  tokenHash: string;
+  accountId: string;
+  createdAt: number;
+  expiresAt: number;
+}
+
+/**
  * A frozen scenario version, stored as one JSON document. The `data`
  * payload is the full ScenarioVersion (same shape the app domain validates
  * in `lib/training/scenario.ts`); `publishedAt` is mirrored as a column so
@@ -120,6 +145,14 @@ export class TrainingNotFoundError extends Error {
   constructor(trainingId: string) {
     super(`@openmaic/storage: training ${trainingId} was not found`);
     this.name = 'TrainingNotFoundError';
+  }
+}
+
+/** A session names an account id that has no row. */
+export class TrainingAccountNotFoundError extends Error {
+  constructor(accountId: string) {
+    super(`@openmaic/storage: training account ${accountId} was not found`);
+    this.name = 'TrainingAccountNotFoundError';
   }
 }
 
@@ -213,6 +246,26 @@ CREATE TABLE IF NOT EXISTS training_evaluations (
 );
 `;
 
+/** Accounts and sessions (v4): the training account system. */
+const TRAINING_PG_ACCOUNTS = `
+CREATE TABLE IF NOT EXISTS training_accounts (
+  account_id TEXT PRIMARY KEY,
+  display_name TEXT NOT NULL,
+  roles TEXT[] NOT NULL DEFAULT '{}',
+  created_at DOUBLE PRECISION NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS training_sessions (
+  token_hash TEXT PRIMARY KEY,
+  account_id TEXT NOT NULL REFERENCES training_accounts(account_id) ON DELETE CASCADE,
+  created_at DOUBLE PRECISION NOT NULL,
+  expires_at DOUBLE PRECISION NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS training_sessions_account_idx
+  ON training_sessions (account_id, expires_at);
+`;
+
 /** The training backend's migrations, recorded under the store `training`. */
 export const TRAINING_PG_MIGRATIONS: SchemaMigrationSet = {
   store: 'training',
@@ -220,6 +273,7 @@ export const TRAINING_PG_MIGRATIONS: SchemaMigrationSet = {
     { version: 1, name: 'baseline', up: TRAINING_PG_BASELINE, transaction: false },
     { version: 2, name: 'scenarios', up: TRAINING_PG_SCENARIOS, transaction: true },
     { version: 3, name: 'evaluations', up: TRAINING_PG_EVALUATIONS, transaction: true },
+    { version: 4, name: 'accounts', up: TRAINING_PG_ACCOUNTS, transaction: true },
   ],
 };
 
@@ -704,6 +758,21 @@ export class PgTrainingStore {
   }
 
   /**
+   * Every scenario version in the library, drafts included, for admin
+   * review. Admin-only by construction: the only call site is the admin
+   * service, which runs behind the admin role check. Learner routes use
+   * {@link getScenarioVersion} and treat drafts as not-found.
+   */
+  async listAllScenarioVersions(): Promise<ScenarioVersionRecord[]> {
+    const result = await this.queryable.query<TrainingScenarioRow>(
+      `SELECT scenario_id, version, data, published_at
+         FROM training_scenarios
+        ORDER BY scenario_id ASC, version ASC`,
+    );
+    return result.rows.map(mapScenarioRow);
+  }
+
+  /**
    * Evaluations are owner data: the upsert only fires when the training
    * belongs to the bound owner (or when unbound), and reads join trainings
    * for the same check. The service layer loads the training first, so a
@@ -745,6 +814,141 @@ export class PgTrainingStore {
     );
     return result.rows[0] ? mapEvaluationRow(result.rows[0]) : null;
   }
+
+  /**
+   * Accounts and sessions are platform-level rows, not owner data: these
+   * methods ignore any owner binding. The session token proves the account;
+   * the request owner never does. `claimTrainings` is the deliberate
+   * exception to owner scoping — it moves rows across owners — so its only
+   * call site is the claim route, which validates both sides first.
+   */
+  async createAccount(record: TrainingAccountRecord): Promise<TrainingAccountRecord> {
+    const result = await this.queryable.query<TrainingAccountRow>(
+      `INSERT INTO training_accounts (account_id, display_name, roles, created_at)
+       VALUES ($1, $2, $3, $4)
+       RETURNING account_id, display_name, roles, created_at`,
+      [record.accountId, record.displayName, record.roles, record.createdAt],
+    );
+    if (!result.rows[0]) {
+      throw new Error(
+        `@openmaic/storage: could not create training account ${record.accountId}`,
+      );
+    }
+    return mapAccountRow(result.rows[0]);
+  }
+
+  async getAccount(accountId: string): Promise<TrainingAccountRecord | null> {
+    const result = await this.queryable.query<TrainingAccountRow>(
+      `SELECT account_id, display_name, roles, created_at
+         FROM training_accounts WHERE account_id = $1`,
+      [accountId],
+    );
+    return result.rows[0] ? mapAccountRow(result.rows[0]) : null;
+  }
+
+  async createSession(record: TrainingSessionRecord): Promise<TrainingSessionRecord> {
+    const account = await this.getAccount(record.accountId);
+    if (!account) throw new TrainingAccountNotFoundError(record.accountId);
+    const result = await this.queryable.query<TrainingSessionRow>(
+      `INSERT INTO training_sessions (token_hash, account_id, created_at, expires_at)
+       VALUES ($1, $2, $3, $4)
+       RETURNING token_hash, account_id, created_at, expires_at`,
+      [record.tokenHash, record.accountId, record.createdAt, record.expiresAt],
+    );
+    if (!result.rows[0]) {
+      throw new Error(`@openmaic/storage: could not create training session`);
+    }
+    return mapSessionRow(result.rows[0]);
+  }
+
+  async getSessionByTokenHash(
+    tokenHash: string,
+  ): Promise<{ session: TrainingSessionRecord; account: TrainingAccountRecord } | null> {
+    const result = await this.queryable.query<TrainingSessionJoinRow>(
+      `SELECT s.token_hash, s.account_id, s.created_at, s.expires_at,
+              a.display_name, a.roles, a.created_at AS account_created_at
+         FROM training_sessions s
+         JOIN training_accounts a ON a.account_id = s.account_id
+        WHERE s.token_hash = $1`,
+      [tokenHash],
+    );
+    const row = result.rows[0];
+    if (!row) return null;
+    return {
+      session: {
+        tokenHash: row.token_hash,
+        accountId: row.account_id,
+        createdAt: row.created_at,
+        expiresAt: row.expires_at,
+      },
+      account: {
+        accountId: row.account_id,
+        displayName: row.display_name,
+        roles: row.roles,
+        createdAt: row.account_created_at,
+      },
+    };
+  }
+
+  async deleteSession(tokenHash: string): Promise<boolean> {
+    const result = await this.queryable.query<TrainingSessionRow>(
+      `DELETE FROM training_sessions WHERE token_hash = $1 RETURNING token_hash`,
+      [tokenHash],
+    );
+    return result.rows.length > 0;
+  }
+
+  /**
+   * Move every training of `fromOwnerId` to `toOwnerId` in one statement
+   * (messages, events, snapshots and evaluations follow by training id).
+   * Returns the number of trainings moved. After the move, the old owner
+   * reads those trainings as not-found through the normal owner binding.
+   */
+  async claimTrainings(fromOwnerId: string, toOwnerId: string): Promise<number> {
+    const result = await this.queryable.query<{ id: string }>(
+      `UPDATE trainings SET owner_id = $2 WHERE owner_id = $1 RETURNING id`,
+      [fromOwnerId, toOwnerId],
+    );
+    return result.rows.length;
+  }
+}
+
+type TrainingAccountRow = {
+  account_id: string;
+  display_name: string;
+  roles: string[];
+  created_at: number;
+};
+
+type TrainingSessionRow = {
+  token_hash: string;
+  account_id: string;
+  created_at: number;
+  expires_at: number;
+};
+
+type TrainingSessionJoinRow = TrainingSessionRow & {
+  display_name: string;
+  roles: string[];
+  account_created_at: number;
+};
+
+function mapAccountRow(row: TrainingAccountRow): TrainingAccountRecord {
+  return {
+    accountId: row.account_id,
+    displayName: row.display_name,
+    roles: row.roles,
+    createdAt: row.created_at,
+  };
+}
+
+function mapSessionRow(row: TrainingSessionRow): TrainingSessionRecord {
+  return {
+    tokenHash: row.token_hash,
+    accountId: row.account_id,
+    createdAt: row.created_at,
+    expiresAt: row.expires_at,
+  };
 }
 
 type TrainingScenarioRow = {

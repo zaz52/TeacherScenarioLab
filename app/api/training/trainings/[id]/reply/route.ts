@@ -11,7 +11,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { apiError } from '@/lib/server/api-response';
-import { withRequestOwner } from '@/lib/server/identity/with-owner';
+import { withTrainingOwner } from '@/lib/training/with-training-owner';
 import { trainingErrorResponse } from '@/lib/training/http';
 import { generateCharacterReply, type ReplyMode } from '@/lib/training/roleplay';
 
@@ -39,7 +39,7 @@ export async function POST(
       : undefined;
   const mode: ReplyMode =
     body.mode === 'scripted' || body.mode === 'model' ? body.mode : 'model';
-  return withRequestOwner(req, async (principal) => {
+  return withTrainingOwner(req, async (principal) => {
     try {
       const result = await generateCharacterReply(principal.ownerId, id, {
         characterId,

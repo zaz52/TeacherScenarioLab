@@ -24,6 +24,7 @@ import { checkDynamicEvents } from './dynamic-events';
 import { scanReplyForLeaks } from './leak-scan';
 import { toScenarioVersion, type ScenarioVersion, type TrainingFact } from './scenario';
 import { getTrainingStore } from './server';
+import { MESSAGEABLE_STATES } from './state-machine';
 import { TrainingServiceError } from './store';
 
 export type ReplyMode = 'scripted' | 'model';
@@ -33,8 +34,6 @@ export const MAX_PROMPT_MESSAGES = 30;
 
 /** Injectable model call, so tests can stub the model without keys. */
 export type GenerateModelReply = (system: string, prompt: string) => Promise<string>;
-
-const MESSAGEABLE_STATES = ['briefing', 'fact-checking', 'coordination', 'proposal'];
 
 /**
  * Build the character prompt. Pure function — unit-tested for the
@@ -117,7 +116,7 @@ export async function generateCharacterReply(
   if (!training) {
     throw new TrainingServiceError(404, 'TRAINING_NOT_FOUND', `training ${trainingId} was not found`);
   }
-  if (!MESSAGEABLE_STATES.includes(training.state)) {
+  if (!(MESSAGEABLE_STATES as readonly string[]).includes(training.state)) {
     throw new TrainingServiceError(
       409,
       'TRAINING_STATE_CONFLICT',

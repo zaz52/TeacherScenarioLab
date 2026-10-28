@@ -8,7 +8,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import { withRequestOwner } from '@/lib/server/identity/with-owner';
+import { withTrainingOwner } from '@/lib/training/with-training-owner';
 import { generateEvaluation } from '@/lib/training/evaluation';
 import { trainingErrorResponse } from '@/lib/training/http';
 
@@ -19,7 +19,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  return withRequestOwner(req, async (principal) => {
+  return withTrainingOwner(req, async (principal) => {
     try {
       const evaluation = await generateEvaluation(principal.ownerId, id);
       return NextResponse.json({ success: true, evaluation });

@@ -10,7 +10,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { apiError } from '@/lib/server/api-response';
-import { withRequestOwner } from '@/lib/server/identity/with-owner';
+import { withTrainingOwner } from '@/lib/training/with-training-owner';
 import { getTrainingStore } from '@/lib/training/server';
 
 export const runtime = 'nodejs';
@@ -24,7 +24,7 @@ export async function GET(
   if (!Number.isInteger(versionNumber) || versionNumber < 1) {
     return apiError('INVALID_REQUEST', 400, 'version must be a positive integer');
   }
-  return withRequestOwner(req, async () => {
+  return withTrainingOwner(req, async () => {
     const store = await getTrainingStore();
     const scenario = await store.getScenarioVersion(scenarioId, versionNumber);
     if (!scenario || scenario.publishedAt === null) {

@@ -50,3 +50,15 @@ export function canTransition(from: TrainingState, to: TrainingState): boolean {
 export function nextStates(state: TrainingState): TrainingState[] {
   return [...TRAINING_TRANSITIONS[state]];
 }
+
+/**
+ * States in which the learner may send messages. Single source of truth
+ * for the server gates (store, roleplay) and the room page: `created`
+ * has no dialogue yet, `evaluation`/`completed` are read-only.
+ */
+export const MESSAGEABLE_STATES: readonly TrainingState[] = [
+  'briefing',
+  'fact-checking',
+  'coordination',
+  'proposal',
+];
