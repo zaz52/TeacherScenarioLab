@@ -60,11 +60,18 @@ export default function TrainingRoomPage() {
   const [error, setError] = useState('');
   const [scriptedIds, setScriptedIds] = useState<Set<string>>(new Set());
   const [directorNote, setDirectorNote] = useState('');
+  const [disclosures, setDisclosures] = useState<Array<{ id: string; content: string }>>([]);
 
   const loadMessages = useCallback(async () => {
     const res = await fetch(`/api/training/trainings/${trainingId}/messages`);
     const data = await res.json();
     if (data.success) setMessages(data.messages);
+  }, [trainingId]);
+
+  const loadDisclosures = useCallback(async () => {
+    const res = await fetch(`/api/training/trainings/${trainingId}/disclosures`);
+    const data = await res.json();
+    if (data.success) setDisclosures(data.facts);
   }, [trainingId]);
 
   useEffect(() => {
@@ -84,8 +91,9 @@ export default function TrainingRoomPage() {
         setScenario(scenarioData.scenario);
       }
       await loadMessages();
+      await loadDisclosures();
     })().catch(() => setError(t('loadFailed')));
-  }, [trainingId, loadMessages]);
+  }, [trainingId, loadMessages, loadDisclosures]);
 
   const handleStart = async () => {
     setBusy(true);
@@ -145,6 +153,7 @@ export default function TrainingRoomPage() {
           setDirectorNote('');
         }
         await loadMessages();
+        await loadDisclosures();
       } catch {
         setError(t('replyFailed'));
       } finally {
@@ -221,6 +230,16 @@ export default function TrainingRoomPage() {
         {replying && <p className="text-sm text-gray-500">{t('replying')}</p>}
         {directorNote && <p className="text-xs text-gray-500">{directorNote}</p>}
       </section>
+      {disclosures.length > 0 && (
+        <section className="rounded border p-4">
+          <h2 className="font-medium">{t('disclosures')}</h2>
+          <ul className="mt-2 list-disc pl-5 text-sm">
+            {disclosures.map((fact) => (
+              <li key={fact.id}>{fact.content}</li>
+            ))}
+          </ul>
+        </section>
+      )}
       {training.state !== 'created' && (
         <section className="flex flex-col gap-2">
           <div className="flex gap-2">

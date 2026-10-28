@@ -8,6 +8,7 @@
 import { Pool } from 'pg';
 import { afterAll, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
+import { getDisclosedFactsForTraining } from '@/lib/training/disclosure';
 import { getTrainingStore } from '@/lib/training/server';
 import { EPIDEMIC_SCENARIO_V1_DRAFT } from '@/lib/training/scenarios/epidemic-v1';
 import {
@@ -113,6 +114,51 @@ describePg('single-role reply (PostgreSQL contract)', () => {
       mode: 'scripted',
       director: { characterId: 'principal-1', reason: '话题：停课与上报决策' },
     });
+  });
+
+  test('dynamic rumor event fires once at three user messages and unlocks the fact', async () => {
+    await appendUserMessage('owner-1', trainingId, { content: '第二条消息' });
+    await generateCharacterReply('owner-1', trainingId, {
+      characterId: 'parent-1',
+      mode: 'scripted',
+    });
+    await appendUserMessage('owner-1', trainingId, { content: '第三条消息' });
+    await generateCharacterReply('owner-1', trainingId, {
+      characterId: 'parent-1',
+      mode: 'scripted',
+    });
+    const events = await listEvents('owner-1', trainingId);
+    expect(events.filter((e) => e.type === 'rumor-in-group')).toHaveLength(1);
+    const disclosed = await getDisclosedFactsForTraining('owner-1', trainingId);
+    expect(disclosed.facts.map((f) => f.id)).toContain('fact-rumor');
+    expect(disclosed.facts.map((f) => f.id)).not.toContain('fact-travel');
+    // A further reply must not re-fire the event.
+    await appendUserMessage('owner-1', trainingId, { content: '第四条消息' });
+    await generateCharacterReply('owner-1', trainingId, {
+      characterId: 'parent-1',
+      mode: 'scripted',
+    });
+    const eventsAfter = await listEvents('owner-1', trainingId);
+    expect(eventsAfter.filter((e) => e.type === 'rumor-in-group')).toHaveLength(1);
+  });
+
+  test('model reply leaking another character’s private fact is blocked, not persisted', async () => {
+    const before = await listMessages('owner-1', trainingId, false);
+    await expect(
+      generateCharacterReply(
+        'owner-1',
+        trainingId,
+        { characterId: 'parent-1', mode: 'model' },
+        {
+          generateModelReply: async () =>
+            '听说小雨今早有点咳嗽，怕被同学笑话，我很担心。',
+        },
+      ),
+    ).rejects.toMatchObject({ status: 502 });
+    const after = await listMessages('owner-1', trainingId, false);
+    expect(after).toHaveLength(before.length);
+    const events = await listEvents('owner-1', trainingId);
+    expect(events.filter((e) => e.type === 'character-reply')).toHaveLength(0);
   });
 
   test('unknown characters, pack-less characters, wrong states, foreign owners fail', async () => {

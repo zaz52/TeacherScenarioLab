@@ -2558,6 +2558,8 @@
     "replyFailed": "Failed to get a reply. Please retry.",
     "startFailed": "Failed to start. Please retry.",
     "directorChoice": "Let the director choose",
-    "directorPicked": "Director picked"
+    "directorPicked": "Director picked",
+    "disclosures": "Newly learned facts",
+    "disclosuresEmpty": "Nothing newly learned yet."
   }
 }

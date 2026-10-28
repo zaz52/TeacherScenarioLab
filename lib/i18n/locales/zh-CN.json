@@ -2558,6 +2558,8 @@
     "replyFailed": "对方回复失败，请重试。",
     "startFailed": "开始训练失败，请重试。",
     "directorChoice": "由导演选择",
-    "directorPicked": "导演选择"
+    "directorPicked": "导演选择",
+    "disclosures": "新了解到的情况",
+    "disclosuresEmpty": "还没有新了解到的情况。"
   }
 }

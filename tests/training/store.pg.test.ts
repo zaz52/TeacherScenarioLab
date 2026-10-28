@@ -22,6 +22,7 @@ import {
   listMessages,
   listTrainings,
   startTraining,
+  transitionTraining,
   TrainingServiceError,
 } from '@/lib/training/store';
 
@@ -170,5 +171,28 @@ describePg('training service (PostgreSQL contract)', () => {
     await expect(listEvents('owner-b', training.id)).rejects.toMatchObject({
       status: 404,
     });
+  });
+
+  test('transition moves along the chain and ledgers the move; skips conflict', async () => {
+    const training = await createTraining('owner-a', {
+      scenarioId: 'test-scenario',
+      scenarioVersion: 1,
+    });
+    await startTraining('owner-a', training.id);
+    const moved = await transitionTraining('owner-a', training.id, 'fact-checking');
+    expect(moved.state).toBe('fact-checking');
+    await expect(
+      transitionTraining('owner-a', training.id, 'proposal'),
+    ).rejects.toMatchObject({ status: 409 });
+    await transitionTraining('owner-a', training.id, 'coordination');
+    const events = await listEvents('owner-a', training.id);
+    const transitions = events.filter((e) => e.type === 'training-transition');
+    expect(transitions.map((e) => (e.payload as { to: string }).to)).toEqual([
+      'fact-checking',
+      'coordination',
+    ]);
+    await expect(
+      transitionTraining('owner-b', training.id, 'proposal'),
+    ).rejects.toMatchObject({ status: 404 });
   });
 });

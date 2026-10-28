@@ -20,7 +20,7 @@ import type {
 import { isValidIdempotencyKey } from './idempotency';
 import { toScenarioVersion, validateScenarioVersion } from './scenario';
 import { getTrainingStore } from './server';
-import { canTransition, isTrainingState } from './state-machine';
+import { canTransition, isTrainingState, type TrainingState } from './state-machine';
 
 /** User message text cap; mirrors the agent session text cap. */
 export const TRAINING_MESSAGE_MAX_LENGTH = 100_000;
@@ -152,6 +152,58 @@ export async function startTraining(
       trainingId,
       type: 'training-started',
       payload: {},
+      createdAt: now,
+    });
+    return true;
+  });
+  if (!moved) {
+    throw new TrainingServiceError(
+      409,
+      'TRAINING_STATE_CONFLICT',
+      `training ${trainingId} changed state concurrently`,
+    );
+  }
+  const updated = await store.getTraining(trainingId);
+  if (!updated) throw notFound('training', trainingId);
+  return updated;
+}
+
+/**
+ * Move a training to a later state (the general stage progression; `start`
+ * stays as the explicit created → briefing entry). Illegal transitions
+ * fail with 409; the move and its ledger event commit atomically.
+ */
+export async function transitionTraining(
+  ownerId: string,
+  trainingId: string,
+  to: TrainingState,
+): Promise<TrainingRecord> {
+  const store = (await getTrainingStore()).forOwner(ownerId);
+  const training = await store.getTraining(trainingId);
+  if (!training) throw notFound('training', trainingId);
+  if (!isTrainingState(training.state)) {
+    throw new TrainingServiceError(
+      500,
+      'INVALID_REQUEST',
+      `training ${trainingId} has unknown stored state ${training.state}`,
+    );
+  }
+  if (!canTransition(training.state, to)) {
+    throw new TrainingServiceError(
+      409,
+      'TRAINING_STATE_CONFLICT',
+      `training ${trainingId} is in state ${training.state}, cannot move to ${to}`,
+    );
+  }
+  const now = Date.now();
+  const moved = await store.withTransaction(async (tx) => {
+    const ok = await tx.transitionState(trainingId, training.state, to, now);
+    if (!ok) return false;
+    await tx.appendEvent({
+      id: randomUUID(),
+      trainingId,
+      type: 'training-transition',
+      payload: { from: training.state, to },
       createdAt: now,
     });
     return true;

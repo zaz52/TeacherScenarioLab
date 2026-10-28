@@ -19,7 +19,10 @@ import {
   type RoleplayPack,
 } from './character-packs';
 import { selectResponder, type DirectorPick } from './director';
-import { toScenarioVersion, type ScenarioVersion } from './scenario';
+import { getDisclosedFacts } from './disclosure';
+import { checkDynamicEvents } from './dynamic-events';
+import { scanReplyForLeaks } from './leak-scan';
+import { toScenarioVersion, type ScenarioVersion, type TrainingFact } from './scenario';
 import { getTrainingStore } from './server';
 import { TrainingServiceError } from './store';
 
@@ -46,6 +49,7 @@ export function buildCharacterPrompt(
   pack: RoleplayPack,
   characterName: string,
   history: TrainingMessageRecord[],
+  disclosedFacts: TrainingFact[] = [],
 ): { system: string; prompt: string } {
   const publicFacts = scenario.facts.filter((fact) => fact.visibility === 'public');
   const ownPrivateFacts = scenario.facts.filter(
@@ -54,7 +58,7 @@ export function buildCharacterPrompt(
       fact.ownerCharacterId === pack.characterId,
   );
   const knownFacts = [...publicFacts, ...ownPrivateFacts];
-  const system = [
+  const systemLines = [
     `你正在扮演 ${characterName}。`,
     `背景：${pack.background}`,
     `情绪基线：${pack.emotionBaseline}`,
@@ -63,8 +67,16 @@ export function buildCharacterPrompt(
     `本次沟通的目标：${scenario.goal}`,
     `规则：${scenario.rules.map((rule, index) => `${index + 1}. ${rule}`).join(' ')}`,
     `你知道的事实：${knownFacts.map((fact) => fact.content).join('；')}`,
+  ];
+  if (disclosedFacts.length > 0) {
+    systemLines.push(
+      `新披露的事实（教师已知，可提及）：${disclosedFacts.map((fact) => fact.content).join('；')}`,
+    );
+  }
+  systemLines.push(
     '只扮演这个角色。不要透露你不知道的事，不要替其他角色说话，不要编造医学诊断。回复用中文，简短自然，像真人说话。',
-  ].join('\n');
+  );
+  const system = systemLines.join('\n');
   const visibleHistory = history
     .filter(
       (message) =>
@@ -129,6 +141,7 @@ export async function generateCharacterReply(
     );
   }
   const history = await store.listMessages(trainingId, { includeSuperseded: false });
+  const events = await store.listEvents(trainingId);
   let characterId = input.characterId;
   let director: DirectorPick | undefined;
   if (!characterId) {
@@ -165,6 +178,16 @@ export async function generateCharacterReply(
   const priorReplies = history.filter(
     (message) => message.role === 'character' && message.characterId === characterId,
   ).length;
+  // Dynamic events fire here (pure evaluation against the current ledger),
+  // and disclosures are computed with them included, so a reply generated
+  // in the same turn may already reference the newly surfaced beat.
+  const userMessages = history.filter((m) => m.role === 'user').map((m) => m.content);
+  const firedEvents = checkDynamicEvents(training.scenarioId, userMessages.length, events);
+  const disclosedFacts = getDisclosedFacts(scenario, {
+    state: training.state,
+    events: [...events, ...firedEvents.map((type) => ({ type }))],
+    userMessages,
+  });
 
   let text: string;
   if (mode === 'scripted') {
@@ -177,7 +200,13 @@ export async function generateCharacterReply(
     }
     text = pack.scriptedReplies[Math.min(priorReplies, pack.scriptedReplies.length - 1)] as string;
   } else {
-    const { system, prompt } = buildCharacterPrompt(scenario, pack, character.name, history);
+    const { system, prompt } = buildCharacterPrompt(
+      scenario,
+      pack,
+      character.name,
+      history,
+      disclosedFacts,
+    );
     const generate = deps.generateModelReply ?? (await buildDefaultModelCall(ownerId));
     try {
       text = (await generate(system, prompt)).trim();
@@ -193,8 +222,39 @@ export async function generateCharacterReply(
     }
   }
 
+  // Output-side leak scan (both modes): the reply must not reveal other
+  // characters' private facts or still-locked hidden facts. Blocked replies
+  // are never persisted; only fact ids reach the server log, never content.
+  const disclosedIds = new Set(disclosedFacts.map((fact) => fact.id));
+  const forbiddenFacts = scenario.facts.filter(
+    (fact) =>
+      (fact.visibility === 'character-private' &&
+        fact.ownerCharacterId !== characterId) ||
+      (fact.visibility === 'hidden' && !disclosedIds.has(fact.id)),
+  );
+  const leaked = scanReplyForLeaks(text, forbiddenFacts);
+  if (leaked.length > 0) {
+    console.error(
+      `training ${trainingId}: blocked character reply leaking facts ${leaked.join(',')}`,
+    );
+    throw new TrainingServiceError(
+      502,
+      'UPSTREAM_ERROR',
+      'reply blocked: possible information leak',
+    );
+  }
+
   const now = Date.now();
   return store.withTransaction(async (tx) => {
+    for (const eventType of firedEvents) {
+      await tx.appendEvent({
+        id: randomUUID(),
+        trainingId,
+        type: eventType,
+        payload: { triggeredBy: 'user-message-count', userMessageCount: userMessages.length },
+        createdAt: now,
+      });
+    }
     const message = await tx.appendMessage({
       id: randomUUID(),
       trainingId,
