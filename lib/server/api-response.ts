@@ -2,6 +2,9 @@ import { ModelAuthorizationError } from './model-config/model-authorization';
 import { NextResponse } from 'next/server';
 
 export const API_ERROR_CODES = {
+  TRAINING_NOT_FOUND: 'TRAINING_NOT_FOUND',
+  SCENARIO_NOT_FOUND: 'SCENARIO_NOT_FOUND',
+  TRAINING_STATE_CONFLICT: 'TRAINING_STATE_CONFLICT',
   MISSING_REQUIRED_FIELD: 'MISSING_REQUIRED_FIELD',
   MISSING_API_KEY: 'MISSING_API_KEY',
   MISSING_PROVIDER: 'MISSING_PROVIDER',

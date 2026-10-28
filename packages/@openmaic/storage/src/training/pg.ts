@@ -1,8 +1,9 @@
 /**
  * TeacherScenarioLab — PostgreSQL training store.
  *
- * Owns the `training` migration set (baseline v1) and the PgTrainingStore
- * class. Conventions mirror the document backend (`document/pg.ts`):
+ * Owns the `training` migration set (baseline v1, scenarios v2) and the
+ * PgTrainingStore class. Conventions mirror the document backend
+ * (`document/pg.ts`):
  * TEXT ids, DOUBLE PRECISION epoch-millisecond timestamps, JSONB payloads,
  * idempotent DDL guarded by IF NOT EXISTS, and a store constructed over a
  * Queryable plus a withTransaction hook that pins a fresh connection per
@@ -68,6 +69,47 @@ export interface TrainingSnapshotRecord {
   createdAt: number;
 }
 
+/**
+ * A frozen scenario version, stored as one JSON document. The `data`
+ * payload is the full ScenarioVersion (same shape the app domain validates
+ * in `lib/training/scenario.ts`); `publishedAt` is mirrored as a column so
+ * published/draft filtering never has to scan JSONB. Scenarios are platform
+ * content, not owner data: scenario methods ignore any owner binding.
+ */
+export interface ScenarioVersionRecord {
+  scenarioId: string;
+  version: number;
+  title: string;
+  setting: string;
+  goal: string;
+  rules: string[];
+  learnerRole: string;
+  characters: ScenarioCharacterRecord[];
+  facts: ScenarioFactRecord[];
+  disclosureConditions: Record<string, DisclosureConditionRecord>;
+  publishedAt: number | null;
+}
+
+export interface ScenarioCharacterRecord {
+  id: string;
+  name: string;
+  role: 'student' | 'parent' | 'teacher' | 'principal' | 'other';
+}
+
+export interface ScenarioFactRecord {
+  id: string;
+  content: string;
+  category: string;
+  visibility: 'public' | 'character-private' | 'hidden';
+  ownerCharacterId?: string;
+  disclosureConditionId?: string;
+}
+
+export type DisclosureConditionRecord =
+  | { type: 'userAskedAbout'; topic: string }
+  | { type: 'eventOccurred'; event: string }
+  | { type: 'stateReached'; state: string };
+
 export interface PgTrainingStoreOptions {
   withTransaction: WithTransaction;
   /** When set, the store is bound to this owner (see header). */
@@ -78,6 +120,16 @@ export class TrainingNotFoundError extends Error {
   constructor(trainingId: string) {
     super(`@openmaic/storage: training ${trainingId} was not found`);
     this.name = 'TrainingNotFoundError';
+  }
+}
+
+/** A published scenario version is frozen: it can never be overwritten. */
+export class TrainingScenarioFrozenError extends Error {
+  constructor(scenarioId: string, version: number) {
+    super(
+      `@openmaic/storage: scenario ${scenarioId} version ${version} is published and frozen`,
+    );
+    this.name = 'TrainingScenarioFrozenError';
   }
 }
 
@@ -137,11 +189,26 @@ CREATE INDEX IF NOT EXISTS training_snapshots_training_created_idx
   ON training_snapshots (training_id, created_at, id);
 `;
 
+/** Scenario versions (v2): one row per frozen version, JSONB payload. */
+const TRAINING_PG_SCENARIOS = `
+CREATE TABLE IF NOT EXISTS training_scenarios (
+  scenario_id TEXT NOT NULL,
+  version INTEGER NOT NULL,
+  data JSONB NOT NULL,
+  published_at DOUBLE PRECISION,
+  PRIMARY KEY (scenario_id, version)
+);
+
+CREATE INDEX IF NOT EXISTS training_scenarios_scenario_idx
+  ON training_scenarios (scenario_id, version);
+`;
+
 /** The training backend's migrations, recorded under the store `training`. */
 export const TRAINING_PG_MIGRATIONS: SchemaMigrationSet = {
   store: 'training',
   migrations: [
     { version: 1, name: 'baseline', up: TRAINING_PG_BASELINE, transaction: false },
+    { version: 2, name: 'scenarios', up: TRAINING_PG_SCENARIOS, transaction: true },
   ],
 };
 
@@ -570,4 +637,74 @@ export class PgTrainingStore {
     );
     return result.rows.map(mapSnapshotRow);
   }
+
+  /**
+   * Scenario versions are platform content, not owner data: these methods
+   * ignore any owner binding. A published version is frozen — saving over
+   * it throws TrainingScenarioFrozenError, enforced both by a pre-check and
+   * by the upsert's WHERE clause so concurrent publishes cannot slip past.
+   */
+  async saveScenarioVersion(
+    record: ScenarioVersionRecord,
+  ): Promise<ScenarioVersionRecord> {
+    const existing = await this.getScenarioVersion(record.scenarioId, record.version);
+    if (existing && existing.publishedAt !== null) {
+      throw new TrainingScenarioFrozenError(record.scenarioId, record.version);
+    }
+    const result = await this.queryable.query<TrainingScenarioRow>(
+      `INSERT INTO training_scenarios (scenario_id, version, data, published_at)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (scenario_id, version) DO UPDATE
+         SET data = EXCLUDED.data, published_at = EXCLUDED.published_at
+         WHERE training_scenarios.published_at IS NULL
+       RETURNING scenario_id, version, data, published_at`,
+      [record.scenarioId, record.version, record, record.publishedAt],
+    );
+    if (result.rows[0]) return mapScenarioRow(result.rows[0]);
+    const raced = await this.getScenarioVersion(record.scenarioId, record.version);
+    if (raced && raced.publishedAt !== null) {
+      throw new TrainingScenarioFrozenError(record.scenarioId, record.version);
+    }
+    throw new Error(
+      `@openmaic/storage: could not save scenario ${record.scenarioId} version ${record.version}`,
+    );
+  }
+
+  async getScenarioVersion(
+    scenarioId: string,
+    version: number,
+  ): Promise<ScenarioVersionRecord | null> {
+    const result = await this.queryable.query<TrainingScenarioRow>(
+      `SELECT scenario_id, version, data, published_at
+         FROM training_scenarios WHERE scenario_id = $1 AND version = $2`,
+      [scenarioId, version],
+    );
+    return result.rows[0] ? mapScenarioRow(result.rows[0]) : null;
+  }
+
+  async listScenarioVersions(scenarioId: string): Promise<ScenarioVersionRecord[]> {
+    const result = await this.queryable.query<TrainingScenarioRow>(
+      `SELECT scenario_id, version, data, published_at
+         FROM training_scenarios WHERE scenario_id = $1
+        ORDER BY version ASC`,
+      [scenarioId],
+    );
+    return result.rows.map(mapScenarioRow);
+  }
+}
+
+type TrainingScenarioRow = {
+  scenario_id: string;
+  version: number;
+  data: ScenarioVersionRecord;
+  published_at: number | null;
+};
+
+function mapScenarioRow(row: TrainingScenarioRow): ScenarioVersionRecord {
+  return {
+    ...row.data,
+    scenarioId: row.scenario_id,
+    version: row.version,
+    publishedAt: row.published_at,
+  };
 }

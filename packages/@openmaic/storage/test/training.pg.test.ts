@@ -15,6 +15,7 @@ import {
   ensureTrainingSchema,
   PgTrainingStore,
   TrainingNotFoundError,
+  TrainingScenarioFrozenError,
   type Queryable,
   type WithTransaction,
 } from '../src/training/pg.js';
@@ -334,5 +335,78 @@ describePg('PgTrainingStore (PostgreSQL contract)', () => {
         createdAt: 1000,
       }),
     ).rejects.toBeInstanceOf(TrainingNotFoundError);
+  });
+});
+
+describePg('PgTrainingStore scenarios (PostgreSQL contract)', () => {
+  let pool: Pool;
+  let store: PgTrainingStore;
+
+  function scenario(overrides: Record<string, unknown> = {}) {
+    return {
+      scenarioId: 'test-scenario',
+      version: 1,
+      title: 'Test scenario',
+      setting: 'Test setting',
+      goal: 'Test goal',
+      rules: ['rule 1'],
+      learnerRole: '小学教师',
+      characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
+      facts: [
+        { id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' },
+      ],
+      disclosureConditions: {},
+      publishedAt: null,
+      ...overrides,
+    } as Parameters<PgTrainingStore['saveScenarioVersion']>[0];
+  }
+
+  beforeAll(async () => {
+    pool = new Pool({ connectionString: contractUrl });
+    await ensureTrainingSchema(pool);
+    store = new PgTrainingStore(pool, {
+      withTransaction: transactionFor(pool),
+    });
+  });
+
+  afterAll(async () => {
+    await pool.end();
+  });
+
+  beforeEach(async () => {
+    await pool.query('DELETE FROM training_snapshots');
+    await pool.query('DELETE FROM training_events');
+    await pool.query('DELETE FROM training_messages');
+    await pool.query('DELETE FROM trainings');
+    await pool.query('DELETE FROM training_scenarios');
+  });
+
+  test('save + get round-trip, versions list in order', async () => {
+    await store.saveScenarioVersion(scenario());
+    await store.saveScenarioVersion(scenario({ version: 2, publishedAt: 2000 }));
+    const fetched = await store.getScenarioVersion('test-scenario', 1);
+    expect(fetched?.title).toBe('Test scenario');
+    expect(fetched?.publishedAt).toBeNull();
+    const versions = await store.listScenarioVersions('test-scenario');
+    expect(versions.map((v) => v.version)).toEqual([1, 2]);
+    expect(versions[1]?.publishedAt).toBe(2000);
+    expect(await store.getScenarioVersion('test-scenario', 99)).toBeNull();
+  });
+
+  test('drafts can be overwritten, published versions are frozen', async () => {
+    await store.saveScenarioVersion(scenario());
+    await store.saveScenarioVersion(scenario({ title: 'Draft v2 text' }));
+    expect((await store.getScenarioVersion('test-scenario', 1))?.title).toBe(
+      'Draft v2 text',
+    );
+    await store.saveScenarioVersion(scenario({ title: 'Published', publishedAt: 3000 }));
+    expect((await store.getScenarioVersion('test-scenario', 1))?.publishedAt).toBe(3000);
+    await expect(
+      store.saveScenarioVersion(scenario({ title: 'Edited after publish' })),
+    ).rejects.toBeInstanceOf(TrainingScenarioFrozenError);
+    await expect(
+      store.saveScenarioVersion(scenario({ title: 'Published', publishedAt: 3000 })),
+    ).rejects.toBeInstanceOf(TrainingScenarioFrozenError);
+    expect((await store.getScenarioVersion('test-scenario', 1))?.title).toBe('Published');
   });
 });
