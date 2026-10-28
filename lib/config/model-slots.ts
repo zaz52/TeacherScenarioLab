@@ -111,6 +111,7 @@ export const STAGE_SLOTS = {
   'web-search-query-rewrite': 'course.research',
   'maic-agent-driver': 'agent',
   'conversation-title': 'agent.title',
+  'training-roleplay': 'classroom',
 } as const satisfies Record<LlmStage, SlotId>;
 
 const SLOT_BY_ID = new Map<string, SlotDefinition>(MODEL_SLOTS.map((slot) => [slot.id, slot]));

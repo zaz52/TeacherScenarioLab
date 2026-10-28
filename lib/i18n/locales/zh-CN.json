@@ -2534,5 +2534,28 @@
         "materialExtraction": null
       }
     }
+  },
+  "training": {
+    "title": "情境模拟室",
+    "loading": "正在加载模拟室...",
+    "loadFailed": "加载失败，请重试。",
+    "start": "开始训练",
+    "state": "状态",
+    "briefing": "情境简介",
+    "goal": "训练目标",
+    "rules": "规则",
+    "selectCharacter": "选择对话角色",
+    "mode": "回复模式",
+    "modeScripted": "脚本模式",
+    "modeModel": "模型模式",
+    "send": "发送",
+    "sending": "发送中...",
+    "replying": "对方正在回复...",
+    "inputPlaceholder": "输入你想说的话...",
+    "emptyMessages": "还没有消息，先打个招呼吧。",
+    "scriptedBadge": "脚本",
+    "sendFailed": "发送失败，请重试。",
+    "replyFailed": "对方回复失败，请重试。",
+    "startFailed": "开始训练失败，请重试。"
   }
 }

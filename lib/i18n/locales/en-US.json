@@ -2534,5 +2534,28 @@
         "materialExtraction": null
       }
     }
+  },
+  "training": {
+    "title": "Scenario Room",
+    "loading": "Loading the room...",
+    "loadFailed": "Failed to load. Please retry.",
+    "start": "Start training",
+    "state": "Status",
+    "briefing": "Scenario brief",
+    "goal": "Training goal",
+    "rules": "Rules",
+    "selectCharacter": "Choose a character",
+    "mode": "Reply mode",
+    "modeScripted": "Scripted",
+    "modeModel": "Model",
+    "send": "Send",
+    "sending": "Sending...",
+    "replying": "Replying...",
+    "inputPlaceholder": "Type your message...",
+    "emptyMessages": "No messages yet. Say hello first.",
+    "scriptedBadge": "script",
+    "sendFailed": "Failed to send. Please retry.",
+    "replyFailed": "Failed to get a reply. Please retry.",
+    "startFailed": "Failed to start. Please retry."
   }
 }

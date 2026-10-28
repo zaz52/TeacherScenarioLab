@@ -8,7 +8,9 @@
  * facts the disclosure engine has released (see task 5).
  */
 
-import type { TrainingState } from './state-machine';
+import type { ScenarioVersionRecord } from '@openmaic/storage/training/pg';
+
+import { isTrainingState, type TrainingState } from './state-machine';
 
 export type FactVisibility = 'public' | 'character-private' | 'hidden';
 
@@ -63,6 +65,29 @@ export interface ScenarioVersion {
 
 export function isPublishedScenario(version: ScenarioVersion): boolean {
   return version.publishedAt !== null;
+}
+
+/**
+ * Narrow a storage scenario record to the domain ScenarioVersion. The
+ * storage layer keeps disclosure-condition states as plain strings; the
+ * domain narrows `stateReached` states to TrainingState. Returns null when
+ * a stored condition names an unknown state — stored data that fails its
+ * own shape is corruption, and callers must fail loudly (500), never
+ * silently coerce it.
+ */
+export function toScenarioVersion(
+  record: ScenarioVersionRecord,
+): ScenarioVersion | null {
+  const disclosureConditions: Record<string, DisclosureCondition> = {};
+  for (const [id, condition] of Object.entries(record.disclosureConditions)) {
+    if (condition.type === 'stateReached') {
+      if (!isTrainingState(condition.state)) return null;
+      disclosureConditions[id] = { type: 'stateReached', state: condition.state };
+    } else {
+      disclosureConditions[id] = condition;
+    }
+  }
+  return { ...record, disclosureConditions };
 }
 
 /**

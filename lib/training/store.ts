@@ -18,9 +18,9 @@ import type {
 } from '@openmaic/storage/training/pg';
 
 import { isValidIdempotencyKey } from './idempotency';
-import { validateScenarioVersion } from './scenario';
+import { toScenarioVersion, validateScenarioVersion } from './scenario';
 import { getTrainingStore } from './server';
-import { canTransition } from './state-machine';
+import { canTransition, isTrainingState } from './state-machine';
 
 /** User message text cap; mirrors the agent session text cap. */
 export const TRAINING_MESSAGE_MAX_LENGTH = 100_000;
@@ -81,7 +81,15 @@ export async function createTraining(
       `scenario ${scenarioId} version ${input.scenarioVersion} is not published`,
     );
   }
-  const validationErrors = validateScenarioVersion(scenario);
+  const version = toScenarioVersion(scenario);
+  if (!version) {
+    throw new TrainingServiceError(
+      500,
+      'INVALID_REQUEST',
+      `stored scenario ${scenarioId} version ${input.scenarioVersion} has an unknown disclosure state`,
+    );
+  }
+  const validationErrors = validateScenarioVersion(version);
   if (validationErrors.length > 0) {
     // Stored data that fails its own validation is a server data bug, not
     // a client error: fail loudly instead of starting a broken training.
@@ -121,6 +129,13 @@ export async function startTraining(
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);
   if (!training) throw notFound('training', trainingId);
+  if (!isTrainingState(training.state)) {
+    throw new TrainingServiceError(
+      500,
+      'INVALID_REQUEST',
+      `training ${trainingId} has unknown stored state ${training.state}`,
+    );
+  }
   if (!canTransition(training.state, 'briefing')) {
     throw new TrainingServiceError(
       409,
