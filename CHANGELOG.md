@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab CI 验收跟进（2026-10-30 01:15，Asia/Shanghai）
+
+- `dc5dcf4` 云端生产 Build、镜像、Lint/Typecheck、全部单测作业及 PostgreSQL 合约工作流通过；浏览器 142 项通过、2 项失败、1 项未运行。
+- 修复两个浏览器失败：视频缩略图夹具切换至 `/courseware`；中文产品流程明确设置 `zh-CN` 浏览器语言，数据库连接必须显式配置。
+- 修复 Storage 故障注入测试清理：触发器删除与模拟写入放在同一事务，回滚后再次验证触发器生效。独立 PostgreSQL 库连续执行两次，每次 8 项通过；保留全部原有断言。
+- 备份恢复演练通过：本地独立空库恢复 PostgreSQL 自定义格式备份，27 张表行数一致，校验和已记录。生产加密根密钥与备份要求补入变量模板和部署文档。
+- 待办：修复提交对应的完整云端浏览器复验、Storage 完整本地复验。真实供应商调用等待 NVIDIA/GLM 密钥；正式部署仍待用户批准。
+
 ### TeacherScenarioLab 回归修复与上线准备（2026-10-30 00:51，Asia/Shanghai）
 
 - 需求：完成部署前可执行的开发、回归、模型链路与上线准备，现有 PR #1 保持 Draft。

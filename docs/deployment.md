@@ -28,6 +28,7 @@ curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不�
 |---|---|
 | `DATABASE_URL` | 必填。示例通过 `PERSISTENCE_POSTGRES_PASSWORD` 构造连接串；使用外部库时覆盖该值，特殊字符需 URL 编码。 |
 | `PERSISTENCE_POSTGRES_PASSWORD` | 使用 bundled PostgreSQL 时必填。通过 `--env-file .env.local` 同时传入 Compose 插值和应用环境；已有卷的口令变更需要单独操作与验证。 |
+| `OPENMAIC_SECRET_KEY` | 保存用户模型密钥所用的加密根密钥。生产设置高熵值、所有副本一致，并与数据库一起保留受保护备份；轮换前验证旧密文的恢复方案。未设置时生成的 `data/instance-secret.key` 需要持久化。 |
 | `OWNER_SINGLE_USER` | **生产必须设为 `false`**。Compose 默认是 `true`（单人自用模式：所有请求解析为同一个 owner，不发匿名 cookie），会破坏训练的账号/匿名/认领模型。 |
 | `TRAINING_ADMIN_ACCOUNT_IDS` | 管理员账号 ID 列表（逗号分隔，形如 `acct:<uuid>`）。管理员永不自助授予，只从这里来。 |
 | `NVIDIA_API_KEY` / `GLM_API_KEY` | 模型密钥，只进 `.env.local`，不进 YAML 明文、不进源码、不进 Git。 |

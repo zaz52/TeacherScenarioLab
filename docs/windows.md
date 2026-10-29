@@ -129,4 +129,4 @@ pnpm vitest run tests/training tests/config tests/server/model-config
 - 包构建完成后再执行 `pnpm exec tsc --noEmit`；包构建会重建 dist，类型检查需要稳定的生成文件。
 - 产品首页为 `/`，训练入口为 `/training/hall`，上游课程生成与课程库入口为 `/courseware`。
 
-- 若跨盘依赖缓存使 Turbopack 报告 Next.js 包位于 workspace root 之外，可在本机使用 `pnpm dev --webpack`。生产构建继续使用 CI 核验的默认方式。
+- Next.js 项目与实际依赖目录应位于同一盘。跨盘 junction 缓存会触发 Turbopack workspace root 错误，Webpack 也可能无法解析外部字体路径；可在同盘安装依赖后启动。生产构建继续使用 CI 核验的默认方式。

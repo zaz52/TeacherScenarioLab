@@ -14,8 +14,10 @@ let admin: APIRequestContext;
 // The fixture creates test rows in the same isolated database as the app.
 // Actual requests still authenticate a hashed session and pass the admin gate.
 test.describe.configure({ mode: 'serial' });
+test.use({ locale: 'zh-CN' });
 
 test.beforeAll(async ({ playwright, baseURL }) => {
+  if (!process.env.DATABASE_URL) throw new Error('Product E2E requires an isolated DATABASE_URL');
   const { PgTrainingStore, ensureTrainingSchema } = await import('@openmaic/storage/training/pg');
   const pool = new Pool({ connectionString: process.env.DATABASE_URL });
   const token = randomBytes(32).toString('base64url');
