@@ -773,6 +773,26 @@ export class PgTrainingStore {
   }
 
   /**
+   * Delete a draft scenario version. Published versions are never deleted:
+   * the WHERE clause only matches drafts, so deleting a published version
+   * (or a version that became published concurrently) deletes nothing and
+   * returns false; the service layer maps that to a conflict. The query
+   * surface exposes no rowCount, so RETURNING carries the signal.
+   */
+  async deleteScenarioVersion(
+    scenarioId: string,
+    version: number,
+  ): Promise<boolean> {
+    const result = await this.queryable.query<{ scenario_id: string }>(
+      `DELETE FROM training_scenarios
+        WHERE scenario_id = $1 AND version = $2 AND published_at IS NULL
+        RETURNING scenario_id`,
+      [scenarioId, version],
+    );
+    return result.rows.length > 0;
+  }
+
+  /**
    * Evaluations are owner data: the upsert only fires when the training
    * belongs to the bound owner (or when unbound), and reads join trainings
    * for the same check. The service layer loads the training first, so a

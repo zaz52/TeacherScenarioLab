@@ -11,12 +11,34 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 
+import Link from 'next/link';
 import { getClientTranslation } from '@/lib/i18n';
 
 interface ScenarioRow {
   scenarioId: string;
   version: number;
   title: string;
+  publishedAt: number | null;
+}
+
+interface ScenarioDetail {
+  scenarioId: string;
+  version: number;
+  title: string;
+  setting: string;
+  goal: string;
+  rules: string[];
+  learnerRole: string;
+  characters: Array<{ id: string; name: string; role: string }>;
+  facts: Array<{
+    id: string;
+    content: string;
+    category: string;
+    visibility: string;
+    ownerCharacterId?: string;
+    disclosureConditionId?: string;
+  }>;
+  disclosureConditions: Record<string, Record<string, string>>;
   publishedAt: number | null;
 }
 
@@ -44,6 +66,7 @@ export default function TrainingAdminPage() {
   const [trainings, setTrainings] = useState<TrainingRow[]>([]);
   const [health, setHealth] = useState<ReferencesHealth | null>(null);
   const [importId, setImportId] = useState('');
+  const [detail, setDetail] = useState<ScenarioDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -124,9 +147,65 @@ export default function TrainingAdminPage() {
     }
   }
 
-  if (loading) return <main><p>{t('adminLoading')}</p></main>;
-  if (error) return <main><p>{error}</p></main>;
-  if (isAdmin === false) return <main><p>{t('adminRequired')}</p></main>;
+  async function showDetail(scenarioId: string, version: number) {
+    setNotice('');
+    try {
+      const res = await fetch(
+        `/api/training/admin/scenarios/${encodeURIComponent(scenarioId)}/versions/${version}`,
+      );
+      const data = (await res.json()) as {
+        success?: boolean;
+        scenario?: ScenarioDetail;
+      };
+      if (!res.ok || !data.success || !data.scenario) {
+        setNotice(t('adminDetailNotFound'));
+        return;
+      }
+      setDetail(data.scenario);
+    } catch {
+      setNotice(t('adminDetailNotFound'));
+    }
+  }
+
+  async function deleteDraft(scenarioId: string, version: number) {
+    setNotice('');
+    try {
+      const res = await fetch(
+        `/api/training/admin/scenarios/${encodeURIComponent(scenarioId)}/versions/${version}`,
+        { method: 'DELETE' },
+      );
+      if (!res.ok) {
+        setNotice(t('adminDeleteFailed'));
+        return;
+      }
+      setNotice(t('adminDeleteDone'));
+      if (detail?.scenarioId === scenarioId && detail?.version === version) {
+        setDetail(null);
+      }
+      await load();
+    } catch {
+      setNotice(t('adminDeleteFailed'));
+    }
+  }
+
+  if (loading)
+    return (
+      <main>
+        <p>{t('adminLoading')}</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main>
+        <p>{error}</p>
+      </main>
+    );
+  if (isAdmin === false)
+    return (
+      <main>
+        <p>{t('adminRequired')}</p>
+      </main>
+    );
 
   return (
     <main>
@@ -134,6 +213,10 @@ export default function TrainingAdminPage() {
       {notice && <p>{notice}</p>}
       <section>
         <h2>{t('adminScenarios')}</h2>
+        <p>
+          <Link href="/training/admin/scenarios/new">{t('adminNewVersion')}</Link>
+        </p>
+        <p>{t('adminPublishedNote')}</p>
         <p>
           <input
             value={importId}
@@ -149,21 +232,78 @@ export default function TrainingAdminPage() {
               <p>
                 {scenario.title}（{scenario.scenarioId} v{scenario.version}）
               </p>
-              {scenario.publishedAt !== null ? (
-                <p>{t('adminPublished')}</p>
-              ) : (
-                <p>
-                  {t('adminDraft')}{' '}
-                  <button
-                    onClick={() => void publish(scenario.scenarioId, scenario.version)}
-                  >
-                    {t('adminPublish')}
-                  </button>
-                </p>
-              )}
+              <p>
+                <button onClick={() => void showDetail(scenario.scenarioId, scenario.version)}>
+                  {t('adminDetail')}
+                </button>{' '}
+                {scenario.publishedAt !== null ? (
+                  <span>{t('adminPublished')}</span>
+                ) : (
+                  <>
+                    <Link
+                      href={`/training/admin/scenarios/${encodeURIComponent(scenario.scenarioId)}/versions/${scenario.version}/edit`}
+                    >
+                      {t('adminEditDraft')}
+                    </Link>{' '}
+                    <button onClick={() => void publish(scenario.scenarioId, scenario.version)}>
+                      {t('adminPublish')}
+                    </button>{' '}
+                    <button onClick={() => void deleteDraft(scenario.scenarioId, scenario.version)}>
+                      {t('adminDeleteDraft')}
+                    </button>
+                  </>
+                )}
+              </p>
             </li>
           ))}
         </ul>
+        {detail && (
+          <section>
+            <h3>
+              {t('adminDetail')}：{detail.title}（{detail.scenarioId} v{detail.version}）
+            </h3>
+            <p>
+              {t('adminSetting')}：{detail.setting}
+            </p>
+            <p>
+              {t('adminGoal')}：{detail.goal}
+            </p>
+            <p>
+              {t('adminRules')}：{detail.rules.join('；')}
+            </p>
+            <p>
+              {t('adminLearnerRole')}：{detail.learnerRole}
+            </p>
+            <p>{t('adminCharacters')}：</p>
+            <ul>
+              {detail.characters.map((character) => (
+                <li key={character.id}>
+                  {character.name}（{character.id}，{character.role}）
+                </li>
+              ))}
+            </ul>
+            <p>{t('adminFacts')}：</p>
+            <ul>
+              {detail.facts.map((fact) => (
+                <li key={fact.id}>
+                  [{fact.id}，{fact.category}，{fact.visibility}
+                  {fact.ownerCharacterId ? `，${fact.ownerCharacterId}` : ''}
+                  {fact.disclosureConditionId ? `，${fact.disclosureConditionId}` : ''}]{' '}
+                  {fact.content}
+                </li>
+              ))}
+            </ul>
+            <p>{t('adminConditions')}：</p>
+            <ul>
+              {Object.entries(detail.disclosureConditions).map(([id, condition]) => (
+                <li key={id}>
+                  {id}：{condition.type}（
+                  {condition.topic ?? condition.event ?? condition.state ?? ''}）
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </section>
       <section>
         <h2>{t('adminTrainings')}</h2>
@@ -172,8 +312,8 @@ export default function TrainingAdminPage() {
           {trainings.map((training) => (
             <li key={training.id}>
               <p>
-                {training.id}（{training.scenarioId} v{training.scenarioVersion}，
-                {training.state}，{training.ownerId}）
+                {training.id}（{training.scenarioId} v{training.scenarioVersion}，{training.state}，
+                {training.ownerId}）
               </p>
             </li>
           ))}
@@ -183,9 +323,8 @@ export default function TrainingAdminPage() {
         <h2>{t('adminReferences')}</h2>
         {health && (
           <p>
-            {t('adminReferencesTotal')}：{health.total}，
-            {t('adminReferencesValid')}：{health.valid}，
-            {t('adminReferencesInvalid')}：{health.invalid}
+            {t('adminReferencesTotal')}：{health.total}，{t('adminReferencesValid')}：{health.valid}
+            ，{t('adminReferencesInvalid')}：{health.invalid}
           </p>
         )}
       </section>

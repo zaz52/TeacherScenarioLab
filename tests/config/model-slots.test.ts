@@ -36,8 +36,8 @@ const EXPECTED_STAGE_SLOTS: Record<LlmStage, SlotId> = {
   'web-search-query-rewrite': 'course.research',
   'maic-agent-driver': 'agent',
   'conversation-title': 'agent.title',
-  'training-roleplay': 'classroom',
-  'training-evaluation': 'classroom',
+  'training-roleplay': 'classroom.roleplay',
+  'training-evaluation': 'classroom.evaluation',
 };
 
 const EXPECTED_ROOTS = {
@@ -89,6 +89,12 @@ describe('capability slot tree', () => {
     ]);
     expect(slotLineage('agent.title')).toEqual(['agent.title', 'agent', 'llm']);
     expect(slotLineage('course.outline')).toEqual(['course.outline', 'llm']);
+    expect(slotLineage('classroom.roleplay')).toEqual(['classroom.roleplay', 'classroom', 'llm']);
+    expect(slotLineage('classroom.evaluation')).toEqual([
+      'classroom.evaluation',
+      'classroom',
+      'llm',
+    ]);
     expect(slotLineage('video')).toEqual(['video']);
   });
 

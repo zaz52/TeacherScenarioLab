@@ -54,6 +54,33 @@ describe('parseModelConfig', () => {
     expect(config.allowUserKeys).toBe(false);
   });
 
+  it('accepts the training roleplay/evaluation child slots', () => {
+    const config = parseModelConfig(
+      `
+providers:
+  nvidia:
+    preset: openai-compatible
+    apiKey: \${NVIDIA_API_KEY}
+    baseUrl: https://integrate.api.nvidia.com/v1
+    models: [example-model]
+  glm:
+    preset: glm
+    apiKey: \${GLM_API_KEY}
+    models: [glm-4.7-flash]
+
+slots:
+  classroom.roleplay: nvidia:example-model
+  classroom.evaluation: glm:glm-4.7-flash
+`,
+      { env: { NVIDIA_API_KEY: 'sk-test-nvidia', GLM_API_KEY: 'sk-test-glm' } },
+    );
+    expect(config.providers?.nvidia.preset).toBe('openai-compatible');
+    expect(config.providers?.nvidia.baseUrl).toBe('https://integrate.api.nvidia.com/v1');
+    expect(config.providers?.glm.preset).toBe('glm');
+    expect(config.slots?.['classroom.roleplay']).toBe('nvidia:example-model');
+    expect(config.slots?.['classroom.evaluation']).toBe('glm:glm-4.7-flash');
+  });
+
   it('leaves lock and allowUserKeys out when the file does not set them', () => {
     const config = parseModelConfig('slots:\n  video: null\n', { env });
     expect(config).toEqual({ slots: { video: null } });

@@ -51,7 +51,8 @@ const DIMENSION_RUBRICS: Record<EvaluationDimension, string> = {
   'fact-checking': '是否多方核实、不轻信传言、不编造未确认的信息。',
   judgment: '是否区分事实与推测、不擅自下停课等结论、判断有依据。',
   coordination: '是否与校医、校长、任课教师对齐口径、分工明确。',
-  responsibility: '是否保护学生隐私、不透露他人信息、对外口径以学校为准。',
+  responsibility:
+    '是否保护学生隐私、不透露他人信息、对外口径以学校为准；当学生问及同桌等他人病情时，是否既保护他人健康隐私（不透露姓名与病情细节）又回应提问学生的担忧。',
 };
 
 export function buildEvaluationPrompt(
@@ -66,6 +67,7 @@ export function buildEvaluationPrompt(
     ...EVALUATION_DIMENSIONS.map(
       (dimension) => `- ${dimension}：${DIMENSION_RUBRICS[dimension]}`,
     ),
+    '注意：若对话中学生问及同桌等他人病情，须在 responsibility 维度中考查教师是否保护他人健康隐私、同时安抚提问学生。',
     '证据只能引用教师消息的 id，且每条证据 id 必须真实出现在对话记录里；不得引用角色消息，不得编造 id。',
     '先写一段简短中文评语，再输出一个 JSON 代码块，格式：{"dimensions":[{"dimension":"communication","score":80,"evidence":["<教师消息id>"],"comment":"…"},…五个维度各一项],"summary":"…","suggestions":["…"]}。JSON 之外不要再写内容。',
   ].join('\n');

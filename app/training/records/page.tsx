@@ -6,6 +6,7 @@
  * dimension across evaluated trainings, with the count it rests on).
  */
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
@@ -46,10 +47,13 @@ function dimLabelKey(dimension: string): string {
 }
 
 export default function TrainingRecordsPage() {
+  const router = useRouter();
   const [records, setRecords] = useState<RecordEntry[]>([]);
   const [trend, setTrend] = useState<TrendEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [retraining, setRetraining] = useState('');
+  const [retrainError, setRetrainError] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -70,8 +74,46 @@ export default function TrainingRecordsPage() {
     })();
   }, []);
 
-  if (loading) return <main><p>{t('trainingLoading')}</p></main>;
-  if (error) return <main><p>{error}</p></main>;
+  async function retrain(record: RecordEntry) {
+    setRetraining(record.training.id);
+    setRetrainError('');
+    try {
+      const res = await fetch('/api/training/trainings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          scenarioId: record.training.scenarioId,
+          scenarioVersion: record.training.scenarioVersion,
+        }),
+      });
+      const data = (await res.json()) as {
+        success?: boolean;
+        training?: { id: string };
+      };
+      if (!res.ok || !data.success || !data.training) {
+        setRetrainError(t('recordsRetrainFailed'));
+        return;
+      }
+      router.push(`/training/${data.training.id}`);
+    } catch {
+      setRetrainError(t('recordsRetrainFailed'));
+    } finally {
+      setRetraining('');
+    }
+  }
+
+  if (loading)
+    return (
+      <main>
+        <p>{t('trainingLoading')}</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main>
+        <p>{error}</p>
+      </main>
+    );
 
   return (
     <main>
@@ -89,6 +131,7 @@ export default function TrainingRecordsPage() {
       </section>
       <section>
         {records.length === 0 && <p>{t('recordsEmpty')}</p>}
+        {retrainError && <p>{retrainError}</p>}
         <ul>
           {records.map((record) => (
             <li key={record.training.id}>
@@ -96,7 +139,14 @@ export default function TrainingRecordsPage() {
                 <Link href={`/training/${record.training.id}`}>
                   {record.training.scenarioId} v{record.training.scenarioVersion}（
                   {record.training.state}）
-                </Link>
+                </Link>{' '}
+                <Link href={`/training/${record.training.id}/review`}>{t('reviewTitle')}</Link>{' '}
+                <button
+                  onClick={() => void retrain(record)}
+                  disabled={retraining === record.training.id}
+                >
+                  {retraining === record.training.id ? t('recordsRetraining') : t('recordsRetrain')}
+                </button>
               </p>
               {record.evaluation ? (
                 <p>

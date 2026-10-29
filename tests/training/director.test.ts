@@ -43,6 +43,10 @@ describe('selectResponder', () => {
         ?.characterId,
     ).toBe('doctor-1');
     expect(
+      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '上报进度怎么样？')
+        ?.characterId,
+    ).toBe('doctor-1');
+    expect(
       selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '隔壁班情况怎么样？')
         ?.characterId,
     ).toBe('teacher-1');

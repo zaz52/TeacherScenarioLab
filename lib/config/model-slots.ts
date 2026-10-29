@@ -66,6 +66,8 @@ export const MODEL_SLOTS = [
   { id: 'course.content.pbl', capability: 'chat', parent: 'course.content' },
   { id: 'course.actions', capability: 'chat', parent: 'llm' },
   { id: 'classroom', capability: 'chat', parent: 'llm' },
+  { id: 'classroom.roleplay', capability: 'chat', parent: 'classroom' },
+  { id: 'classroom.evaluation', capability: 'chat', parent: 'classroom' },
   {
     id: 'agent',
     capability: 'chat',
@@ -111,8 +113,8 @@ export const STAGE_SLOTS = {
   'web-search-query-rewrite': 'course.research',
   'maic-agent-driver': 'agent',
   'conversation-title': 'agent.title',
-  'training-roleplay': 'classroom',
-  'training-evaluation': 'classroom',
+  'training-roleplay': 'classroom.roleplay',
+  'training-evaluation': 'classroom.evaluation',
 } as const satisfies Record<LlmStage, SlotId>;
 
 const SLOT_BY_ID = new Map<string, SlotDefinition>(MODEL_SLOTS.map((slot) => [slot.id, slot]));

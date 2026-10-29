@@ -8,6 +8,9 @@
  * simply absent). The reply is persisted as a `character` message and
  * ledgered as a `character-reply` event carrying its mode, so a scripted
  * demo reply is always distinguishable from a model reply in the ledger.
+ * Scripted mode plays fixed demo lines only; model mode builds a fresh
+ * prompt per turn from the teacher's actual questions, known facts, and
+ * current state, and never replays scripted lines.
  */
 import { randomUUID } from 'node:crypto';
 
@@ -73,7 +76,7 @@ export function buildCharacterPrompt(
     );
   }
   systemLines.push(
-    '只扮演这个角色。不要透露你不知道的事，不要替其他角色说话，不要编造医学诊断。回复用中文，简短自然，像真人说话。',
+    '只扮演这个角色。不要透露你不知道的事，不要替其他角色说话，不要编造医学诊断。回复用中文，简短自然，像真人说话。根据教师的实际问题动态回应，不要背诵或机械重复固定台词。',
   );
   const system = systemLines.join('\n');
   const visibleHistory = history
@@ -181,7 +184,12 @@ export async function generateCharacterReply(
   // and disclosures are computed with them included, so a reply generated
   // in the same turn may already reference the newly surfaced beat.
   const userMessages = history.filter((m) => m.role === 'user').map((m) => m.content);
-  const firedEvents = checkDynamicEvents(training.scenarioId, userMessages.length, events);
+  const firedEvents = checkDynamicEvents(
+    training.scenarioId,
+    userMessages.length,
+    events,
+    userMessages,
+  );
   const disclosedFacts = getDisclosedFacts(scenario, {
     state: training.state,
     events: [...events, ...firedEvents.map((type) => ({ type }))],

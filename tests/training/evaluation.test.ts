@@ -3,10 +3,12 @@ import { describe, expect, test } from 'vitest';
 import type { TrainingMessageRecord } from '@openmaic/storage/training/pg';
 
 import {
+  buildEvaluationPrompt,
   parseEvaluation,
   verifyEvaluationCitations,
   type TrainingEvaluation,
 } from '@/lib/training/evaluation';
+import { EPIDEMIC_SCENARIO_V1_DRAFT } from '@/lib/training/scenarios/epidemic-v1';
 
 function validJson(overrides: Record<string, unknown> = {}): string {
   const dimensions = [
@@ -90,5 +92,14 @@ describe('verifyEvaluationCitations', () => {
     expect(problems).toHaveLength(2);
     expect(problems[0]).toContain('unknown evidence id no-such');
     expect(problems[1]).toContain('not a teacher message');
+  });
+});
+
+describe('buildEvaluationPrompt privacy assessment', () => {
+  test('the prompt tells the evaluator to score peer-privacy handling', () => {
+    const { system } = buildEvaluationPrompt(EPIDEMIC_SCENARIO_V1_DRAFT, []);
+    expect(system).toContain('同桌');
+    expect(system).toContain('健康隐私');
+    expect(system).toContain('responsibility');
   });
 });

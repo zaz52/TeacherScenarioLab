@@ -7,6 +7,7 @@
  * (owner resolved from the browser's cookies). Topic filter is a plain
  * select; the list itself is static catalog data, no learner state.
  */
+import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
@@ -57,16 +58,21 @@ function topicLabel(topic: string): string {
 
 export default function ReferenceLibraryPage() {
   const [topic, setTopic] = useState('');
+  const [query, setQuery] = useState('');
+  const [submittedQuery, setSubmittedQuery] = useState('');
   const [references, setReferences] = useState<TrainingReference[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const load = useCallback(async (selectedTopic: string) => {
+  const load = useCallback(async (selectedTopic: string, keyword: string) => {
     setLoading(true);
     setError('');
     try {
-      const query = selectedTopic ? `?topic=${encodeURIComponent(selectedTopic)}` : '';
-      const res = await fetch(`/api/training/references${query}`);
+      const params = new URLSearchParams();
+      if (selectedTopic) params.set('topic', selectedTopic);
+      if (keyword.trim()) params.set('q', keyword.trim());
+      const suffix = params.toString();
+      const res = await fetch(`/api/training/references${suffix ? `?${suffix}` : ''}`);
       const data = (await res.json()) as {
         success?: boolean;
         references?: TrainingReference[];
@@ -84,12 +90,23 @@ export default function ReferenceLibraryPage() {
   }, []);
 
   useEffect(() => {
-    void load(topic);
-  }, [topic, load]);
+    void load(topic, submittedQuery);
+  }, [topic, submittedQuery, load]);
 
   return (
     <main>
       <h1>{t('referencesTitle')}</h1>
+      <p>
+        <input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') setSubmittedQuery(query);
+          }}
+          placeholder={t('referencesSearchPlaceholder')}
+        />
+        <button onClick={() => setSubmittedQuery(query)}>{t('referencesSearch')}</button>
+      </p>
       <label>
         <select value={topic} onChange={(event) => setTopic(event.target.value)}>
           <option value="">{t('referencesTopicAll')}</option>
@@ -108,7 +125,9 @@ export default function ReferenceLibraryPage() {
           {references.map((ref) => (
             <li key={ref.id}>
               <p>
-                {ref.title}（{ref.year}）
+                <Link href={`/training/references/${ref.id}`}>
+                  {ref.title}（{ref.year}）
+                </Link>
               </p>
               <p>{ref.authors.join('；')}</p>
               {ref.venue && <p>{ref.venue}</p>}

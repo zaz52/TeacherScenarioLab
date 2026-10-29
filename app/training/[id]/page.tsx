@@ -7,8 +7,11 @@
  * from the browser's cookies). Flow: load training → start (created →
  * briefing) → send a message → request one character reply. The reply mode
  * defaults to scripted (works without model keys); switch to model mode
- * when a roleplay model is configured.
+ * when a roleplay model is configured. An unsent draft is backed up to
+ * localStorage so leaving the room (including via the training nav) does
+ * not silently drop what the teacher typed.
  */
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -56,6 +59,25 @@ export default function TrainingRoomPage() {
   const [characterId, setCharacterId] = useState('');
   const [mode, setMode] = useState<'scripted' | 'model'>('scripted');
   const [input, setInput] = useState('');
+  // Unsent draft backup (see header comment). Sent messages are already
+  // server-persisted; only the draft needs this client-side copy.
+  const draftKey = `tsl-room-draft-${trainingId}`;
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(draftKey);
+      if (saved) setInput(saved);
+    } catch {
+      // Private mode or blocked storage: draft backup is best-effort.
+    }
+  }, [draftKey]);
+  useEffect(() => {
+    if (!input.trim()) return;
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [input]);
   const [busy, setBusy] = useState(false);
   const [replying, setReplying] = useState(false);
   const [error, setError] = useState('');
@@ -163,6 +185,11 @@ export default function TrainingRoomPage() {
       const data = await res.json();
       if (!data.success) throw new Error(data.error);
       setInput('');
+      try {
+        window.localStorage.removeItem(draftKey);
+      } catch {
+        // Best-effort only.
+      }
       await loadMessages();
       setReplying(true);
       try {
@@ -180,9 +207,7 @@ export default function TrainingRoomPage() {
           setScriptedIds((prev) => new Set(prev).add(replyData.message.id));
         }
         if (replyData.director) {
-          const picked = scenario?.characters.find(
-            (c) => c.id === replyData.director.characterId,
-          );
+          const picked = scenario?.characters.find((c) => c.id === replyData.director.characterId);
           setDirectorNote(
             `${t('directorPicked')}: ${picked?.name ?? replyData.director.characterId} — ${replyData.director.reason}`,
           );
@@ -309,10 +334,7 @@ export default function TrainingRoomPage() {
                 {dimension.evidence.length > 0 && (
                   <span className="block text-xs text-gray-500">
                     {dimension.evidence
-                      .map(
-                        (id) =>
-                          messages.find((m) => m.id === id)?.content.slice(0, 40) ?? id,
-                      )
+                      .map((id) => messages.find((m) => m.id === id)?.content.slice(0, 40) ?? id)
                       .join('；')}
                   </span>
                 )}
@@ -326,6 +348,9 @@ export default function TrainingRoomPage() {
               ))}
             </ul>
           )}
+          <p className="mt-2 text-sm">
+            <Link href={`/training/${trainingId}/review`}>{t('reviewTitle')}</Link>
+          </p>
         </section>
       )}
       {(MESSAGEABLE_STATES as readonly string[]).includes(training.state) && (
@@ -361,7 +386,14 @@ export default function TrainingRoomPage() {
           <div className="flex gap-2">
             <input
               value={input}
-              onChange={(event) => setInput(event.target.value)}
+              onChange={(event) => {
+                setInput(event.target.value);
+                try {
+                  window.localStorage.setItem(draftKey, event.target.value);
+                } catch {
+                  // Best-effort only.
+                }
+              }}
               onKeyDown={(event) => {
                 if (event.key === 'Enter') void handleSend();
               }}

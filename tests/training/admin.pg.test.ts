@@ -13,12 +13,15 @@ import { afterAll, beforeAll, beforeEach, describe, expect, test } from 'vitest'
 import type { ScenarioVersionRecord } from '@openmaic/storage/training/pg';
 
 import {
+  createScenarioDraft,
+  deleteScenarioDraft,
   getScenarioForAdmin,
   getTrainingForAdmin,
   importCodeScenarioDraft,
   listAllScenarios,
   listAllTrainings,
   publishScenarioVersion,
+  updateScenarioDraft,
 } from '@/lib/training/admin';
 import { getTrainingStore } from '@/lib/training/server';
 import { TrainingServiceError } from '@/lib/training/store';
@@ -37,9 +40,7 @@ function scenario(overrides: Partial<ScenarioVersionRecord> = {}): ScenarioVersi
     rules: ['rule 1'],
     learnerRole: '小学教师',
     characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
-    facts: [
-      { id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' },
-    ],
+    facts: [{ id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' }],
     disclosureConditions: {},
     publishedAt: null,
     ...overrides,
@@ -101,6 +102,74 @@ describePg('training admin service (PostgreSQL contract)', () => {
     expect(listed.map((row) => row.scenarioId)).toContain('epi-class-fever');
     const detail = await getScenarioForAdmin('epi-class-fever', 1);
     expect(detail.facts.length).toBeGreaterThan(0);
+  });
+
+  test('editor create/update/delete: drafts only, published versions frozen', async () => {
+    const store = await getTrainingStore();
+    const created = await createScenarioDraft({
+      scenarioId: 'editor-test-scenario',
+      version: 1,
+      title: 'Editor test',
+      setting: 'Setting',
+      goal: 'Goal',
+      rules: ['rule 1'],
+      learnerRole: '小学教师',
+      characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
+      facts: [
+        {
+          id: 'fact-private',
+          content: 'private fact',
+          category: 'policy',
+          visibility: 'character-private',
+          ownerCharacterId: 'parent-1',
+        },
+      ],
+      disclosureConditions: {},
+    });
+    expect(created.publishedAt).toBeNull();
+    await expect(
+      createScenarioDraft({ ...scenario(), scenarioId: 'editor-test-scenario' }),
+    ).rejects.toMatchObject({ status: 409 });
+    const updated = await updateScenarioDraft('editor-test-scenario', 1, {
+      scenarioId: 'editor-test-scenario',
+      version: 1,
+      title: 'Editor test (revised)',
+      setting: 'Setting',
+      goal: 'Goal',
+      rules: ['rule 1'],
+      learnerRole: '小学教师',
+      characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
+      facts: [],
+      disclosureConditions: {},
+    });
+    expect(updated.title).toBe('Editor test (revised)');
+    await expect(
+      updateScenarioDraft('editor-test-scenario', 1, {
+        scenarioId: 'editor-test-scenario',
+        version: 1,
+        title: '',
+        setting: 'Setting',
+        goal: 'Goal',
+        rules: [],
+        learnerRole: '小学教师',
+        characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
+        facts: [],
+        disclosureConditions: {},
+      }),
+    ).rejects.toMatchObject({ status: 400 });
+    await deleteScenarioDraft('editor-test-scenario', 1);
+    expect(await store.getScenarioVersion('editor-test-scenario', 1)).toBeNull();
+    await expect(deleteScenarioDraft('editor-test-scenario', 1)).rejects.toMatchObject({
+      status: 404,
+    });
+    await store.saveScenarioVersion(scenario());
+    await publishScenarioVersion('admin-test-scenario', 1);
+    await expect(deleteScenarioDraft('admin-test-scenario', 1)).rejects.toMatchObject({
+      status: 409,
+    });
+    await expect(updateScenarioDraft('admin-test-scenario', 1, scenario())).rejects.toMatchObject({
+      status: 409,
+    });
   });
 
   test('admin training list crosses owners and filters; detail carries the ledger', async () => {

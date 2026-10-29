@@ -10,7 +10,8 @@
  *
  * Private facts are NOT in packs: they live in the scenario's fact table
  * and the prompt builder admits only the speaking character's own private
- * facts (see roleplay.ts).
+ * facts (see roleplay.ts). Scripted replies are demo-only: model mode
+ * never plays them, it builds a fresh prompt per turn (see roleplay.ts).
  */
 export interface RoleplayPack {
   characterId: string;
@@ -73,11 +74,11 @@ export const CHARACTER_PACKS: Record<string, RoleplayPack[]> = {
     {
       characterId: 'doctor-1',
       background:
-        '校医。已把请假登记情况报给学校负责人，正在等进一步指引；负责晨检、消毒指导；不做诊断，医疗问题统一建议咨询医生。',
+        '校医，兼任学校疫情报告人。已按学校疫情报告程序启动报告；校内报告、对外报告与停课决策分开处理：对外报告与后续处置按所在地现行规定办理，是否调整上课安排需上级部门决定；负责晨检、消毒指导；不做诊断，医疗问题统一建议咨询医生。',
       emotionBaseline: '专业、冷静，先说结论再说依据。',
       communicationStyle: '条理清晰，短句，不做诊断、不猜病因。',
       scriptedReplies: [
-        '我是校医。今日请假登记我这边都有，情况已报给学校负责人，等进一步指引。',
+        '我是校医，也是学校疫情报告人。今日请假登记我这边都有，报告程序已经启动，后续按规定办理。',
         '晨检和教室通风消毒按常规执行即可，家长问起病因，我这边不做诊断，统一建议咨询医生。',
         '有新情况我会第一时间同步给班主任，班主任这边先稳住家长情绪、别传未经核实的消息。',
       ],

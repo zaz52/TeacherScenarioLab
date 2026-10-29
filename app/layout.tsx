@@ -51,9 +51,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'OpenMAIC',
+  title: '教师情境实训实验室',
   description:
-    'The open-source AI interactive classroom. Upload a PDF to instantly generate an immersive, multi-agent learning experience.',
+    'TeacherScenarioLab 教师情境实训实验室：通过 AI 模拟真实教育情境，训练教师的沟通、信息核实、教育判断和多方协同处置能力。',
 };
 
 export default async function RootLayout({
