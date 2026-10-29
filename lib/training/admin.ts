@@ -74,14 +74,6 @@ export async function importCodeScenarioDraft(scenarioId: string): Promise<Scena
     );
   }
   const store = await getTrainingStore();
-  const existing = await store.getScenarioVersion(draft.scenarioId, draft.version);
-  if (existing) {
-    throw new TrainingServiceError(
-      409,
-      'TRAINING_STATE_CONFLICT',
-      `scenario ${draft.scenarioId} version ${draft.version} already exists`,
-    );
-  }
   const validated = toScenarioVersion({
     ...draft,
     publishedAt: null,
@@ -93,7 +85,18 @@ export async function importCodeScenarioDraft(scenarioId: string): Promise<Scena
       `code draft ${scenarioId} fails validation`,
     );
   }
-  return store.saveScenarioVersion({ ...draft, publishedAt: null });
+  const created = await store.createScenarioVersion({
+    ...draft,
+    publishedAt: null,
+  });
+  if (!created) {
+    throw new TrainingServiceError(
+      409,
+      'TRAINING_STATE_CONFLICT',
+      `scenario ${draft.scenarioId} version ${draft.version} already exists`,
+    );
+  }
+  return created;
 }
 
 /**
@@ -150,9 +153,10 @@ export interface AdminTrainingFilters {
 
 /**
  * Create a draft scenario version from an editor payload. The payload is
- * validated first (400 with the issue list); an existing version — draft
- * or published — refuses with 409, so creation can never clobber a row.
- * The stored row is always a draft: `publishedAt` is forced to null.
+ * validated first (400 with the issue list); creation is a single atomic
+ * INSERT, so a concurrent duplicate — draft or published — refuses with
+ * 409 instead of overwriting. The stored row is always a draft:
+ * `publishedAt` is forced to null.
  */
 export async function createScenarioDraft(input: unknown): Promise<ScenarioVersionRecord> {
   const { issues, scenario } = validateScenarioVersion(input);
@@ -164,15 +168,18 @@ export async function createScenarioDraft(input: unknown): Promise<ScenarioVersi
     );
   }
   const store = await getTrainingStore();
-  const existing = await store.getScenarioVersion(scenario.scenarioId, scenario.version);
-  if (existing) {
+  const created = await store.createScenarioVersion({
+    ...scenario,
+    publishedAt: null,
+  });
+  if (!created) {
     throw new TrainingServiceError(
       409,
       'TRAINING_STATE_CONFLICT',
       `scenario ${scenario.scenarioId} version ${scenario.version} already exists`,
     );
   }
-  return store.saveScenarioVersion({ ...scenario, publishedAt: null });
+  return created;
 }
 
 /**

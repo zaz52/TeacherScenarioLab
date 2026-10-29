@@ -172,6 +172,50 @@ describePg('training admin service (PostgreSQL contract)', () => {
     });
   });
 
+  test('draft creation is atomic: duplicates and races conflict, never overwrite', async () => {
+    const store = await getTrainingStore();
+    const payload = (scenarioId: string, title: string) => ({
+      scenarioId,
+      version: 1,
+      title,
+      setting: 'Setting',
+      goal: 'Goal',
+      rules: ['rule 1'],
+      learnerRole: '小学教师',
+      characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
+      facts: [],
+      disclosureConditions: {},
+    });
+    // Sequential duplicate keeps the first draft.
+    await createScenarioDraft(payload('race-test-scenario', 'First'));
+    await expect(
+      createScenarioDraft(payload('race-test-scenario', 'Second')),
+    ).rejects.toMatchObject({ status: 409 });
+    expect((await store.getScenarioVersion('race-test-scenario', 1))?.title).toBe('First');
+    // Concurrent duplicates: exactly one wins, the rest conflict.
+    const attempts = await Promise.allSettled(
+      Array.from({ length: 8 }, (_, i) =>
+        createScenarioDraft(payload('race-test-concurrent', `Attempt ${i}`)),
+      ),
+    );
+    expect(attempts.filter((r) => r.status === 'fulfilled')).toHaveLength(1);
+    const rejected = attempts.filter((r) => r.status === 'rejected');
+    expect(rejected).toHaveLength(7);
+    for (const r of rejected) {
+      expect((r as { reason?: unknown }).reason).toMatchObject({ status: 409 });
+    }
+    const winner = await store.getScenarioVersion('race-test-concurrent', 1);
+    expect(winner).not.toBeNull();
+    expect(winner?.title).toMatch(/^Attempt \d$/);
+    expect(await store.listScenarioVersions('race-test-concurrent')).toHaveLength(1);
+    // Creating over a published version conflicts too.
+    await store.saveScenarioVersion(scenario({ scenarioId: 'race-test-published' }));
+    await publishScenarioVersion('race-test-published', 1);
+    await expect(
+      createScenarioDraft({ ...scenario(), scenarioId: 'race-test-published' }),
+    ).rejects.toMatchObject({ status: 409 });
+  });
+
   test('admin training list crosses owners and filters; detail carries the ledger', async () => {
     const store = await getTrainingStore();
     const a = await store.forOwner('acct:a').createTraining({

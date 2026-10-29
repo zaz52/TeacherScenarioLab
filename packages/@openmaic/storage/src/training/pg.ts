@@ -773,6 +773,35 @@ export class PgTrainingStore {
   }
 
   /**
+   * Create a scenario version, and only create it: a single INSERT with
+   * no ON CONFLICT fallback, so two concurrent creates for the same
+   * (scenarioId, version) cannot overwrite each other — PostgreSQL
+   * resolves the PK race and exactly one insert wins. Returns the
+   * created row, or null when a row (draft or published) already
+   * exists; the service layer maps null to a 409. A unique violation
+   * (23505) carries the conflict; the query surface exposes no
+   * rowCount, so the RETURNING row carries the success signal.
+   */
+  async createScenarioVersion(
+    record: ScenarioVersionRecord,
+  ): Promise<ScenarioVersionRecord | null> {
+    try {
+      const result = await this.queryable.query<TrainingScenarioRow>(
+        `INSERT INTO training_scenarios (scenario_id, version, data, published_at)
+         VALUES ($1, $2, $3, $4)
+         RETURNING scenario_id, version, data, published_at`,
+        [record.scenarioId, record.version, record, record.publishedAt],
+      );
+      return result.rows[0] ? mapScenarioRow(result.rows[0]) : null;
+    } catch (error) {
+      if (error instanceof Error && (error as { code?: unknown }).code === '23505') {
+        return null;
+      }
+      throw error;
+    }
+  }
+
+  /**
    * Delete a draft scenario version. Published versions are never deleted:
    * the WHERE clause only matches drafts, so deleting a published version
    * (or a version that became published concurrently) deletes nothing and
