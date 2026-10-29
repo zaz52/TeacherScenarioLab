@@ -118,4 +118,4 @@ sha256sum tsl-backup-*.dump
 - NVIDIA 的 `NVIDIA_MODEL_ID` 由携带本地密钥的 `GET https://integrate.api.nvidia.com/v1/models` 目录核验。GLM 的 `GLM_MODEL_ID` 按账号可用目录填写；两项真实调用分别验收。
 - 健康探针 `/api/health` 不检查数据库。数据库就绪还需以数据库连接、训练目录和真实写入读取回归核验。
 - 普通账号访问管理 API 返回 403；跨 owner 的训练返回 404；无效会话返回 401。复核 HTTPS 下 cookie 的 Secure、HttpOnly、SameSite 属性。
-- 当前阶段保留正式部署为待批准事项。域名 DNS、服务器归属、Cloudflare 路由、生产 PostgreSQL 和备份位置须由可核验的当前配置确认。
+- 正式部署以完成验收和取得用户授权为前提。域名 DNS、服务器归属、Cloudflare 路由、生产 PostgreSQL 和备份位置须由可核验的当前配置确认；当次授权范围记录于项目进度。

@@ -1,8 +1,10 @@
 import { createHash, randomBytes, randomInt } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { test, expect, type APIRequestContext } from '@playwright/test';
 import { Pool } from 'pg';
 
 import { EPIDEMIC_SCENARIO_V1_DRAFT } from '../../lib/training/scenarios/epidemic-v1';
+import { supportedLocales } from '../../lib/i18n/locales';
 
 const ADMIN_ID = 'acct:00000000-0000-4000-8000-000000000e2e';
 const version = randomInt(100_000, 2_000_000_000);
@@ -10,6 +12,9 @@ const title = `浏览器验收情境 ${version}`;
 const draft = { ...EPIDEMIC_SCENARIO_V1_DRAFT, version, title, publishedAt: null };
 const scenarioPath = `/api/training/admin/scenarios/epi-class-fever/versions/${version}`;
 let admin: APIRequestContext;
+let adminSessionToken: string;
+const trainingCopy = (locale: string): Record<string, string> =>
+  JSON.parse(readFileSync(`lib/i18n/locales/${locale}.json`, 'utf8')).training;
 
 // The fixture creates test rows in the same isolated database as the app.
 // Actual requests still authenticate a hashed session and pass the admin gate.
@@ -21,6 +26,7 @@ test.beforeAll(async ({ playwright, baseURL }) => {
   const { PgTrainingStore, ensureTrainingSchema } = await import('@openmaic/storage/training/pg');
   const pool = new Pool({ connectionString: process.env.DATABASE_URL });
   const token = randomBytes(32).toString('base64url');
+  adminSessionToken = token;
   try {
     const client = await pool.connect();
     try {
@@ -179,3 +185,97 @@ test('Chinese homepage, shared navigation and reference keyword/detail pages ren
   await page.waitForURL(`**${href}`);
   await expect(page.getByRole('heading', { name: citation.title, exact: true })).toBeVisible();
 });
+
+test('admin forms create, edit, delete and freeze published versions in the browser', async ({
+  page,
+  browser,
+  baseURL,
+}) => {
+  test.setTimeout(60_000);
+  const copy = trainingCopy('zh-CN');
+  await page
+    .context()
+    .addCookies([
+      { name: 'training_session', value: adminSessionToken, url: baseURL!, httpOnly: true },
+    ]);
+  const scenarioId = `e2e-editor-${version}`;
+  await page.goto('/training/admin/scenarios/new');
+  await page.getByLabel(copy.adminFormScenarioId).fill(scenarioId);
+  await page.getByLabel(copy.adminFormTitle).fill('浏览器表单创建');
+  await page.getByLabel(copy.adminFormSetting).fill('家长与教师在学校沟通。');
+  await page.getByLabel(copy.adminFormGoal).fill('核实信息并共同制定后续沟通安排。');
+  await page.getByLabel(copy.adminFormRules).fill('保护学生隐私。');
+  await page.getByLabel(copy.adminFormLearnerRole).fill('教师');
+  await page.getByPlaceholder('id', { exact: true }).fill('parent-1');
+  await page.getByPlaceholder('name', { exact: true }).fill('测试家长');
+  await page.locator('select').selectOption('parent');
+  await page.getByRole('button', { name: copy.adminFormSave, exact: true }).click();
+  await expect(page.getByText(copy.adminFormSaveDone, { exact: true })).toBeVisible();
+
+  await page.goto('/training/admin');
+  const row = () => page.getByRole('listitem').filter({ hasText: scenarioId });
+  await row().getByRole('link', { name: copy.adminEditDraft, exact: true }).click();
+  await page.getByLabel(copy.adminFormTitle).fill('浏览器表单编辑后');
+  await page.getByRole('button', { name: copy.adminFormSave, exact: true }).click();
+  await expect(page.getByText(copy.adminFormSaveDone, { exact: true })).toBeVisible();
+  const stored = await page.request.get(`/api/training/admin/scenarios/${scenarioId}/versions/1`);
+  expect(stored.status()).toBe(200);
+  expect((await stored.json()).scenario.title).toBe('浏览器表单编辑后');
+  await page.goto('/training/admin');
+  await row().getByRole('button', { name: copy.adminDeleteDraft, exact: true }).click();
+  await expect(page.getByText(copy.adminDeleteDone, { exact: true })).toBeVisible();
+  await expect(row()).toHaveCount(0);
+
+  const frozenId = `${scenarioId}-frozen`;
+  expect(
+    (
+      await admin.post('/api/training/admin/scenarios', {
+        data: { ...draft, scenarioId: frozenId, version: 1 },
+      })
+    ).status(),
+  ).toBe(201);
+  await page.reload();
+  const frozen = page.getByRole('listitem').filter({ hasText: frozenId });
+  await frozen.getByRole('button', { name: copy.adminPublish, exact: true }).click();
+  await expect(frozen.getByText(copy.adminPublished, { exact: true })).toBeVisible();
+  await expect(frozen.getByRole('link', { name: copy.adminEditDraft, exact: true })).toHaveCount(0);
+  await expect(
+    frozen.getByRole('button', { name: copy.adminDeleteDraft, exact: true }),
+  ).toHaveCount(0);
+  await page.goto(`/training/admin/scenarios/${frozenId}/versions/1/edit`);
+  await expect(page.getByText(copy.adminPublishedNote, { exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: copy.adminFormSave, exact: true })).toHaveCount(0);
+
+  const outsider = await browser.newContext({ locale: 'zh-CN' });
+  try {
+    const outsidePage = await outsider.newPage();
+    await outsidePage.goto(`${baseURL}/training/admin`);
+    await expect(outsidePage.getByText(copy.adminRequired, { exact: true })).toBeVisible();
+  } finally {
+    await outsider.close();
+  }
+});
+
+for (const { code } of supportedLocales) {
+  test.describe(`training pages in ${code}`, () => {
+    test.use({ locale: code });
+    test('renders localized homepage, records and navigation', async ({ page }) => {
+      const copy = trainingCopy(code);
+      await page.goto('/');
+      await expect(page.locator('html')).toHaveAttribute('lang', code);
+      await expect(
+        page.getByRole('heading', { level: 1, name: copy.homeTitle, exact: true }),
+      ).toBeVisible();
+      await page.locator('a[href="/training/records"]').first().click();
+      await expect(
+        page.getByRole('heading', { level: 1, name: copy.recordsTitle, exact: true }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole('navigation', { name: 'training' }).getByRole('link', {
+          name: copy.navHall,
+          exact: true,
+        }),
+      ).toBeVisible();
+    });
+  });
+}
