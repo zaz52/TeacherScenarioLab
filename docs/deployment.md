@@ -16,11 +16,16 @@
 # 在部署机上（需要 Docker）
 cp openmaic.teacher-scenario.example.yml openmaic.yml   # 只有文件存在时才能挂载；缺失文件会被挂载成目录
 cp .env.production.example .env.local  # 再填入真实值（见第 2 节）
-docker compose --env-file .env.local config --quiet
-docker compose --env-file .env.local up -d --build
+docker compose --env-file .env.local -f docker-compose.yml -f docker-compose.teacher-scenario.yml config --quiet
+docker compose --env-file .env.local -f docker-compose.yml -f docker-compose.teacher-scenario.yml up -d --build
 docker compose --env-file .env.local ps                      # openmaic 与 postgres 均为 healthy/running
 curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不依赖数据库
 ```
+
+`docker-compose.teacher-scenario.yml` 将本地配置只读挂载至 `/app/openmaic.yml`，
+并固定多用户身份模式。配置文件缺失时，bind 的 `create_host_path: false`
+使 Compose 报错；填好密钥与精确模型 ID 后再启动。基础 Compose 中的可选
+配置挂载仍保留原注释状态。以上命令供验收批准后的部署使用。
 
 ## 2. 必需的服务端环境变量（`.env.local`，不进 Git）
 
@@ -107,7 +112,7 @@ sha256sum tsl-backup-*.dump
 
 ## 8. 发布前配置核验
 
-- `docker compose --env-file .env.local config --quiet` 校验后，核验应用与 PostgreSQL 使用同一口令；完整 `config` 输出含敏感值，应保留在受保护环境。
+- 使用第 1 节包含两个 `-f` 参数的 `config --quiet` 命令校验后，核验应用与 PostgreSQL 使用同一口令；完整 `config` 输出含敏感值，应保留在受保护环境。
 - NVIDIA 的 `NVIDIA_MODEL_ID` 由携带本地密钥的 `GET https://integrate.api.nvidia.com/v1/models` 目录核验。GLM 的 `GLM_MODEL_ID` 按账号可用目录填写；两项真实调用分别验收。
 - 健康探针 `/api/health` 不检查数据库。数据库就绪还需以数据库连接、训练目录和真实写入读取回归核验。
 - 普通账号访问管理 API 返回 403；跨 owner 的训练返回 404；无效会话返回 401。复核 HTTPS 下 cookie 的 Secure、HttpOnly、SameSite 属性。

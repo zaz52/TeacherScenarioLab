@@ -113,7 +113,7 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
     .getByRole('listitem')
     .filter({ has: page.getByRole('heading', { name: title, exact: true }) });
   await card.getByRole('button', { name: '开始训练', exact: true }).click();
-  await page.waitForURL(/\/training\/[^/]+$/);
+  await page.waitForURL(/\/training\/[0-9a-f-]{36}$/);
   const trainingId = new URL(page.url()).pathname.split('/').at(-1)!;
   const path = `/api/training/trainings/${trainingId}`;
   await page.getByRole('button', { name: '开始训练', exact: true }).click();
@@ -123,6 +123,7 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
     .fill('家长您好，我会先核实情况并及时向校医报告。');
   await page.getByRole('button', { name: '发送', exact: true }).click();
   await expect(page.getByText('班里现在到底有几个孩子发烧了', { exact: false })).toBeVisible();
+  expect((await page.request.get(path)).status()).toBe(200);
   const stranger = await browser.newContext();
   try {
     expect((await stranger.request.get(`http://localhost:3002${path}`)).status()).toBe(404);
@@ -149,7 +150,7 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
   expect((await claimed.json()).claimed).toBe(1);
   expect((await page.request.get(path)).status()).toBe(200);
   await page.goto('/training/account');
-  await expect(page.getByText('浏览器验收学员', { exact: false })).toBeVisible();
+  await expect(page.getByRole('main').getByText('浏览器验收学员', { exact: false })).toBeVisible();
   await page.getByRole('button', { name: '退出登录', exact: true }).click();
   await expect.poll(async () => (await page.request.get(path)).status()).toBe(404);
 });

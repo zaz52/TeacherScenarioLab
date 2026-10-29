@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 生产配置与验收收敛（2026-10-30 01:30，Asia/Shanghai）
+
+- 本地完整 Storage 套件 1491 项通过、0 失败、7 跳过；独立 PostgreSQL 写入审计通过，13 张表的插入计数均增加。故障注入遗留的本地测试触发器已恢复，原行数据保留。
+- `9733791` 云端 PostgreSQL 合约工作流成功，35 个应用套件 382 项通过；浏览器 143 项通过、1 项失败。剩余夹具把 `/training/hall` 提前识别为详情地址，现改为 UUID 路由等待并增加本人读取成功校验。
+- 新增 `docker-compose.teacher-scenario.yml`：只读模型配置挂载、缺失源文件拒绝自动创建、多用户 owner 模式。官方 Compose v5.6.1 二进制经发布校验和核验后，实际配置合并检查通过，全程未联系 Docker daemon。
+- 主镜像 CI 验证扩展到 runner 阶段，包含运行层依赖与 standalone 文件复制；镜像发布保持关闭。
+- 最新 TypeScript、全仓 Prettier、54 项工作流/身份/stage 检查通过。备份恢复结果与外部阻塞延续上一记录；最终验收报告附精确 SHA、逐项 Actions 结果和测试统计。
+- 本机跨盘依赖缓存及 Webpack 开发编译存在环境兼容限制，浏览器最终验收使用 GitHub 的生产构建与 Chromium。NVIDIA/GLM 实际调用仍需本地密钥与可用模型 ID；正式部署、合并及 DNS 修改均待用户授权。
+
 ### TeacherScenarioLab CI 验收跟进（2026-10-30 01:15，Asia/Shanghai）
 
 - `dc5dcf4` 云端生产 Build、镜像、Lint/Typecheck、全部单测作业及 PostgreSQL 合约工作流通过；浏览器 142 项通过、2 项失败、1 项未运行。
