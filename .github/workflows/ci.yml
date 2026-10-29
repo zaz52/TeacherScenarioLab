@@ -23,6 +23,7 @@ on:
         integration/agent-workbench,
         integration/material-library,
         integration/workbench-home,
+        dev/teacher-scenario-lab,
       ]
   # The merge queue builds each entry on top of main and the entries queued
   # ahead of it, so a pull request no longer has to be brought up to date with
