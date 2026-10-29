@@ -114,6 +114,7 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
   browser,
 }) => {
   test.setTimeout(90_000);
+  const copy = trainingCopy('zh-CN');
   await page.goto('/training/hall');
   const card = page
     .getByRole('listitem')
@@ -123,6 +124,9 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
   const trainingId = new URL(page.url()).pathname.split('/').at(-1)!;
   const path = `/api/training/trainings/${trainingId}`;
   await page.getByRole('button', { name: '开始训练', exact: true }).click();
+  await expect(
+    page.getByText(`${copy.state}: ${copy.stateBriefing}`, { exact: true }),
+  ).toBeVisible();
   await page.getByLabel('选择对话角色').selectOption('parent-1');
   await page
     .getByPlaceholder('输入你想说的话...')
@@ -143,6 +147,9 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
   await expect(page.locator(`a[href="/training/${trainingId}"]`)).toBeVisible();
   await page.goto(`/training/${trainingId}/review`);
   await expect(page.getByRole('heading', { name: '训练复盘' })).toBeVisible();
+  await expect(
+    page.getByText(`${copy.reviewState}：${copy.stateEvaluation}`, { exact: true }),
+  ).toBeVisible();
   await expect(
     page.getByText('家长您好，我会先核实情况并及时向校医报告。', { exact: true }),
   ).toBeVisible();

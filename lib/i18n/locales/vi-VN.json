@@ -2724,6 +2724,13 @@
     "adminFormSaveDone": "Đã lưu bản nháp",
     "adminFormSaveFailed": "Không lưu được",
     "adminFormValidationFailed": "Biểu mẫu không đạt yêu cầu xác thực; hãy kiểm tra từng trường",
-    "adminPublishedNote": "Không thể sửa hoặc xóa phiên bản đã xuất bản; hãy tạo phiên bản mới để thay đổi."
+    "adminPublishedNote": "Không thể sửa hoặc xóa phiên bản đã xuất bản; hãy tạo phiên bản mới để thay đổi.",
+    "stateCreated": "Đã tạo",
+    "stateBriefing": "Giới thiệu tình huống",
+    "stateFactChecking": "Kiểm chứng sự thật",
+    "stateCoordination": "Phối hợp",
+    "stateProposal": "Đề xuất phương án",
+    "stateEvaluation": "Đánh giá",
+    "stateCompleted": "Hoàn thành"
   }
 }

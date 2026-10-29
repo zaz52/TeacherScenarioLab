@@ -2724,6 +2724,13 @@
     "adminFormSaveDone": "초안이 저장되었습니다",
     "adminFormSaveFailed": "저장하지 못했습니다",
     "adminFormValidationFailed": "입력값 검증에 실패했습니다. 각 항목을 확인해 주세요",
-    "adminPublishedNote": "게시된 버전은 편집하거나 삭제할 수 없습니다. 변경하려면 새 버전을 만드세요."
+    "adminPublishedNote": "게시된 버전은 편집하거나 삭제할 수 없습니다. 변경하려면 새 버전을 만드세요.",
+    "stateCreated": "생성됨",
+    "stateBriefing": "상황 설명",
+    "stateFactChecking": "사실 확인",
+    "stateCoordination": "협력·조정",
+    "stateProposal": "대응 방안",
+    "stateEvaluation": "평가",
+    "stateCompleted": "완료"
   }
 }

@@ -14,6 +14,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
+import { trainingStateLabel } from '@/lib/training/state-label';
 
 interface TrainingInfo {
   id: string;
@@ -189,7 +190,7 @@ export default function TrainingReviewPage() {
           {training.scenarioVersion}）
         </p>
         <p>
-          {t('reviewState')}：{training.state}
+          {t('reviewState')}：{trainingStateLabel(training.state, t)}
         </p>
       </section>
       <section>

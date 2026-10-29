@@ -2724,6 +2724,13 @@
     "adminFormSaveDone": "草稿已儲存",
     "adminFormSaveFailed": "儲存失敗",
     "adminFormValidationFailed": "表單驗證未通過，請檢查各欄位",
-    "adminPublishedNote": "已發布版本不可編輯或刪除；如需修改，請新建版本。"
+    "adminPublishedNote": "已發布版本不可編輯或刪除；如需修改，請新建版本。",
+    "stateCreated": "已建立",
+    "stateBriefing": "情境導入",
+    "stateFactChecking": "資訊查證",
+    "stateCoordination": "協同處置",
+    "stateProposal": "方案擬定",
+    "stateEvaluation": "訓練評價",
+    "stateCompleted": "已完成"
   }
 }

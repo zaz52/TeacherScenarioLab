@@ -2724,6 +2724,13 @@
     "adminFormSaveDone": "草稿已保存",
     "adminFormSaveFailed": "保存失败",
     "adminFormValidationFailed": "表单校验未通过，请检查各字段",
-    "adminPublishedNote": "已发布版本不可编辑或删除；如需修改，请新建版本。"
+    "adminPublishedNote": "已发布版本不可编辑或删除；如需修改，请新建版本。",
+    "stateCreated": "已创建",
+    "stateBriefing": "情境导入",
+    "stateFactChecking": "信息核实",
+    "stateCoordination": "协同处置",
+    "stateProposal": "方案制定",
+    "stateEvaluation": "训练评价",
+    "stateCompleted": "已完成"
   }
 }

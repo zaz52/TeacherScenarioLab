@@ -2724,6 +2724,13 @@
     "adminFormSaveDone": "Черновик сохранён",
     "adminFormSaveFailed": "Не удалось сохранить",
     "adminFormValidationFailed": "Форма не прошла проверку; проверьте каждое поле",
-    "adminPublishedNote": "Опубликованные версии нельзя редактировать или удалять; для изменений создайте новую версию."
+    "adminPublishedNote": "Опубликованные версии нельзя редактировать или удалять; для изменений создайте новую версию.",
+    "stateCreated": "Создано",
+    "stateBriefing": "Введение в ситуацию",
+    "stateFactChecking": "Проверка фактов",
+    "stateCoordination": "Координация",
+    "stateProposal": "Предложение действий",
+    "stateEvaluation": "Оценка",
+    "stateCompleted": "Завершено"
   }
 }

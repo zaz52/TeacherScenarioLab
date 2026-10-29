@@ -2724,6 +2724,13 @@
     "adminFormSaveDone": "下書きを保存しました",
     "adminFormSaveFailed": "保存できませんでした",
     "adminFormValidationFailed": "入力内容を検証できませんでした。各項目を確認してください",
-    "adminPublishedNote": "公開済みのバージョンは編集・削除できません。変更する場合は新しいバージョンを作成してください。"
+    "adminPublishedNote": "公開済みのバージョンは編集・削除できません。変更する場合は新しいバージョンを作成してください。",
+    "stateCreated": "作成済み",
+    "stateBriefing": "状況説明",
+    "stateFactChecking": "事実確認",
+    "stateCoordination": "連携・調整",
+    "stateProposal": "対応策の提案",
+    "stateEvaluation": "評価",
+    "stateCompleted": "完了"
   }
 }

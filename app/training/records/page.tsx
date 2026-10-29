@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
+import { trainingStateLabel } from '@/lib/training/state-label';
 
 interface RecordEntry {
   training: {
@@ -138,7 +139,7 @@ export default function TrainingRecordsPage() {
               <p>
                 <Link href={`/training/${record.training.id}`}>
                   {record.training.scenarioId} v{record.training.scenarioVersion}（
-                  {record.training.state}）
+                  {trainingStateLabel(record.training.state, t)}）
                 </Link>{' '}
                 <Link href={`/training/${record.training.id}/review`}>{t('reviewTitle')}</Link>{' '}
                 <button

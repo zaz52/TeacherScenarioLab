@@ -16,6 +16,7 @@ import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
+import { trainingStateLabel } from '@/lib/training/state-label';
 import { MESSAGEABLE_STATES } from '@/lib/training/state-machine';
 
 interface Training {
@@ -245,7 +246,7 @@ export default function TrainingRoomPage() {
     <main className="mx-auto flex max-w-2xl flex-col gap-4 p-6">
       <h1 className="text-xl font-semibold">{scenario?.title ?? t('title')}</h1>
       <p className="text-sm text-gray-600">
-        {t('state')}: {training.state}
+        {t('state')}: {trainingStateLabel(training.state, t)}
       </p>
       {scenario && (
         <section className="rounded border p-4">

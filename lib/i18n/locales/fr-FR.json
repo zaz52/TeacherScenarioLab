@@ -2724,6 +2724,13 @@
     "adminFormSaveDone": "Brouillon enregistré",
     "adminFormSaveFailed": "Échec de l’enregistrement",
     "adminFormValidationFailed": "Le formulaire n’a pas été validé ; vérifiez chaque champ",
-    "adminPublishedNote": "Les versions publiées ne peuvent être ni modifiées ni supprimées ; créez une nouvelle version pour apporter des changements."
+    "adminPublishedNote": "Les versions publiées ne peuvent être ni modifiées ni supprimées ; créez une nouvelle version pour apporter des changements.",
+    "stateCreated": "Créé",
+    "stateBriefing": "Présentation",
+    "stateFactChecking": "Vérification des faits",
+    "stateCoordination": "Coordination",
+    "stateProposal": "Proposition",
+    "stateEvaluation": "Évaluation",
+    "stateCompleted": "Terminé"
   }
 }
