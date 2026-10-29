@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 最终验收提交（2026-10-30 01:40，Asia/Shanghai）
+
+- `a974572` 的 Next.js 生产 Build、完整 Docker runner 镜像、全部单测与 PostgreSQL 工作流通过；浏览器训练闭环通过，总计 144 项通过、1 项文献夹具失败。
+- 文献列表的年份附注与详情标题分别按真实 API 元数据验证，保持精确标题和年份断言。
+- 生产覆盖配置在数据库口令、访问码或加密根密钥缺失时拒绝配置；官方 Compose 实测缺失拒绝、补齐后合并成功、数据库口令一致。
+- 生产服务器、数据库和 Cloudflare 状态按尚未取得权威配置记录，公开 DNS 为 NXDOMAIN。最终报告按本提交的云端复验结果出具，真实 NVIDIA/GLM 联调保留密钥阻塞。
+
 ### TeacherScenarioLab 生产配置与验收收敛（2026-10-30 01:30，Asia/Shanghai）
 
 - 本地完整 Storage 套件 1491 项通过、0 失败、7 跳过；独立 PostgreSQL 写入审计通过，13 张表的插入计数均增加。故障注入遗留的本地测试触发器已恢复，原行数据保留。

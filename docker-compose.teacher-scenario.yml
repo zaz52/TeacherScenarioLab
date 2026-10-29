@@ -4,6 +4,8 @@ services:
     environment:
       OWNER_SINGLE_USER: 'false'
       OPENMAIC_CONFIG: /app/openmaic.yml
+      OPENMAIC_SECRET_KEY: ${OPENMAIC_SECRET_KEY:?Set a persistent encryption secret}
+      ACCESS_CODE: ${ACCESS_CODE:?Set a strong access code}
     volumes:
       - type: bind
         source: ./openmaic.yml
@@ -11,3 +13,6 @@ services:
         read_only: true
         bind:
           create_host_path: false
+  postgres:
+    environment:
+      POSTGRES_PASSWORD: ${PERSISTENCE_POSTGRES_PASSWORD:?Set the PostgreSQL password}

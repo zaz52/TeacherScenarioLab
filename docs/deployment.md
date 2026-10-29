@@ -24,7 +24,8 @@ curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不�
 
 `docker-compose.teacher-scenario.yml` 将本地配置只读挂载至 `/app/openmaic.yml`，
 并固定多用户身份模式。配置文件缺失时，bind 的 `create_host_path: false`
-使 Compose 报错；填好密钥与精确模型 ID 后再启动。基础 Compose 中的可选
+使 Compose 报错；数据库口令、访问码和加密根密钥缺失时也会拒绝配置。
+填好密钥与精确模型 ID 后再启动。基础 Compose 中的可选
 配置挂载仍保留原注释状态。以上命令供验收批准后的部署使用。
 
 ## 2. 必需的服务端环境变量（`.env.local`，不进 Git）
@@ -104,8 +105,9 @@ sha256sum tsl-backup-*.dump
 
 - 代码通过现有 Draft PR #1 审核：`feat/teacher-scenario-lab-product` → `dev/teacher-scenario-lab`。每次验收记录精确 head SHA。
 - 生产构建以最新 head 对应的 Next.js Build 与 Main image 作业为准；历史 OOM 记录保留在验收报告中。镜像 builder 成功与网站运行验收分别记录。
-- 生产模型密钥、生产服务器、生产数据库均未配置；`zhiwei.weiyi.top`
-  的当前服务归属尚未从公开渠道确认，DNS 不动。
+- 本次验收环境缺少 NVIDIA/GLM 密钥；生产服务器与生产数据库的当前
+  配置尚未取得。`zhiwei.weiyi.top` 的公开 DNS 核验返回 NXDOMAIN，
+  Cloudflare 账号内配置与服务归属仍需权威信息确认。
 - 上线是六个分开的操作：① 代码推送到 GitHub ② 构建和部署应用
   ③ 配置目标子域名 ④ 初始化生产数据库 ⑤ 配置生产模型密钥
   ⑥ 生产环境最终验收。GitHub 上有代码 ≠ 网站已上线。

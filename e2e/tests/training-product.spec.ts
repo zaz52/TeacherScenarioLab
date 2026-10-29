@@ -170,7 +170,12 @@ test('Chinese homepage, shared navigation and reference keyword/detail pages ren
   await page.getByRole('button', { name: '搜索', exact: true }).click();
   const reference = page.locator('a[href^="/training/references/"]').first();
   await expect(reference).toBeVisible();
-  const referenceTitle = await reference.innerText();
+  const href = (await reference.getAttribute('href'))!;
+  const response = await page.request.get(`/api${href}`);
+  expect(response.status()).toBe(200);
+  const { reference: citation } = await response.json();
+  await expect(reference).toHaveText(`${citation.title}（${citation.year}）`);
   await reference.click();
-  await expect(page.getByRole('heading', { name: referenceTitle, exact: true })).toBeVisible();
+  await page.waitForURL(`**${href}`);
+  await expect(page.getByRole('heading', { name: citation.title, exact: true })).toBeVisible();
 });
