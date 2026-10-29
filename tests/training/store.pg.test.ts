@@ -40,9 +40,7 @@ function scenario(overrides: Partial<ScenarioVersionRecord> = {}): ScenarioVersi
     rules: ['rule 1'],
     learnerRole: '小学教师',
     characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
-    facts: [
-      { id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' },
-    ],
+    facts: [{ id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' }],
     disclosureConditions: {},
     publishedAt: 1000,
     ...overrides,
@@ -181,9 +179,9 @@ describePg('training service (PostgreSQL contract)', () => {
     await startTraining('owner-a', training.id);
     const moved = await transitionTraining('owner-a', training.id, 'fact-checking');
     expect(moved.state).toBe('fact-checking');
-    await expect(
-      transitionTraining('owner-a', training.id, 'proposal'),
-    ).rejects.toMatchObject({ status: 409 });
+    await expect(transitionTraining('owner-a', training.id, 'proposal')).rejects.toMatchObject({
+      status: 409,
+    });
     await transitionTraining('owner-a', training.id, 'coordination');
     const events = await listEvents('owner-a', training.id);
     const transitions = events.filter((e) => e.type === 'training-transition');
@@ -191,8 +189,8 @@ describePg('training service (PostgreSQL contract)', () => {
       'fact-checking',
       'coordination',
     ]);
-    await expect(
-      transitionTraining('owner-b', training.id, 'proposal'),
-    ).rejects.toMatchObject({ status: 404 });
+    await expect(transitionTraining('owner-b', training.id, 'proposal')).rejects.toMatchObject({
+      status: 404,
+    });
   });
 });

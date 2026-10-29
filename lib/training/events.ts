@@ -40,15 +40,17 @@ export async function listOwnEvents(
   const perTraining = await Promise.all(
     wanted.map(async (training) => {
       const events = await store.listEvents(training.id);
-      return events.map((event: TrainingEventRecord): LearnerEvent => ({
-        id: event.id,
-        trainingId: training.id,
-        scenarioId: training.scenarioId,
-        scenarioVersion: training.scenarioVersion,
-        type: event.type,
-        payload: event.payload,
-        createdAt: event.createdAt,
-      }));
+      return events.map(
+        (event: TrainingEventRecord): LearnerEvent => ({
+          id: event.id,
+          trainingId: training.id,
+          scenarioId: training.scenarioId,
+          scenarioVersion: training.scenarioVersion,
+          type: event.type,
+          payload: event.payload,
+          createdAt: event.createdAt,
+        }),
+      );
     }),
   );
   return perTraining

@@ -13,9 +13,9 @@ const studentFact: TrainingFact = {
 
 describe('scanReplyForLeaks', () => {
   test('flags full content and qualifying segments', () => {
-    expect(
-      scanReplyForLeaks('听说小雨今早有点咳嗽，是真的吗？', [studentFact]),
-    ).toEqual(['fact-student-cough']);
+    expect(scanReplyForLeaks('听说小雨今早有点咳嗽，是真的吗？', [studentFact])).toEqual([
+      'fact-student-cough',
+    ]);
     expect(
       scanReplyForLeaks('小雨今早有点咳嗽，怕被同学笑话，不敢主动跟老师说。', [studentFact]),
     ).toEqual(['fact-student-cough']);

@@ -66,8 +66,18 @@ export default function TrainingHallPage() {
     }
   }
 
-  if (loading) return <main><p>{t('trainingLoading')}</p></main>;
-  if (error) return <main><p>{error}</p></main>;
+  if (loading)
+    return (
+      <main>
+        <p>{t('trainingLoading')}</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main>
+        <p>{error}</p>
+      </main>
+    );
 
   return (
     <main>
@@ -80,10 +90,7 @@ export default function TrainingHallPage() {
             <p>{scenario.setting}</p>
             <p>{scenario.goal}</p>
             <p>{scenario.characters.map((character) => character.name).join('、')}</p>
-            <button
-              onClick={() => void start(scenario)}
-              disabled={starting !== ''}
-            >
+            <button onClick={() => void start(scenario)} disabled={starting !== ''}>
               {starting === scenario.scenarioId ? t('hallStarting') : t('hallStart')}
             </button>
           </li>

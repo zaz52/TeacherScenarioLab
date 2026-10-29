@@ -30,8 +30,7 @@ export async function POST(req: NextRequest) {
     try {
       const training = await createTraining(principal.ownerId, {
         scenarioId: typeof body.scenarioId === 'string' ? body.scenarioId : '',
-        scenarioVersion:
-          typeof body.scenarioVersion === 'number' ? body.scenarioVersion : NaN,
+        scenarioVersion: typeof body.scenarioVersion === 'number' ? body.scenarioVersion : NaN,
       });
       return NextResponse.json({ success: true, training }, { status: 201 });
     } catch (error) {

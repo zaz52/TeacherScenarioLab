@@ -17,10 +17,7 @@ function requestWithCookie(cookie: string | undefined): OwnerAuthRequest {
 }
 
 function fakeLookup(
-  sessions: Record<
-    string,
-    { accountId: string; expiresAt: number; roles: string[] }
-  >,
+  sessions: Record<string, { accountId: string; expiresAt: number; roles: string[] }>,
 ): TrainingSessionLookup {
   return {
     getSessionByTokenHash: async (tokenHash) => {
@@ -40,16 +37,12 @@ function fakeLookup(
 describe('trainingSessionAuthMethod', () => {
   test('absent cookie is not-applicable (caller falls back)', async () => {
     const method = trainingSessionAuthMethod({ lookup: fakeLookup({}) });
-    expect((await method.authenticate(requestWithCookie(undefined))).status).toBe(
-      'not-applicable',
-    );
+    expect((await method.authenticate(requestWithCookie(undefined))).status).toBe('not-applicable');
   });
 
   test('unknown token is invalid, never anonymous', async () => {
     const method = trainingSessionAuthMethod({ lookup: fakeLookup({}) });
-    const result = await method.authenticate(
-      requestWithCookie('training_session=nope'),
-    );
+    const result = await method.authenticate(requestWithCookie('training_session=nope'));
     expect(result.status).toBe('invalid');
   });
 
@@ -59,9 +52,7 @@ describe('trainingSessionAuthMethod', () => {
         'old-token': { accountId: 'acct:1', expiresAt: Date.now() - 1000, roles: [] },
       }),
     });
-    const result = await method.authenticate(
-      requestWithCookie('training_session=old-token'),
-    );
+    const result = await method.authenticate(requestWithCookie('training_session=old-token'));
     expect(result.status).toBe('invalid');
   });
 

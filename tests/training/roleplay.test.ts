@@ -115,9 +115,7 @@ describe('getCharacterPack', () => {
     expect(getCharacterPack('epi-class-fever', 'student-1')?.characterId).toBe('student-1');
     expect(getCharacterPack('epi-class-fever', 'teacher-1')?.characterId).toBe('teacher-1');
     expect(getCharacterPack('epi-class-fever', 'doctor-1')?.characterId).toBe('doctor-1');
-    expect(getCharacterPack('epi-class-fever', 'principal-1')?.characterId).toBe(
-      'principal-1',
-    );
+    expect(getCharacterPack('epi-class-fever', 'principal-1')?.characterId).toBe('principal-1');
     expect(getCharacterPack('epi-class-fever', 'no-such-character')).toBeUndefined();
     expect(getCharacterPack('no-such-scenario', 'parent-1')).toBeUndefined();
   });

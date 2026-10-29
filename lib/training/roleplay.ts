@@ -16,11 +16,7 @@ import { randomUUID } from 'node:crypto';
 
 import type { TrainingMessageRecord } from '@openmaic/storage/training/pg';
 
-import {
-  getCharacterPack,
-  getScenarioPacks,
-  type RoleplayPack,
-} from './character-packs';
+import { getCharacterPack, getScenarioPacks, type RoleplayPack } from './character-packs';
 import { selectResponder, type DirectorPick } from './director';
 import { getDisclosedFacts } from './disclosure';
 import { checkDynamicEvents } from './dynamic-events';
@@ -55,9 +51,7 @@ export function buildCharacterPrompt(
 ): { system: string; prompt: string } {
   const publicFacts = scenario.facts.filter((fact) => fact.visibility === 'public');
   const ownPrivateFacts = scenario.facts.filter(
-    (fact) =>
-      fact.visibility === 'character-private' &&
-      fact.ownerCharacterId === pack.characterId,
+    (fact) => fact.visibility === 'character-private' && fact.ownerCharacterId === pack.characterId,
   );
   const knownFacts = [...publicFacts, ...ownPrivateFacts];
   const systemLines = [
@@ -117,7 +111,11 @@ export async function generateCharacterReply(
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);
   if (!training) {
-    throw new TrainingServiceError(404, 'TRAINING_NOT_FOUND', `training ${trainingId} was not found`);
+    throw new TrainingServiceError(
+      404,
+      'TRAINING_NOT_FOUND',
+      `training ${trainingId} was not found`,
+    );
   }
   if (!(MESSAGEABLE_STATES as readonly string[]).includes(training.state)) {
     throw new TrainingServiceError(
@@ -235,8 +233,7 @@ export async function generateCharacterReply(
   const disclosedIds = new Set(disclosedFacts.map((fact) => fact.id));
   const forbiddenFacts = scenario.facts.filter(
     (fact) =>
-      (fact.visibility === 'character-private' &&
-        fact.ownerCharacterId !== characterId) ||
+      (fact.visibility === 'character-private' && fact.ownerCharacterId !== characterId) ||
       (fact.visibility === 'hidden' && !disclosedIds.has(fact.id)),
   );
   const leaked = scanReplyForLeaks(text, forbiddenFacts);

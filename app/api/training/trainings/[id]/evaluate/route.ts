@@ -14,10 +14,7 @@ import { trainingErrorResponse } from '@/lib/training/http';
 
 export const runtime = 'nodejs';
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   return withTrainingOwner(req, async (principal) => {
     try {

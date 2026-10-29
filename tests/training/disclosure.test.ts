@@ -11,14 +11,22 @@ describe('isConditionSatisfied', () => {
     // scenario no longer binds any userAskedAbout topic (travel was
     // removed so unverified travel history cannot imply a cause).
     const condition = { type: 'userAskedAbout', topic: '外地' } as const;
-    expect(isConditionSatisfied(condition, { ...base, userMessages: ['孩子上周去过外地吗？'] })).toBe(true);
-    expect(isConditionSatisfied(condition, { ...base, userMessages: ['今天天气不错'] })).toBe(false);
+    expect(
+      isConditionSatisfied(condition, { ...base, userMessages: ['孩子上周去过外地吗？'] }),
+    ).toBe(true);
+    expect(isConditionSatisfied(condition, { ...base, userMessages: ['今天天气不错'] })).toBe(
+      false,
+    );
   });
 
   test('eventOccurred needs the exact ledger event type', () => {
     const condition = EPIDEMIC_SCENARIO_V1_DRAFT.disclosureConditions['rumor-in-group']!;
-    expect(isConditionSatisfied(condition, { ...base, events: [{ type: 'user-message' }] })).toBe(false);
-    expect(isConditionSatisfied(condition, { ...base, events: [{ type: 'rumor-in-group' }] })).toBe(true);
+    expect(isConditionSatisfied(condition, { ...base, events: [{ type: 'user-message' }] })).toBe(
+      false,
+    );
+    expect(isConditionSatisfied(condition, { ...base, events: [{ type: 'rumor-in-group' }] })).toBe(
+      true,
+    );
   });
 
   test('stateReached is at-or-past in the linear order', () => {

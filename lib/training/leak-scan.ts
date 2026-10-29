@@ -35,10 +35,7 @@ function factSegments(fact: TrainingFact): string[] {
  * private facts, public facts, and already-disclosed facts are never
  * passed in — callers build the forbidden set.
  */
-export function scanReplyForLeaks(
-  replyText: string,
-  forbiddenFacts: TrainingFact[],
-): string[] {
+export function scanReplyForLeaks(replyText: string, forbiddenFacts: TrainingFact[]): string[] {
   const normalized = normalizeForScan(replyText);
   if (!normalized) return [];
   const leaked: string[] = [];

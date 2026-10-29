@@ -41,9 +41,7 @@ export const TRAINING_SESSION_TTL_MS = TRAINING_SESSION_MAX_AGE_SECONDS * 1000;
 
 /** The session store surface the method needs (injectable for tests). */
 export interface TrainingSessionLookup {
-  getSessionByTokenHash(
-    tokenHash: string,
-  ): Promise<{
+  getSessionByTokenHash(tokenHash: string): Promise<{
     session: { accountId: string; expiresAt: number };
     account: { accountId: string; displayName: string; roles: string[] };
   } | null>;
@@ -85,7 +83,9 @@ export function mintTrainingAccountId(): string {
 
 /** Whether an owner id is one this method mints. */
 export function isTrainingAccountOwnerId(ownerId: string): boolean {
-  return ownerId.startsWith(TRAINING_ACCOUNT_PREFIX) && ownerId.length > TRAINING_ACCOUNT_PREFIX.length;
+  return (
+    ownerId.startsWith(TRAINING_ACCOUNT_PREFIX) && ownerId.length > TRAINING_ACCOUNT_PREFIX.length
+  );
 }
 
 function sessionCookieAttributes(maxAge: number): string {

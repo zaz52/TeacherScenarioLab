@@ -17,11 +17,7 @@
  * returned — locked facts leave no trace (not even a count), so the
  * response cannot oracle how many secrets remain.
  */
-import type {
-  DisclosureCondition,
-  ScenarioVersion,
-  TrainingFact,
-} from './scenario';
+import type { DisclosureCondition, ScenarioVersion, TrainingFact } from './scenario';
 import { toScenarioVersion } from './scenario';
 import { getTrainingStore } from './server';
 import { TRAINING_TRANSITIONS } from './state-machine';
@@ -82,7 +78,11 @@ export async function getDisclosedFactsForTraining(
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);
   if (!training) {
-    throw new TrainingServiceError(404, 'TRAINING_NOT_FOUND', `training ${trainingId} was not found`);
+    throw new TrainingServiceError(
+      404,
+      'TRAINING_NOT_FOUND',
+      `training ${trainingId} was not found`,
+    );
   }
   const record = await store.getScenarioVersion(training.scenarioId, training.scenarioVersion);
   if (!record) {

@@ -49,9 +49,7 @@ describe('parseEvaluation', () => {
   });
 
   test('rejects missing dimensions, bad scores, and garbage', () => {
-    expect(
-      parseEvaluation('t1', validJson({ dimensions: [] }), 1),
-    ).toBeNull();
+    expect(parseEvaluation('t1', validJson({ dimensions: [] }), 1)).toBeNull();
     expect(
       parseEvaluation(
         't1',
@@ -83,9 +81,7 @@ describe('verifyEvaluationCitations', () => {
     const bad: TrainingEvaluation = {
       ...base,
       dimensions: base.dimensions.map((d) =>
-        d.dimension === 'communication'
-          ? { ...d, evidence: ['no-such', 'c1'] }
-          : d,
+        d.dimension === 'communication' ? { ...d, evidence: ['no-such', 'c1'] } : d,
       ),
     };
     const problems = verifyEvaluationCitations(bad, transcript);

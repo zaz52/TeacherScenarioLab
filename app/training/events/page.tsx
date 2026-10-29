@@ -42,8 +42,18 @@ export default function TrainingEventsPage() {
     })();
   }, []);
 
-  if (loading) return <main><p>{t('trainingLoading')}</p></main>;
-  if (error) return <main><p>{error}</p></main>;
+  if (loading)
+    return (
+      <main>
+        <p>{t('trainingLoading')}</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main>
+        <p>{error}</p>
+      </main>
+    );
 
   return (
     <main>
@@ -53,9 +63,8 @@ export default function TrainingEventsPage() {
         {events.map((event) => (
           <li key={event.id}>
             <p>
-              {event.type} — {t('eventsTraining')} {event.trainingId}（
-              {event.scenarioId} v{event.scenarioVersion}，
-              {new Date(event.createdAt).toLocaleString()}）
+              {event.type} — {t('eventsTraining')} {event.trainingId}（{event.scenarioId} v
+              {event.scenarioVersion}，{new Date(event.createdAt).toLocaleString()}）
             </p>
           </li>
         ))}

@@ -31,28 +31,23 @@ describe('selectResponder', () => {
 
   test('topic keywords map to the right character', () => {
     expect(
-      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '停课的事到底谁说了算？')
-        ?.characterId,
+      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '停课的事到底谁说了算？')?.characterId,
     ).toBe('principal-1');
     expect(
       selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '乐乐昨晚烧得厉害，怎么办？')
         ?.characterId,
     ).toBe('parent-1');
     expect(
-      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '晨检和消毒今天做了吗？')
-        ?.characterId,
+      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '晨检和消毒今天做了吗？')?.characterId,
     ).toBe('doctor-1');
     expect(
-      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '上报进度怎么样？')
-        ?.characterId,
+      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '上报进度怎么样？')?.characterId,
     ).toBe('doctor-1');
     expect(
-      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '隔壁班情况怎么样？')
-        ?.characterId,
+      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '隔壁班情况怎么样？')?.characterId,
     ).toBe('teacher-1');
     expect(
-      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '我有点咳嗽，怕被笑话')
-        ?.characterId,
+      selectResponder(EPIDEMIC_SCENARIO_V1_DRAFT, ALL, [], '我有点咳嗽，怕被笑话')?.characterId,
     ).toBe('student-1');
   });
 

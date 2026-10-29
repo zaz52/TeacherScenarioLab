@@ -21,8 +21,19 @@ const interactionRoute: UserStageRoute = { model: 'minimax-m2.7' };
  *   operator's MODEL_ROUTES (with an explicit api dialect and contextWindow) in
  *   agent-runtime/agent-driver-model.ts, so the UI deliberately offers no
  *   user-level override for it.
+ * - training-evaluation / training-roleplay: training-only stages, resolved
+ *   through the independent model slots classroom.evaluation /
+ *   classroom.roleplay (STAGE_SLOTS in lib/config/model-slots.ts), not
+ *   through Course Model Config stations — the UI deliberately offers no
+ *   station override for them, and their slot lineage is covered by the
+ *   model-slots tests instead.
  */
-const STAGES_WITHOUT_A_STATION = ['conversation-title', 'maic-agent-driver'] as const;
+const STAGES_WITHOUT_A_STATION = [
+  'conversation-title',
+  'maic-agent-driver',
+  'training-evaluation',
+  'training-roleplay',
+] as const;
 
 /** 模拟 UI 写入：互动站点覆盖时整组键一起落同一个路由。 */
 function routesFor(keys: readonly string[]): Record<string, UserStageRoute> {

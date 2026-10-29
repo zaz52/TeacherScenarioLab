@@ -22,10 +22,7 @@ interface ReplyBody {
   mode?: unknown;
 }
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   let body: ReplyBody = {};
   try {
@@ -34,11 +31,8 @@ export async function POST(
     return apiError('INVALID_REQUEST', 400, 'invalid JSON body');
   }
   const characterId =
-    typeof body.characterId === 'string' && body.characterId !== ''
-      ? body.characterId
-      : undefined;
-  const mode: ReplyMode =
-    body.mode === 'scripted' || body.mode === 'model' ? body.mode : 'model';
+    typeof body.characterId === 'string' && body.characterId !== '' ? body.characterId : undefined;
+  const mode: ReplyMode = body.mode === 'scripted' || body.mode === 'model' ? body.mode : 'model';
   return withTrainingOwner(req, async (principal) => {
     try {
       const result = await generateCharacterReply(principal.ownerId, id, {

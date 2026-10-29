@@ -149,8 +149,7 @@ describePg('single-role reply (PostgreSQL contract)', () => {
         trainingId,
         { characterId: 'parent-1', mode: 'model' },
         {
-          generateModelReply: async () =>
-            '听说小雨今早有点咳嗽，怕被同学笑话，我很担心。',
+          generateModelReply: async () => '听说小雨今早有点咳嗽，怕被同学笑话，我很担心。',
         },
       ),
     ).rejects.toMatchObject({ status: 502 });

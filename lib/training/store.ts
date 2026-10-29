@@ -126,10 +126,7 @@ export async function createTraining(
 }
 
 /** Move a created training into briefing (the learner starts engaging). */
-export async function startTraining(
-  ownerId: string,
-  trainingId: string,
-): Promise<TrainingRecord> {
+export async function startTraining(ownerId: string, trainingId: string): Promise<TrainingRecord> {
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);
   if (!training) throw notFound('training', trainingId);
@@ -260,11 +257,7 @@ export async function appendUserMessage(
   }
   const idempotencyKey = input.idempotencyKey ?? null;
   if (idempotencyKey !== null && !isValidIdempotencyKey(idempotencyKey)) {
-    throw new TrainingServiceError(
-      400,
-      'INVALID_REQUEST',
-      'idempotencyKey must be a UUID',
-    );
+    throw new TrainingServiceError(400, 'INVALID_REQUEST', 'idempotencyKey must be a UUID');
   }
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);

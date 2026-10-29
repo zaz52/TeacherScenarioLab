@@ -64,9 +64,7 @@ export function buildEvaluationPrompt(
     `情境：${scenario.setting}`,
     `目标：${scenario.goal}`,
     '五个维度与评分标准（每项 0–100 整数）：',
-    ...EVALUATION_DIMENSIONS.map(
-      (dimension) => `- ${dimension}：${DIMENSION_RUBRICS[dimension]}`,
-    ),
+    ...EVALUATION_DIMENSIONS.map((dimension) => `- ${dimension}：${DIMENSION_RUBRICS[dimension]}`),
     '注意：若对话中学生问及同桌等他人病情，须在 responsibility 维度中考查教师是否保护他人健康隐私、同时安抚提问学生。',
     '证据只能引用教师消息的 id，且每条证据 id 必须真实出现在对话记录里；不得引用角色消息，不得编造 id。',
     '先写一段简短中文评语，再输出一个 JSON 代码块，格式：{"dimensions":[{"dimension":"communication","score":80,"evidence":["<教师消息id>"],"comment":"…"},…五个维度各一项],"summary":"…","suggestions":["…"]}。JSON 之外不要再写内容。',
@@ -122,10 +120,7 @@ export function parseEvaluation(
   if (!isRecord(parsed)) return null;
   if (!Array.isArray(parsed.dimensions) || parsed.dimensions.length !== 5) return null;
   if (typeof parsed.summary !== 'string' || !parsed.summary.trim()) return null;
-  if (
-    !Array.isArray(parsed.suggestions) ||
-    parsed.suggestions.some((s) => typeof s !== 'string')
-  ) {
+  if (!Array.isArray(parsed.suggestions) || parsed.suggestions.some((s) => typeof s !== 'string')) {
     return null;
   }
   const seen = new Set<string>();
@@ -148,10 +143,7 @@ export function parseEvaluation(
     ) {
       return null;
     }
-    if (
-      !Array.isArray(entry.evidence) ||
-      entry.evidence.some((e) => typeof e !== 'string')
-    ) {
+    if (!Array.isArray(entry.evidence) || entry.evidence.some((e) => typeof e !== 'string')) {
       return null;
     }
     if (typeof entry.comment !== 'string') return null;
