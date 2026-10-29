@@ -102,4 +102,10 @@ jobs:
             tests/server/generation-run-hooks.pg.test.ts \
             tests/server/material-extraction.pg.test.ts \
             tests/server/legacy-classroom-import.pg.test.ts \
-            tests/persistence/exclusive-create-invariant.pg.test.ts
+            tests/persistence/exclusive-create-invariant.pg.test.ts \
+            tests/training/accounts.pg.test.ts \
+            tests/training/admin.pg.test.ts \
+            tests/training/evaluation.pg.test.ts \
+            tests/training/learner.pg.test.ts \
+            tests/training/reply.pg.test.ts \
+            tests/training/store.pg.test.ts

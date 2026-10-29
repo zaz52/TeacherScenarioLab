@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 预部署验收（2026-10-29 23:58，Asia/Shanghai）
+
+- 任务：接管剩余开发、回归与上线准备；现有 PR #1 保持 Draft。
+- 已核验 Muse 提交 `3fb5cfb` 的格式、训练 stage 例外与身份公共服务修复；最新 GitHub Lint/Typecheck 检查通过。
+- 补齐 PostgreSQL 合约工作流缺失的 6 个训练测试；与 Git 跟踪清单核验为 35 个应用测试文件。
+- 根据 CI 的 `Playwright does not support chromium on ubuntu26.04-x64` 实际错误，将 E2E 作业固定为 Ubuntu 24.04。触发分支及权限配置保持原值。
+- 验证：两个 YAML 解析、工作流结构范围、PostgreSQL 清单一致性与 diff 检查通过；后续 GitHub 全量结果待运行。
+- 待办：训练/身份/配置/数据库回归、浏览器验收、真实模型密钥条件核验、生产构建与部署文档审查。
+- 涉及文件：`.github/workflows/ci.yml`、`.github/workflows/storage-pg-contract.yml`、`CHANGELOG.md`。
+
 ### Features
 
 - `@openmaic/generation` exports `renderScenePrompt('slide-content', { imageElementEnabled, generatedImageEnabled, generatedVideoEnabled })`, which returns the slide content system prompt without running generation. Slide generation builds its system prompt through the same code, so the two cannot drift. `@openmaic/generation` 0.3.26.

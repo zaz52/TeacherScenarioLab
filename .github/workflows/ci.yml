@@ -332,7 +332,8 @@ jobs:
 
   e2e:
     name: E2E Tests
-    runs-on: ubuntu-latest
+    # The locked Playwright version does not support Ubuntu 26.04 yet.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     # The app stores every course in PostgreSQL and refuses to start without
     # DATABASE_URL, so the browser suite runs against a real database; specs
@@ -370,7 +371,7 @@ jobs:
 
       # Browser tarball only. `install-deps` talks to Ubuntu apt; on this
       # runner fleet that mirror has sat through the whole 15-minute job
-      # budget. ubuntu-latest already ships the libraries Chromium needs.
+      # budget. Ubuntu 24.04 already ships the libraries Chromium needs.
       # Bound the Microsoft CDN download so a stall retries instead of hanging.
       - name: Install Playwright Chromium
         run: |
