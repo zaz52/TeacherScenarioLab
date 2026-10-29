@@ -40,6 +40,13 @@ function message(id: string, role: string): TrainingMessageRecord {
 }
 
 describe('parseEvaluation', () => {
+  test.each(['请核对符号 } 的含义。', '保留 { 作为原始证据。', '引文包含 "引号" 与 \\ 转义。'])(
+    'preserves valid JSON string content: %s',
+    (summary) => {
+      expect(parseEvaluation('t1', validJson({ summary }), 1)?.summary).toBe(summary);
+    },
+  );
+
   test('parses a narrative plus JSON tail', () => {
     const parsed = parseEvaluation('t1', validJson(), 123);
     expect(parsed?.trainingId).toBe('t1');

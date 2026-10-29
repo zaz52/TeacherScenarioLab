@@ -19,10 +19,11 @@ corepack prepare pnpm@10.28.0 --activate
 # 或 npm install -g pnpm@10.28.0
 ```
 
-## 2. 拉取代码（关键：单盘布局）
+## 2. 拉取代码与依赖布局
 
-仓库、pnpm store、npm 缓存尽量放在同一个盘。最省事：仓库放在
-系统盘，例如 `C:\code\TeacherScenarioLab`，其余全部默认。
+沿用现有分盘布局，优先复用 D/F 盘的 Node.js、pnpm 和缓存。示例源码路径为
+`F:\Codex\repos\TeacherScenarioLab`。`node_modules` 与虚拟依赖目录保持
+正常的 pnpm 布局；跨盘复用虚拟依赖目录时，应核验依赖内部的模块与类型解析。
 
 ```powershell
 git clone https://github.com/zaz52/TeacherScenarioLab.git
@@ -41,7 +42,7 @@ docker info   # 确认 Docker Desktop 已启动
 pnpm db:up
 ```
 
-按 `docker-compose.yml` 启动 PostgreSQL 16（库名 `openmaic`、用户
+按 `docker-compose.db.yml` 启动 PostgreSQL 16（库名 `openmaic`、用户
 `openmaic`、仅回环 `127.0.0.1:5432`；端口可用 `OPENMAIC_DB_PORT` 改）。
 
 ### 方案 B：本机 PostgreSQL 16
@@ -113,9 +114,19 @@ pnpm vitest run tests/training tests/config tests/server/model-config
 
 - **端口占用**：5432 被占用改 `OPENMAIC_DB_PORT`（Docker 方案）或
   本机 PG 的监听端口，并同步改 `DATABASE_URL`；3000 被占用用
-  `pnpm dev -- -p 3001`。
+  `$env:PORT="3001"; pnpm dev`。
 - **Node / pnpm 版本不对**：Node < 22.19 升级 Node（建议 nvm-windows）；
   pnpm 不是 10.28.0 按第 1 步重装指定版本。
 - **构建或类型检查内存不足**：按第 6 节加大堆内存重跑；生产构建
-  在 8GB 机器上可能 OOM（exit 137），属资源不足，不是编译错误，
-  需换大内存机器或 CI 复验，不要把 OOM 说成构建通过。
+  应使用 CI 的 Next.js Build 与 Main image 作业核验。若退出 137，结合
+  内存日志判定原因；保留具体失败步骤，选用资源充足的环境复验。
+
+## 8. 本地验收隔离
+
+- 普通单测保持默认环境：`pnpm exec vitest run tests/config tests/server/identity tests/server/model-config`。
+- PostgreSQL 合约使用专用本地测试库，通过环境变量 `PG_CONTRACT_URL` 显式提供连接；测试会写入和清理测试表。普通模型配置单测与数据库合约分开运行。
+- `pnpm exec playwright install chromium` 的下载缓存可通过 `PLAYWRIGHT_BROWSERS_PATH` 指定到 F 盘。
+- 包构建完成后再执行 `pnpm exec tsc --noEmit`；包构建会重建 dist，类型检查需要稳定的生成文件。
+- 产品首页为 `/`，训练入口为 `/training/hall`，上游课程生成与课程库入口为 `/courseware`。
+
+- 若跨盘依赖缓存使 Turbopack 报告 Next.js 包位于 workspace root 之外，可在本机使用 `pnpm dev --webpack`。生产构建继续使用 CI 核验的默认方式。

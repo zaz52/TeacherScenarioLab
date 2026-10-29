@@ -11,6 +11,28 @@ import {
 
 const env = { MINIMAX_API_KEY: 'sk-test' };
 
+it('validates the training deployment template with independent locked model slots', () => {
+  const example = fs.readFileSync(
+    path.resolve(process.cwd(), 'openmaic.teacher-scenario.example.yml'),
+    'utf8',
+  );
+  const config = parseModelConfig(example, {
+    env: {
+      NVIDIA_API_KEY: 'test-nvidia-key',
+      GLM_API_KEY: 'test-glm-key',
+      NVIDIA_MODEL_ID: 'catalogue-confirmed-roleplay',
+      GLM_MODEL_ID: 'catalogue-confirmed-evaluation',
+    },
+  });
+  expect(config.providers?.nvidia.preset).toBe('openai-compatible');
+  expect(config.providers?.glm.preset).toBe('glm');
+  expect(config.slots?.['classroom.roleplay']).toBe('nvidia:catalogue-confirmed-roleplay');
+  expect(config.slots?.['classroom.evaluation']).toBe('glm:catalogue-confirmed-evaluation');
+  expect(config.lock).toEqual(['classroom.roleplay', 'classroom.evaluation']);
+  expect(config.allowUserKeys).toBe(false);
+  expect(() => parseModelConfig(example, { env: {} })).toThrow(ModelConfigError);
+});
+
 function issuesOf(text: string, overrides: ConfigEnv = env): readonly string[] {
   try {
     parseModelConfig(text, { env: overrides });

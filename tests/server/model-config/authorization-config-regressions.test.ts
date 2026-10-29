@@ -15,6 +15,11 @@ beforeEach(() => {
   calls.modelId = '';
   dir = fs.mkdtempSync(path.join(os.tmpdir(), 'model-authorization-'));
   vi.spyOn(process, 'cwd').mockReturnValue(dir);
+  // This suite supplies every provider it uses. An unrelated provider exported
+  // by a developer's shell must not alter catalogue ordering or startup notices.
+  for (const key of Object.keys(process.env)) {
+    if (/_(API_KEY|BASE_URL|MODELS|PROXY)$/.test(key)) vi.stubEnv(key, '');
+  }
   for (const key of [
     'DATABASE_URL',
     'OPENMAIC_CONFIG',

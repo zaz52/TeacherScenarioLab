@@ -108,7 +108,7 @@ test('a course stored only in the browser moves to the server on first load', as
   const name = `Legacy course ${stageId.slice(-8)}`;
   await seedLegacyDatabase(page, stageId, name);
 
-  await page.goto('/');
+  await page.goto('/courseware');
 
   // No interaction: the course appears once the import has run.
   await expect(page.getByText(name).first()).toBeVisible({ timeout: 60_000 });
@@ -153,7 +153,7 @@ test('a course stored only in the browser moves to the server on first load', as
   try {
     await fresh.addCookies(cookies);
     const other = await fresh.newPage();
-    await other.goto('/');
+    await other.goto('/courseware');
     await expect(other.getByText(name).first()).toBeVisible({ timeout: 30_000 });
     expect(
       await other.evaluate(async () =>
@@ -198,7 +198,7 @@ test('a first visit without an owner cookie imports under one owner, whatever or
     releaseHeld();
   });
 
-  await page.goto('/');
+  await page.goto('/courseware');
 
   await expect(page.getByText(name).first()).toBeVisible({ timeout: 60_000 });
   expect(holding).toBe(true);

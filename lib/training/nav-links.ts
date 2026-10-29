@@ -21,6 +21,7 @@ export const TRAINING_NAV_LINKS: readonly TrainingNavLink[] = [
   { href: '/training/events', key: 'navEvents' },
   { href: '/training/references', key: 'navReferences' },
   { href: '/training/account', key: 'navAccount' },
+  { href: '/courseware', key: 'navCourseware' },
   { href: '/training/admin', key: 'navAdmin', adminOnly: true },
 ];
 

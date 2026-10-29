@@ -94,6 +94,9 @@ export function TrainingHomeClient() {
           <Button variant="outline" asChild>
             <Link href="/training/references">{t('homeReferences')}</Link>
           </Button>
+          <Button variant="outline" asChild>
+            <Link href="/courseware">{t('navCourseware')}</Link>
+          </Button>
         </div>
       </section>
 

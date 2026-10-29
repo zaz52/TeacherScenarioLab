@@ -215,12 +215,8 @@ export async function generateCharacterReply(
     const generate = deps.generateModelReply ?? (await buildDefaultModelCall(ownerId));
     try {
       text = (await generate(system, prompt)).trim();
-    } catch (error) {
-      throw new TrainingServiceError(
-        503,
-        'UPSTREAM_ERROR',
-        `roleplay model is not available: ${error instanceof Error ? error.message : 'unknown error'}`,
-      );
+    } catch {
+      throw new TrainingServiceError(503, 'UPSTREAM_ERROR', 'roleplay model is not available');
     }
     if (!text) {
       throw new TrainingServiceError(503, 'UPSTREAM_ERROR', 'roleplay model returned empty text');

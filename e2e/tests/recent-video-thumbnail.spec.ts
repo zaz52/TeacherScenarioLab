@@ -140,7 +140,7 @@ test.describe('Home recent video thumbnails', () => {
       await expect(cards.locator('video')).toHaveCount(0);
     };
 
-    await page.goto('/');
+    await page.goto('/courseware');
     await shown();
     // And from the device cache.
     await page.reload();

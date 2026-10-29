@@ -93,29 +93,19 @@ export function parseEvaluation(
   createdAt: number,
 ): TrainingEvaluation | null {
   const stripped = text.replace(/```json|```/g, '');
-  // The JSON tail is the last brace-balanced block: scan back from the
-  // final '}' to its matching '{' (the narrative may contain braces, and
-  // the tail itself nests dimension objects).
+  // Let JSON.parse match the boundaries, including braces and escapes inside
+  // strings. Earlier prose may also contain braces; only a complete JSON tail
+  // is accepted, and the schema and evidence checks still apply below.
   const end = stripped.lastIndexOf('}');
   if (end < 0) return null;
-  let depth = 0;
-  let start = -1;
-  for (let i = end; i >= 0; i--) {
-    if (stripped[i] === '}') depth++;
-    else if (stripped[i] === '{') {
-      depth--;
-      if (depth === 0) {
-        start = i;
-        break;
-      }
-    }
-  }
-  if (start < 0) return null;
   let parsed: unknown;
-  try {
-    parsed = JSON.parse(stripped.slice(start, end + 1));
-  } catch {
-    return null;
+  for (let start = stripped.indexOf('{'); start >= 0; start = stripped.indexOf('{', start + 1)) {
+    try {
+      parsed = JSON.parse(stripped.slice(start, end + 1));
+      break;
+    } catch {
+      // Try the next possible start after a brace in the narrative.
+    }
   }
   if (!isRecord(parsed)) return null;
   if (!Array.isArray(parsed.dimensions) || parsed.dimensions.length !== 5) return null;
@@ -260,12 +250,8 @@ export async function generateEvaluation(
   let text: string;
   try {
     text = (await generate(system, prompt)).trim();
-  } catch (error) {
-    throw new TrainingServiceError(
-      503,
-      'UPSTREAM_ERROR',
-      `evaluation model is not available: ${error instanceof Error ? error.message : 'unknown error'}`,
-    );
+  } catch {
+    throw new TrainingServiceError(503, 'UPSTREAM_ERROR', 'evaluation model is not available');
   }
   if (!text) {
     throw new TrainingServiceError(503, 'UPSTREAM_ERROR', 'evaluation model returned empty text');

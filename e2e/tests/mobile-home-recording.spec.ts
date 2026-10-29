@@ -34,7 +34,7 @@ test.describe('active phone microphone', () => {
           return stream;
         };
       });
-      await page.goto('/');
+      await page.goto('/courseware');
       const mic = page.locator('.home-speech');
       await mic.click();
       await page.waitForFunction(

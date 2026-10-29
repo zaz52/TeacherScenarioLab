@@ -12,13 +12,14 @@ describe('visibleTrainingNavLinks', () => {
       '/training/events',
       '/training/references',
       '/training/account',
+      '/courseware',
     ]);
   });
 
   test('shows the admin link to admins', () => {
     const links = visibleTrainingNavLinks(true);
     expect(links.map((link) => link.href)).toContain('/training/admin');
-    expect(links).toHaveLength(7);
+    expect(links).toHaveLength(8);
   });
 });
 

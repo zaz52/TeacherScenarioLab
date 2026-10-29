@@ -12,7 +12,7 @@ import { seedServerDocument, uniqueStageId } from '../fixtures/server-seed';
  */
 async function seedCourse(page: Page): Promise<string> {
   await page.addInitScript(() => localStorage.setItem('locale', 'en-US'));
-  await page.goto('/');
+  await page.goto('/courseware');
   const stageId = uniqueStageId('e2e-export-pptx-submenus');
   const now = Date.now();
   const scene = (id: string, type: string, order: number, content: Record<string, unknown>) => ({

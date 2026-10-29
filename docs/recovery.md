@@ -69,13 +69,14 @@ DATABASE_URL='<your-database-url>' \
 
 ## 5. 模型配置与重启注意事项
 
-- 本地长期配置是工作目录的 `openmaic.yml`（`openmaic.example.yml`
-  是模板）。它引用 `${NVIDIA_API_KEY}` / `${GLM_API_KEY}`，这两个
-  变量必须在 `.env.local` 里填好，否则服务器拒绝启动。
+- 本地长期配置是工作目录的 `openmaic.yml`。双供应商模板为
+  `openmaic.teacher-scenario.example.yml`，通用模板为 `openmaic.example.yml`。
+  双供应商模板引用 `${NVIDIA_API_KEY}` / `${GLM_API_KEY}`，这两个
+  变量与 `NVIDIA_MODEL_ID`、`GLM_MODEL_ID` 必须在 `.env.local` 中配置，否则服务器拒绝启动。
 - 只有一把 key 就绪时，先把另一家 provider 段和对应的槽位行注释
   掉再启动，不要留空变量启动。
 - 配置在进程启动时读取并缓存：改 `openmaic.yml` 或 `.env.local`
   后必须重启开发服务器；运行中的服务器不受新文件影响。
 - 测试时真实 `openmaic.yml` 会干扰解析模型的测试：跑测试用
-  `OPENMAIC_CONFIG` 指向一个空文件隔离，例如
-  `OPENMAIC_CONFIG=/tmp/empty.yml pnpm vitest run tests/training …`。
+  `OPENMAIC_CONFIG` 指向已存在的空 YAML 文件；文件存在且无配置时，使用空部署层。
+  普通单测默认保持 hermetic 环境；PostgreSQL 合约通过专用 `PG_CONTRACT_URL` 运行。

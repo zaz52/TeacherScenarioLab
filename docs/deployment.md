@@ -14,10 +14,11 @@
 
 ```bash
 # 在部署机上（需要 Docker）
-cp openmaic.example.yml openmaic.yml   # 只有文件存在时才能挂载；缺失文件会被挂载成目录
+cp openmaic.teacher-scenario.example.yml openmaic.yml   # 只有文件存在时才能挂载；缺失文件会被挂载成目录
 cp .env.production.example .env.local  # 再填入真实值（见第 2 节）
-docker compose up -d --build
-docker compose ps                      # openmaic 与 postgres 均为 healthy/running
+docker compose --env-file .env.local config --quiet
+docker compose --env-file .env.local up -d --build
+docker compose --env-file .env.local ps                      # openmaic 与 postgres 均为 healthy/running
 curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不依赖数据库
 ```
 
@@ -25,7 +26,8 @@ curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不�
 
 | 变量 | 说明 |
 |---|---|
-| `DATABASE_URL` | 必填。Compose 默认用 `docker-compose.defaults.env` 里的 bundled postgres 地址；用外部库时在 `.env.local` 里覆盖。密码只用字母数字，否则 URL 编码会断。 |
+| `DATABASE_URL` | 必填。示例通过 `PERSISTENCE_POSTGRES_PASSWORD` 构造连接串；使用外部库时覆盖该值，特殊字符需 URL 编码。 |
+| `PERSISTENCE_POSTGRES_PASSWORD` | 使用 bundled PostgreSQL 时必填。通过 `--env-file .env.local` 同时传入 Compose 插值和应用环境；已有卷的口令变更需要单独操作与验证。 |
 | `OWNER_SINGLE_USER` | **生产必须设为 `false`**。Compose 默认是 `true`（单人自用模式：所有请求解析为同一个 owner，不发匿名 cookie），会破坏训练的账号/匿名/认领模型。 |
 | `TRAINING_ADMIN_ACCOUNT_IDS` | 管理员账号 ID 列表（逗号分隔，形如 `acct:<uuid>`）。管理员永不自助授予，只从这里来。 |
 | `NVIDIA_API_KEY` / `GLM_API_KEY` | 模型密钥，只进 `.env.local`，不进 YAML 明文、不进源码、不进 Git。 |
@@ -33,7 +35,8 @@ curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不�
 | `ACCESS_CODE` | 对外发布前必须设强值（无 ACCESS_CODE 时 Compose 默认只绑 127.0.0.1）。 |
 | `OPENMAIC_PUBLISH_ADDRESS` | 需要对外发布时设为 `0.0.0.0`（或指定网卡），并配合反代/隧道做 HTTPS。 |
 
-模型配置用 `openmaic.yml`（长期机制，见仓库 `openmaic.example.yml`）：
+模型配置用 `openmaic.yml`。双供应商参考 `openmaic.teacher-scenario.example.yml`，
+通用供应商参考 `openmaic.example.yml`；已有配置应合并需要的 provider 和 slot。
 NVIDIA 走 `openai-compatible`（`https://integrate.api.nvidia.com/v1`），
 智谱 GLM 走原生 `glm` preset；角色对话与训练评价分别走
 `classroom.roleplay` / `classroom.evaluation` 槽位。**`openmaic.yml` 一旦
@@ -49,10 +52,12 @@ NVIDIA 走 `openai-compatible`（`https://integrate.api.nvidia.com/v1`），
 - 备份（部署机上，示例）：
 
 ```bash
-docker compose exec postgres pg_dump -U openmaic openmaic > tsl-backup-$(date +%F).sql
+docker compose --env-file .env.local exec -T postgres pg_dump -U openmaic -Fc openmaic > tsl-backup-$(date +%F).dump
+sha256sum tsl-backup-*.dump
 ```
 
-- 恢复：停应用后用 `psql` 回放备份，再起应用；恢复后核对
+- 恢复演练：在独立空库用 `pg_restore --exit-on-error` 恢复上述自定义格式备份；
+  验证迁移版本与数据后再制定生产恢复窗口。生产恢复前保留当前库备份。恢复后核对
   `training_scenarios` 里已发布版本、`trainings` 数量与管理员账号。
 - 已发布情境版本是冻结的：恢复后历史训练仍绑定原版本，不会被新
   版本覆盖；不要直接 UPDATE 已发布行。
@@ -91,11 +96,18 @@ docker compose exec postgres pg_dump -U openmaic openmaic > tsl-backup-$(date +%
 
 ## 7. 上线前仍待外部条件（截至本文档编写时，诚实标注）
 
-- 代码尚未推送到 GitHub（本地开发分支，未建 PR、未合并主分支）。
-- 生产构建在 8GB 虚拟机上因 OOM（exit 137）未通过，需在更大内存
-  机器或 CI 上复验；**不要把未通过的构建说成通过**。
+- 代码通过现有 Draft PR #1 审核：`feat/teacher-scenario-lab-product` → `dev/teacher-scenario-lab`。每次验收记录精确 head SHA。
+- 生产构建以最新 head 对应的 Next.js Build 与 Main image 作业为准；历史 OOM 记录保留在验收报告中。镜像 builder 成功与网站运行验收分别记录。
 - 生产模型密钥、生产服务器、生产数据库均未配置；`zhiwei.weiyi.top`
   的当前服务归属尚未从公开渠道确认，DNS 不动。
 - 上线是六个分开的操作：① 代码推送到 GitHub ② 构建和部署应用
   ③ 配置目标子域名 ④ 初始化生产数据库 ⑤ 配置生产模型密钥
   ⑥ 生产环境最终验收。GitHub 上有代码 ≠ 网站已上线。
+
+## 8. 发布前配置核验
+
+- `docker compose --env-file .env.local config --quiet` 校验后，核验应用与 PostgreSQL 使用同一口令；完整 `config` 输出含敏感值，应保留在受保护环境。
+- NVIDIA 的 `NVIDIA_MODEL_ID` 由携带本地密钥的 `GET https://integrate.api.nvidia.com/v1/models` 目录核验。GLM 的 `GLM_MODEL_ID` 按账号可用目录填写；两项真实调用分别验收。
+- 健康探针 `/api/health` 不检查数据库。数据库就绪还需以数据库连接、训练目录和真实写入读取回归核验。
+- 普通账号访问管理 API 返回 403；跨 owner 的训练返回 404；无效会话返回 401。复核 HTTPS 下 cookie 的 Secure、HttpOnly、SameSite 属性。
+- 当前阶段保留正式部署为待批准事项。域名 DNS、服务器归属、Cloudflare 路由、生产 PostgreSQL 和备份位置须由可核验的当前配置确认。

@@ -1,6 +1,7 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
 import type { OwnerAuthRequest } from '@/lib/server/identity/types';
+import * as trainingServer from '@/lib/training/server';
 import {
   hashTrainingSessionToken,
   isTrainingAdmin,
@@ -35,6 +36,29 @@ function fakeLookup(
 }
 
 describe('trainingSessionAuthMethod', () => {
+  test('does not open the session store for an absent credential', async () => {
+    const lookup = vi
+      .spyOn(trainingServer, 'getTrainingStore')
+      .mockImplementation(() => new Promise(() => {}));
+    try {
+      const method = trainingSessionAuthMethod();
+      expect((await method.authenticate(requestWithCookie(undefined))).status).toBe(
+        'not-applicable',
+      );
+      expect(lookup).not.toHaveBeenCalled();
+    } finally {
+      lookup.mockRestore();
+    }
+  });
+
+  test.each(['training_session=', 'training_session=%ZZ', 'training_session=%E0%A4%A'])(
+    'rejects a present malformed credential: %s',
+    async (cookie) => {
+      const method = trainingSessionAuthMethod({ lookup: fakeLookup({}) });
+      expect((await method.authenticate(requestWithCookie(cookie))).status).toBe('invalid');
+    },
+  );
+
   test('absent cookie is not-applicable (caller falls back)', async () => {
     const method = trainingSessionAuthMethod({ lookup: fakeLookup({}) });
     expect((await method.authenticate(requestWithCookie(undefined))).status).toBe('not-applicable');

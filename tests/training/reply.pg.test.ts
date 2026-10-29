@@ -159,6 +159,26 @@ describePg('single-role reply (PostgreSQL contract)', () => {
     expect(events.filter((e) => e.type === 'character-reply')).toHaveLength(0);
   });
 
+  test('upstream failures disclose no provider detail and persist no success', async () => {
+    const before = await listMessages('owner-1', trainingId, false);
+    await expect(
+      generateCharacterReply(
+        'owner-1',
+        trainingId,
+        { characterId: 'parent-1', mode: 'model' },
+        {
+          generateModelReply: async () => {
+            throw new Error('sensitive-upstream-detail');
+          },
+        },
+      ),
+    ).rejects.toMatchObject({ status: 503, message: 'roleplay model is not available' });
+    expect(await listMessages('owner-1', trainingId, false)).toHaveLength(before.length);
+    expect(
+      (await listEvents('owner-1', trainingId)).filter((e) => e.type === 'character-reply'),
+    ).toHaveLength(0);
+  });
+
   test('unknown characters, pack-less characters, wrong states, foreign owners fail', async () => {
     await expect(
       generateCharacterReply('owner-1', trainingId, {

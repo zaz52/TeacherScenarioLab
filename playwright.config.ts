@@ -51,6 +51,8 @@ export default defineConfig({
     // `pnpm build` step; locally `pnpm dev` reads it here.
     env: {
       PORT: '3002',
+      OWNER_SINGLE_USER: 'false',
+      TRAINING_ADMIN_ACCOUNT_IDS: 'acct:00000000-0000-4000-8000-000000000e2e',
       NEXT_PUBLIC_MAIC_EDITOR_ENABLED: 'true',
       NEXT_PUBLIC_COURSEWARE_REFERENCE_ENABLED: 'true',
     },

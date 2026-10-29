@@ -60,7 +60,7 @@ function readCookie(headers: Headers, name: string): string | undefined {
     try {
       return decodeURIComponent(item.slice(separator + 1).trim());
     } catch {
-      return undefined;
+      return '';
     }
   }
   return undefined;
@@ -144,12 +144,14 @@ export interface TrainingSessionMethodDeps {
  * or `invalid` when the token is unknown or expired.
  */
 export function trainingSessionAuthMethod(deps: TrainingSessionMethodDeps = {}): OwnerAuthMethod {
-  const lookupPromise = deps.lookup ?? defaultSessionLookup();
+  let lookupPromise = deps.lookup;
   const adminAccountIds = deps.adminAccountIds ?? resolveTrainingAdminAccountIds();
 
   async function authenticate(req: OwnerAuthRequest): Promise<OwnerAuthMethodResult> {
     const token = readCookie(req.headers, TRAINING_SESSION_COOKIE);
-    if (token === undefined || token === '') return { status: 'not-applicable' };
+    if (token === undefined) return { status: 'not-applicable' };
+    if (token === '') return { status: 'invalid', reason: 'malformed training session' };
+    lookupPromise ??= defaultSessionLookup();
     const lookup = await lookupPromise;
     const found = await lookup.getSessionByTokenHash(hashTrainingSessionToken(token));
     if (!found) {

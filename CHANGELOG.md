@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 回归修复与上线准备（2026-10-30 00:51，Asia/Shanghai）
+
+- 需求：完成部署前可执行的开发、回归、模型链路与上线准备，现有 PR #1 保持 Draft。
+- 修复：评价 JSON 字符串中的花括号解析；损坏或空会话凭据返回 invalid；无凭据请求延迟初始化训练会话存储；模型失败响应使用固定信息，原始供应商错误不进入 API 响应。
+- 功能回归：保留产品首页，恢复上游课程生成和课程库界面至 `/courseware`，新增首页与训练导航入口，12 种语言的导航键保持一致；原课程 E2E 的入口定位同步到该路由，断言保持原值。
+- 启动兼容：Node 启动逻辑保持原内容，迁入 `lib/server/startup.ts`，由 instrumentation 的明确 Node 运行时分支导入，隔离 Edge 打包的 Node SDK。启动和身份边界复测 91 项通过。
+- 自动验收：新增 3 项真实数据库/浏览器产品流程；模型配置测试隔离开发者导出的其他供应商配置。训练 121 项、配置/身份/模型/工作流 987 项通过；TypeScript 已通过，最新修改继续复验。
+- 文档配置：补充 NVIDIA/GLM 独立槽位示例；生产变量模板补齐 Compose 数据库口令插值；更新 Windows、备份恢复、管理员及上线前核验说明。真实模型调用等待 NVIDIA/GLM 密钥，用户选择先继续无密钥验收。
+- 外部核验：Google 公共 DNS 查询 `zhiwei.weiyi.top` 的 A/AAAA/CNAME 均返回 NXDOMAIN；生产服务器、生产数据库与 Cloudflare 账号配置仍需当前权威信息。
+- 待办：当前提交的云端完整 CI、生产 Build、镜像与 E2E 结果，Storage 本地完整退出码与恢复演练，真实供应商调用。
+- 涉及文件：训练服务与回归测试、课程入口及 E2E、启动入口、i18n 导航、模型示例与部署文档。
+
 ### TeacherScenarioLab 预部署验收（2026-10-29 23:58，Asia/Shanghai）
 
 - 任务：接管剩余开发、回归与上线准备；现有 PR #1 保持 Draft。

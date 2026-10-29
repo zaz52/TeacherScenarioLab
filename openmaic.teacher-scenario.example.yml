@@ -1,0 +1,20 @@
+# Copy to the ignored openmaic.yml after confirming both model IDs with the vendors.
+# Existing provider presets remain available in openmaic.example.yml and the registry.
+providers:
+  nvidia:
+    preset: openai-compatible
+    baseUrl: https://integrate.api.nvidia.com/v1
+    apiKey: ${NVIDIA_API_KEY}
+    models: ['${NVIDIA_MODEL_ID}']
+  glm:
+    preset: glm
+    apiKey: ${GLM_API_KEY}
+    models: ['${GLM_MODEL_ID}']
+
+slots:
+  llm: nvidia:${NVIDIA_MODEL_ID}
+  classroom.roleplay: nvidia:${NVIDIA_MODEL_ID}
+  classroom.evaluation: glm:${GLM_MODEL_ID}
+
+lock: [classroom.roleplay, classroom.evaluation]
+allowUserKeys: false
