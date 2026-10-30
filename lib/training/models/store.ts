@@ -329,7 +329,6 @@ export async function poolOverview() {
       const completed = own.filter((c) => c.status !== 'reserved');
       const successes = completed.filter((c) => c.status === 'success');
       const duration = successes.map((c) => c.durationMs);
-      const today = own.filter((c) => c.startedAt >= new Date(now).setUTCHours(0, 0, 0, 0));
       const usedRows = await pool.query(
         "SELECT coalesce(sum((data->>'reservedUnits')::double precision),0) AS used FROM training_model_calls WHERE provider=$1 AND started_at>=$2",
         [p.provider, p.observedAt ?? now],

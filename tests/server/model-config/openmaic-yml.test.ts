@@ -18,16 +18,15 @@ it('validates the training deployment template with independent locked model slo
   );
   const config = parseModelConfig(example, {
     env: {
-      NVIDIA_API_KEY: 'test-nvidia-key',
       GLM_API_KEY: 'test-glm-key',
-      NVIDIA_MODEL_ID: 'catalogue-confirmed-roleplay',
-      GLM_MODEL_ID: 'catalogue-confirmed-evaluation',
+      GOOGLE_API_KEY: 'test-google-key',
     },
   });
-  expect(config.providers?.nvidia.preset).toBe('openai-compatible');
+  expect(config.providers?.nvidia).toBeUndefined();
   expect(config.providers?.glm.preset).toBe('glm');
-  expect(config.slots?.['classroom.roleplay']).toBe('nvidia:catalogue-confirmed-roleplay');
-  expect(config.slots?.['classroom.evaluation']).toBe('glm:catalogue-confirmed-evaluation');
+  expect(config.providers?.google.preset).toBe('google');
+  expect(config.slots?.['classroom.roleplay']).toBe('glm:glm-4.7-flash');
+  expect(config.slots?.['classroom.evaluation']).toBe('google:gemini-3.8-flash');
   expect(config.lock).toEqual(['classroom.roleplay', 'classroom.evaluation']);
   expect(config.allowUserKeys).toBe(false);
   expect(() => parseModelConfig(example, { env: {} })).toThrow(ModelConfigError);

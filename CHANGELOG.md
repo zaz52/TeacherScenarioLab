@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 资源池契约与验收补充（2026-10-30 13:01，Asia/Shanghai）
+
+- `94ec62e` 的生产 Next.js 构建、最终 Docker 镜像和16项 PostgreSQL 运行检查通过，159项 Chromium 浏览器回归通过，PostgreSQL 合约通过；CI 中旧部署模板断言和新增测试函数类型检查失败，修正为当前 GLM/Google 分工和明确类型。
+- 真实资格测试对瞬时网络/服务错误增加一次预算内重试，保留权限、额度、隐私和安全拒绝的终止规则，并补充自动化验证。
+- 7张模型资源池表在独立数据库完成备份恢复，全部行数一致；观测余额与本地日/月预算的恢复规则在文档中分开说明。
+- 真实供应商请求仍有超时、限流和输出扫描阻塞；失败及跳过按实际记录。PR 保持 Draft，最新提交的完整 CI 需以本次推送后的结果为准。
+
 ### TeacherScenarioLab 多供应商训练模型池（2026-10-30 12:46，Asia/Shanghai）
 
 - 新增七家训练供应商连接档案，复用现有原生/兼容适配器、槽位标识与 callLLM；保留原有 provider preset。

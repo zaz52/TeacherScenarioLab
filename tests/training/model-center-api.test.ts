@@ -9,8 +9,10 @@ const mocks = vi.hoisted(() => ({
   qualify: vi.fn(),
 }));
 vi.mock('@/lib/training/with-training-admin', () => ({
-  withTrainingAdmin: async (_req: unknown, fn: Function) =>
-    mocks.allowed ? fn({ ownerId: 'acct:admin' }) : new Response('Forbidden', { status: 403 }),
+  withTrainingAdmin: async (
+    _req: unknown,
+    fn: (principal: { ownerId: string }) => Promise<Response>,
+  ) => (mocks.allowed ? fn({ ownerId: 'acct:admin' }) : new Response('Forbidden', { status: 403 })),
 }));
 vi.mock('@/lib/training/models/store', () => ({
   readPoolState: mocks.read,
