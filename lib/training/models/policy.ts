@@ -149,7 +149,7 @@ export function eligible(
       qualification.key === modelKey(p) &&
       qualification.passed &&
       qualification.source === 'real' &&
-      qualification.suiteVersion === 1 &&
+      qualification.suiteVersion === 2 &&
       now - qualification.checkedAt < 30 * 86400000,
     )
   );

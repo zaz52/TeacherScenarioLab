@@ -6,11 +6,13 @@ const mocks = vi.hoisted(() => ({
   finish: vi.fn(),
   call: vi.fn(),
   httpStatus: 200,
+  invalidate: vi.fn(),
 }));
 vi.mock('@/lib/training/models/store', () => ({
   readPoolState: mocks.read,
   reserveCall: mocks.reserve,
   finishCall: mocks.finish,
+  invalidateQualification: mocks.invalidate,
 }));
 vi.mock('@/lib/server/model-config/llm', () => ({
   languageModelFor: vi.fn(async () => ({ model: {}, thinkingConfig: { mode: 'disabled' } })),
@@ -52,7 +54,7 @@ beforeEach(() => {
         passed: true,
         checkedAt: now,
         source: 'real',
-        suiteVersion: 1,
+        suiteVersion: 2,
       })),
     ),
     routing: { roleplay: null, evaluation: null },

@@ -2,7 +2,7 @@ import { languageModelFor } from '@/lib/server/model-config/llm';
 import { callLLM } from '@/lib/ai/llm';
 import { classifyFailure, eligible, orderCandidates, protectPrompt, minimizeNames } from './policy';
 import { providerConnection, poolTarget, poolFetch } from './providers';
-import { finishCall, readPoolState, reserveCall } from './store';
+import { finishCall, readPoolState, reserveCall, invalidateQualification } from './store';
 import { modelKey, PoolError, type CallRecord, type ModelPolicy, type ModelTask } from './types';
 
 export interface ModelSelection {
@@ -90,7 +90,7 @@ export async function invokePoolModel(
         undefined,
         error instanceof PoolError ? error.factIds : undefined,
       ),
-      { failure },
+      { failure, callId: reservation.id },
     );
   } finally {
     reservation.durationMs = Date.now() - reservation.startedAt;
@@ -179,6 +179,10 @@ export async function routeTrainingModel(input: {
           prompt = `${input.prompt}\n请重新生成符合要求的完整 JSON 对象，保留真实教师消息 ID。`;
           // A format failure is not a transport outage: a separate call is budgeted.
           continue;
+        }
+        if (failure.kind === 'json') {
+          const callId = (error as { callId?: string }).callId;
+          if (callId) await invalidateQualification({ key, task: input.task, id: callId }, 'json');
         }
         if (failure.retry && retries++ < 1) {
           await new Promise((resolve) => setTimeout(resolve, 250));

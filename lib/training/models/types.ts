@@ -110,10 +110,11 @@ export interface Qualification {
   failureCase?: number;
   blockedFactIds?: string[];
   samples?: { caseIndex: number; output: string; truncated: boolean }[];
+  runtimeFailure?: { kind: 'json' | 'privacy' | 'evidence'; callId: string; at: number };
   qualityChecks: Record<string, boolean>;
   durationsMs: number[];
   source: 'real';
-  suiteVersion: 1;
+  suiteVersion: 1 | 2;
 }
 export interface RoutingSettings {
   roleplay: string | null;

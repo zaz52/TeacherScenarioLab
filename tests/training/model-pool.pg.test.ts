@@ -75,7 +75,7 @@ async function configure(p: ModelPolicy) {
       qualityChecks: { testFixture: true },
       durationsMs: [],
       source: 'real',
-      suiteVersion: 1,
+      suiteVersion: 2,
     });
 }
 suite('model pool PostgreSQL contracts (mock transport, real persistence)', () => {
@@ -317,5 +317,27 @@ suite('model pool PostgreSQL contracts (mock transport, real persistence)', () =
     expect((await readPoolState()).policies.find((x) => modelKey(x) === modelKey(p))).toEqual(p);
     await poolDatabase();
     expect((await readPoolState()).policies.find((x) => modelKey(x) === modelKey(p))).toEqual(p);
+  });
+  test('business evidence failures revoke evaluation qualification independently of roleplay', async () => {
+    const p = make();
+    await configure(p);
+    const r = (await reserveCall(p, 'evaluation', 'test-training', 100, 'training'))!;
+    r.status = 'failed';
+    r.kind = 'evidence';
+    await finishCall(r, {
+      kind: 'evidence',
+      httpStatus: 200,
+      retry: false,
+      retryAt: null,
+      terminal: true,
+    });
+    const state = await readPoolState();
+    expect(
+      state.qualifications.find((q) => q.key === modelKey(p) && q.task === 'evaluation')?.passed,
+    ).toBe(false);
+    expect(
+      state.qualifications.find((q) => q.key === modelKey(p) && q.task === 'roleplay')?.passed,
+    ).toBe(true);
+    expect(await reserveCall(p, 'evaluation', 'test-training', 100, 'training')).toBeNull();
   });
 });

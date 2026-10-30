@@ -68,7 +68,7 @@ export async function qualifyModel(
       task,
       passed: false,
       checkedAt: Date.now(),
-      cases: task === 'roleplay' ? ROLE_CASES.length : 2,
+      cases: task === 'roleplay' ? ROLE_CASES.length : 3,
       successes: 0,
       failures: 0,
       jsonValid: 0,
@@ -81,7 +81,7 @@ export async function qualifyModel(
       },
       durationsMs: [],
       source: 'real',
-      suiteVersion: 1,
+      suiteVersion: 2,
       samples: [],
     };
     const scores: number[][] = [];
@@ -93,13 +93,27 @@ export async function qualifyModel(
         if (index > 0)
           await new Promise((resolve) => setTimeout(resolve, Math.ceil(60000 / policy.rpm) + 50));
         let system: string, prompt: string;
-        const transcript = [
+        const transcript: TrainingMessageRecord[] = [
           teacherMessage('我先安抚学生并联系校医核实信息，不透露其他学生的个人健康信息。'),
           teacherMessage(
             '我将向校长汇报已确认事实，请学校按职责分工处理，通知以学校核实信息为准。',
             'teacher-evidence-2',
           ),
         ];
+        if (task === 'evaluation' && index === 2) {
+          transcript.length = 0;
+          for (let turn = 0; turn < 10; turn++) {
+            const [role, question] = ROLE_CASES[turn % 4];
+            transcript.push(teacherMessage(question, `long-teacher-${turn + 1}`), {
+              ...teacherMessage(
+                getCharacterPack(scenario.scenarioId, role)!.scriptedReplies[0],
+                `long-character-${turn + 1}`,
+              ),
+              role: 'character',
+              characterId: role,
+            });
+          }
+        }
         const characterId = ROLE_CASES[index]?.[0] ?? 'parent-1';
         if (task === 'roleplay') {
           const history = [teacherMessage(ROLE_CASES[index][1])];
@@ -174,7 +188,7 @@ export async function qualifyModel(
         result.successes++;
         if (task === 'roleplay' && index === 0) parentReply = response.text;
       }
-      if (scores.length === 2)
+      if (scores.length >= 2)
         result.qualityChecks.scoreConsistency = scores[0].every(
           (s, i) => Math.abs(s - scores[1][i]) <= 25,
         );

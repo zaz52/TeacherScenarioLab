@@ -304,7 +304,40 @@ export async function finishCall(record: CallRecord, failure?: Failure) {
       );
     else if (!failure)
       await c.query('DELETE FROM training_model_control WHERE id=$1', [`failure:${record.key}`]);
+    if (record.purpose === 'training' && failure && ['privacy', 'evidence'].includes(failure.kind))
+      await revokeInTransaction(c, record, failure.kind as 'privacy' | 'evidence');
   });
+}
+
+async function revokeInTransaction(
+  c: PoolClient,
+  record: Pick<CallRecord, 'id' | 'key' | 'task'>,
+  kind: 'json' | 'privacy' | 'evidence',
+) {
+  const row = await c.query(
+    'SELECT data FROM training_model_qualifications WHERE key=$1 AND task=$2 FOR UPDATE',
+    [record.key, record.task],
+  );
+  if (!row.rowCount) return;
+  const previous = row.rows[0].data as Qualification;
+  const updated: Qualification = {
+    ...previous,
+    passed: false,
+    failureKind: kind,
+    qualityChecks: { ...previous.qualityChecks, runtimeValidity: false },
+    runtimeFailure: { kind, callId: record.id, at: Date.now() },
+  };
+  await c.query('UPDATE training_model_qualifications SET data=$3 WHERE key=$1 AND task=$2', [
+    record.key,
+    record.task,
+    updated,
+  ]);
+}
+export async function invalidateQualification(
+  record: Pick<CallRecord, 'id' | 'key' | 'task'>,
+  kind: 'json' | 'privacy' | 'evidence',
+) {
+  await withPoolTransaction((c) => revokeInTransaction(c, record, kind));
 }
 
 export async function poolOverview() {

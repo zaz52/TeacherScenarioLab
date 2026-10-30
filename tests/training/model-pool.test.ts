@@ -42,7 +42,7 @@ const q = (key: string): Qualification => ({
   qualityChecks: { complete: true },
   durationsMs: [20, 30],
   source: 'real',
-  suiteVersion: 1,
+  suiteVersion: 2,
 });
 describe('training pool free eligibility and order', () => {
   test('known local budgets reset while provider balances require a fresh observation', () => {
@@ -62,6 +62,7 @@ describe('training pool free eligibility and order', () => {
     const p = glm();
     expect(eligible(p, 'roleplay', undefined, now)).toBe(false);
     expect(eligible(p, 'roleplay', q(modelKey(p)), now)).toBe(true);
+    expect(eligible(p, 'roleplay', { ...q(modelKey(p)), suiteVersion: 1 }, now)).toBe(false);
     expect(eligible({ ...p, tasks: ['roleplay'] }, 'evaluation', q(modelKey(p)), now)).toBe(false);
   });
   test.each(['unknown', 'paid'] as const)('refuses %s free status', (freeStatus) =>
