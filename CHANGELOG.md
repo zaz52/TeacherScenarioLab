@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab 免费 Workers 兼容适配（2026-10-31，Asia/Shanghai）
 
+- 根据Next.js官方GHSA-2464-fhr4-w9xw公告，将项目与私有图片包的直接sharp固定为0.35.5；Next.js16.4.1已使用该修复版，其他依赖声明保持原值。
 - 8813794的云端图片workerd检查、全仓格式/ESLint/TypeScript通过；pg-cloudflare错误消除。完整Workers打包仍有4项sharp错误，继续明确指定Workers构建的图片入口并保留依赖诊断。
 - 用户确认继续免费Cloudflare Workers路径，撤回VPS选择；Neon Free与teacherlab.weiyi.top保持既定方案，合并继续等待批准。
 - 增加私有图片运行时条件导出：Node沿用sharp，Workers通过Images绑定执行转换，保留PDF像素转PNG、WebP衍生图片、视觉附件大小和无效输入检查；训练API与核心引擎保持原样。

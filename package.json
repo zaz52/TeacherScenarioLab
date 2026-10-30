@@ -156,7 +156,7 @@
     "react-i18next": "^17.0.1",
     "sanitize-html": "2.17.0",
     "shadcn": "^3.6.3",
-    "sharp": "0.35.4",
+    "sharp": "0.35.5",
     "shiki": "^3.21.0",
     "sonner": "^2.0.7",
     "streamdown": "^2.5.0",
