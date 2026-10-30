@@ -55,7 +55,10 @@ pnpm cf:preview
 ```
 
 `Cloudflare validation` 工作流使用 Ubuntu 24.04 和独立 PostgreSQL 16，
-执行 OpenNext 构建、Wrangler dry-run 与本地 Workers 健康/连续目录请求。
+执行 OpenNext 构建、Wrangler dry-run 与本地 Workers 健康/并发及连续目录请求。
+隔离库中的合成情境覆盖账号会话与owner隔离、脚本对话、幂等消息、状态事件、
+无模型凭据时评价失败不落账、6处页面HTTP响应和50条文献详情接口。
+页面HTTP检查与真实浏览器交互分别验收，文献接口检查与外部书目信息核验分别记录。
 该工作流保留诊断日志，部署、DNS 和供应商真实调用需要各自的配置与验收。
 构建失败按编译、依赖、资源不足和 Workers 运行错误分别记录。
 

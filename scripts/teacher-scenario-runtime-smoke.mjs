@@ -5,7 +5,9 @@ import { setTimeout as delay } from 'node:timers/promises';
 const database = new URL(process.env.DATABASE_URL ?? '');
 assert.equal(database.hostname, '127.0.0.1');
 assert.equal(database.pathname, '/teacher_scenario_runtime');
-const baseUrl = 'http://127.0.0.1:3000';
+const port = process.env.TEACHERLAB_RUNTIME_SMOKE_PORT ?? '3000';
+assert.ok(['3000', '8787'].includes(port), 'Runtime smoke requires a local acceptance port');
+const baseUrl = `http://127.0.0.1:${port}`;
 const checks = [];
 let accessCookie;
 

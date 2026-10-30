@@ -37,6 +37,7 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/teacher_scenario_runtime
       OWNER_SINGLE_USER: 'false'
       OPENMAIC_SECRET_KEY: ci-cloudflare-fixture-encryption-key
+      ACCESS_CODE: ci-workers-acceptance-access-code
     steps:
       - uses: actions/checkout@v5
         with:
@@ -56,6 +57,8 @@ jobs:
         run: |
           set -o pipefail
           pnpm exec wrangler deploy --dry-run --outdir .cloudflare-dry-run 2>&1 | tee cloudflare-dry-run.log
+      - name: Seed the isolated training fixture
+        run: pnpm exec tsx scripts/teacher-scenario-workers-fixture.mts
       - name: Exercise Workers runtime against isolated PostgreSQL
         shell: bash
         run: |
@@ -64,11 +67,14 @@ jobs:
             'OWNER_SINGLE_USER=false' \
             'NEXTJS_ENV=production' \
             'OPENMAIC_SECRET_KEY=ci-cloudflare-fixture-encryption-key' \
+            "ACCESS_CODE=$ACCESS_CODE" \
             > .dev.vars
           pnpm exec wrangler dev --local --ip 127.0.0.1 --port 8787 --inspector-port 0 > cloudflare-runtime.log 2>&1 &
           worker_pid=$!
           trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
           node scripts/teacher-scenario-workers-smoke.mjs
+          TEACHERLAB_RUNTIME_SMOKE_PORT=8787 node scripts/teacher-scenario-runtime-smoke.mjs
+          node scripts/teacher-scenario-workers-product-smoke.mjs
       - name: Inspect build dependency references
         if: failure()
         run: node scripts/teacher-scenario-cloudflare-diagnostics.mjs
