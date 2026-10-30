@@ -17,7 +17,7 @@ import {
   type WithTransaction,
 } from '@openmaic/storage/training/pg';
 import type { ConnectableQueryable } from '@openmaic/storage/server/reference';
-import { Pool } from 'pg';
+import { Pool } from '@/lib/persistence/postgres-pool';
 
 import { withSchemaBootstrapLock } from '@/lib/persistence/schema-bootstrap-lock';
 

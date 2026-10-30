@@ -44,6 +44,8 @@ jobs:
       - uses: ./.github/actions/setup-workspace
       - name: Exercise image operations in workerd
         run: node scripts/teacher-scenario-image-smoke.mjs
+      - name: Exercise PostgreSQL request and transaction isolation in workerd
+        run: node scripts/teacher-scenario-pg-worker-smoke.mjs
       - name: Build OpenNext bundle
         shell: bash
         run: |

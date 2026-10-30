@@ -17,7 +17,7 @@
  * awaited: `register()` must not block on I/O.
  */
 import { verifySchemaMigrations } from '@openmaic/storage/pg-migrations';
-import { Pool } from 'pg';
+import { Pool } from '@/lib/persistence/postgres-pool';
 
 import { APP_SCHEMA_STORES } from '@/lib/persistence/schema-stores';
 

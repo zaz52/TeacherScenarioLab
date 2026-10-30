@@ -7,7 +7,7 @@ const base = 'http://127.0.0.1:8787';
 let ready = false;
 for (let attempt = 0; attempt < 45; attempt++) {
   try {
-    const response = await fetch(`${base}/api/health`, { signal: AbortSignal.timeout(2000) });
+    const response = await fetch(`${base}/api/health`, { signal: AbortSignal.timeout(30000) });
     const body = await response.json();
     if (response.ok && (body.data ?? body).status === 'ok') {
       ready = true;
@@ -19,6 +19,16 @@ for (let attempt = 0; attempt < 45; attempt++) {
   await delay(1000);
 }
 assert.ok(ready, 'Workers /api/health did not become ready');
+const coldCatalog = await Promise.all(
+  Array.from({ length: 3 }, async () => {
+    const response = await fetch(`${base}/api/training/scenarios`, {
+      signal: AbortSignal.timeout(15000),
+    });
+    assert.equal(response.status, 200, 'Workers concurrent cold catalog request');
+    return response.json();
+  }),
+);
+assert.equal(coldCatalog.length, 3);
 // Independent requests expose request-scope socket reuse failures.
 for (let attempt = 0; attempt < 3; attempt++) {
   const response = await fetch(`${base}/api/training/scenarios`, {
@@ -31,5 +41,11 @@ const home = await fetch(base, { signal: AbortSignal.timeout(10000) });
 assert.equal(home.status, 200);
 assert.match(await home.text(), /TeacherScenarioLab/);
 console.log(
-  JSON.stringify({ workersSmoke: 'success', health: true, catalogRequests: 3, home: true }),
+  JSON.stringify({
+    workersSmoke: 'success',
+    health: true,
+    concurrentColdCatalogRequests: 3,
+    catalogRequests: 3,
+    home: true,
+  }),
 );

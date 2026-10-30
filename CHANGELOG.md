@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab 免费 Workers 兼容适配（2026-10-31，Asia/Shanghai）
 
+- 宿主连接边界本地回归658/658、请求生命周期6/6通过；真实workerd与独立PostgreSQL完成2次顺序和3次并发请求、连接区分及事务回滚。首次本机回归受并行下载资源占用影响失败，停下载后按原断言复验通过；云端完整应用验收继续执行。
+- 3f779f8的OpenNext构建与Wrangler dry-run成功，完整workerd在第二次目录请求出现跨请求连接挂起。新增宿主PostgreSQL构造边界和流结束清理，Node构造方式、原事务/权限/迁移与训练API保持原行为；运行验证继续执行。
 - 根据Next.js官方GHSA-2464-fhr4-w9xw公告，将项目与私有图片包的直接sharp固定为0.35.5；Next.js16.4.1已使用该修复版，其他依赖声明保持原值。
 - 8813794的云端图片workerd检查、全仓格式/ESLint/TypeScript通过；pg-cloudflare错误消除。完整Workers打包仍有4项sharp错误，继续明确指定Workers构建的图片入口并保留依赖诊断。
 - 用户确认继续免费Cloudflare Workers路径，撤回VPS选择；Neon Free与teacherlab.weiyi.top保持既定方案，合并继续等待批准。

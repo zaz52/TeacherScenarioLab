@@ -31,6 +31,7 @@ CLAUDE.local.md
 /.open-next/
 .wrangler/
 /packages/teacherlab-images/node_modules/
+/tests/workers/postgres/.dev.vars
 /.cloudflare-dry-run/
 /cloudflare-*.log
 /.dev.vars*

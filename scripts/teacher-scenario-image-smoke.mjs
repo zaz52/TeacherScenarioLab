@@ -3,6 +3,7 @@ import { spawn } from 'node:child_process';
 import { setTimeout } from 'node:timers/promises';
 import { createRequire } from 'node:module';
 import path from 'node:path';
+import { stopLocalWorker } from './stop-local-worker.mjs';
 
 const require = createRequire(import.meta.url);
 const wrangler = path.join(
@@ -49,5 +50,5 @@ try {
   assert.equal(result?.passed, true, 'Images workerd contract did not complete');
   console.log(JSON.stringify({ check: 'workerd-images', ...result }));
 } finally {
-  child.kill();
+  stopLocalWorker(child);
 }

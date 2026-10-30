@@ -24,6 +24,16 @@ Docker运行检查与159项浏览器回归通过。独立Workers构建失败于p
 适配依赖/原生模块打包兼容性，日志未显示OOM。原文档/PDF/图片处理仍保留原实现。
 Cloudflare线上六处页面和真实训练验收保持未通过状态。
 
+提交3f779f8的完整OpenNext构建、Wrangler dry-run与图片workerd检查通过，
+实际应用第二次目录请求出现连接跨请求复用挂起。宿主连接构造通过
+`lib/persistence/postgres-pool.ts`接入：Node维持node-postgres构造，Workers由
+`cloudflare-worker.mjs`创建请求作用域，每个作用域持有独立原生Pool，响应流结束、
+取消或异常后由waitUntil完成清理。原事务固定客户端、SQL、权限和迁移保持原样。
+新增独立真实PostgreSQL workerd合约；完整应用首次并发目录与后续连续请求另行验证。
+
+该次dry-run输出约124.9MiB未压缩、25.7MiB gzip；dry-run未执行平台上传。
+生产套餐、产物体积、CPU和启动限额需在轮换凭据后核实，后台轮询任务也需独立验收。
+
 2026-10-31继续免费Workers适配。私有包`@teacherlab/images`提供Node与workerd条件入口：
 Node使用原sharp流程；Workers通过IMAGES绑定处理字节，不提供公开图片源URL。
 Workers视觉附件统一解码并转为受大小/尺寸限制的单帧JPEG，原始材料图片保持原状；
