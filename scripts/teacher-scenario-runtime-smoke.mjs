@@ -7,12 +7,14 @@ assert.equal(database.hostname, '127.0.0.1');
 assert.equal(database.pathname, '/teacher_scenario_runtime');
 const baseUrl = 'http://127.0.0.1:3000';
 const checks = [];
+let accessCookie;
 
 async function request(path, { cookie, body, method = 'GET', expected = 200 } = {}) {
+  const credentials = [accessCookie, cookie].filter(Boolean).join('; ');
   const response = await fetch(baseUrl + path, {
     method,
     headers: {
-      ...(cookie ? { cookie } : {}),
+      ...(credentials ? { cookie: credentials } : {}),
       ...(body ? { 'content-type': 'application/json' } : {}),
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
@@ -36,6 +38,26 @@ for (let attempt = 0; attempt < 60; attempt++) {
   }
 }
 assert.ok(ready, 'Final image did not become healthy');
+await request('/api/training/scenarios', { expected: 401 });
+await request('/api/access-code/verify', {
+  method: 'POST',
+  body: { code: 'incorrect-runtime-access-code' },
+  expected: 401,
+});
+assert.ok(process.env.ACCESS_CODE, 'Runtime smoke requires the configured access code');
+const access = await request('/api/access-code/verify', {
+  method: 'POST',
+  body: { code: process.env.ACCESS_CODE },
+});
+assert.equal((access.data.data ?? access.data).valid, true);
+const gateCookie = access.response.headers
+  .getSetCookie()
+  .find((value) => value.startsWith('openmaic_access='));
+assert.ok(gateCookie, 'Access-code verification omitted its cookie');
+assert.match(gateCookie, /; HttpOnly/i);
+assert.match(gateCookie, /; SameSite=Lax/i);
+assert.match(gateCookie, /; Secure/i);
+accessCookie = gateCookie.split(';')[0];
 const catalog = await request('/api/training/scenarios');
 assert.ok(Array.isArray(catalog.data.scenarios));
 

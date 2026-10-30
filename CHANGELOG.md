@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 容器验收访问码登录（2026-10-30 08:48，Asia/Shanghai）
+
+- `7b00235` 的生产镜像构建、UID 1001 启动及健康探针通过；目录请求因缺少访问码认证返回 401，运行检查按失败记录。其余 CI 与 PostgreSQL 作业成功，158 项浏览器回归通过。
+- 运行脚本通过现有 `/api/access-code/verify` 取得访问凭据；追加无凭据、错误访问码的 401 检查，并在后续账号请求中同时发送访问凭据与独立账号会话。访问码保护及 cookie 安全属性保留。
+- 本地语法、格式核验后推送复验。真实 NVIDIA 成功、GLM 429 / 1113 阻塞及生产外部条件保持上一记录。
+
 ### TeacherScenarioLab 真实模型联调与容器启动验收（2026-10-30 08:26，Asia/Shanghai）
 
 - 用户提供的 NVIDIA/GLM 密钥写入 Git 忽略的本地环境文件；`openmaic.yml` 引用环境变量，保留角色/评价独立槽位。凭据曾通过聊天提供，生产使用前需轮换。
