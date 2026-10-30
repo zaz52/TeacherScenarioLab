@@ -3,8 +3,8 @@
  *
  * After the conversation, the teacher is scored on five dimensions, each
  * with concrete dialogue evidence (teacher message ids) and a comment,
- * plus a summary and improvement suggestions. The model writes a short
- * narrative followed by a JSON tail — the PBL evaluator convention —
+ * plus a summary and improvement suggestions. The model returns JSON;
+ * historical narrative-plus-JSON output remains accepted by the parser.
  * and only a fully parsed, citation-verified evaluation is ever persisted:
  * unparsable output, wrong shapes, and evidence pointing at unknown or
  * non-teacher messages are all rejected with 502 and nothing is stored.
@@ -62,6 +62,19 @@ export function buildEvaluationPrompt(
   scenario: ScenarioVersion,
   transcript: TrainingMessageRecord[],
 ): { system: string; prompt: string } {
+  const teacherIds = transcript
+    .filter((message) => message.role === 'user')
+    .map((message) => message.id);
+  const example = {
+    dimensions: EVALUATION_DIMENSIONS.map((dimension) => ({
+      dimension,
+      score: 80,
+      evidence: teacherIds.slice(0, 1),
+      comment: '依据对话中的具体表现评述。',
+    })),
+    summary: '基于本次对话的评价摘要。',
+    suggestions: ['结合对话提出可执行的改进建议。'],
+  };
   const system = [
     '你是教师情境训练的评价员。只评价教师（用户）的表现，角色回复只是背景。',
     `情境：${scenario.setting}`,
@@ -70,7 +83,9 @@ export function buildEvaluationPrompt(
     ...EVALUATION_DIMENSIONS.map((dimension) => `- ${dimension}：${DIMENSION_RUBRICS[dimension]}`),
     '注意：若对话中学生问及同桌等他人病情，须在 responsibility 维度中考查教师是否保护他人健康隐私、同时安抚提问学生。',
     '证据只能引用教师消息的 id，且每条证据 id 必须真实出现在对话记录里；不得引用角色消息，不得编造 id。',
-    '先写一段简短中文评语，再输出一个 JSON 代码块，格式：{"dimensions":[{"dimension":"communication","score":80,"evidence":["<教师消息id>"],"comment":"…"},…五个维度各一项],"summary":"…","suggestions":["…"]}。JSON 之外不要再写内容。',
+    `合法教师消息 ID：${JSON.stringify(teacherIds)}。evidence 必须从此列表逐字复制完整 ID，保留 UUID 连字符。`,
+    '返回一个完整 JSON 对象。五个维度各出现一次，comment 简明具体，suggestions 包含1至3条建议。评分与证据依据实际表现。',
+    `结构示例：${JSON.stringify(example)}`,
   ].join('\n');
   const lines = transcript.map((message) => {
     const speaker =

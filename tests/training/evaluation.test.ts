@@ -40,6 +40,21 @@ function message(id: string, role: string): TrainingMessageRecord {
 }
 
 describe('parseEvaluation', () => {
+  test('evaluation prompt contains a complete parseable schema example and an exact teacher ID allowlist', () => {
+    const teacherId = '00000000-0000-4000-8000-000000000001';
+    const { system } = buildEvaluationPrompt(EPIDEMIC_SCENARIO_V1_DRAFT, [
+      message(teacherId, 'user'),
+      message('character-id', 'character'),
+    ]);
+    expect(system).toContain(`合法教师消息 ID：["${teacherId}"]`);
+    const example = system
+      .split('\n')
+      .find((line) => line.startsWith('结构示例：'))!
+      .slice('结构示例：'.length);
+    const parsed = parseEvaluation('t1', example, 1);
+    expect(parsed?.dimensions).toHaveLength(5);
+    expect(verifyEvaluationCitations(parsed!, [message(teacherId, 'user')])).toEqual([]);
+  });
   test.each(['请核对符号 } 的含义。', '保留 { 作为原始证据。', '引文包含 "引号" 与 \\ 转义。'])(
     'preserves valid JSON string content: %s',
     (summary) => {

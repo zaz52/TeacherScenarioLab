@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 评价提示契约修复（2026-10-30 13:53，Asia/Shanghai）
+
+- 实测 JSON 失败的输出 Token 为899，未触及2048输出上限；源码核对发现旧提示使用无效省略号示例，并同时要求评语与 JSON 外无内容。
+- 改为完整五维 JSON 结构示例和真实教师消息 ID 白名单，明确复制完整 UUID；历史叙述加 JSON 的解析兼容性、证据校验与事务保存规则保留。
+- 增加示例可解析与证据白名单回归测试；本地对应测试、ESLint 和完整 TypeScript 通过。新模板的版本2真实资格回归按次数上限执行，结果在交付报告中独立记录。
+
 ### TeacherScenarioLab 业务质量门槛收紧（2026-10-30 13:33，Asia/Shanghai）
 
 - 冷却后真实业务评价先返回不合格 JSON，单次修复后出现无效证据引用；两次 HTTP 200 均按失败记录，评价入库数保持0。修正前一条记录中对恢复阻塞原因的概括。
