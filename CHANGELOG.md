@@ -6,14 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### TeacherScenarioLab 训练状态本地化（2026-10-30 08:50，Asia/Shanghai）
+### TeacherScenarioLab 真实模型联调与容器启动验收（2026-10-30 08:26，Asia/Shanghai）
+
+- 用户提供的 NVIDIA/GLM 密钥写入 Git 忽略的本地环境文件；`openmaic.yml` 引用环境变量，保留角色/评价独立槽位。凭据曾通过聊天提供，生产使用前需轮换。
+- 两家模型目录均 HTTP 200。首个 NVIDIA 目录模型推理 HTTP 404；更换为目录与官方文档均列出的 `nvidia/nemotron-3.5-lightning-30b-a3b` 后，通过原 resolveModel/callLLM/角色服务真实调用成功（HTTP 200，约 50.5 秒）。中文输出通过泄露扫描，消息与事件保存于独立本地测试库。
+- GLM `glm-4.7` 通用 API 返回 HTTP 429 / 1113（余额不足或无可用资源包）；评价与完成事件均未保存。用户要求保留此阻塞，标准 API 资源可用后继续五维评价真实联调。
+- Main image CI 追加最终镜像加载、非 root 启动及独立 PostgreSQL 的健康、账号隔离、会话撤销与管理权限检查；真实模型密钥继续保留在本地。
+- 本轮容器启动检查的云端结果待运行。条件合并/部署授权已收到，生产服务器、数据库与域名信息仍待核实。
+
+### TeacherScenarioLab 训练状态本地化（2026-10-30 07:50，Asia/Shanghai）
 
 - 模拟室、训练记录、复盘页使用本地化状态标签；七种状态在 12 个语言包中补齐，每个语言包现有 196 个训练键。
 - 状态机、API 和数据库继续使用原有标识，未知状态保留可见原值。新增回归覆盖每个语言的全部状态与未知标识处理。
 - 验证：本地化与状态机 41 项通过、0 失败、0 跳过；TypeScript 与 12 语言键检查通过。浏览器训练流程追加实际状态显示断言，继续在原 PR 完整套件中验证。
 - 上线授权延续：用户允许验收满足后合并和部署；真实模型密钥、生产服务器与域名配置仍待安全提供。
 
-### TeacherScenarioLab 完成度补齐与条件上线授权（2026-10-30 08:41，Asia/Shanghai）
+### TeacherScenarioLab 完成度补齐与条件上线授权（2026-10-30 07:41，Asia/Shanghai）
 
 - 用户已授权：验收满足后允许合并 PR #1 并正式部署。真实模型验收仍缺少 NVIDIA/GLM 密钥、可用模型 ID；生产服务器与域名变更信息已请求，待提供后继续相应操作。
 - 复核远程 HEAD `974ddbb`、目标分支及现有两个工作流，均与上轮交付一致；145 项 Chromium 回归、生产 Build 和完整 runner 镜像通过。

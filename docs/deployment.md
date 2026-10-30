@@ -117,5 +117,6 @@ sha256sum tsl-backup-*.dump
 - 使用第 1 节包含两个 `-f` 参数的 `config --quiet` 命令校验后，核验应用与 PostgreSQL 使用同一口令；完整 `config` 输出含敏感值，应保留在受保护环境。
 - NVIDIA 的 `NVIDIA_MODEL_ID` 由携带本地密钥的 `GET https://integrate.api.nvidia.com/v1/models` 目录核验。GLM 的 `GLM_MODEL_ID` 按账号可用目录填写；两项真实调用分别验收。
 - 健康探针 `/api/health` 不检查数据库。数据库就绪还需以数据库连接、训练目录和真实写入读取回归核验。
+- Main image CI 将最终 runner 镜像加载到临时 Docker daemon，使用独立 PostgreSQL 库启动，以 UID 1001 运行。`scripts/teacher-scenario-runtime-smoke.mjs` 检查健康、目录、账号创建/读取、隔离、会话撤销、cookie 属性与管理权限；不向镜像注入真实模型密钥。实际部署机仍需执行第 6 节回归。
 - 普通账号访问管理 API 返回 403；跨 owner 的训练返回 404；无效会话返回 401。复核 HTTPS 下 cookie 的 Secure、HttpOnly、SameSite 属性。
 - 正式部署以完成验收和取得用户授权为前提。域名 DNS、服务器归属、Cloudflare 路由、生产 PostgreSQL 和备份位置须由可核验的当前配置确认；当次授权范围记录于项目进度。
