@@ -18,6 +18,12 @@ Workers 对跨请求 socket 和启动时 I/O 有限制；是否兼容以 workerd
 通过 Next.js 编译或 Workers 打包后，仍需执行数据库连续请求和完整训练验收。
 当前任务保持训练 API、状态机、权限、事件账本与迁移实现原样。
 
+2026-10-30 实际结果：提交b858937的标准CI、PostgreSQL、Next.js16.4.1生产构建、
+Docker运行检查与159项浏览器回归通过。独立Workers构建失败于pg-cloudflare解析
+以及sharp原生.node模块，Wrangler dry-run与workerd步骤尚未执行。该次失败属于
+适配依赖/原生模块打包兼容性，日志未显示OOM。原文档/PDF/图片处理仍保留原实现。
+Cloudflare线上六处页面和真实训练验收保持未通过状态。
+
 ```bash
 pnpm install --frozen-lockfile
 pnpm cf:build
@@ -50,6 +56,11 @@ pnpm cf:preview
    资格、免费账号核验和预算通过后才允许真实训练。
 6. `/api/health` 检查应用健康，数据库连通还需检查训练目录、账号写入读取和真实训练。
    管理员初始化沿用 [恢复文档](recovery.md)：创建账号后，由环境变量指定管理员账号ID。
+
+TeacherScenarioLab项目位于Singapore，项目ID为weathered-rain-85770545，账号计划已核实为free_v3。
+teacherlab数据库的PostgreSQL16.15 TLS连接与应用bootstrap已验证，初始化38张公共表；
+训练、消息和评价为0。测试通过临时本机代理隧道连接，Cloudflare到Neon的网络仍需实际验收。
+该连接凭据曾在聊天中交接，正式使用前由用户轮换并注入生产环境。
 
 ## 部署、域名与验收
 

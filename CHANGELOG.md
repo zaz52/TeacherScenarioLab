@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab 旧树清理与 Workers 适配（2026-10-30 19:36，Asia/Shanghai）
 
+- 2026-10-30 20:13验收补充：b858937的标准CI与PostgreSQL工作流成功，159项浏览器回归和16项最终容器检查通过；Next.js16.4.1生产编译与镜像成功。Cloudflare独立构建因pg-cloudflare解析与sharp原生.node依赖共5项打包错误失败，未进入workerd运行，日志未显示OOM。
+- Neon free_v3项目的teacherlab数据库已通过TLS证书校验连接，复用既有应用bootstrap创建38张表；训练、消息、评价均为0。连接通过本机既有代理的临时TLS隧道验证，系统与域名DNS配置保持原状。生产密码已在聊天交接，上线前需轮换。
+- Workers实际部署、目标域名切换、真实模型全流程及线上逐页验收尚未完成。保留原图片处理功能和训练核心实现，后续部署方案需结合原生模块兼容性决定。
+
 - 用户确认生产数据库采用Neon免费PostgreSQL，首页品牌为教师情境实训实验室 / TeacherScenarioLab，目标域名更新为teacherlab.weiyi.top。
 - 基于9a990da删除指定24个旧页面、组件与导航文件，受保护新树和训练API保持校验值一致；旧引用为0。归档过期Next路由类型缓存后重新生成，全量TypeScript为0错误；28个训练测试文件229项通过、0失败、0跳过。删除检查点6a7a332的CI与PostgreSQL工作流均成功。
 - 增加OpenNext、Wrangler与独立Linux构建/Workers运行验证流程。当前适配器要求Next.js至少16.4.1，按该最低兼容版本调整，原业务依赖声明保持不变；新增环境模板使用空占位。
@@ -214,8 +218,8 @@ The full list of storage, schema and API changes behind the knowledge base, for 
 - `@openmaic/storage` 0.38.0: the entry lifecycle statements (the document-write stamp and the collector's sweep, legacy mark and release check) now read `asset_root_refs`, and the reference-tracking marker gains a `rule_version` column. A host that provisions `ASSET_PG_SCHEMA` through its own migrations must create that table and its index, and add `asset_reference_tracking.rule_version INTEGER NOT NULL DEFAULT 1`, before upgrading, or document writes that drop an asset reference, and the collector's entry pass, fail with `relation "asset_root_refs" does not exist` (or a missing column); see the schema additions and release conditions below.
 - The first start adds two nullable columns, `agent_sessions.locale` and `agent_session_materials.extraction_reason_code` (`ADD COLUMN IF NOT EXISTS`; existing rows stay empty and read as before). A host that provisions `AGENT_SESSION_PG_SCHEMA` or `AGENT_SESSION_MATERIAL_PG_SCHEMA` through its own migrations must add `locale TEXT` to `agent_sessions` and `extraction_reason_code TEXT` to `agent_session_materials` before upgrading; without them, session reads and extraction settlement fail with `column ... does not exist`.
 - The first start adds `asset_root_refs` to the asset schema, and to `owner_material` the nullable `asset_id`, `folder_id` and `display_name` columns, the `material_folders` table and the `owner_material_folder_fk` foreign key. Claims move folder rows and update `folder_id`. The shipped owner-material v2 migration remains unchanged; v5 adds the pool pointer after that one-time migration. **Release conditions.** Two separate hazards come from processes of an earlier release, and each has its own condition:
-  - *Older collectors do not know about roots.* An older collector's sweep stamps any committed entry no document references and releases it one grace period later, so an entry only a root keeps alive is at risk while an older process runs. Upgrade all instances together and let the rollout finish well within `ASSET_COLLECTION_GRACE_MS` (an older collector needs at least one grace period between stamping and releasing an entry). Deployments that store users' original files may want a longer grace period than the one-hour default.
-  - *Old bootstraps predating schema versioning can drop `owner_material.asset_id`.* Once pool pointers exist, starting those versions can erase them. Builds with a schema-version boot check instead refuse a newer schema, but that does not stop an old process already running. Stop every old instance before accepting new writes; do not use a rolling deployment with mixed versions.
+  - _Older collectors do not know about roots._ An older collector's sweep stamps any committed entry no document references and releases it one grace period later, so an entry only a root keeps alive is at risk while an older process runs. Upgrade all instances together and let the rollout finish well within `ASSET_COLLECTION_GRACE_MS` (an older collector needs at least one grace period between stamping and releasing an entry). Deployments that store users' original files may want a longer grace period than the one-hour default.
+  - _Old bootstraps predating schema versioning can drop `owner_material.asset_id`._ Once pool pointers exist, starting those versions can erase them. Builds with a schema-version boot check instead refuse a newer schema, but that does not stop an old process already running. Stop every old instance before accepting new writes; do not use a rolling deployment with mixed versions.
   - Do not roll back before the material-pool Phase 1a boundary. A host that provisions the asset schema through its own migrations must create `asset_root_refs`; the lifecycle statements name it.
 - The first start also adds owner-level extraction columns to `owner_material` (`extraction_token`, `extraction_claims` (default 0), `extraction_lease_at`, `extraction_error`, `extraction_result`, `extraction_cache_key`) and two partial indexes (`owner_material_extraction_queue_idx`, `owner_material_extraction_cache_idx`). Claims move the new columns with their rows.
 - The material library's tools (RFC #1716 Phase 2) add the `agent_session_material_links` table (`session_id` referencing `agent_sessions(id)` with `ON DELETE CASCADE`, `material_id`, `created_at`; provisioned as its own versioned migration store) and two partial indexes on `owner_material`: `owner_material_derived_from_idx` (`derived_from`) and `owner_material_owner_folder_idx` (`owner_id, folder_id`, which also serves the folder foreign key's `ON DELETE RESTRICT` check). Every instance with the agent runtime starts the owner-level extraction runner beside the session one (`OPENMAIC_AGENT_RUNTIME_SCAN_INTERVAL_MS` and `OPENMAIC_AGENT_RUNTIME_MAX_CONCURRENT` apply to both); on shutdown it waits for its runs as the session runner does, and logs when one is still in a provider call it cannot cancel. Conversations and their copies from before keep working unchanged.
@@ -400,15 +404,16 @@ Design: RFC [#1754](https://github.com/THU-MAIC/OpenMAIC/discussions/1754) (rele
   - `slots` are server defaults that users may change.
   - `lock` fixes slots (or `all`) for everyone.
   - `allowUserKeys: false` keeps users from adding their own providers.
-  - The settings take the matching shape: *set it up yourself*, *choose a model* or *configured by the administrator*.
+  - The settings take the matching shape: _set it up yourself_, _choose a model_ or _configured by the administrator_.
   - Keys are stored encrypted on the server and never leave it. [#1727](https://github.com/THU-MAIC/OpenMAIC/pull/1727) [#1733](https://github.com/THU-MAIC/OpenMAIC/pull/1733) [#1767](https://github.com/THU-MAIC/OpenMAIC/pull/1767) [#1793](https://github.com/THU-MAIC/OpenMAIC/pull/1793)
 - **Materials are parsed as soon as they are attached.** The composer uploads and parses each file in place and shows progress, Ready, or Failed with Retry. Generate waits until every file is ready, and the preview then opens without a material-analysis step. Re-uploading the same file reuses the earlier parse. [#1796](https://github.com/THU-MAIC/OpenMAIC/pull/1796)
 - **Identity.** There are three modes:
   - single-user for personal installations (the Docker Compose default);
   - anonymous visitors, whose cookie now lasts 400 days and is renewed while in use;
   - accounts, through host auth methods.
-  
+
   Anonymous work can be claimed into an account with `POST /api/identity/claim`.
+
 - **Custom agents are stored on the server** (`/api/agents`). [#1758](https://github.com/THU-MAIC/OpenMAIC/pull/1758)
 - **The database schema is versioned** (`openmaic_schema_migrations`). [#1757](https://github.com/THU-MAIC/OpenMAIC/pull/1757)
 - **Upgrades carry browser data to the server.** The first load after the upgrade moves the browser's courses, chat, progress, folders, media, custom agents and model settings to the server, once per browser.
@@ -434,8 +439,9 @@ Design: RFC [#1754](https://github.com/THU-MAIC/OpenMAIC/discussions/1754) (rele
   - `/api/extract-document`
   - `/api/web-search`
   - `GET` / `POST /api/classroom`
-  
+
   Use `/api/generation-runs` instead.
+
 - **A course is read-only while it is being generated.** Other writers get `409 COURSE_GENERATING` until its run completes or ends. Deleting the course and moving it between folders stay allowed.
 - **Runtime sessions are keyed by the resolved owner.** `PERSISTENCE_DEV_TOKEN`, `NEXT_PUBLIC_PERSISTENCE_TOKEN` and `PERSISTENCE_ALLOW_INSECURE_DEV_AUTH` are removed.
   - If the token was your only access gate, put the deployment behind `ACCESS_CODE`, a gateway or owner auth methods first.
@@ -567,6 +573,7 @@ Design: RFC [#1754](https://github.com/THU-MAIC/OpenMAIC/discussions/1754) (rele
 - Startup: a configuration refused by the boot validation in `instrumentation.ts` (a malformed `ASSET_QUOTA_BYTES`, `ASSET_PENDING_TTL_MS`, `OWNER_WRITE_LOCK_WAIT_MS` or `OWNER_CLAIM_LOCK_WAIT_MS`; an `OWNER_CLAIM_TRIGGER` other than `explicit` / `auto`; the removed `OWNER_AUTHENTICATOR` / `TRUSTED_PROXY_*` variables; a malformed `PERSISTENCE_SHARED_OWNER_ID`, one without `ACCESS_CODE` or beside a registration that leaves out `sharedTeamAuthMethod()`, or `sharedTeamAuthMethod()` registered without it or not last; `ASSET_S3_BUCKET` beside a registered asset byte store, or `ASSET_BYTE_EGRESS=redirect` with a byte store that does not declare `signsReadUrls`) now exits the Node.js server with code `1` after one `[boot] Invalid server configuration` line carrying the original message. Any other boot failure (a module missing from the build, a host registration call that throws) also exits with code `1`, printed as `[boot] Server startup failed` with its stack. Previously the server logged "Failed to prepare server", kept listening, and answered every request with `500`. Warnings never stop the server.
 - Server persistence: two concurrent creates of one new course id by the same owner no longer refuse the second as `reserved-document`: creates of one id take turns, and the second saves as an update without running the create hooks again.
 - Server persistence: instances starting at the same time against one database no longer fail schema setup on a catalog race (`duplicate key value violates unique constraint "pg_class_relname_nsp_index"` / `pg_type_typname_nsp_index`, `tuple concurrently updated`), which made an instance's first request answer `500`. Every schema bootstrap (documents, `stage_meta` and its ownership backfill, owner materials, assets, runtime, agent sessions, session materials, user skills, and the asset collector's) now runs under one PostgreSQL advisory lock held on a dedicated connection.
+
 #### Security
 
 - Server persistence: operations on one owner-bound document store no longer share mutable state, so concurrent calls on a store an agent run shares with its tools each gate their own stage; `create_stage` also runs sequentially within a tool batch.
@@ -1087,6 +1094,7 @@ Breaking Changes section first, as this release tightens two defaults.
 ## [0.1.1] - 2026-04-14
 
 ### Features
+
 - Add inline language inference for outline and PBL generation, replacing manual language selector [#412](https://github.com/THU-MAIC/OpenMAIC/pull/412) (by @cosarah)
 - Add ACCESS_CODE site-level authentication for shared deployments [#411](https://github.com/THU-MAIC/OpenMAIC/pull/411)
 - Add classroom export and import as ZIP [#418](https://github.com/THU-MAIC/OpenMAIC/pull/418)
@@ -1103,6 +1111,7 @@ Breaking Changes section first, as this release tightens two defaults.
 - Add end-to-end generation happy path test [#405](https://github.com/THU-MAIC/OpenMAIC/pull/405)
 
 ### Bug Fixes
+
 - Fix DNS rebinding bypass in SSRF validation [#386](https://github.com/THU-MAIC/OpenMAIC/pull/386) (by @YizukiAme)
 - Add ALLOW_LOCAL_NETWORKS env var for self-hosted deployments [#366](https://github.com/THU-MAIC/OpenMAIC/pull/366)
 - Fix custom provider baseUrl not persisting on creation [#417](https://github.com/THU-MAIC/OpenMAIC/pull/417) (by @YizukiAme)
@@ -1117,6 +1126,7 @@ Breaking Changes section first, as this release tightens two defaults.
 - Fix breathing bar background color in roundtable [#307](https://github.com/THU-MAIC/OpenMAIC/pull/307)
 
 ### Other Changes
+
 - Add missing Ollama and Doubao provider names for ru-RU [#389](https://github.com/THU-MAIC/OpenMAIC/pull/389) (by @cosarah)
 - Update Ollama logo to official version [#400](https://github.com/THU-MAIC/OpenMAIC/pull/400) (by @cosarah)
 - Remove deprecated Gemini 3 Pro Preview model [#142](https://github.com/THU-MAIC/OpenMAIC/pull/142) (by @Orinameh)
