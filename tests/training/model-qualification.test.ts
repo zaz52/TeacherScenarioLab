@@ -49,7 +49,9 @@ test('qualification retries a transient failure once and records the successful 
 });
 test('evaluation qualification includes repeated scoring and a twenty-message multirole case (mock transport)', async () => {
   mocks.invoke.mockImplementation(async (_p, _task, input) => {
-    const id = input.prompt.includes('long-teacher-1') ? 'long-teacher-1' : 'teacher-evidence-1';
+    const id = input.prompt.includes('00000000-0000-4000-8000-000000000001')
+      ? '00000000-0000-4000-8000-000000000001'
+      : 'teacher-evidence-1';
     const text = JSON.stringify({
       dimensions: EVALUATION_DIMENSIONS.map((dimension) => ({
         dimension,
@@ -67,7 +69,7 @@ test('evaluation qualification includes repeated scoring and a twenty-message mu
   expect(q.passed).toBe(true);
   expect(q.suiteVersion).toBe(2);
   expect(q.cases).toBe(3);
-  expect(mocks.invoke.mock.calls[2][2].prompt).toContain('long-teacher-10');
+  expect(mocks.invoke.mock.calls[2][2].prompt).toContain('00000000-0000-4000-8000-000000000010');
   expect(q.samples).toHaveLength(3);
 });
 test.each(['auth', 'quota', 'privacy', 'safety'] as const)(

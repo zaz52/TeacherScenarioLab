@@ -104,14 +104,20 @@ export async function qualifyModel(
           transcript.length = 0;
           for (let turn = 0; turn < 10; turn++) {
             const [role, question] = ROLE_CASES[turn % 4];
-            transcript.push(teacherMessage(question, `long-teacher-${turn + 1}`), {
-              ...teacherMessage(
-                getCharacterPack(scenario.scenarioId, role)!.scriptedReplies[0],
-                `long-character-${turn + 1}`,
+            transcript.push(
+              teacherMessage(
+                question,
+                `00000000-0000-4000-8000-${String(turn + 1).padStart(12, '0')}`,
               ),
-              role: 'character',
-              characterId: role,
-            });
+              {
+                ...teacherMessage(
+                  getCharacterPack(scenario.scenarioId, role)!.scriptedReplies[0],
+                  `00000000-0000-4000-9000-${String(turn + 1).padStart(12, '0')}`,
+                ),
+                role: 'character',
+                characterId: role,
+              },
+            );
           }
         }
         const characterId = ROLE_CASES[index]?.[0] ?? 'parent-1';

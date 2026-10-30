@@ -257,11 +257,13 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
                         {modelKey(p)} ·{' '}
                         {q
                           ? t(
-                              q.passed
-                                ? 'qualified'
-                                : q.successes + q.failures > 0
-                                  ? 'failed'
-                                  : 'untested',
+                              q.suiteVersion !== 2
+                                ? 'untested'
+                                : q.passed
+                                  ? 'qualified'
+                                  : q.successes + q.failures > 0
+                                    ? 'failed'
+                                    : 'untested',
                             )
                           : t('untested')}{' '}
                         · {q ? `${q.successes}/${q.cases}` : ''}
