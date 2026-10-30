@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab 免费 Workers 兼容适配（2026-10-31，Asia/Shanghai）
 
+- 核对Cloudflare2026-10-29官方限制后确认Workers未压缩包上限64MiB；1a7cba2的128060.41KiB dry-run产物超限，开启Wrangler压缩并增加实际上传体积门槛与依赖体积诊断。平台上传、启动/CPU和免费账号能力继续独立验收。
 - 1a7cba2的Cloudflare工作流通过：完整OpenNext构建、Wrangler dry-run、真实workerd图片/PostgreSQL检查及应用目录3次并发和3次连续请求成功；Storage PostgreSQL工作流通过。主CI的供应商中立守卫发现pg旧计数，按实际移除的1处导入将12缩减为11，继续复验。
 - Workers独立数据库增加合成情境和账号验收，覆盖访问码、会话隔离、脚本对话、消息幂等、状态事件、无模型凭据时评价失败不落账、6处页面HTTP响应及50条文献详情；最终结果以本次工作流执行记录为准。生产凭据轮换由用户稍后完成。
 - 宿主连接边界本地回归658/658、请求生命周期6/6通过；真实workerd与独立PostgreSQL完成2次顺序和3次并发请求、连接区分及事务回滚。首次本机回归受并行下载资源占用影响失败，停下载后按原断言复验通过；云端完整应用验收继续执行。

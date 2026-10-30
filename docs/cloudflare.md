@@ -32,7 +32,10 @@ Cloudflare线上六处页面和真实训练验收保持未通过状态。
 新增独立真实PostgreSQL workerd合约；完整应用首次并发目录与后续连续请求另行验证。
 
 该次dry-run输出约124.9MiB未压缩、25.7MiB gzip；dry-run未执行平台上传。
-生产套餐、产物体积、CPU和启动限额需在轮换凭据后核实，后台轮询任务也需独立验收。
+2026-10-31核对[官方体积限制](https://developers.cloudflare.com/workers/platform/limits/#worker-size)：
+未压缩上限64MiB，gzip值作为参考。1a7cba2产物128060.41KiB超限，
+后续构建启用Wrangler压缩并由工作流检查实际Total Upload值，保留主要依赖体积。
+生产套餐、CPU和启动限额需在轮换凭据后核实，后台轮询任务也需独立验收。
 
 2026-10-31继续免费Workers适配。私有包`@teacherlab/images`提供Node与workerd条件入口：
 Node使用原sharp流程；Workers通过IMAGES绑定处理字节，不提供公开图片源URL。
