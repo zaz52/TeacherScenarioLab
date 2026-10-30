@@ -42,6 +42,8 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup-workspace
+      - name: Exercise image operations in workerd
+        run: node scripts/teacher-scenario-image-smoke.mjs
       - name: Build OpenNext bundle
         shell: bash
         run: |

@@ -24,6 +24,19 @@ Docker运行检查与159项浏览器回归通过。独立Workers构建失败于p
 适配依赖/原生模块打包兼容性，日志未显示OOM。原文档/PDF/图片处理仍保留原实现。
 Cloudflare线上六处页面和真实训练验收保持未通过状态。
 
+2026-10-31继续免费Workers适配。私有包`@teacherlab/images`提供Node与workerd条件入口：
+Node使用原sharp流程；Workers通过IMAGES绑定处理字节，不提供公开图片源URL。
+Workers视觉附件统一解码并转为受大小/尺寸限制的单帧JPEG，原始材料图片保持原状；
+PDF的8位灰度、灰度透明、RGB和RGBA像素通过PNG编码保留。
+Next的standalone追踪显式携带私有包与pg-cloudflare的workerd入口。
+独立`node scripts/teacher-scenario-image-smoke.mjs`在本机workerd执行真实绑定操作；
+本地Images模拟器的功能范围与生产服务不同，色彩、方向、动画和完整PDF需生产复验。
+
+[Images免费计划](https://developers.cloudflare.com/images/pricing/)包含每月5000次独立转换，
+超额拒绝新转换且不自动收费；`.info()`按[绑定说明](https://developers.cloudflare.com/images/optimization/binding/)免费。
+Workers免费HTTP请求CPU上限为10ms、内存128MB，依据[当前限制](https://developers.cloudflare.com/workers/platform/limits/)。
+上线验收需记录CPU、内存与图片配额；本机workerd通过不能代表免费生产额度已通过。
+
 ```bash
 pnpm install --frozen-lockfile
 pnpm cf:build

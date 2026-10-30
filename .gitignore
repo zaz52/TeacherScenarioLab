@@ -29,7 +29,8 @@ CLAUDE.local.md
 /.next/
 /out/
 /.open-next/
-/.wrangler/
+.wrangler/
+/packages/teacherlab-images/node_modules/
 /.cloudflare-dry-run/
 /cloudflare-*.log
 /.dev.vars*

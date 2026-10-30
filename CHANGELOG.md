@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 免费 Workers 兼容适配（2026-10-31，Asia/Shanghai）
+
+- 用户确认继续免费Cloudflare Workers路径，撤回VPS选择；Neon Free与teacherlab.weiyi.top保持既定方案，合并继续等待批准。
+- 增加私有图片运行时条件导出：Node沿用sharp，Workers通过Images绑定执行转换，保留PDF像素转PNG、WebP衍生图片、视觉附件大小和无效输入检查；训练API与核心引擎保持原样。
+- 补充pg-cloudflare条件入口的standalone文件追踪。新增真实workerd图片操作检查，原图像处理回归保留；完整OpenNext、数据库跨请求与免费运行额度仍需云端验收。
+- 免费Images每月5000次独立转换，超额拒绝新转换；未开通付费服务。实际部署、DNS和模型生产密钥配置仍待完成。
+
 ### TeacherScenarioLab 旧树清理与 Workers 适配（2026-10-30 19:36，Asia/Shanghai）
 
 - 2026-10-30 20:13验收补充：b858937的标准CI与PostgreSQL工作流成功，159项浏览器回归和16项最终容器检查通过；Next.js16.4.1生产编译与镜像成功。Cloudflare独立构建因pg-cloudflare解析与sharp原生.node依赖共5项打包错误失败，未进入workerd运行，日志未显示OOM。

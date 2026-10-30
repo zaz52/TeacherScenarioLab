@@ -1,0 +1,16 @@
+{
+  "name": "@teacherlab/images",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "workerd": "./workerd.mjs",
+      "default": "./node.mjs"
+    }
+  },
+  "dependencies": {
+    "sharp": "0.35.4"
+  }
+}

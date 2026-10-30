@@ -27,6 +27,9 @@ const nextConfig: NextConfig = {
       // Docker (Alpine/musl) deployments. Force-include every sharp-libvips
       // native lib dir.
       'node_modules/.pnpm/@img+sharp-libvips-*/node_modules/@img/sharp-libvips-*/lib/**',
+      // Next traces Node's default export; OpenNext selects the workerd export later.
+      'node_modules/.pnpm/pg-cloudflare@*/node_modules/pg-cloudflare/{dist,esm}/**',
+      'packages/teacherlab-images/*.mjs',
     ],
   },
   typescript: {
@@ -41,6 +44,7 @@ const nextConfig: NextConfig = {
   // Mark them server-external so Next loads them natively and the dynamic
   // import resolves as a real Node call.
   serverExternalPackages: [
+    '@teacherlab/images',
     '@earendil-works/pi-ai',
     '@earendil-works/pi-agent-core',
     '@openmaic/generation',

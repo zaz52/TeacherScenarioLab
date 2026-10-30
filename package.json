@@ -41,6 +41,7 @@
     "cf:deploy": "opennextjs-cloudflare deploy"
   },
   "dependencies": {
+    "@teacherlab/images": "workspace:*",
     "@ai-sdk/amazon-bedrock": "^4.0.103",
     "@ai-sdk/anthropic": "^3.0.71",
     "@ai-sdk/azure": "^3.0.88",

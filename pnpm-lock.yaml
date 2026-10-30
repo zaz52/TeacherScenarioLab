@@ -164,6 +164,9 @@ importers:
       '@tailwindcss/browser':
         specifier: 4.1.18
         version: 4.1.18
+      '@teacherlab/images':
+        specifier: workspace:*
+        version: link:packages/teacherlab-images
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -1042,6 +1045,12 @@ importers:
       typescript-eslint:
         specifier: ^8.31.0
         version: 8.57.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+
+  packages/teacherlab-images:
+    dependencies:
+      sharp:
+        specifier: 0.35.4
+        version: 0.35.4(@types/node@20.19.37)
 
 packages:
 

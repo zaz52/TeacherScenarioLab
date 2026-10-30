@@ -138,7 +138,7 @@
  */
 
 import { extractText, getDocumentProxy, extractImages } from 'unpdf';
-import sharp from 'sharp';
+import { rawToPng, toPng } from '@teacherlab/images';
 import type { PDFParserConfig } from './types';
 import type { ParsedPdfContent } from '@/lib/types/pdf';
 import { PDF_PROVIDERS } from './constants';
@@ -298,15 +298,11 @@ async function parseWithUnpdf(pdfBuffer: Buffer, textOnly = false): Promise<Pars
         const imgData = pageImages[i];
         try {
           // Use sharp to convert raw image data to PNG base64
-          const pngBuffer = await sharp(Buffer.from(imgData.data), {
-            raw: {
-              width: imgData.width,
-              height: imgData.height,
-              channels: imgData.channels,
-            },
-          })
-            .png()
-            .toBuffer();
+          const pngBuffer = await rawToPng(Buffer.from(imgData.data), {
+            width: imgData.width,
+            height: imgData.height,
+            channels: imgData.channels,
+          });
 
           // Convert to base64
           const base64 = `data:image/png;base64,${pngBuffer.toString('base64')}`;
@@ -482,7 +478,7 @@ export async function fetchAliDocMindImageAsBase64(url: string): Promise<string 
       }
     }
     const buf = Buffer.concat(chunks.map((c) => Buffer.from(c)));
-    const png = await sharp(buf).png().toBuffer();
+    const png = await toPng(buf);
     return `data:image/png;base64,${png.toString('base64')}`;
   } catch (err) {
     log.warn(
