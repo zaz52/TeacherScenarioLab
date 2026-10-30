@@ -80,6 +80,12 @@ describe('Workers image boundary', () => {
     expect(() => encodeRawPng(Buffer.alloc(2), { width: 1, height: 1, channels: 3 })).toThrow();
   });
 
+  it('rejects raw pixels beyond the Workers memory budget before PNG allocation', () => {
+    expect(() =>
+      encodeRawPng(Buffer.alloc(21 * 1024 * 1024), { width: 7168, height: 1024, channels: 3 }),
+    ).toThrow('Invalid raw image');
+  });
+
   it('normalizes vision pixels, bounds output, and preserves input bytes', async () => {
     const binding = imageBinding();
     const source = await png();

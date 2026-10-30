@@ -35,7 +35,7 @@
     "eval:orchestration:answering": "tsx --conditions=import eval/orchestration/answering-runner.ts",
     "eval:orchestration:answer-content": "tsx --conditions=import eval/orchestration/answer-content-runner.ts",
     "sync:interactive-assets": "node scripts/sync-interactive-assets.mjs",
-    "cf:build": "opennextjs-cloudflare build",
+    "cf:build": "node scripts/build-teacherlab-cloudflare.mjs",
     "cf:check": "wrangler deploy --dry-run --outdir .cloudflare-dry-run",
     "cf:preview": "opennextjs-cloudflare preview",
     "cf:deploy": "opennextjs-cloudflare deploy"

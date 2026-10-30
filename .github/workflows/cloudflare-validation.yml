@@ -67,11 +67,16 @@ jobs:
           worker_pid=$!
           trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
           node scripts/teacher-scenario-workers-smoke.mjs
+      - name: Inspect build dependency references
+        if: failure()
+        run: node scripts/teacher-scenario-cloudflare-diagnostics.mjs
       - name: Retain validation logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cloudflare-validation-logs
-          path: cloudflare-*.log
+          path: |
+            cloudflare-*.log
+            cloudflare-dependency-diagnostics.json
           if-no-files-found: ignore
           retention-days: 7

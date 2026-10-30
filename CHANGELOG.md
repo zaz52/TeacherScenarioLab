@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab 免费 Workers 兼容适配（2026-10-31，Asia/Shanghai）
 
+- 8813794的云端图片workerd检查、全仓格式/ESLint/TypeScript通过；pg-cloudflare错误消除。完整Workers打包仍有4项sharp错误，继续明确指定Workers构建的图片入口并保留依赖诊断。
 - 用户确认继续免费Cloudflare Workers路径，撤回VPS选择；Neon Free与teacherlab.weiyi.top保持既定方案，合并继续等待批准。
 - 增加私有图片运行时条件导出：Node沿用sharp，Workers通过Images绑定执行转换，保留PDF像素转PNG、WebP衍生图片、视觉附件大小和无效输入检查；训练API与核心引擎保持原样。
 - 补充pg-cloudflare条件入口的standalone文件追踪。新增真实workerd图片操作检查，原图像处理回归保留；完整OpenNext、数据库跨请求与免费运行额度仍需云端验收。

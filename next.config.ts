@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 
+const cloudflareBuild = process.env.TEACHERLAB_BUILD_TARGET === 'cloudflare';
+
 const nextConfig: NextConfig = {
   // Keep Next dev from creating or rewriting repository agent instructions.
   agentRules: false,
@@ -44,7 +46,7 @@ const nextConfig: NextConfig = {
   // Mark them server-external so Next loads them natively and the dynamic
   // import resolves as a real Node call.
   serverExternalPackages: [
-    '@teacherlab/images',
+    ...(cloudflareBuild ? [] : ['@teacherlab/images']),
     '@earendil-works/pi-ai',
     '@earendil-works/pi-agent-core',
     '@openmaic/generation',
@@ -56,6 +58,11 @@ const nextConfig: NextConfig = {
     '@aws-sdk/client-s3',
     '@aws-sdk/s3-request-presigner',
   ],
+  turbopack: {
+    resolveAlias: cloudflareBuild
+      ? { '@teacherlab/images': './packages/teacherlab-images/opennext.mjs' }
+      : {},
+  },
   experimental: {
     proxyClientMaxBodySize: '200mb',
   },

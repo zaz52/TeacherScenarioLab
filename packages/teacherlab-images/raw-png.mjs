@@ -26,6 +26,7 @@ export function encodeRawPng(bytes, { width, height, channels }) {
     width <= 0 ||
     height <= 0 ||
     ![1, 2, 3, 4].includes(channels) ||
+    bytes.byteLength > 20 * 1024 * 1024 ||
     width * height > 268402689 ||
     bytes.length !== width * height * channels
   ) {
