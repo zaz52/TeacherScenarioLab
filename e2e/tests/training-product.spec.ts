@@ -115,12 +115,12 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
 }) => {
   test.setTimeout(90_000);
   const copy = trainingCopy('zh-CN');
-  await page.goto('/training/hall');
+  await page.goto('/');
   const card = page
     .getByRole('listitem')
     .filter({ has: page.getByRole('heading', { name: title, exact: true }) });
   await card.getByRole('button', { name: '开始训练', exact: true }).click();
-  await page.waitForURL(/\/training\/[0-9a-f-]{36}$/);
+  await page.waitForURL(/\/classroom\/training\/[0-9a-f-]{36}$/);
   const trainingId = new URL(page.url()).pathname.split('/').at(-1)!;
   const path = `/api/training/trainings/${trainingId}`;
   await page.getByRole('button', { name: '开始训练', exact: true }).click();
@@ -143,9 +143,9 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
   for (const to of ['fact-checking', 'coordination', 'proposal', 'evaluation']) {
     expect((await page.request.post(`${path}/transition`, { data: { to } })).status()).toBe(200);
   }
-  await page.goto('/training/records');
-  await expect(page.locator(`a[href="/training/${trainingId}"]`)).toBeVisible();
-  await page.goto(`/training/${trainingId}/review`);
+  await page.goto('/?training=records');
+  await expect(page.locator(`a[href="/classroom/training/${trainingId}"]`)).toBeVisible();
+  await page.goto(`/eval/training/${trainingId}`);
   await expect(page.getByRole('heading', { name: '训练复盘' })).toBeVisible();
   await expect(
     page.getByText(`${copy.reviewState}：${copy.stateEvaluation}`, { exact: true }),
@@ -162,29 +162,36 @@ test('hall, scripted room, records, owner isolation, account claim and logout wo
   expect(claimed.status()).toBe(200);
   expect((await claimed.json()).claimed).toBe(1);
   expect((await page.request.get(path)).status()).toBe(200);
-  await page.goto('/training/account');
-  await expect(page.getByRole('main').getByText('浏览器验收学员', { exact: false })).toBeVisible();
+  await page.goto('/?training=account');
+  await expect(
+    page
+      .locator('[data-testid="training-home-block"]')
+      .getByText('浏览器验收学员', { exact: false }),
+  ).toBeVisible();
   await page.getByRole('button', { name: '退出登录', exact: true }).click();
   await expect.poll(async () => (await page.request.get(path)).status()).toBe(404);
 });
 
-test('Chinese homepage, shared navigation and reference keyword/detail pages render', async ({
+test('Chinese homepage, home training block and reference keyword/detail pages render', async ({
   page,
 }) => {
   await page.goto('/');
+  await expect(page.locator('[data-testid="training-home-block"]')).toBeVisible();
   await expect(
-    page.getByRole('heading', { name: '教师情境实训实验室', exact: true }),
+    page
+      .locator('[data-testid="training-home-block"]')
+      .getByRole('heading', { name: '训练', exact: true }),
   ).toBeVisible();
-  await page.goto('/training/references');
-  await expect(
-    page.getByRole('navigation', { name: 'training' }).locator('a[href="/training/hall"]'),
-  ).toBeVisible();
+  await expect(page.getByTestId('training-references-link')).toBeVisible();
+  await expect(page.getByTestId('training-admin-link')).toHaveCount(0);
+  await page.goto('/courseware/references');
   await page.getByPlaceholder('搜索标题、作者或主题…').fill('Epstein');
   await page.getByRole('button', { name: '搜索', exact: true }).click();
-  const reference = page.locator('a[href^="/training/references/"]').first();
+  const reference = page.locator('a[href^="/courseware/references/"]').first();
   await expect(reference).toBeVisible();
   const href = (await reference.getAttribute('href'))!;
-  const response = await page.request.get(`/api${href}`);
+  const id = href.split('/').at(-1)!;
+  const response = await page.request.get(`/api/training/references/${id}`);
   expect(response.status()).toBe(200);
   const { reference: citation } = await response.json();
   await expect(reference).toHaveText(`${citation.title}（${citation.year}）`);
@@ -206,7 +213,7 @@ test('admin forms create, edit, delete and freeze published versions in the brow
       { name: 'training_session', value: adminSessionToken, url: baseURL!, httpOnly: true },
     ]);
   const scenarioId = `e2e-editor-${version}`;
-  await page.goto('/training/admin/scenarios/new');
+  await page.goto('/settings/training/scenarios/new');
   await page.getByLabel(copy.adminFormScenarioId).fill(scenarioId);
   await page.getByLabel(copy.adminFormTitle).fill('浏览器表单创建');
   await page.getByLabel(copy.adminFormSetting).fill('家长与教师在学校沟通。');
@@ -219,7 +226,7 @@ test('admin forms create, edit, delete and freeze published versions in the brow
   await page.getByRole('button', { name: copy.adminFormSave, exact: true }).click();
   await expect(page.getByText(copy.adminFormSaveDone, { exact: true })).toBeVisible();
 
-  await page.goto('/training/admin');
+  await page.goto('/settings/training');
   const row = () => page.getByRole('listitem').filter({ hasText: scenarioId });
   await row().getByRole('link', { name: copy.adminEditDraft, exact: true }).click();
   await page.getByLabel(copy.adminFormTitle).fill('浏览器表单编辑后');
@@ -228,7 +235,7 @@ test('admin forms create, edit, delete and freeze published versions in the brow
   const stored = await page.request.get(`/api/training/admin/scenarios/${scenarioId}/versions/1`);
   expect(stored.status()).toBe(200);
   expect((await stored.json()).scenario.title).toBe('浏览器表单编辑后');
-  await page.goto('/training/admin');
+  await page.goto('/settings/training');
   await row().getByRole('button', { name: copy.adminDeleteDraft, exact: true }).click();
   await expect(page.getByText(copy.adminDeleteDone, { exact: true })).toBeVisible();
   await expect(row()).toHaveCount(0);
@@ -249,14 +256,14 @@ test('admin forms create, edit, delete and freeze published versions in the brow
   await expect(
     frozen.getByRole('button', { name: copy.adminDeleteDraft, exact: true }),
   ).toHaveCount(0);
-  await page.goto(`/training/admin/scenarios/${frozenId}/versions/1/edit`);
+  await page.goto(`/settings/training/scenarios/${frozenId}/versions/1/edit`);
   await expect(page.getByText(copy.adminPublishedNote, { exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: copy.adminFormSave, exact: true })).toHaveCount(0);
 
   const outsider = await browser.newContext({ locale: 'zh-CN' });
   try {
     const outsidePage = await outsider.newPage();
-    await outsidePage.goto(`${baseURL}/training/admin`);
+    await outsidePage.goto(`${baseURL}/settings/training`);
     await expect(outsidePage.getByText(copy.adminRequired, { exact: true })).toBeVisible();
   } finally {
     await outsider.close();
@@ -273,7 +280,7 @@ test('model center pages persist quota controls and refuse unauthorized access',
     .addCookies([
       { name: 'training_session', value: adminSessionToken, url: baseURL!, httpOnly: true },
     ]);
-  await page.goto('/training/admin/models');
+  await page.goto('/settings/training/models');
   await expect(page.getByRole('heading', { name: '模型资源中心', exact: true })).toBeVisible();
   const response = await page.request.get('/api/training/admin/models');
   expect(response.status()).toBe(200);
@@ -323,23 +330,23 @@ test('model center pages persist quota controls and refuse unauthorized access',
 for (const { code } of supportedLocales) {
   test.describe(`training pages in ${code}`, () => {
     test.use({ locale: code });
-    test('renders localized homepage, records and navigation', async ({ page }) => {
+    test('renders localized homepage block, records tab and tabs', async ({ page }) => {
       const copy = trainingCopy(code);
       await page.goto('/');
       await expect(page.locator('html')).toHaveAttribute('lang', code);
       await expect(
-        page.getByRole('heading', { level: 1, name: copy.homeTitle, exact: true }),
+        page
+          .locator('[data-testid="training-home-block"]')
+          .getByRole('heading', { name: copy.trainingHomeTitle, exact: true }),
       ).toBeVisible();
-      await page.locator('a[href="/training/records"]').first().click();
+      await page.getByTestId('training-tab-records').click();
       await expect(
-        page.getByRole('heading', { level: 1, name: copy.recordsTitle, exact: true }),
+        page
+          .locator('[data-testid="training-home-block"]')
+          .getByRole('heading', { name: copy.recordsTrend, exact: true }),
       ).toBeVisible();
-      await expect(
-        page.getByRole('navigation', { name: 'training' }).getByRole('link', {
-          name: copy.navHall,
-          exact: true,
-        }),
-      ).toBeVisible();
+      await expect(page.getByRole('tablist')).toBeVisible();
+      await expect(page.getByTestId('training-tab-hall')).toBeVisible();
     });
   });
 }
