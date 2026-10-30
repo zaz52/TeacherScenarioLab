@@ -48,6 +48,7 @@ export class ModelConfigurationError extends Error {
 export async function languageModelFor(
   target: ResolvedModelTarget,
   thinkingConfig?: ThinkingConfig,
+  deploymentFetch?: typeof fetch,
 ): Promise<ResolvedModel> {
   const registryId = target.registryId as ProviderId;
   const modelId = target.modelId;
@@ -108,7 +109,9 @@ export async function languageModelFor(
     ...(keyOptional ? { requiresApiKey: false } : {}),
     baseUrl: target.baseUrl,
     proxy: target.proxy,
-    fetchImpl: userEndpoint ? clientBaseUrlLlmFetch : fetchWithRedirectValidation,
+    fetchImpl: userEndpoint
+      ? clientBaseUrlLlmFetch
+      : (deploymentFetch ?? fetchWithRedirectValidation),
   });
   return {
     model,

@@ -130,3 +130,16 @@ pnpm vitest run tests/training tests/config tests/server/model-config
 - 产品首页为 `/`，训练入口为 `/training/hall`，上游课程生成与课程库入口为 `/courseware`。
 
 - Next.js 项目与实际依赖目录应位于同一盘。跨盘 junction 缓存会触发 Turbopack workspace root 错误，Webpack 也可能无法解析外部字体路径；可在同盘安装依赖后启动。生产构建继续使用 CI 核验的默认方式。
+
+
+## 训练模型中心与本地网络
+
+管理入口为 `/training/admin/models`。把真实密钥写入 Git 忽略的 `.env.local`，
+Google 使用 `GOOGLE_API_KEY`，Groq 使用 `GROQ_API_KEY`，其他变量参见生产模板。
+密钥保留在服务器；浏览器显示配置状态、目录、非敏感策略和调用指标。
+
+Python 工具可能使用 Windows 系统代理，Node.js 请求需要核对应用实际代理配置。
+沿用本机已有代理时，可在忽略文件中设置 `GOOGLE_PROXY`、`GROQ_PROXY` 和
+`OPENROUTER_PROXY`，或使用对应 deployment provider 的 `proxy`。代理请求仍
+执行 HTTPS 与重定向边界检查。模型目录和生成请求应在相同网络路径验证。
+本地生产构建受内存或跨盘依赖影响时，使用 GitHub Actions 的最终镜像结果验收。

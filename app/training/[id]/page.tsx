@@ -84,6 +84,7 @@ export default function TrainingRoomPage() {
   const [error, setError] = useState('');
   const [scriptedIds, setScriptedIds] = useState<Set<string>>(new Set());
   const [directorNote, setDirectorNote] = useState('');
+  const [modelNotice, setModelNotice] = useState('');
   const [disclosures, setDisclosures] = useState<Array<{ id: string; content: string }>>([]);
   const [evaluation, setEvaluation] = useState<{
     dimensions: Array<{
@@ -215,6 +216,10 @@ export default function TrainingRoomPage() {
         } else {
           setDirectorNote('');
         }
+        if (replyData.model?.switched)
+          setModelNotice(
+            `${getClientTranslation('modelCenter.switched')}: ${replyData.model.modelId}`,
+          );
         await loadMessages();
         await loadDisclosures();
       } catch {
@@ -248,6 +253,16 @@ export default function TrainingRoomPage() {
       <p className="text-sm text-gray-600">
         {t('state')}: {trainingStateLabel(training.state, t)}
       </p>
+      {mode === 'model' && (
+        <p className="rounded border p-3 text-sm">
+          {getClientTranslation('modelCenter.privacyNote')}
+        </p>
+      )}
+      {modelNotice && (
+        <p role="status" className="rounded border p-3 text-sm">
+          {modelNotice}
+        </p>
+      )}
       {scenario && (
         <section className="rounded border p-4">
           <h2 className="font-medium">{t('briefing')}</h2>

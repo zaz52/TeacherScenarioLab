@@ -210,6 +210,9 @@ export default function TrainingAdminPage() {
   return (
     <main>
       <h1>{t('adminTitle')}</h1>
+      <Link href="/training/admin/models" className="text-sm underline">
+        {getClientTranslation('modelCenter.title')}
+      </Link>
       {notice && <p>{notice}</p>}
       <section>
         <h2>{t('adminScenarios')}</h2>

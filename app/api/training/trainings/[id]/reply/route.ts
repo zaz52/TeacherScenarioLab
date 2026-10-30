@@ -45,6 +45,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
           message: result.message,
           mode: result.mode,
           director: result.director ?? null,
+          model: result.model ?? null,
         },
         { status: 201 },
       );

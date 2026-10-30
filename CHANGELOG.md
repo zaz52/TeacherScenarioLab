@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 多供应商训练模型池（2026-10-30 12:46，Asia/Shanghai）
+
+- 新增七家训练供应商连接档案，复用现有原生/兼容适配器、槽位标识与 callLLM；保留原有 provider preset。
+- 角色与评价独立资格、免费额度优先、模型固定、有限重试、分类冷却、JSON 单次修复、安全拒绝终止及预算预留接入训练服务；新增 PostgreSQL 元数据与管理审计。
+- 新增模型总览、供应商、额度、调度、日志五页，覆盖12种语言；区分本地预算、供应商观测余额、官方数据与估算，NVIDIA 保持独立授权门槛。
+- 本地 TypeScript 和全仓 Prettier 检查通过；训练/配置/身份与 PostgreSQL 回归通过。新增浏览器和 PostgreSQL 工作流合约随本次推送在 GitHub 验证。
+- 真实请求取得 GLM Flash 角色回复和一次 Gemini 五维 JSON 评价；完整真实训练受限流、服务错误、超时及输出扫描拦截阻塞，资格失败保留原状态。NVIDIA 本轮无生成调用，Mistral 待密钥，Cloudflare 待账号额度与 Neurons 核验。
+- 凭据保存于 Git 忽略的本地环境配置；PR 保持 Draft，部署、合并、DNS 和生产数据变更均未执行。
+
 ### TeacherScenarioLab 容器验收访问码登录（2026-10-30 08:48，Asia/Shanghai）
 
 - `7b00235` 的生产镜像构建、UID 1001 启动及健康探针通过；目录请求因缺少访问码认证返回 401，运行检查按失败记录。其余 CI 与 PostgreSQL 作业成功，158 项浏览器回归通过。

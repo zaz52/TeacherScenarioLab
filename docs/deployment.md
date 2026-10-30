@@ -42,10 +42,9 @@ curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不�
 | `ACCESS_CODE` | 对外发布前必须设强值（无 ACCESS_CODE 时 Compose 默认只绑 127.0.0.1）。 |
 | `OPENMAIC_PUBLISH_ADDRESS` | 需要对外发布时设为 `0.0.0.0`（或指定网卡），并配合反代/隧道做 HTTPS。 |
 
-模型配置用 `openmaic.yml`。双供应商参考 `openmaic.teacher-scenario.example.yml`，
+模型配置用 `openmaic.yml`。GLM / Google 参考 `openmaic.teacher-scenario.example.yml`，
 通用供应商参考 `openmaic.example.yml`；已有配置应合并需要的 provider 和 slot。
-NVIDIA 走 `openai-compatible`（`https://integrate.api.nvidia.com/v1`），
-智谱 GLM 走原生 `glm` preset；角色对话与训练评价分别走
+智谱 GLM 与 Google 分别使用原生 `glm`、`google` preset；角色对话与训练评价分别走
 `classroom.roleplay` / `classroom.evaluation` 槽位。**`openmaic.yml` 一旦
 存在，legacy 的 `*_API_KEY` 三元组、`DEFAULT_MODEL` 全部失效**，两套不可
 混用；且 yml 里 `${VAR}` 引用的变量未设置时，服务器拒绝启动。
@@ -120,3 +119,20 @@ sha256sum tsl-backup-*.dump
 - Main image CI 将最终 runner 镜像加载到临时 Docker daemon，使用独立 PostgreSQL 库启动，以 UID 1001 运行。`scripts/teacher-scenario-runtime-smoke.mjs` 检查健康、访问码拒绝/登录、目录、账号创建/读取、隔离、会话撤销、cookie 属性与管理权限；不向镜像注入真实模型密钥。实际部署机仍需执行第 6 节回归。
 - 普通账号访问管理 API 返回 403；跨 owner 的训练返回 404；无效会话返回 401。复核 HTTPS 下 cookie 的 Secure、HttpOnly、SameSite 属性。
 - 正式部署以完成验收和取得用户授权为前提。域名 DNS、服务器归属、Cloudflare 路由、生产 PostgreSQL 和备份位置须由可核验的当前配置确认；当次授权范围记录于项目进度。
+
+
+## 训练资源池上线门槛
+
+详见 [模型资源池](model-pool.md)。管理员先刷新模型目录，核对免费资格、
+额度来源及隐私政策，再执行角色和评价各自的真实资格测试。通过后资源池按
+免费资源、任务默认、备用及 NVIDIA 最终授权顺序调度。训练默认角色为
+`glm-4.7-flash`，默认评价为 `gemini-3.8-flash`。资格与目录过期后需要复核。
+
+资源池可从同名 `openmaic.yml` provider 读取凭据，缺省连接使用本环境模板
+中的对应变量。该训练入口的凭据读取规则独立于 OpenMAIC 的 legacy 槽位翻译。
+Google 免费账号资格须在控制台确认；供应商目录成功不能证明免费资格。
+NVIDIA 默认停用，管理员授权、价格上界与预算齐备后才可进入最终候选。
+
+模型管理 API 需要训练管理员身份，生产同时保留访问码、HTTPS 和多用户身份隔离。
+模型管理页、真实评价、账号隔离和最终镜像回归通过后，方可进入部署验收。
+当前任务保持 Draft 并停止于部署前验收。

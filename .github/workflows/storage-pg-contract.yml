@@ -107,5 +107,6 @@ jobs:
             tests/training/admin.pg.test.ts \
             tests/training/evaluation.pg.test.ts \
             tests/training/learner.pg.test.ts \
+            tests/training/model-pool.pg.test.ts \
             tests/training/reply.pg.test.ts \
             tests/training/store.pg.test.ts

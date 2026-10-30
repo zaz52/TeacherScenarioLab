@@ -263,6 +263,63 @@ test('admin forms create, edit, delete and freeze published versions in the brow
   }
 });
 
+test('model center pages persist quota controls and refuse unauthorized access', async ({
+  page,
+  browser,
+  baseURL,
+}) => {
+  await page
+    .context()
+    .addCookies([
+      { name: 'training_session', value: adminSessionToken, url: baseURL!, httpOnly: true },
+    ]);
+  await page.goto('/training/admin/models');
+  await expect(page.getByRole('heading', { name: '模型资源中心', exact: true })).toBeVisible();
+  const response = await page.request.get('/api/training/admin/models');
+  expect(response.status()).toBe(200);
+  const original = (await response.json()).policies.find(
+    (p: { provider: string }) => p.provider === 'glm',
+  );
+  await page
+    .getByRole('navigation', { name: '模型资源中心' })
+    .getByRole('link', { name: '额度', exact: true })
+    .click();
+  await page
+    .getByRole('article')
+    .filter({ hasText: 'glm:glm-4.7-flash' })
+    .getByRole('button', { name: '配置', exact: true })
+    .click();
+  await page.getByLabel('预警阈值 %', { exact: true }).fill('25');
+  await page.getByRole('button', { name: '保存', exact: true }).click();
+  await expect(page.getByRole('region', { name: '配置', exact: true })).toHaveCount(0);
+  const stored = await page.request.get('/api/training/admin/models');
+  expect(
+    (await stored.json()).policies.find((p: { provider: string }) => p.provider === 'glm')
+      .warningPercent,
+  ).toBe(25);
+  for (const label of ['供应商', '调度', '调用日志', '总览']) {
+    await page
+      .getByRole('navigation', { name: '模型资源中心' })
+      .getByRole('link', { name: label, exact: true })
+      .click();
+    await expect(page.getByRole('heading', { name: '模型资源中心', exact: true })).toBeVisible();
+  }
+  const outsider = await browser.newContext({ locale: 'zh-CN' });
+  try {
+    const denied = await outsider.request.get(`${baseURL}/api/training/admin/models`);
+    expect(denied.status()).toBe(403);
+    const mutate = await outsider.request.post(`${baseURL}/api/training/admin/models`, {
+      data: { action: 'catalog', provider: 'google' },
+    });
+    expect(mutate.status()).toBe(403);
+  } finally {
+    await outsider.close();
+    await page.request.post('/api/training/admin/models', {
+      data: { action: 'policy', policy: original },
+    });
+  }
+});
+
 for (const { code } of supportedLocales) {
   test.describe(`training pages in ${code}`, () => {
     test.use({ locale: code });

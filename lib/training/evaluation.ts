@@ -10,6 +10,9 @@
  * non-teacher messages are all rejected with 502 and nothing is stored.
  */
 import { randomUUID } from 'node:crypto';
+import { priorSelection, routeTrainingModel, type ModelSelection } from './models/runtime';
+import { withModelLease } from './models/store';
+import { PoolError } from './models/types';
 
 import type {
   TrainingEvaluationRecord,
@@ -182,33 +185,6 @@ export interface EvaluateDeps {
   generateModelEvaluation?: GenerateModelEvaluation;
 }
 
-async function buildDefaultModelCall(ownerId: string): Promise<GenerateModelEvaluation> {
-  const { resolveModel } = await import('@/lib/server/resolve-model');
-  const { backgroundWorkspaceId } = await import('@/lib/server/model-config/runtime');
-  const { callLLM } = await import('@/lib/ai/llm');
-  let resolved: Awaited<ReturnType<typeof resolveModel>> | undefined;
-  return async (system: string, prompt: string) => {
-    resolved ??= await resolveModel({
-      stage: 'training-evaluation',
-      workspaceId: await backgroundWorkspaceId(ownerId),
-    });
-    const result = await callLLM(
-      {
-        model: resolved.model,
-        system,
-        prompt,
-        maxOutputTokens: resolved.modelInfo?.outputWindow,
-        maxRetries: 0,
-      },
-      'training-evaluation',
-      undefined,
-      resolved.thinkingConfig,
-      { serverManaged: resolved.serverManaged },
-    );
-    return result.text;
-  };
-}
-
 function notFound(kind: string, id: string): TrainingServiceError {
   return new TrainingServiceError(404, 'TRAINING_NOT_FOUND', `${kind} ${id} was not found`);
 }
@@ -219,7 +195,7 @@ function notFound(kind: string, id: string): TrainingServiceError {
  * 502/503 and persist nothing. The evaluation and its ledger event commit
  * atomically; re-evaluation while still in `evaluation` overwrites.
  */
-export async function generateEvaluation(
+async function generateEvaluationInner(
   ownerId: string,
   trainingId: string,
   deps: EvaluateDeps = {},
@@ -246,7 +222,32 @@ export async function generateEvaluation(
   }
   const transcript = await store.listMessages(trainingId, { includeSuperseded: false });
   const { system, prompt } = buildEvaluationPrompt(scenario, transcript);
-  const generate = deps.generateModelEvaluation ?? (await buildDefaultModelCall(ownerId));
+  let selection: ModelSelection | undefined;
+  const events = await store.listEvents(trainingId);
+  const generate =
+    deps.generateModelEvaluation ??
+    (async (system: string, prompt: string) => {
+      const result = await routeTrainingModel({
+        task: 'evaluation',
+        trainingId,
+        system,
+        prompt,
+        pinned: priorSelection(events, 'evaluation'),
+        names: scenario.characters.map((c) => c.name),
+        validate: (text) => {
+          const parsed = parseEvaluation(trainingId, text, Date.now());
+          if (!parsed) throw new PoolError('json');
+          if (verifyEvaluationCitations(parsed, transcript).length) throw new PoolError('evidence');
+          if (
+            parsed.dimensions.some((d) => !d.evidence.length || !d.comment.trim()) ||
+            !parsed.suggestions.length
+          )
+            throw new PoolError('json');
+        },
+      });
+      selection = result.selection;
+      return result.text;
+    });
   let text: string;
   try {
     text = (await generate(system, prompt)).trim();
@@ -284,7 +285,25 @@ export async function generateEvaluation(
     createdAt: now,
   };
   await store.withTransaction(async (tx) => {
+    const current = await tx.getTraining(trainingId);
+    if (!current || current.state !== 'evaluation')
+      throw new TrainingServiceError(
+        409,
+        'TRAINING_STATE_CONFLICT',
+        'training changed while the model was evaluating',
+      );
     await tx.saveEvaluation(stored);
+    if (selection)
+      await tx.appendEvent({
+        id: randomUUID(),
+        trainingId,
+        type:
+          selection.previous && selection.previous !== selection.key
+            ? 'model-switched'
+            : 'model-selected',
+        payload: { ...selection },
+        createdAt: now,
+      });
     await tx.appendEvent({
       id: randomUUID(),
       trainingId,
@@ -317,4 +336,21 @@ export async function getEvaluation(
     suggestions: record.suggestions,
     createdAt: record.createdAt,
   };
+}
+
+export async function generateEvaluation(...args: Parameters<typeof generateEvaluationInner>) {
+  if (args[2]?.generateModelEvaluation) return generateEvaluationInner(...args);
+  try {
+    return await withModelLease(`training:${args[1]}:evaluation`, () =>
+      generateEvaluationInner(...args),
+    );
+  } catch (error) {
+    if (error instanceof PoolError)
+      throw new TrainingServiceError(
+        error.kind === 'busy' ? 409 : 503,
+        'UPSTREAM_ERROR',
+        'evaluation model pool is not available',
+      );
+    throw error;
+  }
 }

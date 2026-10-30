@@ -1,20 +1,27 @@
-# Copy to the ignored openmaic.yml after confirming both model IDs with the vendors.
-# Existing provider presets remain available in openmaic.example.yml and the registry.
+# Merge these providers and slots into the ignored openmaic.yml.
+# Training pool eligibility and budgets are managed at /training/admin/models.
+# Credentials remain environment references; existing provider presets stay available.
 providers:
-  nvidia:
-    preset: openai-compatible
-    baseUrl: https://integrate.api.nvidia.com/v1
-    apiKey: ${NVIDIA_API_KEY}
-    models: ['${NVIDIA_MODEL_ID}']
   glm:
     preset: glm
     apiKey: ${GLM_API_KEY}
-    models: ['${GLM_MODEL_ID}']
+    models: ['glm-4.7-flash']
+  google:
+    preset: google
+    apiKey: ${GOOGLE_API_KEY}
+    models: ['gemini-3.8-flash']
+  # Optional NVIDIA connection. The training pool also requires explicit
+  # administrator authorization, verified prices and per-call/daily budgets.
+  # nvidia:
+  #   preset: openai-compatible
+  #   baseUrl: https://integrate.api.nvidia.com/v1
+  #   apiKey: ${NVIDIA_API_KEY}
+  #   models: ['${NVIDIA_MODEL_ID}']
 
 slots:
-  llm: nvidia:${NVIDIA_MODEL_ID}
-  classroom.roleplay: nvidia:${NVIDIA_MODEL_ID}
-  classroom.evaluation: glm:${GLM_MODEL_ID}
+  llm: glm:glm-4.7-flash
+  classroom.roleplay: glm:glm-4.7-flash
+  classroom.evaluation: google:gemini-3.8-flash
 
 lock: [classroom.roleplay, classroom.evaluation]
 allowUserKeys: false

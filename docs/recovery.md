@@ -81,3 +81,16 @@ DATABASE_URL='<your-database-url>' \
 - 测试时真实 `openmaic.yml` 会干扰解析模型的测试：跑测试用
   `OPENMAIC_CONFIG` 指向已存在的空 YAML 文件；文件存在且无配置时，使用空部署层。
   普通单测默认保持 hermetic 环境；PostgreSQL 合约通过专用 `PG_CONTRACT_URL` 运行。
+
+
+## 模型资源池恢复
+
+完整 `pg_dump` 同时保留 `training_model_policies`、`training_model_qualifications`、
+`training_model_catalogs`、`training_model_control`、`training_model_calls`、
+`training_model_leases`、`training_model_audit` 七张新增表。它们由管理页或模型
+请求首次访问时在现有 schema bootstrap 锁内幂等创建，既有训练表保持兼容。
+凭据继续由受保护环境变量或忽略配置提供，数据库内保留非密钥策略和调用元数据。
+
+恢复后先核对目录与免费计划、观测额度和过期时间，再恢复自动调用。历史预留额度
+保守计入消耗；被中断调用的结果标记仍为 reserved，属于待核实请求。租约最长
+15 分钟后可恢复，新请求会重新核验额度和并发。跨环境恢复禁止复用旧的管理员名单。
