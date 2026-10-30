@@ -28,6 +28,12 @@ CLAUDE.local.md
 # next.js
 /.next/
 /out/
+/.open-next/
+/.wrangler/
+/.cloudflare-dry-run/
+/cloudflare-*.log
+/.dev.vars*
+!/.dev.vars.example
 
 # production
 /build

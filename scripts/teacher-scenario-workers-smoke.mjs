@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import { setTimeout as delay } from 'node:timers/promises';
+
+assert.equal(new URL(process.env.DATABASE_URL ?? '').hostname, '127.0.0.1');
+assert.equal(new URL(process.env.DATABASE_URL).pathname, '/teacher_scenario_runtime');
+const base = 'http://127.0.0.1:8787';
+let ready = false;
+for (let attempt = 0; attempt < 45; attempt++) {
+  try {
+    const response = await fetch(`${base}/api/health`, { signal: AbortSignal.timeout(2000) });
+    const body = await response.json();
+    if (response.ok && (body.data ?? body).status === 'ok') {
+      ready = true;
+      break;
+    }
+  } catch {
+    // Give workerd time to start; the readiness deadline remains bounded.
+  }
+  await delay(1000);
+}
+assert.ok(ready, 'Workers /api/health did not become ready');
+// Independent requests expose request-scope socket reuse failures.
+for (let attempt = 0; attempt < 3; attempt++) {
+  const response = await fetch(`${base}/api/training/scenarios`, {
+    signal: AbortSignal.timeout(10000),
+  });
+  assert.equal(response.status, 200, `Workers training catalog request ${attempt + 1}`);
+  await response.json();
+}
+const home = await fetch(base, { signal: AbortSignal.timeout(10000) });
+assert.equal(home.status, 200);
+assert.match(await home.text(), /TeacherScenarioLab/);
+console.log(
+  JSON.stringify({ workersSmoke: 'success', health: true, catalogRequests: 3, home: true }),
+);

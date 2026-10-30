@@ -1,5 +1,8 @@
 # TeacherScenarioLab 开发数据库初始化与恢复
 
+生产托管数据库已选择Neon免费PostgreSQL，操作与回滚见[Cloudflare与Neon上线说明](cloudflare.md)。
+生产恢复先保留当前数据备份，并复核应用回退版本与schema兼容性。
+
 > 适用：本地开发与测试环境。每次会话先复核实际数据库位置、连接与持久化方式：
 > 本机数据目录、Docker 命名卷及临时 CI 服务的保留策略各异。情境源文件、
 > 管理导出与数据库备份分别保留；训练记录和账号以数据库备份恢复。
@@ -42,7 +45,7 @@ DATABASE_URL='<your-database-url>' \
 ## 3. 情境导入与发布（管理后台流程，不走数据库直写）
 
 1. 管理员登录态下 `POST /api/training/admin/scenarios/import`
-  （body `{ "scenarioId": "<代码草稿 id>" }`）→ 201，草稿入库
+   （body `{ "scenarioId": "<代码草稿 id>" }`）→ 201，草稿入库
    （`publishedAt` 为 null）。
 2. 核对详情：`GET /api/training/admin/scenarios/<id>/versions/<v>`，
    标题、事实、规则、披露条件与代码一致。
@@ -81,7 +84,6 @@ DATABASE_URL='<your-database-url>' \
 - 测试时真实 `openmaic.yml` 会干扰解析模型的测试：跑测试用
   `OPENMAIC_CONFIG` 指向已存在的空 YAML 文件；文件存在且无配置时，使用空部署层。
   普通单测默认保持 hermetic 环境；PostgreSQL 合约通过专用 `PG_CONTRACT_URL` 运行。
-
 
 ## 模型资源池恢复
 

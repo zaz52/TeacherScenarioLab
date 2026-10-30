@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 旧树清理与 Workers 适配（2026-10-30 19:36，Asia/Shanghai）
+
+- 用户确认生产数据库采用Neon免费PostgreSQL，首页品牌为教师情境实训实验室 / TeacherScenarioLab，目标域名更新为teacherlab.weiyi.top。
+- 基于9a990da删除指定24个旧页面、组件与导航文件，受保护新树和训练API保持校验值一致；旧引用为0。归档过期Next路由类型缓存后重新生成，全量TypeScript为0错误；28个训练测试文件229项通过、0失败、0跳过。删除检查点6a7a332的CI与PostgreSQL工作流均成功。
+- 增加OpenNext、Wrangler与独立Linux构建/Workers运行验证流程。当前适配器要求Next.js至少16.4.1，按该最低兼容版本调整，原业务依赖声明保持不变；新增环境模板使用空占位。
+- 按确认更新首页品牌及站点metadata，保留新路由、原课程入口与上游署名。训练后端、核心引擎、权限、迁移和事件账本保持原实现。
+- Neon独立项目TeacherScenarioLab已创建，PostgreSQL16、Singapore、0.25CU；生产连接串和既有迁移连通仍待验证。Cloudflare可读服务列表，workers.dev子域名查询403，实际部署权限尚待核实。Mistral生产凭据缺失，聊天密钥需先轮换。
+- 本地删除验证已完成；适配提交的完整CI、生产构建与workerd结果在推送后单独记录。PR保持Draft，合并、正式部署与DNS修改尚未执行。
+
 ### TeacherScenarioLab 评价提示契约修复（2026-10-30 13:53，Asia/Shanghai）
 
 - 实测 JSON 失败的输出 Token 为899，未触及2048输出上限；源码核对发现旧提示使用无效省略号示例，并同时要求评语与 JSON 外无内容。

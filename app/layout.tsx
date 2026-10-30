@@ -51,7 +51,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: '教师情境实训实验室',
+  metadataBase: new URL('https://teacherlab.weiyi.top'),
+  title: '教师情境实训实验室 | TeacherScenarioLab',
   description:
     'TeacherScenarioLab 教师情境实训实验室：通过 AI 模拟真实教育情境，训练教师的沟通、信息核实、教育判断和多方协同处置能力。',
 };

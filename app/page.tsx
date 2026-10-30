@@ -910,14 +910,17 @@ function HomePage() {
       >
         {/* ── Logo ── */}
         <div className="home-brand relative" data-pro-morph="lockup">
-          <img
-            src="/logo-horizontal.png"
-            alt="OpenMAIC"
+          <div
             className={cn(
-              'h-12 md:h-16 mb-2 -ml-2 md:-ml-3',
+              'mb-2 text-center',
               heroEnter('fade-in zoom-in-90 duration-500 delay-100'),
             )}
-          />
+          >
+            <h1 className="text-2xl font-semibold tracking-tight md:text-4xl">
+              教师情境实训实验室
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground md:text-base">TeacherScenarioLab</p>
+          </div>
           {workbenchEntryEnabled ? (
             <div
               className="absolute left-full top-0 ml-1.5 mt-[10px] md:ml-2 md:mt-[14px]"

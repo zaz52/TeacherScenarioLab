@@ -1,9 +1,9 @@
 # TeacherScenarioLab 生产部署方案
 
-> 目标域名：`https://zhiwei.weiyi.top`（显示名称：教师情境实训实验室）。
-> 架构底线：本应用需要常驻 Node.js 进程 + PostgreSQL，**不**迁移为
-> Cloudflare Pages 静态站点，也不为 Workers 重写后端。Cloudflare 只用于
-> 域名管理、DNS、代理或隧道接入。
+> 目标域名：`https://teacherlab.weiyi.top`；品牌：教师情境实训实验室 / TeacherScenarioLab。
+> 2026-10-30 用户确认采用 Neon 免费 PostgreSQL，推进 OpenNext/Workers 部署验证。
+> [Cloudflare 与 Neon 操作说明](cloudflare.md)记录该路径及运行门槛。
+> 本文保留已验证的 Node.js standalone / Docker 部署能力；训练API、核心引擎与迁移沿用现有实现。
 
 ## 1. 部署形态（已验证的仓库能力）
 
@@ -30,17 +30,17 @@ curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不�
 
 ## 2. 必需的服务端环境变量（`.env.local`，不进 Git）
 
-| 变量 | 说明 |
-|---|---|
-| `DATABASE_URL` | 必填。示例通过 `PERSISTENCE_POSTGRES_PASSWORD` 构造连接串；使用外部库时覆盖该值，特殊字符需 URL 编码。 |
-| `PERSISTENCE_POSTGRES_PASSWORD` | 使用 bundled PostgreSQL 时必填。通过 `--env-file .env.local` 同时传入 Compose 插值和应用环境；已有卷的口令变更需要单独操作与验证。 |
-| `OPENMAIC_SECRET_KEY` | 保存用户模型密钥所用的加密根密钥。生产设置高熵值、所有副本一致，并与数据库一起保留受保护备份；轮换前验证旧密文的恢复方案。未设置时生成的 `data/instance-secret.key` 需要持久化。 |
-| `OWNER_SINGLE_USER` | **生产必须设为 `false`**。Compose 默认是 `true`（单人自用模式：所有请求解析为同一个 owner，不发匿名 cookie），会破坏训练的账号/匿名/认领模型。 |
-| `TRAINING_ADMIN_ACCOUNT_IDS` | 管理员账号 ID 列表（逗号分隔，形如 `acct:<uuid>`）。管理员永不自助授予，只从这里来。 |
-| `NVIDIA_API_KEY` / `GLM_API_KEY` | 模型密钥，只进 `.env.local`，不进 YAML 明文、不进源码、不进 Git。 |
-| `OPENMAIC_CONFIG` | 不设时默认读工作目录的 `openmaic.yml`；需要换位置时设为文件路径。 |
-| `ACCESS_CODE` | 对外发布前必须设强值（无 ACCESS_CODE 时 Compose 默认只绑 127.0.0.1）。 |
-| `OPENMAIC_PUBLISH_ADDRESS` | 需要对外发布时设为 `0.0.0.0`（或指定网卡），并配合反代/隧道做 HTTPS。 |
+| 变量                             | 说明                                                                                                                                                                             |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`                   | 必填。示例通过 `PERSISTENCE_POSTGRES_PASSWORD` 构造连接串；使用外部库时覆盖该值，特殊字符需 URL 编码。                                                                           |
+| `PERSISTENCE_POSTGRES_PASSWORD`  | 使用 bundled PostgreSQL 时必填。通过 `--env-file .env.local` 同时传入 Compose 插值和应用环境；已有卷的口令变更需要单独操作与验证。                                               |
+| `OPENMAIC_SECRET_KEY`            | 保存用户模型密钥所用的加密根密钥。生产设置高熵值、所有副本一致，并与数据库一起保留受保护备份；轮换前验证旧密文的恢复方案。未设置时生成的 `data/instance-secret.key` 需要持久化。 |
+| `OWNER_SINGLE_USER`              | **生产必须设为 `false`**。Compose 默认是 `true`（单人自用模式：所有请求解析为同一个 owner，不发匿名 cookie），会破坏训练的账号/匿名/认领模型。                                   |
+| `TRAINING_ADMIN_ACCOUNT_IDS`     | 管理员账号 ID 列表（逗号分隔，形如 `acct:<uuid>`）。管理员永不自助授予，只从这里来。                                                                                             |
+| `NVIDIA_API_KEY` / `GLM_API_KEY` | 模型密钥，只进 `.env.local`，不进 YAML 明文、不进源码、不进 Git。                                                                                                                |
+| `OPENMAIC_CONFIG`                | 不设时默认读工作目录的 `openmaic.yml`；需要换位置时设为文件路径。                                                                                                                |
+| `ACCESS_CODE`                    | 对外发布前必须设强值（无 ACCESS_CODE 时 Compose 默认只绑 127.0.0.1）。                                                                                                           |
+| `OPENMAIC_PUBLISH_ADDRESS`       | 需要对外发布时设为 `0.0.0.0`（或指定网卡），并配合反代/隧道做 HTTPS。                                                                                                            |
 
 模型配置用 `openmaic.yml`。GLM / Google 参考 `openmaic.teacher-scenario.example.yml`，
 通用供应商参考 `openmaic.example.yml`；已有配置应合并需要的 provider 和 slot。
@@ -76,10 +76,10 @@ sha256sum tsl-backup-*.dump
   错误码与厂商状态，不含密钥。
 - 进程自动重启：用 Compose 的 restart 策略；不要用 `pm2` 之外再套一层。
 
-## 5. HTTPS 与域名接入（`zhiwei.weiyi.top`）
+## 5. HTTPS 与域名接入（`teacherlab.weiyi.top`）
 
 1. 先在部署机上把应用跑起来并通过第 6 节回归（不要先切流量）。
-2. 再把 `zhiwei.weiyi.top` 指到部署机：A 记录到服务器公网 IP，或
+2. Node.js部署时，将 `teacherlab.weiyi.top` 指到用户确认的部署机：A 记录到服务器公网 IP，或
    Cloudflare Tunnel（`cloudflared`）指向 `127.0.0.1:3000`；二选一，
    以实际服务器条件为准。
 3. HTTPS 由反代（Caddy/Nginx）或 Cloudflare 代理层终止；应用本身只
@@ -96,17 +96,16 @@ sha256sum tsl-backup-*.dump
 4. 匿名训练 → 创建账号 → 账号页认领，记录归属转移。
 5. 管理后台：非管理员打开只看到权限提示，直接调管理 API 返回 403。
 6. 情境：新建草稿 → 发布 → 大厅可见；已发布版本编辑/删除均被 409 拒绝。
-7. 模型：脚本模式全程可用；配置密钥后角色对话（NVIDIA）与评价
-   （GLM）各至少一次真实调用成功，评价证据能定位回原始对话。
+7. 模型：脚本模式全程可用；模型池默认角色为GLM Flash、评价为Google Flash，
+   各自通过真实资格和完整训练验收，评价证据定位回原始对话。NVIDIA按独立授权托底。
 8. 文献：关键词检索与详情页返回真实收录条目，无编造。
 
 ## 7. 上线前仍待外部条件（截至本文档编写时，诚实标注）
 
 - 代码通过现有 Draft PR #1 审核：`feat/teacher-scenario-lab-product` → `dev/teacher-scenario-lab`。每次验收记录精确 head SHA。
 - 生产构建以最新 head 对应的 Next.js Build 与 Main image 作业为准；历史 OOM 记录保留在验收报告中。镜像 builder 成功与网站运行验收分别记录。
-- 本次验收环境缺少 NVIDIA/GLM 密钥；生产服务器与生产数据库的当前
-  配置尚未取得。`zhiwei.weiyi.top` 的公开 DNS 核验返回 NXDOMAIN，
-  Cloudflare 账号内配置与服务归属仍需权威信息确认。
+- 生产密钥由用户在受保护环境配置，聊天交接过的密钥上线前轮换；Mistral凭据尚缺。
+  Neon账号授权、生产数据库连接与迁移，以及Cloudflare Workers权限和域名目标需实际核实。
 - 上线是六个分开的操作：① 代码推送到 GitHub ② 构建和部署应用
   ③ 配置目标子域名 ④ 初始化生产数据库 ⑤ 配置生产模型密钥
   ⑥ 生产环境最终验收。GitHub 上有代码 ≠ 网站已上线。
@@ -119,7 +118,6 @@ sha256sum tsl-backup-*.dump
 - Main image CI 将最终 runner 镜像加载到临时 Docker daemon，使用独立 PostgreSQL 库启动，以 UID 1001 运行。`scripts/teacher-scenario-runtime-smoke.mjs` 检查健康、访问码拒绝/登录、目录、账号创建/读取、隔离、会话撤销、cookie 属性与管理权限；不向镜像注入真实模型密钥。实际部署机仍需执行第 6 节回归。
 - 普通账号访问管理 API 返回 403；跨 owner 的训练返回 404；无效会话返回 401。复核 HTTPS 下 cookie 的 Secure、HttpOnly、SameSite 属性。
 - 正式部署以完成验收和取得用户授权为前提。域名 DNS、服务器归属、Cloudflare 路由、生产 PostgreSQL 和备份位置须由可核验的当前配置确认；当次授权范围记录于项目进度。
-
 
 ## 训练资源池上线门槛
 
@@ -135,4 +133,4 @@ NVIDIA 默认停用，管理员授权、价格上界与预算齐备后才可进�
 
 模型管理 API 需要训练管理员身份，生产同时保留访问码、HTTPS 和多用户身份隔离。
 模型管理页、真实评价、账号隔离和最终镜像回归通过后，方可进入部署验收。
-当前任务保持 Draft 并停止于部署前验收。
+当前PR保持Draft，合并等待用户批准；部署与生产回归按本轮明确授权及实际条件执行。
