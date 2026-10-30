@@ -5,6 +5,7 @@ const mocks = vi.hoisted(() => ({
   reserve: vi.fn(),
   finish: vi.fn(),
   call: vi.fn(),
+  httpStatus: 200,
 }));
 vi.mock('@/lib/training/models/store', () => ({
   readPoolState: mocks.read,
@@ -17,7 +18,10 @@ vi.mock('@/lib/server/model-config/llm', () => ({
 vi.mock('@/lib/training/models/providers', () => ({
   providerConnection: () => ({ apiKey: 'test-key' }),
   poolTarget: () => ({}),
-  poolFetch: () => vi.fn(),
+  poolFetch: (_provider: string, onResponse?: (status: number) => void) => {
+    onResponse?.(mocks.httpStatus);
+    return vi.fn();
+  },
 }));
 vi.mock('@/lib/ai/llm', () => ({ callLLM: mocks.call }));
 import { routeTrainingModel } from '@/lib/training/models/runtime';
@@ -38,6 +42,7 @@ const policies = ['glm', 'google'].map((provider) =>
 );
 beforeEach(() => {
   vi.clearAllMocks();
+  mocks.httpStatus = 200;
   mocks.read.mockResolvedValue({
     policies,
     qualifications: policies.flatMap((p) =>
@@ -79,6 +84,20 @@ const run = (task: 'roleplay' | 'evaluation' = 'roleplay', validate = () => {}) 
     validate,
   });
 describe('integrated pool runtime with mock transport (no real-provider claim)', () => {
+  test('records the observed HTTP status without inventing 200 from SDK headers', async () => {
+    mocks.httpStatus = 201;
+    await run();
+    expect(mocks.finish.mock.calls[0][0].httpStatus).toBe(201);
+  });
+  test('privacy fact IDs survive classification without persisting blocked text', async () => {
+    await expect(
+      run('roleplay', () => {
+        throw new PoolError('privacy', undefined, ['private-fixture']);
+      }),
+    ).rejects.toMatchObject({ kind: 'privacy', factIds: ['private-fixture'] });
+    expect(mocks.finish.mock.calls[0][0].status).toBe('failed');
+    expect(mocks.finish.mock.calls[0][0].text).toBeUndefined();
+  });
   test('uses task default through callLLM with global and attached fallbacks disabled', async () => {
     const result = await run();
     expect(result.selection.provider).toBe('glm');

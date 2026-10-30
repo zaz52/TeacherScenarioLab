@@ -254,8 +254,17 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
                   return (
                     <div key={modelKey(p)} className="flex flex-wrap items-center gap-2 text-sm">
                       <span>
-                        {modelKey(p)} · {q ? t(q.passed ? 'qualified' : 'failed') : t('untested')} ·{' '}
-                        {q ? `${q.successes}/${q.cases}` : ''}
+                        {modelKey(p)} ·{' '}
+                        {q
+                          ? t(
+                              q.passed
+                                ? 'qualified'
+                                : q.successes + q.failures > 0
+                                  ? 'failed'
+                                  : 'untested',
+                            )
+                          : t('untested')}{' '}
+                        · {q ? `${q.successes}/${q.cases}` : ''}
                       </span>
                       <button
                         className="rounded border p-2"
@@ -264,6 +273,32 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
                       >
                         {t('realTest')}
                       </button>
+                      {q && (
+                        <details className="w-full rounded border p-2">
+                          <summary className="cursor-pointer">{t('testDetails')}</summary>
+                          <p>
+                            {t('lastCall')}: {date(q.checkedAt)} · {q.failureKind ?? '—'} ·{' '}
+                            {t('samples')}: {q.successes}/{q.cases} · {t('skipped')}:{' '}
+                            {q.skipped ?? 0}
+                          </p>
+                          {q.blockedFactIds?.length ? (
+                            <p>
+                              {t('blockedFacts')}: {q.blockedFactIds.join(', ')}
+                            </p>
+                          ) : null}
+                          {q.samples?.map((sample) => (
+                            <div key={sample.caseIndex} className="my-2">
+                              <p>
+                                {t('case')}: {sample.caseIndex}{' '}
+                                {sample.truncated ? t('truncated') : ''}
+                              </p>
+                              <pre className="max-h-72 overflow-auto whitespace-pre-wrap break-words rounded bg-gray-50 p-3 text-gray-900">
+                                {sample.output}
+                              </pre>
+                            </div>
+                          ))}
+                        </details>
+                      )}
                     </div>
                   );
                 })}
@@ -346,6 +381,7 @@ function PolicyEditor({
   onSave: (p: ModelPolicy) => Promise<void>;
 }) {
   const [value, setValue] = useState(policy);
+  const [validationError, setValidationError] = useState('');
   const update = <K extends keyof ModelPolicy>(key: K, v: ModelPolicy[K]) =>
     setValue((p) => ({ ...p, [key]: v }));
   const numeric = (key: keyof ModelPolicy, label: string, nullable = false) => (
@@ -374,10 +410,16 @@ function PolicyEditor({
       <h2 className="font-semibold">
         {t('configure')} · {modelKey(value)}
       </h2>
+      {validationError && (
+        <p role="alert" className="text-red-700">
+          {validationError}
+        </p>
+      )}
       <form
         onSubmit={(e) => {
           e.preventDefault();
           const parsed = policySchema.safeParse(value);
+          setValidationError(parsed.success ? '' : t('actionError'));
           if (parsed.success)
             void onSave({ ...parsed.data, quotaSource: 'admin-entered', observedAt: Date.now() });
         }}

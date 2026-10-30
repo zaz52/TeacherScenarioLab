@@ -107,6 +107,9 @@ export interface Qualification {
   jsonValid: number;
   skipped?: number;
   failureKind?: string | null;
+  failureCase?: number;
+  blockedFactIds?: string[];
+  samples?: { caseIndex: number; output: string; truncated: boolean }[];
   qualityChecks: Record<string, boolean>;
   durationsMs: number[];
   source: 'real';
@@ -122,6 +125,7 @@ export class PoolError extends Error {
   constructor(
     readonly kind: FailureKind | 'unavailable' | 'busy',
     message = 'training model unavailable',
+    readonly factIds?: readonly string[],
   ) {
     super(message);
   }

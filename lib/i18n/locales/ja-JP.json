@@ -2831,6 +2831,11 @@
     "quotaScope": "枠の範囲",
     "cooldown": "クールダウンまたは無効",
     "expiringSoon": "期限間近",
-    "geminiTakeover": "Gemini が対話を担当中"
+    "geminiTakeover": "Gemini が対話を担当中",
+    "testDetails": "テスト詳細と検証済み出力",
+    "skipped": "スキップ",
+    "blockedFacts": "遮断された事実 ID",
+    "case": "ケース",
+    "truncated": "出力は省略されています"
   }
 }

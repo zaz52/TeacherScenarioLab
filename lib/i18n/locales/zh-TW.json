@@ -2831,6 +2831,11 @@
     "quotaScope": "額度範圍",
     "cooldown": "冷卻或停用",
     "expiringSoon": "即將到期",
-    "geminiTakeover": "Gemini 正在接管角色對話"
+    "geminiTakeover": "Gemini 正在接管角色對話",
+    "testDetails": "測試詳情與合格輸出",
+    "skipped": "略過",
+    "blockedFacts": "攔截事實 ID",
+    "case": "案例",
+    "truncated": "輸出已截斷"
   }
 }

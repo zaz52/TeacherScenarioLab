@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 模型验收可审阅性（2026-10-30 13:23，Asia/Shanghai）
+
+- 管理后台新增固定虚构测试的合格输出详情、跳过数和拦截事实 ID；拦截文本保持不入库，表单校验失败显示提示，12种语言补齐相应文案。
+- 调用元数据从实际 fetch 响应记录 HTTP 状态；补充201状态和隐私元数据透传测试。
+- GitHub 第二轮 TypeScript、ESLint、PostgreSQL、生产镜像及159项浏览器测试通过；单元作业出现课堂编辑器预热回调全局计数失败。测试改为观察目标预热函数，执行/取消断言保留，追加独立浏览器 idle 工作的回归案例。
+- GLM Flash 评价完成2次真实请求，五维结构、证据 ID 与分数波动检查通过；业务评价请求遇到429，按冷却规则保留失败状态并执行一次恢复核验，恢复请求仍受上游限流阻塞且评价入库数为0。完整真实角色模型资格仍受供应商状态和严格输出边界约束。
+- 本次变更继续使用原功能分支与 Draft PR，合并、部署和生产域名修改保持关闭。
+
 ### TeacherScenarioLab 资源池契约与验收补充（2026-10-30 13:01，Asia/Shanghai）
 
 - `94ec62e` 的生产 Next.js 构建、最终 Docker 镜像和16项 PostgreSQL 运行检查通过，159项 Chromium 浏览器回归通过，PostgreSQL 合约通过；CI 中旧部署模板断言和新增测试函数类型检查失败，修正为当前 GLM/Google 分工和明确类型。

@@ -2831,6 +2831,11 @@
     "quotaScope": "할당량 범위",
     "cooldown": "대기 또는 비활성",
     "expiringSoon": "곧 만료",
-    "geminiTakeover": "Gemini가 대화 처리 중"
+    "geminiTakeover": "Gemini가 대화 처리 중",
+    "testDetails": "테스트 상세 및 검증된 출력",
+    "skipped": "건너뜀",
+    "blockedFacts": "차단된 사실 ID",
+    "case": "사례",
+    "truncated": "출력 일부 생략"
   }
 }

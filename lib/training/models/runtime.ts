@@ -34,11 +34,14 @@ export async function invokePoolModel(
   const reservation = await reserveCall(policy, task, input.trainingId, tokens, input.purpose);
   if (!reservation) throw new PoolError('busy');
   let failure: ReturnType<typeof classifyFailure> | undefined;
+  let observedHttpStatus: number | null = null;
   try {
     const resolved = await languageModelFor(
       poolTarget(policy),
       { mode: 'disabled' },
-      poolFetch(policy.provider),
+      poolFetch(policy.provider, (status) => {
+        observedHttpStatus = status;
+      }),
     );
     const result = await callLLM(
       {
@@ -54,7 +57,7 @@ export async function invokePoolModel(
       resolved.thinkingConfig,
       { enabled: false, serverManaged: true },
     );
-    reservation.httpStatus = result.response?.headers ? 200 : null;
+    reservation.httpStatus = observedHttpStatus;
     reservation.inputTokens = result.usage.inputTokens ?? null;
     reservation.outputTokens = result.usage.outputTokens ?? null;
     if (result.finishReason === 'content-filter') throw new PoolError('safety');
@@ -80,8 +83,15 @@ export async function invokePoolModel(
     failure = classifyFailure(error);
     reservation.status = 'failed';
     reservation.kind = failure.kind;
-    reservation.httpStatus = failure.httpStatus ?? reservation.httpStatus;
-    throw Object.assign(new PoolError(failure.kind), { failure });
+    reservation.httpStatus = failure.httpStatus ?? observedHttpStatus;
+    throw Object.assign(
+      new PoolError(
+        failure.kind,
+        undefined,
+        error instanceof PoolError ? error.factIds : undefined,
+      ),
+      { failure },
+    );
   } finally {
     reservation.durationMs = Date.now() - reservation.startedAt;
     await finishCall(
@@ -158,7 +168,12 @@ export async function routeTrainingModel(input: {
         const failure =
           (error as { failure?: ReturnType<typeof classifyFailure> }).failure ??
           classifyFailure(error);
-        if (failure.terminal) throw new PoolError(failure.kind);
+        if (failure.terminal)
+          throw new PoolError(
+            failure.kind,
+            undefined,
+            error instanceof PoolError ? error.factIds : undefined,
+          );
         if (failure.kind === 'json' && !repaired) {
           repaired = true;
           prompt = `${input.prompt}\n请重新生成符合要求的完整 JSON 对象，保留真实教师消息 ID。`;

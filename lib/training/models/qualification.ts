@@ -82,11 +82,14 @@ export async function qualifyModel(
       durationsMs: [],
       source: 'real',
       suiteVersion: 1,
+      samples: [],
     };
     const scores: number[][] = [];
     let parentReply = '';
+    let activeCase = 0;
     try {
       for (let index = 0; index < result.cases; index++) {
+        activeCase = index + 1;
         if (index > 0)
           await new Promise((resolve) => setTimeout(resolve, Math.ceil(60000 / policy.rpm) + 50));
         let system: string, prompt: string;
@@ -130,9 +133,10 @@ export async function qualifyModel(
                   f.visibility === 'hidden' ||
                   (f.visibility === 'character-private' && f.ownerCharacterId !== characterId),
               );
-              if (scanReplyForLeaks(text, forbidden).length) {
+              const leaked = scanReplyForLeaks(text, forbidden);
+              if (leaked.length) {
                 result.qualityChecks.informationBoundary = false;
-                throw new PoolError('privacy');
+                throw new PoolError('privacy', undefined, leaked);
               }
               if (text.length > 1500 || text.length < 4) {
                 result.qualityChecks.complete = false;
@@ -162,6 +166,11 @@ export async function qualifyModel(
           },
         });
         result.durationsMs.push(Date.now() - started);
+        result.samples!.push({
+          caseIndex: activeCase,
+          output: response.text.slice(0, 16000),
+          truncated: response.text.length > 16000,
+        });
         result.successes++;
         if (task === 'roleplay' && index === 0) parentReply = response.text;
       }
@@ -172,6 +181,8 @@ export async function qualifyModel(
       result.passed =
         result.successes === result.cases && Object.values(result.qualityChecks).every(Boolean);
     } catch (error) {
+      result.failureCase = activeCase;
+      if (error instanceof PoolError && error.factIds) result.blockedFactIds = [...error.factIds];
       result.failureKind = error instanceof PoolError ? error.kind : 'configuration';
       result.failures =
         error instanceof PoolError && ['busy', 'unavailable'].includes(error.kind) ? 0 : 1;

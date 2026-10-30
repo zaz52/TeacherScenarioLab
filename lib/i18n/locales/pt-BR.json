@@ -2831,6 +2831,11 @@
     "quotaScope": "Escopo da cota",
     "cooldown": "Espera ou desativado",
     "expiringSoon": "Expira em breve",
-    "geminiTakeover": "Gemini assume o diálogo"
+    "geminiTakeover": "Gemini assume o diálogo",
+    "testDetails": "Detalhes e saídas validadas",
+    "skipped": "Ignorados",
+    "blockedFacts": "IDs de fatos bloqueados",
+    "case": "Caso",
+    "truncated": "Saída truncada"
   }
 }

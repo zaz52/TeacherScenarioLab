@@ -2831,6 +2831,11 @@
     "quotaScope": "Phạm vi hạn mức",
     "cooldown": "Chờ hoặc bị tắt",
     "expiringSoon": "Sắp hết hạn",
-    "geminiTakeover": "Gemini đang xử lý đối thoại"
+    "geminiTakeover": "Gemini đang xử lý đối thoại",
+    "testDetails": "Chi tiết và đầu ra đã xác minh",
+    "skipped": "Bỏ qua",
+    "blockedFacts": "ID sự kiện bị chặn",
+    "case": "Trường hợp",
+    "truncated": "Đầu ra bị rút gọn"
   }
 }

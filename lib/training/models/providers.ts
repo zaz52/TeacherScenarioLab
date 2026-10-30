@@ -80,7 +80,10 @@ export function providerConnection(provider: PoolProviderId) {
   };
 }
 
-export function poolFetch(provider: PoolProviderId): typeof fetch {
+export function poolFetch(
+  provider: PoolProviderId,
+  onResponse?: (status: number) => void,
+): typeof fetch {
   const proxy = providerConnection(provider).proxy;
   return async (input, init) =>
     fetchWithRedirectValidation(input instanceof Request ? input.url : input, init, {
@@ -88,6 +91,7 @@ export function poolFetch(provider: PoolProviderId): typeof fetch {
       allowLocalNetworks: false,
       fetchImpl: async (url, options) => {
         const response = await proxyFetch(url, options, { proxy });
+        onResponse?.(response.status);
         if (response.status >= 300 && response.status < 400)
           throw new Error('provider redirect refused');
         return response;

@@ -2831,6 +2831,11 @@
     "quotaScope": "Kontingentbereich",
     "cooldown": "Abkühlzeit oder deaktiviert",
     "expiringSoon": "Läuft bald ab",
-    "geminiTakeover": "Gemini übernimmt den Dialog"
+    "geminiTakeover": "Gemini übernimmt den Dialog",
+    "testDetails": "Testdetails und geprüfte Ausgaben",
+    "skipped": "Übersprungen",
+    "blockedFacts": "Gesperrte Fakten-IDs",
+    "case": "Fall",
+    "truncated": "Ausgabe gekürzt"
   }
 }

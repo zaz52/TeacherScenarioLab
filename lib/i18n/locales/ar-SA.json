@@ -2831,6 +2831,11 @@
     "quotaScope": "نطاق الحصة",
     "cooldown": "انتظار أو تعطيل",
     "expiringSoon": "ينتهي قريباً",
-    "geminiTakeover": "Gemini يتولى الحوار"
+    "geminiTakeover": "Gemini يتولى الحوار",
+    "testDetails": "تفاصيل الاختبار والمخرجات المتحققة",
+    "skipped": "تم تخطيها",
+    "blockedFacts": "معرفات الحقائق المحجوبة",
+    "case": "الحالة",
+    "truncated": "المخرجات مختصرة"
   }
 }

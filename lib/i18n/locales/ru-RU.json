@@ -2831,6 +2831,11 @@
     "quotaScope": "Область квоты",
     "cooldown": "Ожидание или отключено",
     "expiringSoon": "Скоро истечёт",
-    "geminiTakeover": "Gemini ведёт диалог"
+    "geminiTakeover": "Gemini ведёт диалог",
+    "testDetails": "Подробности и проверенные ответы",
+    "skipped": "Пропущено",
+    "blockedFacts": "ID заблокированных фактов",
+    "case": "Случай",
+    "truncated": "Ответ сокращён"
   }
 }

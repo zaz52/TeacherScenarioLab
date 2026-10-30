@@ -2831,6 +2831,11 @@
     "quotaScope": "Ámbito de cuota",
     "cooldown": "En espera o deshabilitado",
     "expiringSoon": "Próximo a vencer",
-    "geminiTakeover": "Gemini atiende el diálogo"
+    "geminiTakeover": "Gemini atiende el diálogo",
+    "testDetails": "Detalles y salidas validadas",
+    "skipped": "Omitidos",
+    "blockedFacts": "IDs de hechos bloqueados",
+    "case": "Caso",
+    "truncated": "Salida truncada"
   }
 }

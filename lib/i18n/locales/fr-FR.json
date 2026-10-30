@@ -2831,6 +2831,11 @@
     "quotaScope": "Portée du quota",
     "cooldown": "Attente ou désactivation",
     "expiringSoon": "Expiration proche",
-    "geminiTakeover": "Gemini assure le dialogue"
+    "geminiTakeover": "Gemini assure le dialogue",
+    "testDetails": "Détails et sorties validées",
+    "skipped": "Ignorés",
+    "blockedFacts": "Identifiants des faits bloqués",
+    "case": "Cas",
+    "truncated": "Sortie tronquée"
   }
 }

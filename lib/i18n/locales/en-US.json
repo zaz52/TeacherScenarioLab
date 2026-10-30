@@ -2831,6 +2831,11 @@
     "quotaScope": "Quota scope",
     "cooldown": "Cooldown or disabled",
     "expiringSoon": "Expiring soon",
-    "geminiTakeover": "Gemini handling role dialogue"
+    "geminiTakeover": "Gemini handling role dialogue",
+    "testDetails": "Test details and validated outputs",
+    "skipped": "Skipped",
+    "blockedFacts": "Blocked fact IDs",
+    "case": "Case",
+    "truncated": "Output truncated"
   }
 }

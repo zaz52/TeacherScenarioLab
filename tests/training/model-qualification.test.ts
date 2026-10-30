@@ -25,6 +25,13 @@ beforeEach(() => {
     return { text: '老师，我会配合您核实情况。', callId: 'mock-fixture' };
   });
 });
+test('blocked qualification retains fact IDs with zero persisted output samples', async () => {
+  mocks.invoke.mockRejectedValueOnce(new PoolError('privacy', undefined, ['hidden-fixture']));
+  const q = await qualifyModel('glm:glm-4.7-flash', 'roleplay', 'test-admin');
+  expect(q.blockedFactIds).toEqual(['hidden-fixture']);
+  expect(q.samples).toHaveLength(0);
+  expect(q.failureCase).toBe(1);
+});
 test('qualification retries a transient failure once and records the successful case gate', async () => {
   mocks.invoke.mockRejectedValueOnce(
     Object.assign(new PoolError('server'), {
@@ -34,6 +41,8 @@ test('qualification retries a transient failure once and records the successful 
   const q = await qualifyModel('glm:glm-4.7-flash', 'roleplay', 'test-admin');
   expect(q.passed).toBe(true);
   expect(q.successes).toBe(6);
+  expect(q.samples).toHaveLength(6);
+  expect(q.samples?.[0].output).toContain('老师');
   expect(mocks.invoke).toHaveBeenCalledTimes(7);
   expect(mocks.invoke.mock.calls[1][2].deferCooldown).toBe(false);
 });
