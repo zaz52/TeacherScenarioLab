@@ -4,6 +4,30 @@
 「教师情境实训实验室 / TeacherScenarioLab」，目标域名为 `teacherlab.weiyi.top`。
 PR #1 保持 Draft，目标分支为 `dev/teacher-scenario-lab`；合并需要用户批准。
 
+## 当前验收检查点（2026-11-01，Asia/Shanghai）
+
+代码提交 `bf0868958dfb6210e0388a5170eaa3640eeaf337` 的
+[Cloudflare validation](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41253461735)
+和 [Storage PostgreSQL Contract](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41253461692)
+已成功。完整 OpenNext 构建与 Wrangler dry-run 产物为 56150.58 KiB（约54.8 MiB），
+通过64 MiB门槛；真实workerd图片操作、数据库顺序/并发/回滚及Durable Object后台SQL通过。
+完整应用的16项账号、76项产品检查及50条文献详情请求通过，观测窗口内后台错误为0。
+同一提交的[标准CI](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41253461690)全部12个作业成功，
+标准Next.js/Docker生产构建与16项容器检查通过，Chromium E2E为159通过、0失败。
+CI与PostgreSQL工作流的测试执行汇总18919通过、0失败、774跳过，含跨作业重复执行，HTTP检查另计。
+
+这些检查使用Ubuntu隔离PostgreSQL及本地workerd，平台上传、生产启动CPU/内存、
+Cloudflare到Neon的TLS连接、真实供应商训练评价和域名逐页验收仍待完成。
+目前生产凭据仍待轮换。2026-11-01公开查询中，`teacherlab.weiyi.top`的
+A、AAAA、CNAME均为NXDOMAIN；部署及DNS变更尚未执行。
+
+免费容量仍未验收通过：原后台任务持续扫描，当前宿主每分钟设置一次alarm。
+Neon的100 CU-h月度额度在0.25 CU持续活跃30天时对应约180 CU-h的需求；
+此值为持续活跃假设下的计算，实际消耗需以Neon用量为准。
+空闲暂停方案必须保留正在执行及等待确认的任务、资源保活、事件通知和维护任务，
+并覆盖恢复、并发请求和故障重试测试。当前版本保留这些后台任务，尚未宣称持续免费运行可用。
+额度不足时的上线门槛与供应商调用资格分别核验。
+
 ## 构建与运行边界
 
 保留 Next.js standalone 和已有 Node.js/Docker 部署入口。Workers 使用
@@ -36,6 +60,9 @@ Docker运行检查与159项浏览器回归通过。独立Workers构建失败于p
 以及sharp原生.node模块，Wrangler dry-run与workerd步骤尚未执行。该次失败属于
 适配依赖/原生模块打包兼容性，日志未显示OOM。原文档/PDF/图片处理仍保留原实现。
 Cloudflare线上六处页面和真实训练验收保持未通过状态。
+
+以下为请求作用域方案的历史结果，当前入口已采用前述Durable Object宿主，
+`lib/persistence/postgres-pool.ts`已移除，4处原生Pool导入恢复原值。
 
 提交3f779f8的完整OpenNext构建、Wrangler dry-run与图片workerd检查通过，
 实际应用第二次目录请求出现连接跨请求复用挂起。宿主连接构造通过

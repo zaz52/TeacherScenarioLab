@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab Workers 路由构建契约（2026-11-01，Asia/Shanghai）
 
+- bf08689的CI、Cloudflare与Storage PostgreSQL工作流全部成功，标准Next.js/Docker生产构建及16项容器检查通过，完整Workers应用后台错误观测为0；Workers产物56150.58KiB，16项账号、76项产品及50条文献详情检查通过。云端测试汇总18919通过、0失败、774跳过，含跨作业重复执行；Chromium E2E为159通过、0失败。原训练API、服务端存储、迁移及82个受保护文件与9a990da一致，指定24个删除文件核对通过。
+- 文档补充当前可验证检查点、请求作用域旧方案的历史标记及Neon持续轮询容量缺口。正式平台部署、生产凭据轮换、免费容量和真实模型评价仍待验收；2026-11-01公开域名查询仍为NXDOMAIN。
 - 10f6e01的三项工作流成功：Workers未压缩包56246.18KiB，16项账号及76项产品检查通过；运行日志另发现原课程后台任务跨请求数据库错误，整体上线继续阻塞。改用单个SQLite Durable Object宿主验证现有Next后台任务，4处Pool导入恢复原值，增加后台错误门槛。
 - 本机workerd探针确认Durable Object的跨请求连接与响应结束后后台SQL成功。首次探针遇到Windows SQLite长路径错误，状态目录缩短后通过。免费账号能力及Neon空闲轮询用量继续核验，尚未上传平台资源。
 - 本地广泛回归首轮891通过、4失败；相同断言串行复测96通过、0失败，消除了两项超时及一项日志断言失败。Windows POSIX文件权限断言仍按失败记录；Linux全仓单元、类型、格式和PostgreSQL合约通过。
