@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab 免费 Workers 兼容适配（2026-10-31，Asia/Shanghai）
 
+- 29f5e8的Webpack构建发现浏览器从storage总入口解析到未使用的服务端node:crypto，属于编译依赖边界问题。采用Next官方optimizePackageImports对storage入口按导出拆分，继续原断言复验；原库及客户端业务源码保持原样。
 - c9f7903压缩后92113.05KiB仍超64MiB，体积门槛按失败记录；16项账号与76项产品检查继续通过。诊断显示多份重复服务端大块，Workers专用构建改用Webpack并沿用图片入口映射，继续云端比较体积及运行回归。
 - 核对Cloudflare2026-10-29官方限制后确认Workers未压缩包上限64MiB；1a7cba2的128060.41KiB dry-run产物超限，开启Wrangler压缩并增加实际上传体积门槛与依赖体积诊断。平台上传、启动/CPU和免费账号能力继续独立验收。
 - 1a7cba2的Cloudflare工作流通过：完整OpenNext构建、Wrangler dry-run、真实workerd图片/PostgreSQL检查及应用目录3次并发和3次连续请求成功；Storage PostgreSQL工作流通过。主CI的供应商中立守卫发现pg旧计数，按实际移除的1处导入将12缩减为11，继续复验。

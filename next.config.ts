@@ -77,6 +77,7 @@ const nextConfig: NextConfig = {
     : {}),
   experimental: {
     proxyClientMaxBodySize: '200mb',
+    ...(cloudflareBuild ? { optimizePackageImports: ['@openmaic/storage'] } : {}),
   },
   async headers() {
     const extraAncestors = process.env.ALLOWED_FRAME_ANCESTORS?.trim();
