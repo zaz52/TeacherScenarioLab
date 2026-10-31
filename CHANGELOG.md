@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab Workers 路由构建契约（2026-11-01，Asia/Shanghai）
 
+- 10f6e01的三项工作流成功：Workers未压缩包56246.18KiB，16项账号及76项产品检查通过；运行日志另发现原课程后台任务跨请求数据库错误，整体上线继续阻塞。改用单个SQLite Durable Object宿主验证现有Next后台任务，4处Pool导入恢复原值，增加后台错误门槛。
+- 本机workerd探针确认Durable Object的跨请求连接与响应结束后后台SQL成功。首次探针遇到Windows SQLite长路径错误，状态目录缩短后通过。免费账号能力及Neon空闲轮询用量继续核验，尚未上传平台资源。
+- 本地广泛回归首轮891通过、4失败；相同断言串行复测96通过、0失败，消除了两项超时及一项日志断言失败。Windows POSIX文件权限断言仍按失败记录；Linux全仓单元、类型、格式和PostgreSQL合约通过。
 - 458e072的标准CI与Storage PostgreSQL工作流成功；Cloudflare工作流因8个路由的辅助导出未满足Next入口类型契约失败。
 - 修复后静态核查111个路由，非法导出为0；persistence处理器迁移前后内容一致。改动文件格式与目标ESLint通过，权限、身份、事件流和存储回归继续按实际执行结果记录。
 - 本地隔离验收库从环境中断恢复，日志移至数据目录外，原数据保留。生产凭据仍待用户轮换；实际部署要求已收到，Workers平台限制、生产连通与上线验收继续作为部署前置条件。

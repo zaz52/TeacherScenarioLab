@@ -36,7 +36,7 @@ import {
   nodePostgresTransaction,
   type ConnectableQueryable,
 } from '@openmaic/storage/server/reference';
-import { Pool } from '@/lib/persistence/postgres-pool';
+import { Pool } from 'pg';
 
 import { resolveAssetCollectionGraceMs } from '@/lib/persistence/asset-collection-grace';
 import { resolveConfiguredAssetByteStore } from '@/lib/persistence/asset-byte-store';

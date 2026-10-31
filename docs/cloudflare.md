@@ -18,6 +18,19 @@ Workers 对跨请求 socket 和启动时 I/O 有限制；是否兼容以 workerd
 通过 Next.js 编译或 Workers 打包后，仍需执行数据库连续请求和完整训练验收。
 当前任务保持训练 API、状态机、权限、事件账本与迁移实现原样。
 
+2026-11-01：10f6e01的OpenNext构建、54.9MiB体积门槛、账号16项和产品76项检查通过，
+日志另发现原课程后台扫描跨请求I/O错误。完整应用改用单个SQLite Durable Object宿主，
+入口固定对象ID，原生Pool与后台任务处于该对象的I/O上下文；业务数据继续落在PostgreSQL。
+本机探针已验证跨请求连接与响应结束后的后台SQL，完整应用继续云端验收并检查后台错误。
+训练存储及3处持久化模块的Pool导入恢复原值，原SQL、事务和权限保持原样。
+
+依据[Durable Objects价格](https://developers.cloudflare.com/durable-objects/platform/pricing/)，
+Free支持SQLite后端，每日10万请求及13000GB-s时长，超额操作失败；资源按账号共享。
+[Neon Free](https://neon.com/pricing)包含每项目每月100CU-h，0.25CU持续活跃30天约180CU-h。
+常驻轮询会影响数据库自动暂停，空闲调度与实际额度属于正式上线前的容量验收项目。
+本机Windows预览可使用短路径`--persist-to F:/Codex/cache/teacherlab-worker-state`，
+SQLite数据库及其WAL文件路径需满足本机文件系统限制。
+
 2026-10-30 实际结果：提交b858937的标准CI、PostgreSQL、Next.js16.4.1生产构建、
 Docker运行检查与159项浏览器回归通过。独立Workers构建失败于pg-cloudflare解析
 以及sharp原生.node模块，Wrangler dry-run与workerd步骤尚未执行。该次失败属于

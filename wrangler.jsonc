@@ -6,6 +6,10 @@
   "compatibility_date": "2026-10-30",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "workers_dev": true,
+  "durable_objects": {
+    "bindings": [{ "name": "APPLICATION_HOST", "class_name": "TeacherLabHost" }],
+  },
+  "migrations": [{ "tag": "teacherlab-host-v1", "new_sqlite_classes": ["TeacherLabHost"] }],
   "images": {
     "binding": "IMAGES",
   },

@@ -10,7 +10,7 @@ import {
   nodePostgresTransaction,
   type ConnectableQueryable,
 } from '@openmaic/storage/server/reference';
-import { Pool } from '@/lib/persistence/postgres-pool';
+import { Pool } from 'pg';
 
 import { validateAppScene, validateAppStage } from '@/lib/document-store/validators';
 import { configuredLazyAssetByteStore } from '@/lib/persistence/asset-byte-store';

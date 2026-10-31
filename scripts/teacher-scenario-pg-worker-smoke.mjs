@@ -21,6 +21,8 @@ const child = spawn(
     '--local',
     '--config',
     'tests/workers/postgres/wrangler.jsonc',
+    '--persist-to',
+    process.env.TEACHERLAB_WORKER_STATE_PATH ?? path.resolve('.wrangler/pg'),
     '--ip',
     '127.0.0.1',
     '--port',
@@ -60,6 +62,31 @@ try {
   const sequential = [await check(), await check()];
   const concurrent = await Promise.all([check(), check(), check()]);
   assert.equal(new Set([...sequential, ...concurrent].map((value) => value.backendId)).size, 5);
+  const hostBase = 'http://127.0.0.1:8790/host/';
+  const fetchHost = async (path) => {
+    const response = await fetch(hostBase + path, { signal: AbortSignal.timeout(10000) });
+    assert.equal(response.status, 200, `Durable host ${path}`);
+    return response.json();
+  };
+  const hostFirst = await fetchHost('start');
+  const hostSecond = await fetchHost('start');
+  assert.equal(
+    hostFirst.backendId,
+    hostSecond.backendId,
+    'Durable host retains its own connection',
+  );
+  let background;
+  for (let attempt = 0; attempt < 20; attempt++) {
+    await setTimeout(100);
+    background = (await fetchHost('status')).background;
+    if (background) break;
+  }
+  assert.equal(
+    background?.passed,
+    true,
+    'Durable host must perform I/O after an HTTP response ends',
+  );
+  assert.equal(background.backendId, hostFirst.backendId);
   console.log(
     JSON.stringify({
       check: 'workerd-postgres',
@@ -67,6 +94,7 @@ try {
       sequential: 2,
       concurrent: 3,
       transactionRollback: true,
+      durableHostCrossRequestAndBackgroundIO: true,
     }),
   );
 } finally {

@@ -75,6 +75,7 @@ jobs:
           node scripts/teacher-scenario-workers-smoke.mjs
           TEACHERLAB_RUNTIME_SMOKE_PORT=8787 node scripts/teacher-scenario-runtime-smoke.mjs
           node scripts/teacher-scenario-workers-product-smoke.mjs
+          node scripts/teacher-scenario-workers-log-check.mjs
       - name: Inspect bundle size and dependency references
         if: always()
         run: node scripts/teacher-scenario-cloudflare-diagnostics.mjs --enforce-size
