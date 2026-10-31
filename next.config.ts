@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
+import path from 'node:path';
 
 const cloudflareBuild = process.env.TEACHERLAB_BUILD_TARGET === 'cloudflare';
 
@@ -63,6 +64,17 @@ const nextConfig: NextConfig = {
       ? { '@teacherlab/images': './packages/teacherlab-images/opennext.mjs' }
       : {},
   },
+  ...(cloudflareBuild
+    ? {
+        webpack(config) {
+          config.resolve.alias = {
+            ...config.resolve.alias,
+            '@teacherlab/images$': path.resolve('packages/teacherlab-images/opennext.mjs'),
+          };
+          return config;
+        },
+      }
+    : {}),
   experimental: {
     proxyClientMaxBodySize: '200mb',
   },
