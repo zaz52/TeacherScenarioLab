@@ -8,8 +8,8 @@
  *
  * 1. Explicit mention: the message names a character (乐乐妈妈/小雨/王老师/
  *    校医/校长) — that character answers.
- * 2. Topic keywords, in fixed order: 停课决策 → 家长病情 → 校医登记 →
- *    隔壁班 → 学生感受.
+ * 2. Topic keywords, in fixed order: 停课决策 → 家长病情 → 校医登记与
+ *    疫情报告 → 隔壁班 → 学生感受.
  * 3. Rotation: the eligible character who spoke least recently (never-spoken
  *    first); ties break by scenario character order.
  *
@@ -42,9 +42,9 @@ const TOPIC_RULES: Array<{
   reason: string;
 }> = [
   {
-    keywords: ['停课', '复课', '上报', '上级', '决定', '学校安排', '通知'],
+    keywords: ['停课', '复课', '上级', '决定', '学校安排', '通知'],
     characterId: 'principal-1',
-    reason: '话题：停课与上报决策',
+    reason: '话题：停课决策与学校安排',
   },
   {
     keywords: ['乐乐', '发烧', '体温', '医院', '病情', '药', '孩子'],
@@ -52,9 +52,9 @@ const TOPIC_RULES: Array<{
     reason: '话题：孩子病情',
   },
   {
-    keywords: ['登记', '晨检', '消毒', '通风', '测温'],
+    keywords: ['登记', '晨检', '消毒', '通风', '测温', '上报', '报告'],
     characterId: 'doctor-1',
-    reason: '话题：校医登记与防控措施',
+    reason: '话题：校医登记、疫情报告与防控措施',
   },
   {
     keywords: ['隔壁班', '其他班', '统一口径', '口径'],

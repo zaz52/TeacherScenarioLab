@@ -11,6 +11,27 @@ import {
 
 const env = { MINIMAX_API_KEY: 'sk-test' };
 
+it('validates the training deployment template with independent locked model slots', () => {
+  const example = fs.readFileSync(
+    path.resolve(process.cwd(), 'openmaic.teacher-scenario.example.yml'),
+    'utf8',
+  );
+  const config = parseModelConfig(example, {
+    env: {
+      GLM_API_KEY: 'test-glm-key',
+      GOOGLE_API_KEY: 'test-google-key',
+    },
+  });
+  expect(config.providers?.nvidia).toBeUndefined();
+  expect(config.providers?.glm.preset).toBe('glm');
+  expect(config.providers?.google.preset).toBe('google');
+  expect(config.slots?.['classroom.roleplay']).toBe('glm:glm-4.7-flash');
+  expect(config.slots?.['classroom.evaluation']).toBe('google:gemini-3.8-flash');
+  expect(config.lock).toEqual(['classroom.roleplay', 'classroom.evaluation']);
+  expect(config.allowUserKeys).toBe(false);
+  expect(() => parseModelConfig(example, { env: {} })).toThrow(ModelConfigError);
+});
+
 function issuesOf(text: string, overrides: ConfigEnv = env): readonly string[] {
   try {
     parseModelConfig(text, { env: overrides });
@@ -52,6 +73,33 @@ describe('parseModelConfig', () => {
     expect(config.slots?.classroom).toBe('local:qwen3:8b');
     expect(config.lock).toEqual(['tts', 'video']);
     expect(config.allowUserKeys).toBe(false);
+  });
+
+  it('accepts the training roleplay/evaluation child slots', () => {
+    const config = parseModelConfig(
+      `
+providers:
+  nvidia:
+    preset: openai-compatible
+    apiKey: \${NVIDIA_API_KEY}
+    baseUrl: https://integrate.api.nvidia.com/v1
+    models: [example-model]
+  glm:
+    preset: glm
+    apiKey: \${GLM_API_KEY}
+    models: [glm-4.7-flash]
+
+slots:
+  classroom.roleplay: nvidia:example-model
+  classroom.evaluation: glm:glm-4.7-flash
+`,
+      { env: { NVIDIA_API_KEY: 'sk-test-nvidia', GLM_API_KEY: 'sk-test-glm' } },
+    );
+    expect(config.providers?.nvidia.preset).toBe('openai-compatible');
+    expect(config.providers?.nvidia.baseUrl).toBe('https://integrate.api.nvidia.com/v1');
+    expect(config.providers?.glm.preset).toBe('glm');
+    expect(config.slots?.['classroom.roleplay']).toBe('nvidia:example-model');
+    expect(config.slots?.['classroom.evaluation']).toBe('glm:glm-4.7-flash');
   });
 
   it('leaves lock and allowUserKeys out when the file does not set them', () => {

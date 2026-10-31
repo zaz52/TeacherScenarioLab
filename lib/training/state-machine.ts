@@ -35,10 +35,7 @@ export const TRAINING_TRANSITIONS: Record<TrainingState, readonly TrainingState[
 };
 
 export function isTrainingState(value: unknown): value is TrainingState {
-  return (
-    typeof value === 'string' &&
-    (TRAINING_STATES as readonly string[]).includes(value)
-  );
+  return typeof value === 'string' && (TRAINING_STATES as readonly string[]).includes(value);
 }
 
 /** Whether `to` is a legal move from `from`. */

@@ -8,16 +8,19 @@
  * simply absent). The reply is persisted as a `character` message and
  * ledgered as a `character-reply` event carrying its mode, so a scripted
  * demo reply is always distinguishable from a model reply in the ledger.
+ * Scripted mode plays fixed demo lines only; model mode builds a fresh
+ * prompt per turn from the teacher's actual questions, known facts, and
+ * current state, and never replays scripted lines.
  */
 import { randomUUID } from 'node:crypto';
+import { priorSelection, routeTrainingModel, type ModelSelection } from './models/runtime';
+import { withModelLease } from './models/store';
+import { PoolError } from './models/types';
+import { minimizeNames } from './models/policy';
 
 import type { TrainingMessageRecord } from '@openmaic/storage/training/pg';
 
-import {
-  getCharacterPack,
-  getScenarioPacks,
-  type RoleplayPack,
-} from './character-packs';
+import { getCharacterPack, getScenarioPacks, type RoleplayPack } from './character-packs';
 import { selectResponder, type DirectorPick } from './director';
 import { getDisclosedFacts } from './disclosure';
 import { checkDynamicEvents } from './dynamic-events';
@@ -52,9 +55,7 @@ export function buildCharacterPrompt(
 ): { system: string; prompt: string } {
   const publicFacts = scenario.facts.filter((fact) => fact.visibility === 'public');
   const ownPrivateFacts = scenario.facts.filter(
-    (fact) =>
-      fact.visibility === 'character-private' &&
-      fact.ownerCharacterId === pack.characterId,
+    (fact) => fact.visibility === 'character-private' && fact.ownerCharacterId === pack.characterId,
   );
   const knownFacts = [...publicFacts, ...ownPrivateFacts];
   const systemLines = [
@@ -73,7 +74,7 @@ export function buildCharacterPrompt(
     );
   }
   systemLines.push(
-    '只扮演这个角色。不要透露你不知道的事，不要替其他角色说话，不要编造医学诊断。回复用中文，简短自然，像真人说话。',
+    '只扮演这个角色。不要透露你不知道的事，不要替其他角色说话，不要编造医学诊断。回复用中文，简短自然，像真人说话。根据教师的实际问题动态回应，不要背诵或机械重复固定台词。',
   );
   const system = systemLines.join('\n');
   const visibleHistory = history
@@ -100,7 +101,7 @@ export function buildCharacterPrompt(
  * and the pick is returned alongside the message. `generateModelReply`
  * defaults to the training-roleplay stage model call; pass a stub in tests.
  */
-export async function generateCharacterReply(
+async function generateCharacterReplyInner(
   ownerId: string,
   trainingId: string,
   input: { characterId?: string; mode?: ReplyMode },
@@ -109,12 +110,17 @@ export async function generateCharacterReply(
   message: TrainingMessageRecord;
   mode: ReplyMode;
   director?: DirectorPick;
+  model?: { provider: string; modelId: string; switched: boolean };
 }> {
   const mode = input.mode ?? 'model';
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);
   if (!training) {
-    throw new TrainingServiceError(404, 'TRAINING_NOT_FOUND', `training ${trainingId} was not found`);
+    throw new TrainingServiceError(
+      404,
+      'TRAINING_NOT_FOUND',
+      `training ${trainingId} was not found`,
+    );
   }
   if (!(MESSAGEABLE_STATES as readonly string[]).includes(training.state)) {
     throw new TrainingServiceError(
@@ -181,13 +187,19 @@ export async function generateCharacterReply(
   // and disclosures are computed with them included, so a reply generated
   // in the same turn may already reference the newly surfaced beat.
   const userMessages = history.filter((m) => m.role === 'user').map((m) => m.content);
-  const firedEvents = checkDynamicEvents(training.scenarioId, userMessages.length, events);
+  const firedEvents = checkDynamicEvents(
+    training.scenarioId,
+    userMessages.length,
+    events,
+    userMessages,
+  );
   const disclosedFacts = getDisclosedFacts(scenario, {
     state: training.state,
     events: [...events, ...firedEvents.map((type) => ({ type }))],
     userMessages,
   });
 
+  let selection: ModelSelection | undefined;
   let text: string;
   if (mode === 'scripted') {
     if (pack.scriptedReplies.length === 0) {
@@ -206,15 +218,41 @@ export async function generateCharacterReply(
       history,
       disclosedFacts,
     );
-    const generate = deps.generateModelReply ?? (await buildDefaultModelCall(ownerId));
+    const generate =
+      deps.generateModelReply ??
+      (async (system: string, prompt: string) => {
+        const result = await routeTrainingModel({
+          task: 'roleplay',
+          trainingId,
+          system,
+          prompt,
+          pinned: priorSelection(events, 'roleplay'),
+          names: scenario.characters.map((c) => c.name),
+          validate: (output) => {
+            const disclosedIds = new Set(disclosedFacts.map((f) => f.id));
+            const forbidden = scenario.facts.filter(
+              (f) =>
+                (f.visibility === 'character-private' && f.ownerCharacterId !== characterId) ||
+                (f.visibility === 'hidden' && !disclosedIds.has(f.id)),
+            );
+            const anonymized = forbidden.map((f) => ({
+              ...f,
+              content: minimizeNames(
+                f.content,
+                scenario.characters.map((c) => c.name),
+              ),
+            }));
+            if (scanReplyForLeaks(output, [...forbidden, ...anonymized]).length)
+              throw new PoolError('privacy');
+          },
+        });
+        selection = result.selection;
+        return result.text;
+      });
     try {
       text = (await generate(system, prompt)).trim();
-    } catch (error) {
-      throw new TrainingServiceError(
-        503,
-        'UPSTREAM_ERROR',
-        `roleplay model is not available: ${error instanceof Error ? error.message : 'unknown error'}`,
-      );
+    } catch {
+      throw new TrainingServiceError(503, 'UPSTREAM_ERROR', 'roleplay model is not available');
     }
     if (!text) {
       throw new TrainingServiceError(503, 'UPSTREAM_ERROR', 'roleplay model returned empty text');
@@ -227,8 +265,7 @@ export async function generateCharacterReply(
   const disclosedIds = new Set(disclosedFacts.map((fact) => fact.id));
   const forbiddenFacts = scenario.facts.filter(
     (fact) =>
-      (fact.visibility === 'character-private' &&
-        fact.ownerCharacterId !== characterId) ||
+      (fact.visibility === 'character-private' && fact.ownerCharacterId !== characterId) ||
       (fact.visibility === 'hidden' && !disclosedIds.has(fact.id)),
   );
   const leaked = scanReplyForLeaks(text, forbiddenFacts);
@@ -245,6 +282,13 @@ export async function generateCharacterReply(
 
   const now = Date.now();
   return store.withTransaction(async (tx) => {
+    const current = await tx.getTraining(trainingId);
+    if (!current || current.state !== training.state)
+      throw new TrainingServiceError(
+        409,
+        'TRAINING_STATE_CONFLICT',
+        'training changed while the model was replying',
+      );
     for (const eventType of firedEvents) {
       await tx.appendEvent({
         id: randomUUID(),
@@ -275,33 +319,48 @@ export async function generateCharacterReply(
       },
       createdAt: now,
     });
-    return { message: message.message, mode, director };
+    if (selection)
+      await tx.appendEvent({
+        id: randomUUID(),
+        trainingId,
+        type:
+          selection.previous && selection.previous !== selection.key
+            ? 'model-switched'
+            : 'model-selected',
+        payload: { ...selection },
+        createdAt: now,
+      });
+    return {
+      message: message.message,
+      mode,
+      director,
+      model: selection
+        ? {
+            provider: selection.provider,
+            modelId: selection.modelId,
+            switched: Boolean(selection.previous && selection.previous !== selection.key),
+          }
+        : undefined,
+    };
   });
 }
 
-async function buildDefaultModelCall(ownerId: string): Promise<GenerateModelReply> {
-  const { resolveModel } = await import('@/lib/server/resolve-model');
-  const { backgroundWorkspaceId } = await import('@/lib/server/model-config/runtime');
-  const { callLLM } = await import('@/lib/ai/llm');
-  let resolved: Awaited<ReturnType<typeof resolveModel>> | undefined;
-  return async (system: string, prompt: string) => {
-    resolved ??= await resolveModel({
-      stage: 'training-roleplay',
-      workspaceId: await backgroundWorkspaceId(ownerId),
-    });
-    const result = await callLLM(
-      {
-        model: resolved.model,
-        system,
-        prompt,
-        maxOutputTokens: resolved.modelInfo?.outputWindow,
-        maxRetries: 0,
-      },
-      'training-roleplay',
-      undefined,
-      resolved.thinkingConfig,
-      { serverManaged: resolved.serverManaged },
+export async function generateCharacterReply(
+  ...args: Parameters<typeof generateCharacterReplyInner>
+) {
+  if ((args[2].mode ?? 'model') === 'scripted' || args[3]?.generateModelReply)
+    return generateCharacterReplyInner(...args);
+  try {
+    return await withModelLease(`training:${args[1]}:roleplay`, () =>
+      generateCharacterReplyInner(...args),
     );
-    return result.text;
-  };
+  } catch (error) {
+    if (error instanceof PoolError)
+      throw new TrainingServiceError(
+        error.kind === 'busy' ? 409 : 503,
+        'UPSTREAM_ERROR',
+        'roleplay model pool is not available',
+      );
+    throw error;
+  }
 }

@@ -7,10 +7,7 @@
  * rests on. Unevaluated trainings appear in the list with a null
  * evaluation; they never dilute the trend. Owner-scoped by construction.
  */
-import type {
-  TrainingEvaluationRecord,
-  TrainingRecord,
-} from '@openmaic/storage/training/pg';
+import type { TrainingEvaluationRecord, TrainingRecord } from '@openmaic/storage/training/pg';
 
 import { EVALUATION_DIMENSIONS, type EvaluationDimension } from './evaluation';
 import { getTrainingStore } from './server';
@@ -36,10 +33,12 @@ export async function getTrainingRecords(ownerId: string): Promise<TrainingRecor
   const store = (await getTrainingStore()).forOwner(ownerId);
   const trainings = await store.listTrainings();
   const records = await Promise.all(
-    trainings.map(async (training): Promise<TrainingRecordEntry> => ({
-      training,
-      evaluation: await store.getEvaluation(training.id),
-    })),
+    trainings.map(
+      async (training): Promise<TrainingRecordEntry> => ({
+        training,
+        evaluation: await store.getEvaluation(training.id),
+      }),
+    ),
   );
   const sums = new Map<EvaluationDimension, { total: number; count: number }>();
   for (const dimension of EVALUATION_DIMENSIONS) {

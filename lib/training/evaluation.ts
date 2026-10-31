@@ -3,13 +3,16 @@
  *
  * After the conversation, the teacher is scored on five dimensions, each
  * with concrete dialogue evidence (teacher message ids) and a comment,
- * plus a summary and improvement suggestions. The model writes a short
- * narrative followed by a JSON tail — the PBL evaluator convention —
+ * plus a summary and improvement suggestions. The model returns JSON;
+ * historical narrative-plus-JSON output remains accepted by the parser.
  * and only a fully parsed, citation-verified evaluation is ever persisted:
  * unparsable output, wrong shapes, and evidence pointing at unknown or
  * non-teacher messages are all rejected with 502 and nothing is stored.
  */
 import { randomUUID } from 'node:crypto';
+import { priorSelection, routeTrainingModel, type ModelSelection } from './models/runtime';
+import { withModelLease } from './models/store';
+import { PoolError } from './models/types';
 
 import type {
   TrainingEvaluationRecord,
@@ -51,23 +54,38 @@ const DIMENSION_RUBRICS: Record<EvaluationDimension, string> = {
   'fact-checking': '是否多方核实、不轻信传言、不编造未确认的信息。',
   judgment: '是否区分事实与推测、不擅自下停课等结论、判断有依据。',
   coordination: '是否与校医、校长、任课教师对齐口径、分工明确。',
-  responsibility: '是否保护学生隐私、不透露他人信息、对外口径以学校为准。',
+  responsibility:
+    '是否保护学生隐私、不透露他人信息、对外口径以学校为准；当学生问及同桌等他人病情时，是否既保护他人健康隐私（不透露姓名与病情细节）又回应提问学生的担忧。',
 };
 
 export function buildEvaluationPrompt(
   scenario: ScenarioVersion,
   transcript: TrainingMessageRecord[],
 ): { system: string; prompt: string } {
+  const teacherIds = transcript
+    .filter((message) => message.role === 'user')
+    .map((message) => message.id);
+  const example = {
+    dimensions: EVALUATION_DIMENSIONS.map((dimension) => ({
+      dimension,
+      score: 80,
+      evidence: teacherIds.slice(0, 1),
+      comment: '依据对话中的具体表现评述。',
+    })),
+    summary: '基于本次对话的评价摘要。',
+    suggestions: ['结合对话提出可执行的改进建议。'],
+  };
   const system = [
     '你是教师情境训练的评价员。只评价教师（用户）的表现，角色回复只是背景。',
     `情境：${scenario.setting}`,
     `目标：${scenario.goal}`,
     '五个维度与评分标准（每项 0–100 整数）：',
-    ...EVALUATION_DIMENSIONS.map(
-      (dimension) => `- ${dimension}：${DIMENSION_RUBRICS[dimension]}`,
-    ),
+    ...EVALUATION_DIMENSIONS.map((dimension) => `- ${dimension}：${DIMENSION_RUBRICS[dimension]}`),
+    '注意：若对话中学生问及同桌等他人病情，须在 responsibility 维度中考查教师是否保护他人健康隐私、同时安抚提问学生。',
     '证据只能引用教师消息的 id，且每条证据 id 必须真实出现在对话记录里；不得引用角色消息，不得编造 id。',
-    '先写一段简短中文评语，再输出一个 JSON 代码块，格式：{"dimensions":[{"dimension":"communication","score":80,"evidence":["<教师消息id>"],"comment":"…"},…五个维度各一项],"summary":"…","suggestions":["…"]}。JSON 之外不要再写内容。',
+    `合法教师消息 ID：${JSON.stringify(teacherIds)}。evidence 必须从此列表逐字复制完整 ID，保留 UUID 连字符。`,
+    '返回一个完整 JSON 对象。五个维度各出现一次，comment 简明具体，suggestions 包含1至3条建议。评分与证据依据实际表现。',
+    `结构示例：${JSON.stringify(example)}`,
   ].join('\n');
   const lines = transcript.map((message) => {
     const speaker =
@@ -93,37 +111,24 @@ export function parseEvaluation(
   createdAt: number,
 ): TrainingEvaluation | null {
   const stripped = text.replace(/```json|```/g, '');
-  // The JSON tail is the last brace-balanced block: scan back from the
-  // final '}' to its matching '{' (the narrative may contain braces, and
-  // the tail itself nests dimension objects).
+  // Let JSON.parse match the boundaries, including braces and escapes inside
+  // strings. Earlier prose may also contain braces; only a complete JSON tail
+  // is accepted, and the schema and evidence checks still apply below.
   const end = stripped.lastIndexOf('}');
   if (end < 0) return null;
-  let depth = 0;
-  let start = -1;
-  for (let i = end; i >= 0; i--) {
-    if (stripped[i] === '}') depth++;
-    else if (stripped[i] === '{') {
-      depth--;
-      if (depth === 0) {
-        start = i;
-        break;
-      }
-    }
-  }
-  if (start < 0) return null;
   let parsed: unknown;
-  try {
-    parsed = JSON.parse(stripped.slice(start, end + 1));
-  } catch {
-    return null;
+  for (let start = stripped.indexOf('{'); start >= 0; start = stripped.indexOf('{', start + 1)) {
+    try {
+      parsed = JSON.parse(stripped.slice(start, end + 1));
+      break;
+    } catch {
+      // Try the next possible start after a brace in the narrative.
+    }
   }
   if (!isRecord(parsed)) return null;
   if (!Array.isArray(parsed.dimensions) || parsed.dimensions.length !== 5) return null;
   if (typeof parsed.summary !== 'string' || !parsed.summary.trim()) return null;
-  if (
-    !Array.isArray(parsed.suggestions) ||
-    parsed.suggestions.some((s) => typeof s !== 'string')
-  ) {
+  if (!Array.isArray(parsed.suggestions) || parsed.suggestions.some((s) => typeof s !== 'string')) {
     return null;
   }
   const seen = new Set<string>();
@@ -146,10 +151,7 @@ export function parseEvaluation(
     ) {
       return null;
     }
-    if (
-      !Array.isArray(entry.evidence) ||
-      entry.evidence.some((e) => typeof e !== 'string')
-    ) {
+    if (!Array.isArray(entry.evidence) || entry.evidence.some((e) => typeof e !== 'string')) {
       return null;
     }
     if (typeof entry.comment !== 'string') return null;
@@ -198,33 +200,6 @@ export interface EvaluateDeps {
   generateModelEvaluation?: GenerateModelEvaluation;
 }
 
-async function buildDefaultModelCall(ownerId: string): Promise<GenerateModelEvaluation> {
-  const { resolveModel } = await import('@/lib/server/resolve-model');
-  const { backgroundWorkspaceId } = await import('@/lib/server/model-config/runtime');
-  const { callLLM } = await import('@/lib/ai/llm');
-  let resolved: Awaited<ReturnType<typeof resolveModel>> | undefined;
-  return async (system: string, prompt: string) => {
-    resolved ??= await resolveModel({
-      stage: 'training-evaluation',
-      workspaceId: await backgroundWorkspaceId(ownerId),
-    });
-    const result = await callLLM(
-      {
-        model: resolved.model,
-        system,
-        prompt,
-        maxOutputTokens: resolved.modelInfo?.outputWindow,
-        maxRetries: 0,
-      },
-      'training-evaluation',
-      undefined,
-      resolved.thinkingConfig,
-      { serverManaged: resolved.serverManaged },
-    );
-    return result.text;
-  };
-}
-
 function notFound(kind: string, id: string): TrainingServiceError {
   return new TrainingServiceError(404, 'TRAINING_NOT_FOUND', `${kind} ${id} was not found`);
 }
@@ -235,7 +210,7 @@ function notFound(kind: string, id: string): TrainingServiceError {
  * 502/503 and persist nothing. The evaluation and its ledger event commit
  * atomically; re-evaluation while still in `evaluation` overwrites.
  */
-export async function generateEvaluation(
+async function generateEvaluationInner(
   ownerId: string,
   trainingId: string,
   deps: EvaluateDeps = {},
@@ -262,16 +237,37 @@ export async function generateEvaluation(
   }
   const transcript = await store.listMessages(trainingId, { includeSuperseded: false });
   const { system, prompt } = buildEvaluationPrompt(scenario, transcript);
-  const generate = deps.generateModelEvaluation ?? (await buildDefaultModelCall(ownerId));
+  let selection: ModelSelection | undefined;
+  const events = await store.listEvents(trainingId);
+  const generate =
+    deps.generateModelEvaluation ??
+    (async (system: string, prompt: string) => {
+      const result = await routeTrainingModel({
+        task: 'evaluation',
+        trainingId,
+        system,
+        prompt,
+        pinned: priorSelection(events, 'evaluation'),
+        names: scenario.characters.map((c) => c.name),
+        validate: (text) => {
+          const parsed = parseEvaluation(trainingId, text, Date.now());
+          if (!parsed) throw new PoolError('json');
+          if (verifyEvaluationCitations(parsed, transcript).length) throw new PoolError('evidence');
+          if (
+            parsed.dimensions.some((d) => !d.evidence.length || !d.comment.trim()) ||
+            !parsed.suggestions.length
+          )
+            throw new PoolError('json');
+        },
+      });
+      selection = result.selection;
+      return result.text;
+    });
   let text: string;
   try {
     text = (await generate(system, prompt)).trim();
-  } catch (error) {
-    throw new TrainingServiceError(
-      503,
-      'UPSTREAM_ERROR',
-      `evaluation model is not available: ${error instanceof Error ? error.message : 'unknown error'}`,
-    );
+  } catch {
+    throw new TrainingServiceError(503, 'UPSTREAM_ERROR', 'evaluation model is not available');
   }
   if (!text) {
     throw new TrainingServiceError(503, 'UPSTREAM_ERROR', 'evaluation model returned empty text');
@@ -304,7 +300,25 @@ export async function generateEvaluation(
     createdAt: now,
   };
   await store.withTransaction(async (tx) => {
+    const current = await tx.getTraining(trainingId);
+    if (!current || current.state !== 'evaluation')
+      throw new TrainingServiceError(
+        409,
+        'TRAINING_STATE_CONFLICT',
+        'training changed while the model was evaluating',
+      );
     await tx.saveEvaluation(stored);
+    if (selection)
+      await tx.appendEvent({
+        id: randomUUID(),
+        trainingId,
+        type:
+          selection.previous && selection.previous !== selection.key
+            ? 'model-switched'
+            : 'model-selected',
+        payload: { ...selection },
+        createdAt: now,
+      });
     await tx.appendEvent({
       id: randomUUID(),
       trainingId,
@@ -337,4 +351,21 @@ export async function getEvaluation(
     suggestions: record.suggestions,
     createdAt: record.createdAt,
   };
+}
+
+export async function generateEvaluation(...args: Parameters<typeof generateEvaluationInner>) {
+  if (args[2]?.generateModelEvaluation) return generateEvaluationInner(...args);
+  try {
+    return await withModelLease(`training:${args[1]}:evaluation`, () =>
+      generateEvaluationInner(...args),
+    );
+  } catch (error) {
+    if (error instanceof PoolError)
+      throw new TrainingServiceError(
+        error.kind === 'busy' ? 409 : 503,
+        'UPSTREAM_ERROR',
+        'evaluation model pool is not available',
+      );
+    throw error;
+  }
 }

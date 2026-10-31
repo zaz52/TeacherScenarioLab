@@ -23,6 +23,7 @@ on:
         integration/agent-workbench,
         integration/material-library,
         integration/workbench-home,
+        dev/teacher-scenario-lab,
       ]
   # The merge queue builds each entry on top of main and the entries queued
   # ahead of it, so a pull request no longer has to be brought up to date with
@@ -331,7 +332,8 @@ jobs:
 
   e2e:
     name: E2E Tests
-    runs-on: ubuntu-latest
+    # The locked Playwright version does not support Ubuntu 26.04 yet.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     # The app stores every course in PostgreSQL and refuses to start without
     # DATABASE_URL, so the browser suite runs against a real database; specs
@@ -369,7 +371,7 @@ jobs:
 
       # Browser tarball only. `install-deps` talks to Ubuntu apt; on this
       # runner fleet that mirror has sat through the whole 15-minute job
-      # budget. ubuntu-latest already ships the libraries Chromium needs.
+      # budget. Ubuntu 24.04 already ships the libraries Chromium needs.
       # Bound the Microsoft CDN download so a stall retries instead of hanging.
       - name: Install Playwright Chromium
         run: |
@@ -459,14 +461,26 @@ jobs:
           retention-days: 7
 
   docker-main-image:
-    name: Main image (deps + builder)
+    name: Main image (deps + builder + runner)
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: teacher_scenario_runtime
+          POSTGRES_USER: openmaic
+          POSTGRES_PASSWORD: ci-runtime-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U openmaic -d teacher_scenario_runtime"
+          --health-interval 5s --health-timeout 5s --health-retries 10
     # The main Dockerfile was never built in CI, so an install step that no
     # longer fits in a small Docker VM (#1526) or fails on the host's mounts
     # (#1506) only surfaced on users' machines. Build the deps and builder
-    # stages whenever an input to them changes; the runner stage only copies
-    # their outputs.
+    # stages whenever an input to them changes, including the runner's native
+    # libraries, standalone copies and unprivileged data-directory setup.
     steps:
       - uses: actions/checkout@v5
         with:
@@ -536,15 +550,40 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         uses: docker/setup-buildx-action@v3
 
-      # target=builder builds deps as well (COPY --from=deps), which is where
-      # the install and the package builds run.
-      - name: Build deps + builder stages
+      # Load the final image for the isolated runtime smoke below.
+      # Publishing remains disabled.
+      - name: Build deps + builder + runner stages
         if: steps.changes.outputs.changed == 'true'
         uses: docker/build-push-action@v6
         with:
           context: .
-          target: builder
+          target: runner
           push: false
-          load: false
+          load: true
+          tags: teacher-scenario-lab-ci:${{ github.sha }}
           cache-from: type=gha,scope=openmaic-main-image
           cache-to: type=gha,scope=openmaic-main-image,mode=max
+
+      - name: Start final image and verify PostgreSQL-backed runtime
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          DATABASE_URL: postgres://openmaic:ci-runtime-password@127.0.0.1:5432/teacher_scenario_runtime
+        run: |
+          docker run --detach --name teacher-scenario-runtime --network host \
+            --env HOSTNAME=127.0.0.1 \
+            --env DATABASE_URL \
+            --env OWNER_SINGLE_USER=false \
+            --env OPENMAIC_SECRET_KEY=ci-runtime-encryption-key-not-for-production \
+            --env ACCESS_CODE=ci-runtime-access-code \
+            teacher-scenario-lab-ci:${{ github.sha }}
+          test "$(docker exec teacher-scenario-runtime id -u)" = 1001
+          docker cp scripts/teacher-scenario-runtime-smoke.mjs teacher-scenario-runtime:/tmp/runtime-smoke.mjs
+          docker exec teacher-scenario-runtime node /tmp/runtime-smoke.mjs
+
+      - name: Runtime diagnostics
+        if: failure() && steps.changes.outputs.changed == 'true'
+        run: docker logs --tail 120 teacher-scenario-runtime || true
+
+      - name: Stop runtime smoke container
+        if: always() && steps.changes.outputs.changed == 'true'
+        run: docker rm --force teacher-scenario-runtime || true

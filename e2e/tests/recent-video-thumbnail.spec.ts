@@ -21,7 +21,7 @@ async function seedVideoThumbnailStage(
   courseName: string,
   video: { bytes: Uint8Array; withPoster: boolean } = { bytes: VIDEO_BYTES, withPoster: true },
 ): Promise<string> {
-  await page.goto('/', { waitUntil: 'networkidle' });
+  await page.goto('/courseware', { waitUntil: 'networkidle' });
   const stageId = uniqueStageId('e2e-video-thumbnail-stage');
   const videoId = await seedServerAsset(page, video.bytes, 'video/mp4');
   const posterId = video.withPoster
@@ -75,7 +75,7 @@ async function seedVideoThumbnailStage(
     ],
     outline: { outlines: [], createdAt: now, updatedAt: now },
   });
-  await page.goto('/', { waitUntil: 'networkidle' });
+  await page.goto('/courseware', { waitUntil: 'networkidle' });
   return stageId;
 }
 
@@ -140,7 +140,7 @@ test.describe('Home recent video thumbnails', () => {
       await expect(cards.locator('video')).toHaveCount(0);
     };
 
-    await page.goto('/');
+    await page.goto('/courseware');
     await shown();
     // And from the device cache.
     await page.reload();

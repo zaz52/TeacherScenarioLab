@@ -20,10 +20,7 @@ interface PostMessageBody {
   idempotencyKey?: unknown;
 }
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   let body: PostMessageBody = {};
   try {
@@ -35,8 +32,7 @@ export async function POST(
     try {
       const result = await appendUserMessage(principal.ownerId, id, {
         content: typeof body.content === 'string' ? body.content : '',
-        idempotencyKey:
-          typeof body.idempotencyKey === 'string' ? body.idempotencyKey : null,
+        idempotencyKey: typeof body.idempotencyKey === 'string' ? body.idempotencyKey : null,
       });
       return NextResponse.json(
         { success: true, message: result.message, deduped: result.deduped },
@@ -50,13 +46,9 @@ export async function POST(
   });
 }
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const includeSuperseded =
-    new URL(req.url).searchParams.get('includeSuperseded') === 'true';
+  const includeSuperseded = new URL(req.url).searchParams.get('includeSuperseded') === 'true';
   return withTrainingOwner(req, async (principal) => {
     try {
       const messages = await listMessages(principal.ownerId, id, includeSuperseded);

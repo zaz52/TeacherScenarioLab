@@ -1,0 +1,90 @@
+name: Cloudflare validation
+
+on:
+  pull_request:
+    branches: [dev/teacher-scenario-lab]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  workers:
+    name: OpenNext build and Workers runtime
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: teacher_scenario_runtime
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d teacher_scenario_runtime"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      NODE_OPTIONS: --max-old-space-size=6144
+      NEXT_TELEMETRY_DISABLED: '1'
+      WRANGLER_SEND_METRICS: 'false'
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/teacher_scenario_runtime
+      OWNER_SINGLE_USER: 'false'
+      OPENMAIC_SECRET_KEY: ci-cloudflare-fixture-encryption-key
+      ACCESS_CODE: ci-workers-acceptance-access-code
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-workspace
+      - name: Exercise image operations in workerd
+        run: node scripts/teacher-scenario-image-smoke.mjs
+      - name: Exercise PostgreSQL request and transaction isolation in workerd
+        run: node scripts/teacher-scenario-pg-worker-smoke.mjs
+      - name: Build OpenNext bundle
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm cf:build 2>&1 | tee cloudflare-build.log
+      - name: Validate Workers bundle
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm exec wrangler deploy --dry-run --outdir .cloudflare-dry-run 2>&1 | tee cloudflare-dry-run.log
+      - name: Seed the isolated training fixture
+        run: pnpm exec tsx scripts/teacher-scenario-workers-fixture.mts
+      - name: Exercise Workers runtime against isolated PostgreSQL
+        shell: bash
+        run: |
+          printf '%s\n' \
+            "DATABASE_URL=$DATABASE_URL" \
+            'OWNER_SINGLE_USER=false' \
+            'NEXTJS_ENV=production' \
+            'OPENMAIC_SECRET_KEY=ci-cloudflare-fixture-encryption-key' \
+            "ACCESS_CODE=$ACCESS_CODE" \
+            > .dev.vars
+          pnpm exec wrangler dev --local --ip 127.0.0.1 --port 8787 --inspector-port 0 > cloudflare-runtime.log 2>&1 &
+          worker_pid=$!
+          trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
+          node scripts/teacher-scenario-workers-smoke.mjs
+          TEACHERLAB_RUNTIME_SMOKE_PORT=8787 node scripts/teacher-scenario-runtime-smoke.mjs
+          node scripts/teacher-scenario-workers-product-smoke.mjs
+      - name: Inspect bundle size and dependency references
+        if: always()
+        run: node scripts/teacher-scenario-cloudflare-diagnostics.mjs --enforce-size
+      - name: Retain validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-validation-logs
+          path: |
+            cloudflare-*.log
+            cloudflare-dependency-diagnostics.json
+          if-no-files-found: ignore
+          retention-days: 7

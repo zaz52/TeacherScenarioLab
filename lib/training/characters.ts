@@ -27,10 +27,7 @@ export interface CharacterFactPack {
  * Validate a fact pack against a scenario's fact table. Returns problems
  * (empty = valid). Pure function.
  */
-export function validateFactPack(
-  pack: CharacterFactPack,
-  facts: TrainingFact[],
-): string[] {
+export function validateFactPack(pack: CharacterFactPack, facts: TrainingFact[]): string[] {
   const problems: string[] = [];
   const byId = new Map(facts.map((fact) => [fact.id, fact]));
   if (!pack.characterId) problems.push('characterId is empty');

@@ -104,7 +104,7 @@ test.describe('Home library loading', () => {
       while (held.length) await held.shift()!.continue();
     };
 
-    await page.goto('/');
+    await page.goto('/courseware');
     const cards = page.locator('.group.cursor-pointer').filter({ hasText: prefix });
 
     // The whole list renders while no course content has been served.
@@ -168,7 +168,7 @@ test.describe('Home library loading', () => {
       await expect(cards.locator('[data-thumbnail-state="loading"]')).toHaveCount(0);
     };
 
-    await page.goto('/');
+    await page.goto('/courseware');
     await loaded();
     expect(documentReads.filter((id) => ids.includes(id)).sort()).toEqual([...ids].sort());
     await expect.poll(() => cachedThumbnailCount(page)).toBeGreaterThanOrEqual(ids.length);

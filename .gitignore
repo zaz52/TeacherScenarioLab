@@ -28,6 +28,14 @@ CLAUDE.local.md
 # next.js
 /.next/
 /out/
+/.open-next/
+.wrangler/
+/packages/teacherlab-images/node_modules/
+/tests/workers/postgres/.dev.vars
+/.cloudflare-dry-run/
+/cloudflare-*.log
+/.dev.vars*
+!/.dev.vars.example
 
 # production
 /build

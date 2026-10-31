@@ -20,7 +20,7 @@
  * downloads without failing them: once it fires, the downloads still running
  * are stopped and every image not yet downloaded is dropped and counted.
  */
-import sharp from 'sharp';
+import { imageInfo } from '@teacherlab/images';
 
 import { MAX_DERIVED_IMAGES } from '@/lib/document/extractors/images';
 import { createLogger } from '@/lib/logger';
@@ -107,7 +107,7 @@ async function imageMimeType(response: Response, bytes: Buffer): Promise<string 
   const declared = response.headers.get('content-type')?.split(';')[0]?.trim().toLowerCase();
   if (declared?.startsWith('image/')) return declared;
   try {
-    const { format } = await sharp(bytes, { failOn: 'none' }).metadata();
+    const { format } = await imageInfo(bytes);
     return (format && SNIFFED_IMAGE_TYPES[format]) || null;
   } catch {
     return null;
@@ -117,7 +117,7 @@ async function imageMimeType(response: Response, bytes: Buffer): Promise<string 
 /** The pixel size of image bytes, when they can be read. */
 async function pixelSize(bytes: Buffer): Promise<{ width?: number; height?: number }> {
   try {
-    const { width, height } = await sharp(bytes, { failOn: 'none' }).metadata();
+    const { width, height } = await imageInfo(bytes);
     return width && height ? { width, height } : {};
   } catch {
     return {};

@@ -1,5 +1,8 @@
 import type { NextConfig } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
+import path from 'node:path';
+
+const cloudflareBuild = process.env.TEACHERLAB_BUILD_TARGET === 'cloudflare';
 
 const nextConfig: NextConfig = {
   // Keep Next dev from creating or rewriting repository agent instructions.
@@ -21,12 +24,15 @@ const nextConfig: NextConfig = {
       // sharp's native libvips libraries are loaded via dlopen and are not
       // statically analyzable, so Next.js standalone tracing omits them. Two
       // sharp versions resolve in the tree (0.34.5 transitive -> libvips
-      // 1.2.4, 0.35.4 direct -> libvips 1.3.3); tracing picked the wrong one
+      // 1.2.4, 0.35.5 direct -> libvips 1.3.4); tracing picked the wrong one
       // and the runtime dlopen of sharp 0.35.4 failed with
       // "libvips-cpp.so.8.18.6: No such file or directory" on self-hosted
       // Docker (Alpine/musl) deployments. Force-include every sharp-libvips
       // native lib dir.
       'node_modules/.pnpm/@img+sharp-libvips-*/node_modules/@img/sharp-libvips-*/lib/**',
+      // Next traces Node's default export; OpenNext selects the workerd export later.
+      'node_modules/.pnpm/pg-cloudflare@*/node_modules/pg-cloudflare/{dist,esm}/**',
+      'packages/teacherlab-images/*.mjs',
     ],
   },
   typescript: {
@@ -41,6 +47,7 @@ const nextConfig: NextConfig = {
   // Mark them server-external so Next loads them natively and the dynamic
   // import resolves as a real Node call.
   serverExternalPackages: [
+    ...(cloudflareBuild ? [] : ['@teacherlab/images']),
     '@earendil-works/pi-ai',
     '@earendil-works/pi-agent-core',
     '@openmaic/generation',
@@ -52,8 +59,25 @@ const nextConfig: NextConfig = {
     '@aws-sdk/client-s3',
     '@aws-sdk/s3-request-presigner',
   ],
+  turbopack: {
+    resolveAlias: cloudflareBuild
+      ? { '@teacherlab/images': './packages/teacherlab-images/opennext.mjs' }
+      : {},
+  },
+  ...(cloudflareBuild
+    ? {
+        webpack(config) {
+          config.resolve.alias = {
+            ...config.resolve.alias,
+            '@teacherlab/images$': path.resolve('packages/teacherlab-images/opennext.mjs'),
+          };
+          return config;
+        },
+      }
+    : {}),
   experimental: {
     proxyClientMaxBodySize: '200mb',
+    ...(cloudflareBuild ? { optimizePackageImports: ['@openmaic/storage'] } : {}),
   },
   async headers() {
     const extraAncestors = process.env.ALLOWED_FRAME_ANCESTORS?.trim();

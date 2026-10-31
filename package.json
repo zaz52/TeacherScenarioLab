@@ -34,9 +34,14 @@
     "eval:outline-language": "tsx eval/outline-language/runner.ts",
     "eval:orchestration:answering": "tsx --conditions=import eval/orchestration/answering-runner.ts",
     "eval:orchestration:answer-content": "tsx --conditions=import eval/orchestration/answer-content-runner.ts",
-    "sync:interactive-assets": "node scripts/sync-interactive-assets.mjs"
+    "sync:interactive-assets": "node scripts/sync-interactive-assets.mjs",
+    "cf:build": "node scripts/build-teacherlab-cloudflare.mjs",
+    "cf:check": "wrangler deploy --dry-run --outdir .cloudflare-dry-run",
+    "cf:preview": "opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare deploy"
   },
   "dependencies": {
+    "@teacherlab/images": "workspace:*",
     "@ai-sdk/amazon-bedrock": "^4.0.103",
     "@ai-sdk/anthropic": "^3.0.71",
     "@ai-sdk/azure": "^3.0.88",
@@ -121,7 +126,7 @@
     "mitt": "^3.0.1",
     "motion": "^12.27.5",
     "nanoid": "5.1.16",
-    "next": "16.3.3",
+    "next": "16.4.1",
     "next-themes": "^0.4.6",
     "openai": "^4.104.0",
     "parse-srcset": "^1.0.2",
@@ -151,7 +156,7 @@
     "react-i18next": "^17.0.1",
     "sanitize-html": "2.17.0",
     "shadcn": "^3.6.3",
-    "sharp": "0.35.4",
+    "sharp": "0.35.5",
     "shiki": "^3.21.0",
     "sonner": "^2.0.7",
     "streamdown": "^2.5.0",
@@ -209,7 +214,10 @@
     "tsx": "^4.21.0",
     "typescript": "^5",
     "vitest": "^4.1.8",
-    "vue-to-react": "^1.0.0"
+    "vue-to-react": "^1.0.0",
+    "@opennextjs/cloudflare": "1.20.14",
+    "wrangler": "4.156.0",
+    "rclone.js": "0.6.6"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [

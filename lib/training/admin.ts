@@ -25,6 +25,7 @@ import type { OwnerPrincipal } from '@/lib/server/identity/types';
 
 import { getCodeScenarioDraft } from './scenarios';
 import { toScenarioVersion } from './scenario';
+import { validateScenarioVersion } from './scenario-validation';
 import { getTrainingStore } from './server';
 import { isTrainingAdmin } from './session-auth';
 import { TrainingServiceError } from './store';
@@ -49,7 +50,12 @@ export async function getScenarioForAdmin(
 ): Promise<ScenarioVersionRecord> {
   const store = await getTrainingStore();
   const record = await store.getScenarioVersion(scenarioId, version);
-  if (!record) throw new TrainingServiceError(404, 'SCENARIO_NOT_FOUND', `scenario ${scenarioId} version ${version} was not found`);
+  if (!record)
+    throw new TrainingServiceError(
+      404,
+      'SCENARIO_NOT_FOUND',
+      `scenario ${scenarioId} version ${version} was not found`,
+    );
   return record;
 }
 
@@ -58,30 +64,39 @@ export async function getScenarioForAdmin(
  * the version already exists (draft or published) and when the code knows
  * no draft by that id.
  */
-export async function importCodeScenarioDraft(
-  scenarioId: string,
-): Promise<ScenarioVersionRecord> {
+export async function importCodeScenarioDraft(scenarioId: string): Promise<ScenarioVersionRecord> {
   const draft = getCodeScenarioDraft(scenarioId);
   if (!draft) {
-    throw new TrainingServiceError(404, 'SCENARIO_NOT_FOUND', `no code draft for scenario ${scenarioId}`);
+    throw new TrainingServiceError(
+      404,
+      'SCENARIO_NOT_FOUND',
+      `no code draft for scenario ${scenarioId}`,
+    );
   }
   const store = await getTrainingStore();
-  const existing = await store.getScenarioVersion(draft.scenarioId, draft.version);
-  if (existing) {
+  const validated = toScenarioVersion({
+    ...draft,
+    publishedAt: null,
+  } as ScenarioVersionRecord);
+  if (!validated) {
+    throw new TrainingServiceError(
+      500,
+      'INTERNAL_ERROR',
+      `code draft ${scenarioId} fails validation`,
+    );
+  }
+  const created = await store.createScenarioVersion({
+    ...draft,
+    publishedAt: null,
+  });
+  if (!created) {
     throw new TrainingServiceError(
       409,
       'TRAINING_STATE_CONFLICT',
       `scenario ${draft.scenarioId} version ${draft.version} already exists`,
     );
   }
-  const validated = toScenarioVersion({
-    ...draft,
-    publishedAt: null,
-  } as ScenarioVersionRecord);
-  if (!validated) {
-    throw new TrainingServiceError(500, 'INTERNAL_ERROR', `code draft ${scenarioId} fails validation`);
-  }
-  return store.saveScenarioVersion({ ...draft, publishedAt: null });
+  return created;
 }
 
 /**
@@ -96,7 +111,11 @@ export async function publishScenarioVersion(
   const store = await getTrainingStore();
   const record = await store.getScenarioVersion(scenarioId, version);
   if (!record) {
-    throw new TrainingServiceError(404, 'SCENARIO_NOT_FOUND', `scenario ${scenarioId} version ${version} was not found`);
+    throw new TrainingServiceError(
+      404,
+      'SCENARIO_NOT_FOUND',
+      `scenario ${scenarioId} version ${version} was not found`,
+    );
   }
   if (record.publishedAt !== null) {
     throw new TrainingServiceError(
@@ -107,7 +126,11 @@ export async function publishScenarioVersion(
   }
   const validated = toScenarioVersion(record);
   if (!validated) {
-    throw new TrainingServiceError(500, 'INTERNAL_ERROR', `stored scenario ${scenarioId} version ${version} fails validation`);
+    throw new TrainingServiceError(
+      500,
+      'INTERNAL_ERROR',
+      `stored scenario ${scenarioId} version ${version} fails validation`,
+    );
   }
   try {
     return await store.saveScenarioVersion({ ...record, publishedAt: Date.now() });
@@ -126,6 +149,114 @@ export async function publishScenarioVersion(
 export interface AdminTrainingFilters {
   ownerId?: string;
   state?: string;
+}
+
+/**
+ * Create a draft scenario version from an editor payload. The payload is
+ * validated first (400 with the issue list); creation is a single atomic
+ * INSERT, so a concurrent duplicate — draft or published — refuses with
+ * 409 instead of overwriting. The stored row is always a draft:
+ * `publishedAt` is forced to null.
+ */
+export async function createScenarioDraft(input: unknown): Promise<ScenarioVersionRecord> {
+  const { issues, scenario } = validateScenarioVersion(input);
+  if (!scenario) {
+    throw new TrainingServiceError(
+      400,
+      'INVALID_REQUEST',
+      `scenario validation failed: ${issues.join('; ')}`,
+    );
+  }
+  const store = await getTrainingStore();
+  const created = await store.createScenarioVersion({
+    ...scenario,
+    publishedAt: null,
+  });
+  if (!created) {
+    throw new TrainingServiceError(
+      409,
+      'TRAINING_STATE_CONFLICT',
+      `scenario ${scenario.scenarioId} version ${scenario.version} already exists`,
+    );
+  }
+  return created;
+}
+
+/**
+ * Update a draft scenario version from an editor payload. The path
+ * (scenarioId, version) must match the payload; a missing version → 404;
+ * a published version → 409 (frozen: edit by creating a new version).
+ */
+export async function updateScenarioDraft(
+  scenarioId: string,
+  version: number,
+  input: unknown,
+): Promise<ScenarioVersionRecord> {
+  const { issues, scenario } = validateScenarioVersion(input);
+  if (!scenario) {
+    throw new TrainingServiceError(
+      400,
+      'INVALID_REQUEST',
+      `scenario validation failed: ${issues.join('; ')}`,
+    );
+  }
+  if (scenario.scenarioId !== scenarioId || scenario.version !== version) {
+    throw new TrainingServiceError(
+      400,
+      'INVALID_REQUEST',
+      'scenario id and version in the payload must match the URL path',
+    );
+  }
+  const store = await getTrainingStore();
+  const existing = await store.getScenarioVersion(scenarioId, version);
+  if (!existing) {
+    throw new TrainingServiceError(
+      404,
+      'SCENARIO_NOT_FOUND',
+      `scenario ${scenarioId} version ${version} was not found`,
+    );
+  }
+  if (existing.publishedAt !== null) {
+    throw new TrainingServiceError(
+      409,
+      'TRAINING_STATE_CONFLICT',
+      `scenario ${scenarioId} version ${version} is published and frozen`,
+    );
+  }
+  return store.saveScenarioVersion({ ...scenario, publishedAt: null });
+}
+
+/**
+ * Delete a draft scenario version. Missing → 404; published → 409 (a
+ * published version is history for every training bound to it). A false
+ * return from the store means the row changed concurrently — surfaced
+ * as a conflict, never as a silent success.
+ */
+export async function deleteScenarioDraft(scenarioId: string, version: number): Promise<void> {
+  const store = await getTrainingStore();
+  const existing = await store.getScenarioVersion(scenarioId, version);
+  if (!existing) {
+    throw new TrainingServiceError(
+      404,
+      'SCENARIO_NOT_FOUND',
+      `scenario ${scenarioId} version ${version} was not found`,
+    );
+  }
+  if (existing.publishedAt !== null) {
+    throw new TrainingServiceError(
+      409,
+      'TRAINING_STATE_CONFLICT',
+      `scenario ${scenarioId} version ${version} is published and frozen`,
+    );
+  }
+  const deleted = await store.deleteScenarioVersion(scenarioId, version);
+  if (!deleted) {
+    throw new TrainingServiceError(
+      409,
+      'TRAINING_STATE_CONFLICT',
+      `scenario ${scenarioId} version ${version} changed concurrently`,
+    );
+  }
 }
 
 /**
@@ -157,7 +288,11 @@ export async function getTrainingForAdmin(trainingId: string): Promise<AdminTrai
   const store = await getTrainingStore();
   const training = await store.getTraining(trainingId);
   if (!training) {
-    throw new TrainingServiceError(404, 'TRAINING_NOT_FOUND', `training ${trainingId} was not found`);
+    throw new TrainingServiceError(
+      404,
+      'TRAINING_NOT_FOUND',
+      `training ${trainingId} was not found`,
+    );
   }
   const [messages, events, evaluation] = await Promise.all([
     store.listMessages(trainingId, { includeSuperseded: true }),

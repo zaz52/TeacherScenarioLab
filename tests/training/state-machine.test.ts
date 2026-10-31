@@ -1,10 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import {
-  canTransition,
-  isTrainingState,
-  nextStates,
-} from '@/lib/training/state-machine';
+import { canTransition, isTrainingState, nextStates } from '@/lib/training/state-machine';
 
 describe('training state machine', () => {
   test('the full chain is legal in order', () => {

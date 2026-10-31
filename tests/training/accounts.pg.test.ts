@@ -85,7 +85,9 @@ describePg('training accounts (PostgreSQL contract)', () => {
     await expect(
       claimAnonymousTrainings(account.accountId, account.accountId),
     ).rejects.toBeInstanceOf(TrainingServiceError);
-    await expect(claimAnonymousTrainings(account.accountId, account.accountId)).rejects.toMatchObject({
+    await expect(
+      claimAnonymousTrainings(account.accountId, account.accountId),
+    ).rejects.toMatchObject({
       status: 409,
       code: 'TRAINING_NOT_ANONYMOUS_OWNER',
     });

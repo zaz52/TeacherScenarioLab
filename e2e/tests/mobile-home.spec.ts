@@ -4,7 +4,7 @@ test('mobile home keeps generation compact and opens the shared library in a dra
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/courseware');
   const home = page.getByTestId('home-page');
   await expect(home).toHaveAttribute('data-mobile', 'true');
   const input = page.getByTestId('home-requirement');
@@ -73,7 +73,7 @@ test('mobile home keeps generation compact and opens the shared library in a dra
 
 test('desktop retains the inline course library and import action', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto('/');
+  await page.goto('/courseware');
   await expect(page.getByTestId('home-page')).toHaveAttribute('data-mobile', 'false');
   await expect(page.getByTestId('home-history-open')).not.toBeVisible();
   await expect(page.getByTestId('home-course-import')).toBeVisible();
@@ -101,7 +101,7 @@ test('mobile library searches shared courses and keeps course actions separate f
     }),
   );
   await page.route('**/classroom/mobile-home-python*', (route) => route.abort());
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-history-open').click();
   await page.getByTestId('home-mobile-search').fill('Python');
   await expect(page.getByRole('link', { name: 'Python basics', exact: true })).toBeVisible();
@@ -120,7 +120,7 @@ test('mobile library searches shared courses and keeps course actions separate f
 
 test('mobile language and theme reuse the desktop choices', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.locator('.home-top-tools > button').click();
   await expect(page.getByRole('menuitem')).toHaveCount(12);
   await page.getByRole('menuitem', { name: 'English', exact: true }).click();
@@ -149,7 +149,7 @@ test('mobile course rename receives focus and delete confirmation fits the card'
       },
     }),
   );
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-history-open').click();
   const initialCard = await page.locator('.home-course-card').boundingBox();
   expect(initialCard!.height).toBeLessThanOrEqual(104);
@@ -184,7 +184,7 @@ test('phone dialogs stay inside the visible viewport, including nested folder an
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 780 });
-  await page.goto('/');
+  await page.goto('/courseware');
   const assertBounds = async (selector: string, height = 780) => {
     const panel = page.locator(selector).last();
     await expect(panel).toBeVisible();
@@ -238,7 +238,7 @@ test('narrow course rows retain long titles and a stable contextual deletion', a
       },
     }),
   );
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-history-open').click();
   const card = page.getByRole('link', { name, exact: true });
   const next = page.getByRole('link', { name: 'Next course', exact: true });
@@ -316,7 +316,7 @@ test('paused generation rows show a continuation affordance without another acti
   await page.route('**/api/generation-runs/events', (route) =>
     route.fulfill({ contentType: 'text/event-stream', body: '' }),
   );
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-history-open').click();
   const card = page.getByRole('link', { name, exact: true });
   await expect(card).toBeVisible();
@@ -344,7 +344,7 @@ test('phone folders are compact rows with creation in the header and stable mana
     }),
   );
   await page.route('**/api/stages', (route) => route.fulfill({ json: { stages: [] } }));
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-history-open').click();
   const row = page.getByTestId('home-folder-row');
   await expect(row).toBeVisible();
@@ -422,7 +422,7 @@ test('nonempty phone folders distinguish keeping courses from removing them', as
       },
     }),
   );
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-history-open').click();
   const row = page.getByTestId('home-folder-row');
   await expect(row).toContainText('1 courses');
@@ -449,7 +449,7 @@ test.describe('touch folder dialogs', () => {
       page,
     }) => {
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto('/');
+      await page.goto('/courseware');
       await page.getByTestId('home-history-open').tap();
       const drawer = page.getByTestId('home-library-drawer');
       await page.getByTestId('home-new-folder').tap();
@@ -480,7 +480,7 @@ test.describe('phone rotation', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/');
+    await page.goto('/courseware');
     await expect(page.getByTestId('home-page')).toHaveAttribute('data-mobile', 'true');
     await page.setViewportSize({ width: 844, height: 390 });
     await expect(page.getByTestId('home-page')).toHaveAttribute('data-mobile', 'true');
@@ -496,7 +496,7 @@ test.describe('phone horizontal safe areas', () => {
       page,
     }) => {
       await page.setViewportSize({ width: 844, height: 390 });
-      await page.goto('/');
+      await page.goto('/courseware');
       const home = page.getByTestId('home-page');
       await expect(home).toHaveAttribute('data-mobile', 'true');
       for (const [left, right] of [
@@ -559,7 +559,7 @@ test.describe('phone portal safe areas', () => {
         [390, 844, 0, 0],
       ]) {
         await page.setViewportSize({ width, height });
-        await page.goto('/');
+        await page.goto('/courseware');
         await expect(page.getByTestId('home-page')).toHaveAttribute('data-mobile', 'true');
         await page.evaluate(
           ({ direction, left, right }) => {
@@ -627,7 +627,7 @@ test('phone home keeps its layout unchanged when only the keyboard viewport chan
       viewport.dispatchEvent(new Event('scroll'));
     };
   });
-  await page.goto('/');
+  await page.goto('/courseware');
   const home = page.getByTestId('home-page');
   await expect(home).toHaveAttribute('data-mobile', 'true');
   await page.getByTestId('home-requirement').fill('Keep my draft');

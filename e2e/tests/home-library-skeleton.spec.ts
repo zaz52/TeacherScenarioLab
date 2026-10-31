@@ -59,7 +59,7 @@ test.describe('Home library skeleton', () => {
     await seedCourse(page, name);
 
     const release = await holdLibrary(page);
-    await page.goto('/');
+    await page.goto('/courseware');
     await expect(skeleton(page)).toBeVisible();
     await expect(skeleton(page).locator('[data-skeleton-tile]')).toHaveCount(8);
     const tile = (await skeleton(page).locator('[data-skeleton-tile]').first().boundingBox())!;
@@ -85,7 +85,7 @@ test.describe('Home library skeleton', () => {
   test('is on screen, with the hero, before the page scripts run', async ({ page }) => {
     // The page as painted from its server HTML: none of its scripts load.
     await page.route('**/_next/static/**/*.js', (route) => route.abort());
-    await page.goto('/');
+    await page.goto('/courseware');
     await expect(skeleton(page)).toBeVisible();
     const logo = page.locator('img[alt="OpenMAIC"]');
     await expect(logo).toBeVisible();
@@ -97,7 +97,7 @@ test.describe('Home library skeleton', () => {
     const context = await browser.newContext({ colorScheme: 'dark' });
     const page = await context.newPage();
     await page.route('**/_next/static/**/*.js', (route) => route.abort());
-    await page.goto('/');
+    await page.goto('/courseware');
     await expect(skeleton(page)).toBeVisible();
     await expect(page.locator('html')).toHaveClass(/\bdark\b/);
     await context.close();
@@ -114,7 +114,7 @@ test.describe('Home library skeleton', () => {
         ? route.fulfill({ json: { folders: [] } })
         : route.fallback(),
     );
-    await page.goto('/');
+    await page.goto('/courseware');
     await expect(page.getByText(/No courses yet/)).toBeVisible();
     await expect(skeleton(page)).toHaveCount(0);
   });
@@ -123,7 +123,7 @@ test.describe('Home library skeleton', () => {
     await page.route('**/api/stages', (route) =>
       route.request().method() === 'GET' ? route.fulfill({ status: 500 }) : route.fallback(),
     );
-    await page.goto('/');
+    await page.goto('/courseware');
     await expect(
       page.getByText('Saved classrooms could not be loaded', { exact: false }),
     ).toBeVisible();

@@ -1,6 +1,14 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef, useDeferredValue, useCallback } from 'react';
+import {
+  Suspense,
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  useDeferredValue,
+  useCallback,
+} from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -42,6 +50,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { HomeLibrary } from '@/components/home/home-library';
+import { TrainingHomeBlock } from '@/components/home/training-home-block';
 import { useMobileLayout } from '@/lib/adaptive/adaptive-provider';
 import { installPageScrollBoundary } from '@/lib/adaptive/page-scroll-boundary';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -901,14 +910,17 @@ function HomePage() {
       >
         {/* ── Logo ── */}
         <div className="home-brand relative" data-pro-morph="lockup">
-          <img
-            src="/logo-horizontal.png"
-            alt="OpenMAIC"
+          <div
             className={cn(
-              'h-12 md:h-16 mb-2 -ml-2 md:-ml-3',
+              'mb-2 text-center',
               heroEnter('fade-in zoom-in-90 duration-500 delay-100'),
             )}
-          />
+          >
+            <h1 className="text-2xl font-semibold tracking-tight md:text-4xl">
+              教师情境实训实验室
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground md:text-base">TeacherScenarioLab</p>
+          </div>
           {workbenchEntryEnabled ? (
             <div
               className="absolute left-full top-0 ml-1.5 mt-[10px] md:ml-2 md:mt-[14px]"
@@ -1557,6 +1569,16 @@ function HomePage() {
           }}
         />
       </HomeLibrary>
+
+      {/* TeacherScenarioLab — training entry on the fork's home page.
+          The old parallel /training tree now lives here: scenario hall,
+          records, account and event ledger as tabs. Rooms are under
+          /classroom/training/[id], reviews under /eval/training/[id]. */}
+      <div className="relative z-10 mt-10 w-full max-w-6xl">
+        <Suspense fallback={null}>
+          <TrainingHomeBlock />
+        </Suspense>
+      </div>
 
       {mobile && (
         <Dialog

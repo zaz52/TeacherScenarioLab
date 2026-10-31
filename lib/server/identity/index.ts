@@ -15,7 +15,10 @@
  * anonymous cookie is the fallback (`anonymousFallback: false` turns it off).
  * Route handlers and Server Actions resolve owners through `./with-owner.ts`
  * and `./resolve.ts`; nothing else reads identity cookies or headers, or asks
- * a method directly.
+ * a method directly. Entry points with their own credential-bearing method
+ * (training sessions) attach the anonymous claim candidate through
+ * `withAnonymousClaimCandidate` and test anonymous ownership through
+ * `isAnonymousOwnerId`; both keep the cookie and its shape inside core.
  */
 export type {
   AuthOutcome,
@@ -31,6 +34,7 @@ export type {
 export { OWNER_ROLES, principalHasRole } from './types';
 export type { OwnerAuthenticationOptions } from './registry';
 export { configureOwnerAuthentication } from './registry';
+export { withAnonymousClaimCandidate } from './resolve';
 export { sharedTeamAuthMethod } from './shared-team';
 export { singleUserAuthMethod } from './single-user';
-export { principalFromStoredOwner } from './stored-owner';
+export { isAnonymousOwnerId, principalFromStoredOwner } from './stored-owner';

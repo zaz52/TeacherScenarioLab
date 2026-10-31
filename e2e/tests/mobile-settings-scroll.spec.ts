@@ -8,7 +8,7 @@ test.describe('phone settings horizontal navigation', () => {
   for (const direction of ['ltr', 'rtl'] as const) {
     test(`allows horizontal swipes with vertical drift (${direction})`, async ({ page }) => {
       await page.addInitScript(() => localStorage.setItem('locale', 'en-US'));
-      await page.goto('/');
+      await page.goto('/courseware');
       await page.getByTestId('home-options-open').click();
       await page.getByRole('button', { name: 'All settings', exact: true }).click();
       const nav = page.getByTestId('settings-nav-general').locator('..');

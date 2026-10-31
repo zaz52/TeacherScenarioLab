@@ -17,11 +17,7 @@
  * returned — locked facts leave no trace (not even a count), so the
  * response cannot oracle how many secrets remain.
  */
-import type {
-  DisclosureCondition,
-  ScenarioVersion,
-  TrainingFact,
-} from './scenario';
+import type { DisclosureCondition, ScenarioVersion, TrainingFact } from './scenario';
 import { toScenarioVersion } from './scenario';
 import { getTrainingStore } from './server';
 import { TRAINING_TRANSITIONS } from './state-machine';
@@ -35,7 +31,10 @@ export interface DisclosureContext {
 }
 
 const TOPIC_KEYWORDS: Record<string, string[]> = {
-  travel: ['外地', '旅游', '出差', '行程', '去过', '回老家', '探亲'],
+  // No scenario currently binds a userAskedAbout topic; the map stays as
+  // the extension point and unknown topics fall back to substring matching
+  // on the topic string itself. (The epidemic scenario's travel topic was
+  // removed: unverified travel history must not imply a cause.)
 };
 
 export function isConditionSatisfied(
@@ -79,7 +78,11 @@ export async function getDisclosedFactsForTraining(
   const store = (await getTrainingStore()).forOwner(ownerId);
   const training = await store.getTraining(trainingId);
   if (!training) {
-    throw new TrainingServiceError(404, 'TRAINING_NOT_FOUND', `training ${trainingId} was not found`);
+    throw new TrainingServiceError(
+      404,
+      'TRAINING_NOT_FOUND',
+      `training ${trainingId} was not found`,
+    );
   }
   const record = await store.getScenarioVersion(training.scenarioId, training.scenarioVersion);
   if (!record) {
