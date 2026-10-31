@@ -110,7 +110,7 @@ describe.skipIf(!contractUrl)('legacy shared-asset mutation under a racing refer
   });
 
   async function call(cookie: string, path: string, init: RequestInit = {}): Promise<Response> {
-    const { handlePersistenceRequest } = await import('@/app/api/persistence/[...path]/route');
+    const { handlePersistenceRequest } = await import('@/lib/persistence/request-handler');
     return handlePersistenceRequest(
       new Request(`http://localhost/api/persistence${path}`, {
         ...init,

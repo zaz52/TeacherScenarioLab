@@ -207,7 +207,7 @@ describe.skipIf(!contractUrl)('claiming anonymous work on PostgreSQL', () => {
   it('a stale request to the persistence route is refused once its owner is claimed', async () => {
     await seedAnonymousWork(harness);
     await claimOwner(ANON, ACCOUNT, { provider: harness.provider });
-    const { handlePersistenceRequest } = await import('@/app/api/persistence/[...path]/route');
+    const { handlePersistenceRequest } = await import('@/lib/persistence/request-handler');
     const response = await handlePersistenceRequest(
       new Request('http://localhost/api/persistence/runtime/sessions', {
         method: 'POST',
@@ -327,7 +327,7 @@ describe.skipIf(!contractUrl)('claiming anonymous work on PostgreSQL', () => {
       const parked = parkClaimsAt(650);
       const claim = claimOwner(ANON, ACCOUNT, { provider: harness.provider });
       await parked.reached;
-      const { handlePersistenceRequest } = await import('@/app/api/persistence/[...path]/route');
+      const { handlePersistenceRequest } = await import('@/lib/persistence/request-handler');
       const create = handlePersistenceRequest(
         new Request('http://localhost/api/persistence/runtime/sessions', {
           method: 'POST',
@@ -408,7 +408,7 @@ describe.skipIf(!contractUrl)('claiming anonymous work on PostgreSQL', () => {
         await claimant.query('SELECT pg_advisory_xact_lock($1::bigint)', [
           ownerIdentityLockKey(ANON).toString(),
         ]);
-        const { handlePersistenceRequest } = await import('@/app/api/persistence/[...path]/route');
+        const { handlePersistenceRequest } = await import('@/lib/persistence/request-handler');
         const headers = {
           cookie: `anonymous_id=${ANON.slice('anon:'.length)}`,
           'content-type': 'application/json',

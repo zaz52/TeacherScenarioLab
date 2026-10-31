@@ -68,9 +68,9 @@ export const runtime = 'nodejs';
 const MEDIA_MIME_SET = new Set<string>(MEDIA_MIME_TYPES);
 
 /** The store's keyset-paging ceiling (default 50, capped at 200). */
-export const MAX_MATERIAL_LIST_LIMIT = 200;
+const MAX_MATERIAL_LIST_LIMIT = 200;
 
-export function ownerMaterialObjectKey(ownerId: string, materialId: string): string {
+function ownerMaterialObjectKey(ownerId: string, materialId: string): string {
   return `materials/${ownerId.replace(/[^A-Za-z0-9._-]/g, '_')}/${materialId}`;
 }
 

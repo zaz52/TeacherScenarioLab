@@ -6,8 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab Workers 路由构建契约（2026-11-01，Asia/Shanghai）
+
+- 458e072的标准CI与Storage PostgreSQL工作流成功；Cloudflare工作流因8个路由的辅助导出未满足Next入口类型契约失败。
+- 修复后静态核查111个路由，非法导出为0；persistence处理器迁移前后内容一致。改动文件格式与目标ESLint通过，权限、身份、事件流和存储回归继续按实际执行结果记录。
+- 本地隔离验收库从环境中断恢复，日志移至数据目录外，原数据保留。生产凭据仍待用户轮换；实际部署要求已收到，Workers平台限制、生产连通与上线验收继续作为部署前置条件。
+
 ### TeacherScenarioLab 免费 Workers 兼容适配（2026-10-31，Asia/Shanghai）
 
+- Webpack聚合导入问题消除后，类型检查发现8个既有路由导出额外辅助成员。流轮询常量迁至服务端共享契约、批量场景上限沿用stage-limits模块；无外部调用的辅助成员改为模块内声明。persistence处理器逐字节迁至lib/persistence/request-handler.ts，HTTP入口保留原方法导出；相关测试改从服务模块导入，行为断言保留。
 - 29f5e8的Webpack构建发现浏览器从storage总入口解析到未使用的服务端node:crypto，属于编译依赖边界问题。采用Next官方optimizePackageImports对storage入口按导出拆分，继续原断言复验；原库及客户端业务源码保持原样。
 - c9f7903压缩后92113.05KiB仍超64MiB，体积门槛按失败记录；16项账号与76项产品检查继续通过。诊断显示多份重复服务端大块，Workers专用构建改用Webpack并沿用图片入口映射，继续云端比较体积及运行回归。
 - 核对Cloudflare2026-10-29官方限制后确认Workers未压缩包上限64MiB；1a7cba2的128060.41KiB dry-run产物超限，开启Wrangler压缩并增加实际上传体积门槛与依赖体积诊断。平台上传、启动/CPU和免费账号能力继续独立验收。

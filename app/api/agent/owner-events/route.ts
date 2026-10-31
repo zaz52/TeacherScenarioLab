@@ -1,3 +1,8 @@
+import {
+  OWNER_EVENT_POLL_INTERVAL_MS,
+  SSE_HEARTBEAT_INTERVAL_MS,
+  OWNER_EVENT_REPLAY_LIMIT,
+} from '@/lib/server/agent-runtime/event-stream-config';
 /**
  * Durable, sparse SSE tail for the current owner's session summaries.
  * A degraded caught_up is not authoritative: clients should schedule one full
@@ -22,9 +27,6 @@ export const runtime = 'nodejs';
 
 // LISTEN/NOTIFY supplies low latency. This is deliberately retained as a
 // correctness fallback because NOTIFY is lossy across listener disconnects.
-export const OWNER_EVENT_POLL_INTERVAL_MS = 30_000;
-export const SSE_HEARTBEAT_INTERVAL_MS = 25_000;
-export const OWNER_EVENT_REPLAY_LIMIT = 1_000;
 const BACKLOG_PAGE = 500;
 
 function parseLastEventId(value: string | null): bigint {

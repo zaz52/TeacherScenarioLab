@@ -1,3 +1,4 @@
+import { MAX_BATCH_SCENE_IDS } from '@/lib/server/agent-runtime/stage-limits';
 /**
  * GET /api/stages/[id]/scenes?ids=a,b,c — batch scene read (reference
  * `stages/:id/scenes`, ported onto the owner-bound document store).
@@ -28,9 +29,6 @@ import { ownerJson, ownerNotFound } from '@/lib/server/agent-runtime/route-respo
 import { withRequestOwner } from '@/lib/server/identity/with-owner';
 
 export const runtime = 'nodejs';
-
-/** Upper bound on `ids` — see the file header. */
-export const MAX_BATCH_SCENE_IDS = 200;
 
 /**
  * Scene ids travel the same wire as stage ids, so they face the same driver

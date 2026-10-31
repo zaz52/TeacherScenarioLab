@@ -40,6 +40,8 @@ c9f7903压缩后92113.05KiB仍超限；账号16项与产品76项检查通过。
 图片映射同时适配Webpack；最终体积和行为继续按工作流结果记录。
 Webpack首次编译从storage聚合入口解析到浏览器未使用的服务端node:crypto；
 Workers构建使用Next的`optimizePackageImports`拆分该入口，编译与完整运行继续复验。
+类型检查暴露的路由辅助导出移至服务模块；persistence处理器保持原字节内容，
+路由入口导出既有HTTP方法。相关权限、隔离、事件和存储测试沿用原断言。
 生产套餐、CPU和启动限额需在轮换凭据后核实，后台轮询任务也需独立验收。
 
 2026-10-31继续免费Workers适配。私有包`@teacherlab/images`提供Node与workerd条件入口：

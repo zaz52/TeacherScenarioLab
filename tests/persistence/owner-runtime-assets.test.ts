@@ -155,7 +155,7 @@ describe('runtime and assets are keyed by the resolved owner', () => {
       headers?: Record<string, string>;
     } = {},
   ): Promise<Response> {
-    const { handlePersistenceRequest } = await import('@/app/api/persistence/[...path]/route');
+    const { handlePersistenceRequest } = await import('@/lib/persistence/request-handler');
     const headers: Record<string, string> = { cookie: cookieOf(who), ...init.headers };
     if (init.json !== undefined) headers['content-type'] = 'application/json';
     return handlePersistenceRequest(
@@ -197,7 +197,7 @@ describe('runtime and assets are keyed by the resolved owner', () => {
     });
 
     it('mints and returns the same identity for a browser without an owner cookie', async () => {
-      const { handlePersistenceRequest } = await import('@/app/api/persistence/[...path]/route');
+      const { handlePersistenceRequest } = await import('@/lib/persistence/request-handler');
       const response = await handlePersistenceRequest(
         new Request('http://localhost/api/persistence/learner-key'),
         { poolFactory: () => pool as never },
