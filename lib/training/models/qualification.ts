@@ -156,7 +156,13 @@ export async function qualifyModel(
                   f.visibility === 'hidden' ||
                   (f.visibility === 'character-private' && f.ownerCharacterId !== characterId),
               );
-              const leaked = scanReplyForLeaks(text, forbidden);
+              const known = scenario.facts.filter(
+                (fact) =>
+                  fact.visibility === 'public' ||
+                  (fact.visibility === 'character-private' &&
+                    fact.ownerCharacterId === characterId),
+              );
+              const leaked = scanReplyForLeaks(text, forbidden, known);
               if (leaked.length) {
                 result.qualityChecks.informationBoundary = false;
                 throw new PoolError('privacy', undefined, leaked);

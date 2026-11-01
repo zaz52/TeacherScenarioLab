@@ -200,6 +200,12 @@ async function generateCharacterReplyInner(
   });
 
   let selection: ModelSelection | undefined;
+  const knownFacts = scenario.facts.filter(
+    (fact) =>
+      fact.visibility === 'public' ||
+      (fact.visibility === 'character-private' && fact.ownerCharacterId === characterId),
+  );
+  knownFacts.push(...disclosedFacts);
   let text: string;
   if (mode === 'scripted') {
     if (pack.scriptedReplies.length === 0) {
@@ -243,7 +249,20 @@ async function generateCharacterReplyInner(
                 scenario.characters.map((c) => c.name),
               ),
             }));
-            if (scanReplyForLeaks(output, [...forbidden, ...anonymized]).length)
+            const knownAnonymized = knownFacts.map((fact) => ({
+              ...fact,
+              content: minimizeNames(
+                fact.content,
+                scenario.characters.map((c) => c.name),
+              ),
+            }));
+            if (
+              scanReplyForLeaks(
+                output,
+                [...forbidden, ...anonymized],
+                [...knownFacts, ...knownAnonymized],
+              ).length
+            )
               throw new PoolError('privacy');
           },
         });
@@ -269,7 +288,7 @@ async function generateCharacterReplyInner(
       (fact.visibility === 'character-private' && fact.ownerCharacterId !== characterId) ||
       (fact.visibility === 'hidden' && !disclosedIds.has(fact.id)),
   );
-  const leaked = scanReplyForLeaks(text, forbiddenFacts);
+  const leaked = scanReplyForLeaks(text, forbiddenFacts, knownFacts);
   if (leaked.length > 0) {
     console.error(
       `training ${trainingId}: blocked character reply leaking facts ${leaked.join(',')}`,

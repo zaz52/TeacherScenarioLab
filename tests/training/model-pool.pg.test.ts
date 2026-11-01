@@ -394,6 +394,42 @@ suite('model pool PostgreSQL contracts (mock transport, real persistence)', () =
       ),
     ).toHaveLength(0);
   });
+  test('an allowed doctor policy survives both scans and is recorded with that character', async () => {
+    await configure(make());
+    const owner = `test-model:${randomUUID()}`;
+    const store = await getTrainingStore();
+    const version = 98765002;
+    if (!(await store.getScenarioVersion('epi-class-fever', version)))
+      await store.saveScenarioVersion({
+        ...EPIDEMIC_SCENARIO_V1_DRAFT,
+        version,
+        publishedAt: 1000,
+      });
+    const training = await createTraining(owner, {
+      scenarioId: 'epi-class-fever',
+      scenarioVersion: version,
+    });
+    await startTraining(owner, training.id);
+    const text = '我会核实晨检和请假记录，是否调整上课安排仍需上级部门决定。';
+    transport.call.mockResolvedValueOnce({
+      text,
+      usage: { inputTokens: 10, outputTokens: 20 },
+      finishReason: 'stop',
+    });
+    const reply = await generateCharacterReply(owner, training.id, {
+      characterId: 'doctor-1',
+      mode: 'model',
+    });
+    expect(reply.message.content).toBe(text);
+    const messages = await store
+      .forOwner(owner)
+      .listMessages(training.id, { includeSuperseded: false });
+    expect(messages.filter((m) => m.role === 'character')).toHaveLength(1);
+    const events = await store.forOwner(owner).listEvents(training.id);
+    expect(events.find((event) => event.type === 'model-selected')?.payload.characterId).toBe(
+      'doctor-1',
+    );
+  });
   test('pool policy bootstrap preserves saved records', async () => {
     const p = make();
     await configure(p);
