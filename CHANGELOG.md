@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 1GB VPS 接入准备（2026-11-02，Asia/Shanghai）
+
+- 用户提供已创建的 teacherlab-vps Tunnel Token；密钥以受限本地文件接收并通过 SFTP 保存至主机只读挂载，UID 65532、权限 400。cloudflared 已启动、配置自动重启并建立 4 条新加坡连接，原 x-ui/xray 运行正常；监控绑定本机。
+- 批量准备 VPS Compose、现有 CI 镜像导出和部署/恢复说明。镜像沿用已验收 runner，新增功能分支树匹配、镜像 ID 和 SHA-256 清单，Artifact 保留一天；生产变量与模型密钥在部署机注入。
+- 当前源站 3000 尚未启动，Cloudflare 管理 API 对隧道详情返回 401、DNS 返回 403，现有域名仍绑定原 Worker；网站迁移和最终容量验收待实际完成。
+- 用户提供部署主机并授权继续部署；SSH 登录成功，实际核对 Debian 12、2 核、972MiB 内存、约 17GB 可用磁盘，原有 x-ui/xray 服务及端口记录保留。
+- 按 Docker 官方 Debian 安装源完成 Engine 与 Compose 安装，新增项目专用 1GiB 交换文件及持久化项；原有 x-ui 服务仍 active，原监听端口保持。应用镜像交付与完整运行验收尚未完成。
+- 现有 Cloudflare Token 读取隧道成功，新建隧道及读取 DNS 实际返回 403；用户选择手动配置。隧道 Token 本地保护文件已准备，域名与 DNS 尚未切换。
+- 用户控制台界面与说明不同；浏览器导航超时后，电脑操作工具因无法可靠确认 Windows 当前网址而停止。后续按用户页面截图定位入口，镜像与域名验收继续记录实际结果。
+
 ### TeacherScenarioLab 长模型资格请求的连接保活（2026-11-01，Asia/Shanghai）
 
 - 799a0a4 的 CI、PostgreSQL 与 Cloudflare 三项检查全部成功，冷启动等待修正版已发布；线上并发与完整页面复测单独记录。

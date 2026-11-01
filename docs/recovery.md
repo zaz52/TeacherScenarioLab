@@ -3,6 +3,13 @@
 生产托管数据库已选择Neon免费PostgreSQL，操作与回滚见[Cloudflare与Neon上线说明](cloudflare.md)。
 生产恢复先保留当前数据备份，并复核应用回退版本与schema兼容性。
 
+VPS 运行形态使用现有 Neon、受保护的 `.env.production.local` 与主机 `data` 目录。
+发布时保留上一版镜像标签、镜像 ID、Artifact manifest 与变量备份；回滚将
+TEACHERLAB_IMAGE 恢复为上一兼容版本并重新执行 Compose up。隧道连接器沿用原隧道 ID，
+Token 文件保持只读和受限权限。数据库恢复与应用镜像回滚分别核对，原 x-ui/xray
+服务保持当前配置。域名切流前记录 Worker 绑定与 DNS；恢复入口后复测账号隔离、
+训练状态、事件账本、模型调用和评价保存。
+
 > 适用：本地开发与测试环境。每次会话先复核实际数据库位置、连接与持久化方式：
 > 本机数据目录、Docker 命名卷及临时 CI 服务的保留策略各异。情境源文件、
 > 管理导出与数据库备份分别保留；训练记录和账号以数据库备份恢复。

@@ -580,6 +580,23 @@ jobs:
           docker cp scripts/teacher-scenario-runtime-smoke.mjs teacher-scenario-runtime:/tmp/runtime-smoke.mjs
           docker exec teacher-scenario-runtime node /tmp/runtime-smoke.mjs
 
+      - name: Export the verified image for the authorized VPS
+        if: success() && steps.changes.outputs.changed == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/teacher-scenario-lab-product'
+        env:
+          TEACHERLAB_SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+          TEACHERLAB_IMAGE_OUTPUT: ${{ runner.temp }}/teacherlab-vps-image
+        run: node scripts/teacher-scenario-export-image.mjs
+
+      - name: Retain the verified VPS image and checksum
+        if: success() && steps.changes.outputs.changed == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/teacher-scenario-lab-product'
+        uses: actions/upload-artifact@v4
+        with:
+          name: teacherlab-vps-image-${{ github.event.pull_request.head.sha }}
+          path: ${{ runner.temp }}/teacherlab-vps-image/
+          compression-level: 0
+          retention-days: 1
+          if-no-files-found: error
+
       - name: Runtime diagnostics
         if: failure() && steps.changes.outputs.changed == 'true'
         run: docker logs --tail 120 teacher-scenario-runtime || true

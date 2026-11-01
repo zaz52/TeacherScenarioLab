@@ -1,11 +1,40 @@
 # TeacherScenarioLab 生产部署方案
 
-> 目标域名：`https://teacherlab.weiyi.top`；品牌：教师情境实训实验室 / TeacherScenarioLab。
+> 目标域名：`https://teacherlab.weiyiai.top`；品牌：教师情境实训实验室 / TeacherScenarioLab。
 > 2026-10-30 用户确认采用 Neon 免费 PostgreSQL，推进 OpenNext/Workers 部署验证。
 > [Cloudflare 与 Neon 操作说明](cloudflare.md)记录该路径及运行门槛。
 > 本文保留已验证的 Node.js standalone / Docker 部署能力；训练API、核心引擎与迁移沿用现有实现。
 
 ## 1. 部署形态（已验证的仓库能力）
+
+### 1GB VPS 与现有 Neon
+
+2026-11-02 用户确认使用 1GB VPS，实际为 Debian 12、2 核、972MiB 内存。
+Docker 与 Compose 已安装，项目专用 1GiB 交换文件已启用，既有 x-ui/xray 服务保留。
+生产构建由 GitHub 完成，CI 在最终镜像通过隔离运行检查后导出 Artifact；
+`manifest.json` 记录功能分支 SHA、镜像 ID 和压缩包 SHA-256。PR 合并树与功能分支树
+须一致，仓库内实际密钥由 Docker ignore 排除。使用镜像前核对提交、校验和与镜像 ID。
+
+VPS 将 `docker-compose.teacherlab-vps.yml` 放在应用目录，生产变量保存于权限为 600 的
+`.env.production.local`，数据目录由 UID 1001 持有。沿用现有 Neon 的 DATABASE_URL、
+OPENMAIC_SECRET_KEY、访问码与管理员列表。`TEACHERLAB_IMAGE` 指向验收镜像标签。
+容器限制 640MiB 内存、1536MiB 内存加交换空间，V8 堆限制 384MiB；实际容量仍需运行验收。
+
+```bash
+cd /opt/teacher-scenario-lab
+docker compose --env-file .env.production.local -f docker-compose.teacherlab-vps.yml config --quiet
+docker compose --env-file .env.production.local -f docker-compose.teacherlab-vps.yml up -d
+curl --fail http://127.0.0.1:3000/api/health
+```
+
+应用端口绑定 127.0.0.1，外部入口复用 `teacherlab-vps` 命名隧道。
+cloudflared 使用官方镜像的已解析 digest、非 root 用户、只读 Token 文件和
+unless-stopped 重启策略；监控端口绑定本机。Token 不进入镜像、命令参数或 Git。
+隧道连接、源站健康与域名切流分别核验，保留原 Worker 绑定作为切流前状态记录。
+已有 Token 缺少 Tunnel/DNS 写权限时，记录实际接口错误并完成服务器侧工作；
+凭据授权或控制台操作到位后再配置路由，核对现有记录后更新。
+
+### 原有 Docker 与本地 PostgreSQL 形态
 
 仓库自带多阶段 `Dockerfile`（node:22-alpine，pnpm 10.28.0，standalone
 输出，runner 以 `nextjs` 用户执行 `node server.js`，监听 3000）和
