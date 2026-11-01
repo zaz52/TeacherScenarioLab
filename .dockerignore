@@ -3,6 +3,7 @@ node_modules
 .pnpm-store
 
 # build output
+.cloudflare-training
 .next
 out
 build

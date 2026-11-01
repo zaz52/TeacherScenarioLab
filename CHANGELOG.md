@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 训练接口运行隔离（2026-11-01，Asia/Shanghai）
+
+- 3232165的三项GitHub工作流成功，生产真实模型资格仍触发128MB宿主内存超限，平台tail证据保留。
+- Cloudflare入口将训练请求通过私有Service Binding转发到独立TrainingApiHost，复用29个原有路由、原访问码中间件与原NextRequest/NextResponse；训练核心与业务处理函数沿用现有实现。独立包预构建约8.7MB，正式运行内存需云端验收。
+- 发布按私有API服务、前端的顺序注入受保护环境变量；API服务关闭workers.dev及预览URL。CI增加独立包dry-run，并在双服务本地workerd环境执行现有产品回归。
+- 本地独立PostgreSQL库通过账号、管理员、情境导入发布、owner隔离、管理403、脚本训练、消息幂等、状态/事件账本、无模型评价拒绝与50条文献详情检查。路由及空闲生命周期回归18通过、0失败；云端结果另行核验。
+- 用户确认自定义API地址/密钥/模型ID与按角色选模需求；站内管理员账号ID稍后提供，Mistral退出本次验收必需清单，现有供应商预设保留。
+
 ### TeacherScenarioLab 后台执行依赖延迟加载（2026-11-01 14:40，Asia/Shanghai）
 
 - 3c6d4e5的CI、PostgreSQL与Cloudflare三项工作流全部成功，18950项测试执行通过、0失败、774跳过（包含50项离线合约与跨作业重复）；159项E2E通过。生产Docker构建及数据库运行检查通过，修正版已实际发布到teacherlab.weiyiai.top，版本a67f14b9-7d09-4a5f-a30c-c46fe2a23780。

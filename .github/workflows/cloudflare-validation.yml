@@ -62,6 +62,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          pnpm exec wrangler deploy --config wrangler.training.jsonc --dry-run --outdir .cloudflare-training/dry-run 2>&1 | tee cloudflare-training-dry-run.log
           pnpm exec wrangler deploy --dry-run --outdir .cloudflare-dry-run 2>&1 | tee cloudflare-dry-run.log
       - name: Seed the isolated training fixture
         run: pnpm exec tsx scripts/teacher-scenario-workers-fixture.mts
@@ -78,7 +79,7 @@ jobs:
             "TEACHERLAB_HEARTBEAT_MS=$TEACHERLAB_HEARTBEAT_MS" \
             "TEACHERLAB_MAINTENANCE_INTERVAL_MS=$TEACHERLAB_MAINTENANCE_INTERVAL_MS" \
             > .dev.vars
-          pnpm exec wrangler dev --local --ip 127.0.0.1 --port 8787 --inspector-port 0 > cloudflare-runtime.log 2>&1 &
+          pnpm exec wrangler dev --config wrangler.jsonc --config wrangler.training.jsonc --local --ip 127.0.0.1 --port 8787 --inspector-port 0 > cloudflare-runtime.log 2>&1 &
           worker_pid=$!
           trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
           node scripts/teacher-scenario-workers-smoke.mjs

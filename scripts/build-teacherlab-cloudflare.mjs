@@ -14,3 +14,4 @@ const result = spawnSync(process.execPath, [cli, 'build', ...process.argv.slice(
 });
 if (result.error) throw result.error;
 process.exitCode = result.status ?? 1;
+if (process.exitCode === 0) await import('./build-teacherlab-training-worker.mjs');

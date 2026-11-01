@@ -59,7 +59,21 @@ for (const input of largestInputs) {
     input.zod = /ZodError|ZodObject|ZodString/.test(code.toString());
   }
 }
-const result = { references, bundle, largestInputs };
+const apiUpload = (await readFile('cloudflare-training-dry-run.log', 'utf8').catch(() => '')).match(
+  /Total Upload:\s*([\d.]+) KiB/,
+);
+const trainingApiBundle = apiUpload
+  ? {
+      uncompressedKiB: Number(apiUpload[1]),
+      limitKiB: 65536,
+      withinLimit: Number(apiUpload[1]) <= 65536,
+    }
+  : null;
+const result = { references, bundle, trainingApiBundle, largestInputs };
 await writeFile('cloudflare-dependency-diagnostics.json', JSON.stringify(result, null, 2));
 console.log(JSON.stringify(result));
-if (process.argv.includes('--enforce-size') && bundle && !bundle.withinLimit) process.exitCode = 1;
+if (
+  process.argv.includes('--enforce-size') &&
+  [bundle, trainingApiBundle].some((item) => item && !item.withinLimit)
+)
+  process.exitCode = 1;

@@ -47,39 +47,56 @@ try {
     CI: 'true',
   };
   delete env.TEACHERLAB_WORKER_SECRETS_JSON;
-  const child = spawn(
-    process.execPath,
-    [
-      resolve('node_modules/wrangler/bin/wrangler.js'),
-      'deploy',
-      '--secrets-file',
-      file,
-      '--tag',
-      process.env.TEACHERLAB_DEPLOY_SHA ?? 'teacherlab',
-    ],
-    { env, stdio: ['ignore', 'pipe', 'pipe'] },
-  );
-  let output = '';
-  child.stdout.on('data', (data) => {
-    output += data.toString();
-  });
-  child.stderr.on('data', (data) => {
-    output += data.toString();
-  });
-  const code = await new Promise((resolveCode, reject) => {
-    child.once('error', reject);
-    child.once('close', resolveCode);
-  });
-  output = redact(output);
-  await writeFile('cloudflare-deploy.log', output);
-  console.log(output);
-  assert.equal(code, 0, `Cloudflare deployment exited ${code}; see sanitized deployment log`);
+  async function deploy(config, log) {
+    const child = spawn(
+      process.execPath,
+      [
+        resolve('node_modules/wrangler/bin/wrangler.js'),
+        'deploy',
+        '--config',
+        config,
+        '--secrets-file',
+        file,
+        '--tag',
+        process.env.TEACHERLAB_DEPLOY_SHA ?? 'teacherlab',
+      ],
+      { env, stdio: ['ignore', 'pipe', 'pipe'] },
+    );
+    let output = '';
+    child.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+    child.stderr.on('data', (data) => {
+      output += data.toString();
+    });
+    const code = await new Promise((resolveCode, reject) => {
+      child.once('error', reject);
+      child.once('close', resolveCode);
+    });
+    output = redact(output);
+    await writeFile(log, output);
+    console.log(output);
+    assert.equal(code, 0, `Cloudflare deployment exited ${code}; see sanitized deployment log`);
+    const version = output.match(/Current Version ID:\s*([a-f0-9-]+)/i)?.[1];
+    assert.ok(version, 'Deployment did not return a version ID');
+    return { version, output };
+  }
+  const api = await deploy('wrangler.training.jsonc', 'cloudflare-training-deploy.log');
+  const frontend = await deploy('wrangler.jsonc', 'cloudflare-deploy.log');
+  const output = frontend.output;
   const urls = [...new Set(output.match(/https:\/\/[a-z0-9.-]+\.workers\.dev/g) ?? [])];
   assert.ok(urls.length > 0, 'Deployment did not return its workers.dev URL');
   await writeFile(
     'cloudflare-deployment.json',
     JSON.stringify(
-      { sha: process.env.TEACHERLAB_DEPLOY_SHA, urls, deployed: true, dnsChanged: false },
+      {
+        sha: process.env.TEACHERLAB_DEPLOY_SHA,
+        urls,
+        trainingApi: { name: 'teacher-scenario-training-api', version: api.version },
+        frontend: { name: 'teacher-scenario-lab', version: frontend.version },
+        deployed: true,
+        dnsChanged: false,
+      },
       null,
       2,
     ),

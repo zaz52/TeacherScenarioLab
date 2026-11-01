@@ -78,6 +78,7 @@ next-env.d.ts
 .worktrees
 
 # generated data
+/.cloudflare-training/
 /data
 /logs
 

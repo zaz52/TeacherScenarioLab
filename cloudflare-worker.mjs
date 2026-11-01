@@ -72,6 +72,11 @@ export class TeacherLabHost extends DurableObject {
 
 const worker = {
   fetch(request, env) {
+    const path = new URL(request.url).pathname;
+    if (path === '/api/training' || path.startsWith('/api/training/')) {
+      if (!env.TRAINING_API) return new Response('Service Unavailable', { status: 503 });
+      return env.TRAINING_API.fetch(request);
+    }
     const id = env.APPLICATION_HOST.idFromName('teacherlab-application-v1');
     return env.APPLICATION_HOST.get(id).fetch(request);
   },

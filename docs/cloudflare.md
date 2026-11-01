@@ -9,6 +9,20 @@ PR #1 保持 Draft，目标分支为 `dev/teacher-scenario-lab`；合并需要�
 凭据由 GitHub Actions 加密 Secrets 注入，发布授权绑定精确提交 SHA。
 下文历史检查点中的“待轮换”描述保留当时状态；当前发布依据本段授权执行。
 
+## 2026-11-01 训练接口独立运行检查点
+
+3232165的三项工作流均成功，生产模型资格仍被宿主128MB内存限制中断。
+新的`wrangler.training.jsonc`发布私有`teacher-scenario-training-api`服务；
+前端以`TRAINING_API`绑定转发`/api/training/**`，原29个业务路由与访问码中间件原样复用。
+独立API关闭workers.dev、预览URL及公开域名，凭据仍由受保护Secrets注入。
+CI在同一workerd实例中以两个配置运行服务，执行已有PostgreSQL与产品回归。
+本地独立库已通过完整脚本训练、权限隔离、消息幂等、事件一致性与50条文献详情；
+真实模型资格与生产运行内存尚待发布后的平台实测。
+
+发布顺序为API、前端。回滚时先将前端退回上一可用版本，再按需要回退API；
+已部署的私有服务保留，不删除Durable Object命名空间。数据库恢复需独立批准。
+Mistral不再属于用户要求的上线凭据；用户尚未创建站内账户，管理员授权待其提供acct账户ID。
+
 ## 2026-11-01 后台执行依赖加载检查点（14:40，Asia/Shanghai）
 
 3c6d4e5的[CI](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41279648134)、
