@@ -39,6 +39,9 @@ try {
   const env = {
     ...process.env,
     WRANGLER_LOG_PATH: '/dev/null',
+    WRANGLER_WRITE_LOGS: 'false',
+    // The OpenNext bundle and its custom Durable Object entry were validated above.
+    OPEN_NEXT_DEPLOY: 'true',
     WRANGLER_SEND_METRICS: 'false',
     NO_COLOR: '1',
     CI: 'true',

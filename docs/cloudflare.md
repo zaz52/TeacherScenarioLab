@@ -4,6 +4,24 @@
 「教师情境实训实验室 / TeacherScenarioLab」，目标域名为 `teacherlab.weiyi.top`。
 PR #1 保持 Draft，目标分支为 `dev/teacher-scenario-lab`；合并需要用户批准。
 
+2026-11-01 用户明确授权本次继续使用此前配置的凭据部署，撤销本次发布前的轮换条件。
+凭据由 GitHub Actions 加密 Secrets 注入，发布授权绑定精确提交 SHA。
+下文历史检查点中的“待轮换”描述保留当时状态；当前发布依据本段授权执行。
+
+## 2026-11-01 实际发布结果与权限补充
+
+提交`d4d38a3`的标准CI与PostgreSQL工作流成功，Cloudflare构建和完整隔离运行检查通过。
+实际平台发布在目标Worker的Secrets请求处返回`No access to the specified resource`；
+对尚不存在的目标Worker进行一次不含密钥、统一503响应的初始化上传同样返回HTTP403。
+平台服务列表仍为空，网站与自定义域名尚未上线。
+
+账号持有人需要在Cloudflare的API令牌管理中编辑现有部署Token，授予当前部署账号的
+Workers产品级`Admin`权限，以创建新Worker。域名绑定需要额外授予`weiyi.top`区域的
+`Workers Routes Write`。权限范围限定到该账号及该域名，保存后使用原Token重新验证。
+现有Worker可采用更小范围的`Editor`权限；首次创建需要产品级Admin。
+依据：[Cloudflare Workers权限说明](https://developers.cloudflare.com/workers/authorization/workers/)。
+Token值始终保留在忽略文件或加密Secrets中。
+
 ## 空闲调度与部署条件（2026-11-01）
 
 宿主空闲调度使用现有后台任务的启动和停止接口。默认10分钟没有活跃HTTP请求且
@@ -21,8 +39,8 @@ PR #1 保持 Draft，目标分支为 `dev/teacher-scenario-lab`；合并需要�
 当前实现的完整workerd与Linux结果以本次推送的Actions为准。
 
 空闲调度降低空库持续活跃的用量；实际Neon自动暂停和Cloudflare生产CPU/内存仍须
-部署后测量，持续任务与流量仍会消耗额度。生产凭据先按用户要求轮换并通过受保护变量注入，
-随后执行实际平台部署、Neon TLS连接和域名验收。
+部署后测量，持续任务与流量仍会消耗额度。本次发布按用户最新授权使用现有凭据，
+通过受保护变量注入；实际平台部署、Neon TLS连接和域名验收各自记录结果。
 
 ## 已完成的构建检查点（bf08689，2026-11-01）
 

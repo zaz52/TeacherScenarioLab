@@ -6,10 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 平台发布权限核验（2026-11-01 10:00，Asia/Shanghai）
+
+- d4d38a3 的标准 CI 与 PostgreSQL 合约成功；159 项 E2E、生产 Next.js/Docker 镜像及容器数据库检查成功。Cloudflare 构建、56178.65KiB 体积门槛、账号/产品/50条文献详情和空闲暂停、维护、并发恢复检查通过。
+- 工作流已使用用户授权的现有凭据实际尝试发布；目标 Worker Secrets 请求返回 `No access to the specified resource`。随后对不存在的目标 Worker 执行一次不含密钥、统一503响应的初始化上传，平台同样返回HTTP403；未创建服务，域名与生产数据库均未在本轮改变。
+- 部署入口关闭Wrangler磁盘日志，并沿用CLI的OpenNext递归保护标记，直接上传已验证的自定义宿主产物。发布权限需由账号持有人补充：首次创建需要Workers产品级Admin；自定义域名需要限定到weiyi.top的Workers Routes Write。PR保持Draft，合并待批。
+
 ### TeacherScenarioLab Workers 空闲调度（2026-11-01，Asia/Shanghai）
 
 - 用户明确要求使用此前凭据继续部署，撤销本次部署前置轮换要求。现有凭据通过sealed-box写入该仓库Actions Secrets；部署按一次性的精确SHA变量授权，先等待同一提交CI与PostgreSQL成功，再由已通过workerd验收的Linux产物执行Wrangler发布。PR继续保持Draft，域名指向确认与线上结果另行记录。
-- 用户继续要求部署；dd41f95的三项工作流已全部成功。当前Cloudflare凭据只读验证为active、账号服务数0；生产凭据轮换尚待用户确认，平台上传和DNS写入均未执行。
+- dd41f95的三项工作流已全部成功。发布前Cloudflare凭据只读验证为active、账号服务数0；用户随后明确授权本次复用现有凭据。平台上传与域名验收结果按实际运行补记。
 - 为Neon免费容量增加宿主空闲调度：默认10分钟无请求且无后台工作时暂停轮询，每30分钟沿用原维护入口执行回收与压缩；请求恢复后台任务。流响应、执行中/等待确认的课程、材料提取、旧课程导入、启动维护及资产回收纳入保活判断，训练API、权限、账本和迁移保持原样。
 - 新增串行暂停/恢复与故障拦截、只读队列元数据查询、维护和流生命周期测试；本地相关回归127通过/1失败，失败为Windows目录POSIX权限断言，断言保留。隔离PostgreSQL的38项队列状态检查通过，测试事务已回滚；ESLint与YAML检查通过，完整workerd和Linux回归由本次推送的工作流验收。
 
