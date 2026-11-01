@@ -3,6 +3,10 @@ import type { WorkerLifecycle } from '../server/worker-lifecycle';
 type HostLifecycle = Pick<WorkerLifecycle, 'paused' | 'pending' | 'pause' | 'resume' | 'maintain'>;
 
 export function currentLifecycle(): WorkerLifecycle | undefined;
+export function createStartupGate(options: {
+  ready(): unknown;
+  start(): Promise<void>;
+}): () => Promise<void>;
 export class IdleHost {
   constructor(options?: {
     lifecycle?: () => HostLifecycle | undefined;
