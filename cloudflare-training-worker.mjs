@@ -1,6 +1,9 @@
 import { DurableObject } from 'cloudflare:workers';
 import config from './next.config';
 import { dispatchTrainingRequest } from './lib/cloudflare/training-router.mjs';
+import { installTrainingNetwork } from './lib/cloudflare/training-network.mjs';
+
+installTrainingNetwork();
 
 export class TrainingApiHost extends DurableObject {
   constructor(context, env) {

@@ -2734,6 +2734,17 @@
     "stateCompleted": "已完成"
   },
   "modelCenter": {
+    "customConnection": "自定义模型接入",
+    "connectionId": "连接 ID（custom- 开头）",
+    "preset": "API 协议",
+    "apiBaseUrl": "HTTPS API 地址",
+    "apiKey": "API 密钥",
+    "modelIds": "模型 ID（每行一个）",
+    "secretNote": "密钥加密保存在服务端。修改地址或协议时请重新填写密钥。保存后需配置额度并通过真实资格测试。",
+    "characterRouting": "按角色选择模型",
+    "inheritRoleplay": "继承角色对话默认模型",
+    "paidModelBudget": "付费模型预算",
+    "authorizePaid": "明确授权此自定义模型的付费调用",
     "title": "模型资源中心",
     "overview": "总览",
     "providers": "供应商",

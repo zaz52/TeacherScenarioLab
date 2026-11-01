@@ -2734,6 +2734,17 @@
     "stateCompleted": "Terminé"
   },
   "modelCenter": {
+    "customConnection": "Connexion à un modèle personnalisé",
+    "connectionId": "ID de connexion (préfixe custom-)",
+    "preset": "Protocole API",
+    "apiBaseUrl": "URL de base API HTTPS",
+    "apiKey": "Clé API",
+    "modelIds": "ID des modèles (un par ligne)",
+    "secretNote": "Les clés sont chiffrées sur le serveur. Saisissez une nouvelle clé après tout changement d’adresse ou de protocole. Configurez les budgets et validez les tests réels après l’enregistrement.",
+    "characterRouting": "Modèles par personnage",
+    "inheritRoleplay": "Hériter du modèle de dialogue",
+    "paidModelBudget": "Budget du modèle payant",
+    "authorizePaid": "Autoriser les appels payants de ce modèle personnalisé",
     "title": "Centre des modèles",
     "overview": "Vue générale",
     "providers": "Fournisseurs",

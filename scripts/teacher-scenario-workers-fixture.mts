@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { createHash } from 'node:crypto';
 import { Pool } from 'pg';
 import { PgTrainingStore, ensureTrainingSchema } from '@openmaic/storage/training/pg';
 import {
@@ -23,6 +24,22 @@ async function main() {
       withTransaction: nodePostgresTransaction(pool as unknown as ConnectableQueryable),
     });
     const version = 9999001;
+    const admin = 'acct:00000000-0000-4000-8000-000000000001';
+    const tokenHash = createHash('sha256').update('ci-custom-model-admin-session').digest('hex');
+    if (!(await store.getAccount(admin)))
+      await store.createAccount({
+        accountId: admin,
+        displayName: 'Isolated model administrator',
+        roles: ['learner'],
+        createdAt: Date.now(),
+      });
+    if (!(await store.getSessionByTokenHash(tokenHash)))
+      await store.createSession({
+        accountId: admin,
+        tokenHash,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 86400000,
+      });
     if (!(await store.getScenarioVersion('epi-class-fever', version))) {
       await store.createScenarioVersion({
         ...EPIDEMIC_SCENARIO_V1_DRAFT,

@@ -62,6 +62,14 @@ export function classifyFailure(error: unknown, now = Date.now()): Failure {
 export function freeEligible(p: ModelPolicy, now: number): boolean {
   p = budgetForWindow(p, now);
   if ((p.expiresAt && p.expiresAt <= now) || (p.resetAt && p.resetAt <= now)) return false;
+  if (p.provider.startsWith('custom-') && p.free === 'paid')
+    return (
+      p.paidAuthorized &&
+      p.dailyBudgetUsd > 0 &&
+      p.perCallBudgetUsd > 0 &&
+      p.inputUsdPerMillion !== null &&
+      p.outputUsdPerMillion !== null
+    );
   if (p.provider === 'nvidia')
     return (
       p.nvidiaAuthorized &&
@@ -150,6 +158,8 @@ export function eligible(
       qualification.passed &&
       qualification.source === 'real' &&
       qualification.suiteVersion === 2 &&
+      (!p.provider.startsWith('custom-') ||
+        qualification.connectionRevision === p.connectionRevision) &&
       now - qualification.checkedAt < 30 * 86400000,
     )
   );
@@ -169,19 +179,26 @@ export function orderCandidates(
         : p.provider === (task === 'roleplay' ? 'google' : 'glm')
           ? 3
           : 1;
-  return [...policies].sort((a, b) => {
-    if (pinned && (modelKey(a) === pinned || modelKey(b) === pinned))
-      return modelKey(a) === pinned ? -1 : 1;
-    // Manual selection preserves the final-fallback constraint.
-    if (a.provider === 'nvidia' || b.provider === 'nvidia') return rank(a) - rank(b);
-    if (manual && (modelKey(a) === manual || modelKey(b) === manual))
-      return modelKey(a) === manual ? -1 : 1;
-    return (
-      rank(a) - rank(b) ||
-      (a.expiresAt ?? Infinity) - (b.expiresAt ?? Infinity) ||
-      modelKey(a).localeCompare(modelKey(b))
-    );
-  });
+  return policies
+    .filter(
+      (p) =>
+        !(p.provider.startsWith('custom-') && p.free === 'paid') ||
+        modelKey(p) === manual ||
+        modelKey(p) === pinned,
+    )
+    .sort((a, b) => {
+      if (pinned && (modelKey(a) === pinned || modelKey(b) === pinned))
+        return modelKey(a) === pinned ? -1 : 1;
+      // Manual selection preserves the final-fallback constraint.
+      if (a.provider === 'nvidia' || b.provider === 'nvidia') return rank(a) - rank(b);
+      if (manual && (modelKey(a) === manual || modelKey(b) === manual))
+        return modelKey(a) === manual ? -1 : 1;
+      return (
+        rank(a) - rank(b) ||
+        (a.expiresAt ?? Infinity) - (b.expiresAt ?? Infinity) ||
+        modelKey(a).localeCompare(modelKey(b))
+      );
+    });
 }
 
 // Reject high-risk free text; built-in scenario details are fictional. Arbitrary

@@ -26,7 +26,7 @@ vi.mock('@/lib/training/models/providers', () => ({
   },
 }));
 vi.mock('@/lib/ai/llm', () => ({ callLLM: mocks.call }));
-import { routeTrainingModel } from '@/lib/training/models/runtime';
+import { routeTrainingModel, priorSelection } from '@/lib/training/models/runtime';
 const now = Date.now();
 const policies = ['glm', 'google'].map((provider) =>
   policySchema.parse({
@@ -86,6 +86,51 @@ const run = (task: 'roleplay' | 'evaluation' = 'roleplay', validate = () => {}) 
     validate,
   });
 describe('integrated pool runtime with mock transport (no real-provider claim)', () => {
+  test('character overrides apply to future turns while evaluation stays independent', async () => {
+    const state = await mocks.read();
+    state.routing = {
+      roleplay: modelKey(policies[0]),
+      evaluation: modelKey(policies[0]),
+      characters: { 'parent-1': modelKey(policies[1]) },
+    };
+    mocks.read.mockResolvedValue(state);
+    const input = {
+      task: 'roleplay' as const,
+      characterId: 'parent-1',
+      trainingId: 't',
+      system: '虚构',
+      prompt: '老师您好',
+      pinned: modelKey(policies[0]),
+      validate: () => {},
+    };
+    const parent = await routeTrainingModel(input);
+    expect(parent.selection).toMatchObject({
+      key: modelKey(policies[1]),
+      characterId: 'parent-1',
+      previous: modelKey(policies[0]),
+      reason: 'administrator-route',
+    });
+    expect((await routeTrainingModel({ ...input, characterId: 'student-1' })).selection.key).toBe(
+      modelKey(policies[0]),
+    );
+    expect((await run('evaluation')).selection.key).toBe(modelKey(policies[0]));
+  });
+  test('a character never inherits another character’s pinned selection', () => {
+    const events = [
+      { type: 'model-selected', payload: { task: 'roleplay', key: 'legacy:model' } },
+      {
+        type: 'model-selected',
+        payload: { task: 'roleplay', characterId: 'parent-1', key: 'parent:model' },
+      },
+      {
+        type: 'model-switched',
+        payload: { task: 'roleplay', characterId: 'student-1', key: 'student:model' },
+      },
+    ];
+    expect(priorSelection(events, 'roleplay', 'parent-1')).toBe('parent:model');
+    expect(priorSelection(events, 'roleplay', 'doctor-1')).toBe('legacy:model');
+    expect(priorSelection(events, 'evaluation')).toBeNull();
+  });
   test('records the observed HTTP status without inventing 200 from SDK headers', async () => {
     mocks.httpStatus = 201;
     await run();

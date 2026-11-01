@@ -2734,6 +2734,17 @@
     "stateCompleted": "完了"
   },
   "modelCenter": {
+    "customConnection": "カスタムモデル接続",
+    "connectionId": "接続 ID（custom- で開始）",
+    "preset": "API プロトコル",
+    "apiBaseUrl": "HTTPS API ベース URL",
+    "apiKey": "API キー",
+    "modelIds": "モデル ID（1行に1件）",
+    "secretNote": "キーはサーバーで暗号化されます。接続先やプロトコルを変更する際はキーを再入力してください。保存後に予算を設定し実際の適格性テストを実行してください。",
+    "characterRouting": "役割別のモデル",
+    "inheritRoleplay": "対話の既定モデルを継承",
+    "paidModelBudget": "有料モデルの予算",
+    "authorizePaid": "このカスタムモデルの有料呼び出しを許可",
     "title": "モデルセンター",
     "overview": "概要",
     "providers": "プロバイダー",

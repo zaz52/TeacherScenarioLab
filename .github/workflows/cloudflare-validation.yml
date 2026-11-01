@@ -73,6 +73,7 @@ jobs:
             "DATABASE_URL=$DATABASE_URL" \
             'OWNER_SINGLE_USER=false' \
             'NEXTJS_ENV=production' \
+            'TRAINING_ADMIN_ACCOUNT_IDS=acct:00000000-0000-4000-8000-000000000001' \
             'OPENMAIC_SECRET_KEY=ci-cloudflare-fixture-encryption-key' \
             "ACCESS_CODE=$ACCESS_CODE" \
             "TEACHERLAB_IDLE_TIMEOUT_MS=$TEACHERLAB_IDLE_TIMEOUT_MS" \

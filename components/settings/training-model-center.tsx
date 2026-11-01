@@ -13,7 +13,7 @@ import type { poolOverview } from '@/lib/training/models/store';
 import type { providerSummaries } from '@/lib/training/models/providers';
 
 type Overview = Awaited<ReturnType<typeof poolOverview>> & {
-  providers: ReturnType<typeof providerSummaries>;
+  providers: Awaited<ReturnType<typeof providerSummaries>>;
   privacy: { source: string; verifiedAt: string };
 };
 export type CenterView = 'overview' | 'providers' | 'quotas' | 'routing' | 'logs';
@@ -29,11 +29,27 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
   const [busy, setBusy] = useState(false);
   const [editing, setEditing] = useState<ModelPolicy | null>(null);
   const [selected, setSelected] = useState('');
+  const [connection, setConnection] = useState<{
+    id: string;
+    preset: string;
+    baseUrl: string;
+    models: string[];
+    revision: number | null;
+  } | null>(null);
+  const [characters, setCharacters] = useState<{ id: string; name: string }[]>([]);
   const load = useCallback(async () => {
     try {
       const r = await fetch('/api/training/admin/models', { cache: 'no-store' });
       if (!r.ok) throw new Error();
       setData(await r.json());
+      const scenarios = await fetch('/api/training/admin/scenarios', { cache: 'no-store' });
+      if (scenarios.ok) {
+        const body = await scenarios.json();
+        const found = new Map<string, string>();
+        for (const scenario of body.scenarios ?? [])
+          for (const c of scenario.characters ?? []) found.set(c.id, c.name);
+        setCharacters([...found].map(([id, name]) => ({ id, name })));
+      }
     } catch {
       setError(t('accessError'));
     }
@@ -95,20 +111,91 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
       </button>
       {!data && !error && <p>{t('working')}</p>}
       {data && (view === 'providers' || view === 'overview') && (
+        <section className="space-y-3 rounded border p-4">
+          <button
+            disabled={busy}
+            className="rounded border p-2"
+            onClick={() =>
+              setConnection({
+                id: 'custom-',
+                preset: 'openai-compatible',
+                baseUrl: '',
+                models: [],
+                revision: null,
+              })
+            }
+          >
+            {t('customConnection')}
+          </button>
+          {connection && (
+            <ConnectionEditor
+              key={`${connection.id}:${connection.revision}`}
+              connection={connection}
+              busy={busy}
+              onCancel={() => setConnection(null)}
+              onSave={async (value) => {
+                if (await action({ action: 'connection', connection: value })) {
+                  setConnection(null);
+                  return true;
+                }
+                return false;
+              }}
+            />
+          )}
+        </section>
+      )}
+      {data && (view === 'providers' || view === 'overview') && (
         <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {data.providers.map((provider) => (
             <article className="space-y-2 rounded border p-4" key={provider.id}>
               <h2 className="font-semibold">{provider.id}</h2>
               <p>{provider.configured ? t('configured') : t('missing')}</p>
               <p className="text-xs">{provider.keyVariable}</p>
-              <a
-                className="text-sm underline"
-                target="_blank"
-                rel="noreferrer"
-                href={provider.policySource}
-              >
-                {t('policySource')} · {provider.verifiedAt}
-              </a>
+              {'revision' in provider && (
+                <>
+                  <p className="break-all text-sm">{provider.baseUrl}</p>
+                  <button
+                    className="rounded border p-2"
+                    disabled={busy}
+                    onClick={() => setConnection(provider)}
+                  >
+                    {t('configure')}
+                  </button>
+                  {provider.models.map((id) => (
+                    <button
+                      key={id}
+                      className="block rounded border p-2"
+                      disabled={busy}
+                      onClick={() =>
+                        setEditing(
+                          data.policies.find((p) => modelKey(p) === `${provider.id}:${id}`) ??
+                            policySchema.parse({
+                              provider: provider.id,
+                              modelId: id,
+                              ...('revision' in provider
+                                ? { connectionRevision: provider.revision }
+                                : {}),
+                              connectionRevision: provider.revision,
+                              tasks: ['roleplay', 'evaluation'],
+                            }),
+                        )
+                      }
+                    >
+                      {id} · {t('configure')}
+                    </button>
+                  ))}
+                </>
+              )}
+              {provider.policySource && (
+                <a
+                  className="text-sm underline"
+                  target="_blank"
+                  rel="noreferrer"
+                  href={provider.policySource}
+                >
+                  {t('policySource')} · {provider.verifiedAt}
+                </a>
+              )}
               <button
                 disabled={busy || !provider.configured}
                 onClick={() => void action({ action: 'catalog', provider: provider.id })}
@@ -220,6 +307,38 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
         <section className="space-y-4 rounded border p-4">
           <h2 className="font-semibold">{t('routing')}</h2>
           <p>{t('orderNote')}</p>
+          <h3 className="font-semibold">{t('characterRouting')}</h3>
+          {characters.map((character) => (
+            <label className="block" key={character.id}>
+              {character.name} ({character.id}){' '}
+              <select
+                className="rounded border p-2"
+                disabled={busy}
+                value={data.routing.characters?.[character.id] ?? ''}
+                onChange={(e) =>
+                  void action({
+                    action: 'routing',
+                    routing: {
+                      ...data.routing,
+                      characters: {
+                        ...data.routing.characters,
+                        [character.id]: e.target.value || null,
+                      },
+                    },
+                  })
+                }
+              >
+                <option value="">{t('inheritRoleplay')}</option>
+                {data.policies
+                  .filter((p) => p.tasks.includes('roleplay') && p.provider !== 'nvidia')
+                  .map((p) => (
+                    <option value={modelKey(p)} key={modelKey(p)}>
+                      {modelKey(p)}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          ))}
           {(['roleplay', 'evaluation'] as const).map((task) => (
             <div key={task} className="space-y-2">
               <label className="block">
@@ -371,6 +490,115 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
   );
 }
 
+function ConnectionEditor({
+  connection,
+  busy,
+  onCancel,
+  onSave,
+}: {
+  connection: {
+    id: string;
+    preset: string;
+    baseUrl: string;
+    models: string[];
+    revision: number | null;
+  };
+  busy: boolean;
+  onCancel: () => void;
+  onSave: (value: unknown) => Promise<boolean>;
+}) {
+  const [value, setValue] = useState(connection);
+  const [apiKey, setApiKey] = useState('');
+  const [models, setModels] = useState(connection.models.join('\n'));
+  return (
+    <form
+      className="space-y-3"
+      onSubmit={(e) => {
+        e.preventDefault();
+        void onSave({
+          ...value,
+          models: models.split(/[\s,]+/).filter(Boolean),
+          ...(apiKey ? { apiKey } : {}),
+        }).then((saved) => {
+          if (saved) setApiKey('');
+        });
+      }}
+    >
+      <h2 className="font-semibold">{t('customConnection')}</h2>
+      <p className="text-sm">{t('secretNote')}</p>
+      <label className="block">
+        {t('connectionId')}
+        <input
+          className="block w-full rounded border p-2"
+          required
+          pattern="custom-[a-z0-9][a-z0-9-]{0,39}"
+          disabled={value.revision !== null}
+          value={value.id}
+          onChange={(e) => setValue({ ...value, id: e.target.value })}
+        />
+      </label>
+      <label className="block">
+        {t('preset')}
+        <select
+          className="block rounded border p-2"
+          value={value.preset}
+          onChange={(e) => setValue({ ...value, preset: e.target.value })}
+        >
+          {['openai-compatible', 'openai', 'anthropic', 'google', 'glm'].map((preset) => (
+            <option key={preset}>{preset}</option>
+          ))}
+        </select>
+      </label>
+      <label className="block">
+        {t('apiBaseUrl')}
+        <input
+          className="block w-full rounded border p-2"
+          type="url"
+          required
+          value={value.baseUrl}
+          onChange={(e) => setValue({ ...value, baseUrl: e.target.value })}
+        />
+      </label>
+      <label className="block">
+        {t('apiKey')}
+        <input
+          className="block w-full rounded border p-2"
+          type="password"
+          autoComplete="off"
+          required={value.revision === null}
+          value={apiKey}
+          onChange={(e) => setApiKey(e.target.value)}
+        />
+      </label>
+      <label className="block">
+        {t('modelIds')}
+        <textarea
+          className="block w-full rounded border p-2"
+          required
+          rows={3}
+          value={models}
+          onChange={(e) => setModels(e.target.value)}
+        />
+      </label>
+      <div className="flex gap-3">
+        <button className="rounded border p-2" disabled={busy} type="submit">
+          {t('save')}
+        </button>
+        <button
+          className="rounded border p-2"
+          type="button"
+          onClick={() => {
+            setApiKey('');
+            onCancel();
+          }}
+        >
+          {t('cancel')}
+        </button>
+      </div>
+    </form>
+  );
+}
+
 function PolicyEditor({
   policy,
   busy,
@@ -401,7 +629,10 @@ function PolicyEditor({
       />
     </label>
   );
-  const checkbox = (key: 'enabled' | 'privacyReviewed' | 'nvidiaAuthorized', label: string) => (
+  const checkbox = (
+    key: 'enabled' | 'privacyReviewed' | 'nvidiaAuthorized' | 'paidAuthorized',
+    label: string,
+  ) => (
     <label className="block" key={key}>
       <input type="checkbox" checked={value[key]} onChange={(e) => update(key, e.target.checked)} />{' '}
       {t(label)}
@@ -533,10 +764,12 @@ function PolicyEditor({
           ))}
         </div>
         <p>{t('quotaNote')}</p>
-        {value.provider === 'nvidia' && (
+        {(value.provider === 'nvidia' || value.provider.startsWith('custom-')) && (
           <fieldset className="space-y-3 rounded border p-3">
-            <legend>{t('nvidia')}</legend>
-            {checkbox('nvidiaAuthorized', 'authorizeNvidia')}
+            <legend>{value.provider === 'nvidia' ? t('nvidia') : t('paidModelBudget')}</legend>
+            {value.provider === 'nvidia'
+              ? checkbox('nvidiaAuthorized', 'authorizeNvidia')
+              : checkbox('paidAuthorized', 'authorizePaid')}
             <div className="grid gap-3 sm:grid-cols-2">
               {numeric('dailyBudgetUsd', 'dailyBudget')}
               {numeric('perCallBudgetUsd', 'perCallBudget')}

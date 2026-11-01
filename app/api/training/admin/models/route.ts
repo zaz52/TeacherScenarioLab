@@ -19,10 +19,15 @@ import { qualifyModel } from '@/lib/training/models/qualification';
 import {
   modelKey,
   policySchema,
-  providerIds,
+  poolProviderSchema,
   PoolError,
   taskSchema,
 } from '@/lib/training/models/types';
+import {
+  connectionSchema,
+  readCustomConnection,
+  saveCustomConnection,
+} from '@/lib/training/models/connections';
 
 export const runtime = 'nodejs';
 export const maxDuration = 900;
@@ -32,7 +37,7 @@ export async function GET(req: NextRequest) {
       {
         success: true,
         ...(await poolOverview()),
-        providers: providerSummaries(),
+        providers: await providerSummaries(),
         privacy: {
           source: PRIVACY_SOURCE,
           verifiedAt: POLICY_VERIFIED_AT,
@@ -45,7 +50,8 @@ export async function GET(req: NextRequest) {
 }
 const command = z.discriminatedUnion('action', [
   z.object({ action: z.literal('policy'), policy: policySchema }).strict(),
-  z.object({ action: z.literal('catalog'), provider: z.enum(providerIds) }).strict(),
+  z.object({ action: z.literal('catalog'), provider: poolProviderSchema }).strict(),
+  z.object({ action: z.literal('connection'), connection: connectionSchema }).strict(),
   z
     .object({ action: z.literal('qualify'), key: z.string().min(1).max(220), task: taskSchema })
     .strict(),
@@ -56,6 +62,9 @@ const command = z.discriminatedUnion('action', [
         .object({
           roleplay: z.string().max(220).nullable(),
           evaluation: z.string().max(220).nullable(),
+          characters: z
+            .record(z.string().regex(/^[a-zA-Z0-9_-]{1,80}$/), z.string().max(220).nullable())
+            .optional(),
         })
         .strict(),
     })
@@ -74,6 +83,10 @@ export async function POST(req: NextRequest) {
       const raw = await req.text();
       if (raw.length > 16000) throw new Error('invalid');
       const input = command.parse(JSON.parse(raw));
+      if (input.action === 'connection') {
+        await saveCustomConnection(input.connection, principal.ownerId);
+        return NextResponse.json({ success: true });
+      }
       if (input.action === 'catalog') {
         const catalog = await fetchCatalog(input.provider);
         await saveCatalog(catalog);
@@ -88,7 +101,19 @@ export async function POST(req: NextRequest) {
         const p = input.policy;
         const catalog = state.catalogs.find((c) => c.provider === p.provider);
         const documented = p.provider === 'glm' && p.modelId === 'glm-4.7-flash';
-        if (!documented && (!catalog?.models.includes(p.modelId) || catalog.httpStatus !== 200))
+        const custom = p.provider.startsWith('custom-')
+          ? await readCustomConnection(p.provider)
+          : null;
+        if (
+          p.provider.startsWith('custom-') &&
+          (!custom?.models.includes(p.modelId) || custom.revision !== p.connectionRevision)
+        )
+          throw new PoolError('unavailable');
+        if (
+          !custom &&
+          !documented &&
+          (!catalog?.models.includes(p.modelId) || catalog.httpStatus !== 200)
+        )
           throw new PoolError('unavailable');
         if (p.provider === 'openrouter' && !p.modelId.endsWith(':free'))
           throw new PoolError('unavailable');

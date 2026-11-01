@@ -9,6 +9,28 @@ PR #1 保持 Draft，目标分支为 `dev/teacher-scenario-lab`；合并需要�
 凭据由 GitHub Actions 加密 Secrets 注入，发布授权绑定精确提交 SHA。
 下文历史检查点中的“待轮换”描述保留当时状态；当前发布依据本段授权执行。
 
+## 管理员自定义接入与按角色选模
+
+在“设置 → 训练管理 → 模型资源中心 → 供应商”添加自定义连接：填写custom开头的ID、
+协议、HTTPS API根地址、API密钥和模型ID。支持现有OpenAI兼容、OpenAI、Anthropic、
+Google及GLM聊天协议；供应商自身的鉴权与模型能力仍需实际验证。
+密钥由OPENMAIC_SECRET_KEY加密后存入现有模型控制表，API返回连接元数据。
+新地址/协议要求重新输入密钥，连接版本变化会暂停模型并要求重新资格验证。
+生产OPENMAIC_SECRET_KEY须稳定保存，恢复时与数据库备份配套。
+
+登记模型后配置额度、隐私审查及任务，运行真实资格测试，再在“调度”选择默认或按角色模型。
+模型目录未提供接口时，管理员登记清单仅代表手工配置；资格测试仍需真正调用供应商。
+付费自定义模型还需明确勾选费用授权、填写每次/每日预算和输入输出价格；
+其训练调用由管理员手工路由选择，免费自动回退不纳入该类付费候选。
+GLM当前免费型号为glm-4.7-flash，不自动切换到付费GLM型号。
+用户站内管理员身份仍由TRAINING_ADMIN_ACCOUNT_IDS绑定其acct账户ID。
+
+Workers原生dns.lookup未实现，本地resolve4/resolve6返回EBADQUERY；适配使用
+官方DoH接口查询A/AAAA后交给原SSRF规则检查两类地址。DNS失败保持拒绝。
+公网DoH本地集成与云端集成须另行确认。参考[Workers DNS支持范围](https://developers.cloudflare.com/workers/runtime-apis/nodejs/dns/)
+及[官方DoH JSON接口](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/)。
+Cloudflare连接时启用global_fetch_strictly_public；标准Node运行使用原固定DNS连接的传输。
+
 ## 2026-11-01 训练接口独立运行检查点
 
 3232165的三项工作流均成功，生产模型资格仍被宿主128MB内存限制中断。

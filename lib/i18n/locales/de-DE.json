@@ -2734,6 +2734,17 @@
     "stateCompleted": "Abgeschlossen"
   },
   "modelCenter": {
+    "customConnection": "Eigene Modellverbindung",
+    "connectionId": "Verbindungs-ID (Präfix custom-)",
+    "preset": "API-Protokoll",
+    "apiBaseUrl": "HTTPS-API-Basis-URL",
+    "apiKey": "API-Schlüssel",
+    "modelIds": "Modell-IDs (eine pro Zeile)",
+    "secretNote": "Schlüssel werden serverseitig verschlüsselt. Bei Adress- oder Protokolländerungen einen neuen Schlüssel eingeben. Anschließend Budgets einrichten und reale Eignungstests bestehen.",
+    "characterRouting": "Modelle je Rolle",
+    "inheritRoleplay": "Dialogstandard übernehmen",
+    "paidModelBudget": "Budget für bezahlte Modelle",
+    "authorizePaid": "Bezahlte Aufrufe dieses eigenen Modells genehmigen",
     "title": "Modellzentrum",
     "overview": "Übersicht",
     "providers": "Anbieter",

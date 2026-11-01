@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 自定义模型与角色路由（2026-11-01，Asia/Shanghai）
+
+- 管理员可登记自定义HTTPS API、独立密钥、协议及模型ID，复用OpenMAIC设置校验、AES-GCM密钥封装、模型解析与callLLM；连接使用独立custom命名空间，保留现有预设。Mistral从本次资源中心必需供应商列表移除。
+- 密钥与审计分开保存，浏览器响应不返回密钥；改地址/协议要求重新输入密钥。连接采用版本比较写入，修改后暂停关联策略并清除旧资格；模型注册与真实资格验证分别记录，手工模型清单不生成供应商HTTP成功记录。
+- 后台增加自定义连接表单及情境角色模型选择，角色对话按characterId保留选择记录，管理员新路由作用于后续请求，评价独立。付费自定义模型须明确授权及双预算，通过资格后可手工选用，自动免费回退不纳入付费自定义候选。
+- 12种语言增加11个对应标签。训练测试242通过、0失败；DNS适配及原SSRF/重定向回归86通过、0失败。新增协议映射断言曾1项失败，核实原预设映射到openai后修正并复测通过。
+- Workers DNS适配使用官方DoH接口查询A/AAAA，保留原公网判定；Node沿用系统解析及原连接地址固定机制。当前Windows workerd原生DNS报EBADQUERY，公网DoH本地集成尚待验证，云端双服务回归增加真实公网地址注册和权限/密钥脱敏检查。
+- 1521db2的CI、PG与Cloudflare均成功并实际发布。生产免费OpenRouter角色资格2例通过后因信息边界失败，GLM免费型号限流，Google评价网络失败；真实资格与训练评价全流程继续列为未通过，PR保持Draft。
+
 ### TeacherScenarioLab 训练接口运行隔离（2026-11-01，Asia/Shanghai）
 
 - 3232165的三项GitHub工作流成功，生产真实模型资格仍触发128MB宿主内存超限，平台tail证据保留。

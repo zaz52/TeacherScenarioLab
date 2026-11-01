@@ -27,6 +27,13 @@ import {
   getEvaluation,
 } from '@/lib/training/evaluation';
 import { setDeploymentConfigForTests } from '@/lib/server/model-config/runtime';
+import * as urlGuard from '@/lib/server/ssrf-guard';
+import { poolFetch, poolTarget } from '@/lib/training/models/providers';
+import {
+  customConnection,
+  customConnectionViews,
+  saveCustomConnection,
+} from '@/lib/training/models/connections';
 const transport = vi.hoisted(() => ({ call: vi.fn() }));
 vi.mock('@/lib/server/model-config/llm', () => ({
   languageModelFor: async () => ({ model: {}, thinkingConfig: { mode: 'disabled' } }),
@@ -104,6 +111,82 @@ suite('model pool PostgreSQL contracts (mock transport, real persistence)', () =
       finishReason: 'stop',
       response: { headers: {} },
     });
+  });
+  test('custom provider keys stay encrypted, revisions invalidate qualification, and stale updates fail', async () => {
+    const publicGuard = vi.spyOn(urlGuard, 'validatePublicUrlForSSRF').mockResolvedValue(null);
+    const clientGuard = vi.spyOn(urlGuard, 'validateClientBaseUrl').mockResolvedValue(null);
+    const instanceKey = process.env.OPENMAIC_SECRET_KEY;
+    process.env.OPENMAIC_SECRET_KEY = 'synthetic-connection-encryption-fixture';
+    try {
+      const input = {
+        id: 'custom-school',
+        preset: 'openai-compatible' as const,
+        baseUrl: 'https://models.example/v1',
+        apiKey: 'synthetic-provider-key-fixture',
+        models: ['school/custom-model'],
+        revision: null,
+      };
+      await saveCustomConnection(input, 'acct:admin');
+      const db = await poolDatabase();
+      const raw = await db.query('SELECT data FROM training_model_control WHERE id=$1', [
+        'provider:custom-school',
+      ]);
+      expect(JSON.stringify(raw.rows)).not.toContain(input.apiKey);
+      expect(JSON.stringify(await customConnectionViews())).not.toContain(input.apiKey);
+      expect((await customConnection(input.id)).apiKey).toBe(input.apiKey);
+      const policy = policySchema.parse({
+        provider: input.id,
+        modelId: input.models[0],
+        tasks: ['roleplay'],
+        enabled: true,
+        free: 'zero-price',
+        privacyReviewed: true,
+        connectionRevision: 1,
+        accountVerifiedUntil: Date.now() + 86400000,
+        observedAt: Date.now(),
+        quotaSource: 'admin-entered',
+        remaining: 20,
+      });
+      await savePolicy(policy, 'acct:admin');
+      expect(await poolTarget(policy)).toMatchObject({
+        registryId: 'openai',
+        modelId: input.models[0],
+        apiKey: input.apiKey,
+        baseUrl: input.baseUrl,
+        providerSource: 'deployment',
+      });
+      await expect(
+        poolFetch(input.id)('https://other.example/v1/chat/completions'),
+      ).rejects.toThrow('origin mismatch');
+      // Manual model registration permits a real qualification request; no invented catalogue response.
+      const reservation = await reserveCall(policy, 'roleplay', null, 100, 'qualification');
+      expect(reservation).not.toBeNull();
+      expect((await readPoolState()).catalogs).toEqual([]);
+      await expect(
+        saveCustomConnection(
+          { ...input, revision: 1, baseUrl: 'https://other.example/v1', apiKey: undefined },
+          'acct:admin',
+        ),
+      ).rejects.toMatchObject({ kind: 'auth' });
+      await saveCustomConnection({ ...input, revision: 1, apiKey: undefined }, 'acct:admin');
+      expect((await customConnection(input.id)).apiKey).toBe(input.apiKey);
+      const state = await readPoolState();
+      expect(state.policies.find((p) => p.provider === input.id)).toMatchObject({
+        enabled: false,
+        connectionRevision: 2,
+      });
+      expect(await reserveCall(policy, 'roleplay', null, 100, 'qualification')).toBeNull();
+      await expect(saveCustomConnection(input, 'acct:admin')).rejects.toMatchObject({
+        kind: 'busy',
+      });
+      const audit = await db.query('SELECT data FROM training_model_audit');
+      expect(JSON.stringify(audit.rows)).not.toContain(input.apiKey);
+    } finally {
+      publicGuard.mockRestore();
+      clientGuard.mockRestore();
+      if (instanceKey === undefined) delete process.env.OPENMAIC_SECRET_KEY;
+      else process.env.OPENMAIC_SECRET_KEY = instanceKey;
+    }
   });
   test('atomic provider concurrency allows a single reservation', async () => {
     const p = make();

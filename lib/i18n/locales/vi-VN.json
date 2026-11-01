@@ -2734,6 +2734,17 @@
     "stateCompleted": "Hoàn thành"
   },
   "modelCenter": {
+    "customConnection": "Kết nối mô hình tùy chỉnh",
+    "connectionId": "ID kết nối (tiền tố custom-)",
+    "preset": "Giao thức API",
+    "apiBaseUrl": "URL gốc API HTTPS",
+    "apiKey": "Khóa API",
+    "modelIds": "ID mô hình (mỗi dòng một ID)",
+    "secretNote": "Khóa được mã hóa trên máy chủ. Nhập khóa mới khi đổi địa chỉ hoặc giao thức. Sau khi lưu, cấu hình ngân sách và vượt qua kiểm thử thực tế.",
+    "characterRouting": "Mô hình theo nhân vật",
+    "inheritRoleplay": "Kế thừa mô hình hội thoại",
+    "paidModelBudget": "Ngân sách mô hình trả phí",
+    "authorizePaid": "Cho phép cuộc gọi trả phí cho mô hình tùy chỉnh này",
     "title": "Trung tâm mô hình",
     "overview": "Tổng quan",
     "providers": "Nhà cung cấp",

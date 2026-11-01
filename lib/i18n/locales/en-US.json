@@ -2734,6 +2734,17 @@
     "stateCompleted": "Completed"
   },
   "modelCenter": {
+    "customConnection": "Custom model connection",
+    "connectionId": "Connection ID (custom- prefix)",
+    "preset": "API protocol",
+    "apiBaseUrl": "HTTPS API base URL",
+    "apiKey": "API key",
+    "modelIds": "Model IDs (one per line)",
+    "secretNote": "Keys are encrypted on the server. Enter a new key when changing the address or protocol. Configure budgets and pass real qualification tests after saving.",
+    "characterRouting": "Models by character",
+    "inheritRoleplay": "Inherit roleplay default",
+    "paidModelBudget": "Paid model budget",
+    "authorizePaid": "Authorize paid calls for this custom model",
     "title": "Model center",
     "overview": "Overview",
     "providers": "Providers",

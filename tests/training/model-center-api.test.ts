@@ -7,6 +7,7 @@ const mocks = vi.hoisted(() => ({
   overview: vi.fn(),
   catalog: vi.fn(),
   qualify: vi.fn(),
+  connection: vi.fn(),
 }));
 vi.mock('@/lib/training/with-training-admin', () => ({
   withTrainingAdmin: async (
@@ -29,6 +30,10 @@ vi.mock('@/lib/training/models/providers', () => ({
   PRIVACY_SOURCE: 'https://ai.google.dev/gemini-api/terms',
 }));
 vi.mock('@/lib/training/models/qualification', () => ({ qualifyModel: mocks.qualify }));
+vi.mock('@/lib/training/models/connections', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@/lib/training/models/connections')>();
+  return { ...original, saveCustomConnection: mocks.connection, readCustomConnection: vi.fn() };
+});
 import { GET, POST } from '@/app/api/training/admin/models/route';
 import { policySchema } from '@/lib/training/models/types';
 beforeEach(() => {
@@ -44,6 +49,27 @@ const request = (body: unknown, origin = 'https://school.example') =>
     body: JSON.stringify(body),
   });
 describe('model admin API boundary', () => {
+  test('custom keys are admitted through the admin boundary and never echoed', async () => {
+    const connection = {
+      id: 'custom-school',
+      preset: 'openai-compatible',
+      baseUrl: 'https://models.example/v1',
+      apiKey: 'synthetic-api-fixture',
+      models: ['school/model-1'],
+      revision: null,
+    };
+    expect((await POST(request({ action: 'connection', connection }))).status).toBe(403);
+    expect(mocks.connection).not.toHaveBeenCalled();
+    mocks.allowed = true;
+    expect(
+      (await POST(request({ action: 'connection', connection }, 'https://other.example'))).status,
+    ).toBe(403);
+    expect(mocks.connection).not.toHaveBeenCalled();
+    const response = await POST(request({ action: 'connection', connection }));
+    expect(response.status).toBe(200);
+    expect(await response.text()).not.toContain(connection.apiKey);
+    expect(mocks.connection).toHaveBeenCalledWith(connection, 'acct:admin');
+  });
   test('anonymous and learner paths are refused before provider or database work', async () => {
     expect(
       (await GET(new NextRequest('https://school.example/api/training/admin/models'))).status,

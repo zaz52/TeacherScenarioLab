@@ -12,6 +12,7 @@ import {
   type ModelPolicy,
   type PoolProviderId,
 } from './types';
+import { customConnection, customConnectionViews } from './connections';
 
 // These are connection profiles for the training pool. Existing presets remain intact.
 export const PROFILES = {
@@ -62,8 +63,10 @@ export const PROFILES = {
 export const POLICY_VERIFIED_AT = '2026-10-30';
 export const PRIVACY_SOURCE = 'https://ai.google.dev/gemini-api/terms';
 
-export function providerConnection(provider: PoolProviderId) {
-  const profile = PROFILES[provider];
+export async function providerConnection(provider: PoolProviderId) {
+  if (provider.startsWith('custom-')) return customConnection(provider);
+  const profile = PROFILES[provider as keyof typeof PROFILES];
+  if (!profile) throw new Error('unknown provider');
   const configured = deploymentConfig().layer?.config.providers?.[provider];
   const account = process.env.CLOUDFLARE_ACCOUNT_ID?.trim();
   const baseUrl =
@@ -84,39 +87,94 @@ export function poolFetch(
   provider: PoolProviderId,
   onResponse?: (status: number) => void,
 ): typeof fetch {
-  const proxy = providerConnection(provider).proxy;
-  return async (input, init) =>
-    fetchWithRedirectValidation(input instanceof Request ? input.url : input, init, {
+  return async (input, init) => {
+    const connection = await providerConnection(provider);
+    const url = new URL(input instanceof Request ? input.url : String(input));
+    if (provider.startsWith('custom-') && url.origin !== new URL(connection.baseUrl).origin)
+      throw new Error('provider request origin mismatch');
+    return fetchWithRedirectValidation(url, init, {
       requireHttps: true,
       allowLocalNetworks: false,
       fetchImpl: async (url, options) => {
-        const response = await proxyFetch(url, options, { proxy });
+        let response: Response;
+        if (provider.startsWith('custom-')) {
+          const workerd = (
+            globalThis as typeof globalThis & {
+              [key: symbol]: typeof fetch | undefined;
+            }
+          )[Symbol.for('teacherlab.training-public-fetch')];
+          if (workerd) response = await workerd(url, options);
+          else {
+            const { providerFetch } = await import('@/lib/server/provider-fetch');
+            response = await providerFetch(url, options, {
+              allowLocalNetworks: false,
+              rejectRedirects: true,
+            });
+          }
+        } else response = await proxyFetch(url, options, { proxy: connection.proxy });
         onResponse?.(response.status);
         if (response.status >= 300 && response.status < 400)
           throw new Error('provider redirect refused');
         return response;
       },
     });
+  };
 }
 
-export function providerSummaries() {
-  return providerIds.map((id) => {
-    const c = providerConnection(id);
-    return {
-      id,
-      configured: Boolean(c.apiKey && c.baseUrl),
-      keyVariable: PROFILES[id].env,
-      policySource: PROFILES[id].source,
+export async function providerSummaries() {
+  const builtins = await Promise.all(
+    providerIds
+      .filter((id) => id !== 'mistral')
+      .map(async (id) => {
+        const c = await providerConnection(id);
+        return {
+          id,
+          configured: Boolean(c.apiKey && c.baseUrl),
+          keyVariable: PROFILES[id].env,
+          policySource: PROFILES[id].source,
+          verifiedAt: POLICY_VERIFIED_AT,
+          privacySource: id === 'google' ? PRIVACY_SOURCE : PROFILES[id].source,
+        };
+      }),
+  );
+  const custom = await customConnectionViews();
+  return [
+    ...builtins,
+    ...custom.map((c) => ({
+      ...c,
+      keyVariable: '',
+      policySource: '',
+      privacySource: '',
       verifiedAt: POLICY_VERIFIED_AT,
-      privacySource: id === 'google' ? PRIVACY_SOURCE : PROFILES[id].source,
-    };
-  });
+    })),
+  ];
 }
 
-export function poolTarget(policy: ModelPolicy): ResolvedModelTarget {
-  const connection = providerConnection(policy.provider);
+export async function poolTarget(policy: ModelPolicy): Promise<ResolvedModelTarget> {
+  const connection = await providerConnection(policy.provider);
+  if (policy.provider.startsWith('custom-')) {
+    const c = await customConnection(policy.provider);
+    if (c.revision !== policy.connectionRevision || !c.models.includes(policy.modelId))
+      throw new Error('custom connection changed');
+    return resolveModelReference(modelKey(policy), 'chat', [
+      {
+        source: 'deployment',
+        config: {
+          providers: {
+            [policy.provider]: {
+              preset: c.preset,
+              apiKey: c.apiKey,
+              baseUrl: c.baseUrl,
+              models: c.models,
+            },
+          },
+        },
+      },
+    ]);
+  }
   // Training policies cannot redirect operator credentials to arbitrary hosts.
-  const canonical = PROFILES[policy.provider].baseUrl;
+  const profile = PROFILES[policy.provider as keyof typeof PROFILES];
+  const canonical = profile.baseUrl;
   if (policy.provider !== 'cloudflare' && connection.baseUrl.replace(/\/$/, '') !== canonical)
     throw new Error('training pool requires the official provider endpoint');
   if (
@@ -132,7 +190,7 @@ export function poolTarget(policy: ModelPolicy): ResolvedModelTarget {
       config: {
         providers: {
           [policy.provider]: {
-            preset: PROFILES[policy.provider].preset,
+            preset: profile.preset,
             apiKey: connection.apiKey || undefined,
             baseUrl: connection.baseUrl,
             models: [policy.modelId],
@@ -170,7 +228,7 @@ export interface Catalog {
   error: string | null;
 }
 export async function fetchCatalog(provider: PoolProviderId): Promise<Catalog> {
-  const connection = providerConnection(provider);
+  const connection = await providerConnection(provider);
   const result: Catalog = {
     provider,
     checkedAt: Date.now(),
@@ -179,7 +237,9 @@ export async function fetchCatalog(provider: PoolProviderId): Promise<Catalog> {
     error: null,
   };
   if (!connection.apiKey || !connection.baseUrl) return { ...result, error: 'missing-credentials' };
-  const canonical = PROFILES[provider].baseUrl;
+  const custom = provider.startsWith('custom-');
+  const profile = PROFILES[provider as keyof typeof PROFILES];
+  const canonical = custom ? connection.baseUrl : profile.baseUrl;
   if (provider !== 'cloudflare' && connection.baseUrl.replace(/\/$/, '') !== canonical)
     return { ...result, error: 'nonofficial-endpoint' };
   if (

@@ -223,10 +223,11 @@ async function generateCharacterReplyInner(
       (async (system: string, prompt: string) => {
         const result = await routeTrainingModel({
           task: 'roleplay',
+          characterId,
           trainingId,
           system,
           prompt,
-          pinned: priorSelection(events, 'roleplay'),
+          pinned: priorSelection(events, 'roleplay', characterId),
           names: scenario.characters.map((c) => c.name),
           validate: (output) => {
             const disclosedIds = new Set(disclosedFacts.map((f) => f.id));

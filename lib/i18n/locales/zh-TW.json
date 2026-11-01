@@ -2734,6 +2734,17 @@
     "stateCompleted": "已完成"
   },
   "modelCenter": {
+    "customConnection": "自訂模型接入",
+    "connectionId": "連線 ID（custom- 開頭）",
+    "preset": "API 協定",
+    "apiBaseUrl": "HTTPS API 位址",
+    "apiKey": "API 金鑰",
+    "modelIds": "模型 ID（每行一個）",
+    "secretNote": "金鑰加密儲存於伺服器。修改位址或協定時請重新填寫金鑰。儲存後需設定額度並通過真實資格測試。",
+    "characterRouting": "按角色選擇模型",
+    "inheritRoleplay": "繼承角色對話預設模型",
+    "paidModelBudget": "付費模型預算",
+    "authorizePaid": "明確授權此自訂模型的付費呼叫",
     "title": "模型資源中心",
     "overview": "總覽",
     "providers": "供應商",

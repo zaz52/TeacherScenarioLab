@@ -2734,6 +2734,17 @@
     "stateCompleted": "Concluído"
   },
   "modelCenter": {
+    "customConnection": "Conexão de modelo personalizado",
+    "connectionId": "ID da conexão (prefixo custom-)",
+    "preset": "Protocolo da API",
+    "apiBaseUrl": "URL base da API HTTPS",
+    "apiKey": "Chave da API",
+    "modelIds": "IDs dos modelos (um por linha)",
+    "secretNote": "As chaves são criptografadas no servidor. Informe uma nova chave ao alterar o endereço ou protocolo. Configure orçamentos e conclua testes reais após salvar.",
+    "characterRouting": "Modelos por personagem",
+    "inheritRoleplay": "Herdar modelo de diálogo",
+    "paidModelBudget": "Orçamento do modelo pago",
+    "authorizePaid": "Autorizar chamadas pagas deste modelo personalizado",
     "title": "Central de modelos",
     "overview": "Visão geral",
     "providers": "Provedores",

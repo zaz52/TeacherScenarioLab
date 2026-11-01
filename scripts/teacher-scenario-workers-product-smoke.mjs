@@ -109,6 +109,48 @@ for (const page of [
   await response.text();
 }
 await request('/api/training/admin/scenarios', { expected: 403 });
+const adminCredentials = cookie.split(';')[0] + '; training_session=ci-custom-model-admin-session';
+const adminModels = '/api/training/admin/models';
+const custom = {
+  id: 'custom-ci-fixture',
+  preset: 'openai-compatible',
+  baseUrl: 'https://example.com/v1',
+  apiKey: 'ci-synthetic-provider-key',
+  models: ['fixture/model'],
+  revision: null,
+};
+await request(adminModels, {
+  method: 'POST',
+  body: { action: 'connection', connection: custom },
+  credentials: adminCredentials,
+});
+const overview = await (await request(adminModels, { credentials: adminCredentials })).json();
+assert.equal(JSON.stringify(overview).includes(custom.apiKey), false);
+const provider = overview.providers.find((p) => p.id === custom.id);
+assert.equal(provider.configured, true);
+assert.deepEqual(provider.models, custom.models);
+await request(adminModels, {
+  method: 'POST',
+  credentials: adminCredentials,
+  expected: 409,
+  body: {
+    action: 'connection',
+    connection: { ...custom, revision: provider.revision, baseUrl: 'https://127.0.0.1/v1' },
+  },
+});
+await request(adminModels, {
+  method: 'POST',
+  credentials: adminCredentials,
+  expected: 409,
+  body: {
+    action: 'routing',
+    routing: {
+      roleplay: null,
+      evaluation: null,
+      characters: { 'parent-1': 'custom-ci-fixture:fixture/model' },
+    },
+  },
+});
 const references = await (await request('/api/training/references')).json();
 assert.equal(references.references.length, 50);
 for (const reference of references.references) {
@@ -127,5 +169,8 @@ console.log(
     ledgerConsistent: true,
     unavailableEvaluationRejected: true,
     realModelEvaluation: 'not executed',
+    customConnectionEncryptedView: true,
+    customEndpointGuard: true,
+    unqualifiedCharacterRouteRejected: true,
   }),
 );

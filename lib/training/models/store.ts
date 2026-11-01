@@ -133,9 +133,17 @@ export async function saveQualification(q: Qualification) {
 }
 export async function saveRouting(routing: RoutingSettings, actor: string) {
   const state = await readPoolState();
-  for (const task of ['roleplay', 'evaluation'] as const) {
-    if (!routing[task]) continue;
-    const p = state.policies.find((p) => modelKey(p) === routing[task]);
+  const targets: [ModelTask, string | null][] = [
+    ['roleplay', routing.roleplay],
+    ['evaluation', routing.evaluation],
+    ...Object.values(routing.characters ?? {}).map((key): [ModelTask, string | null] => [
+      'roleplay',
+      key,
+    ]),
+  ];
+  for (const [task, key] of targets) {
+    if (!key) continue;
+    const p = state.policies.find((p) => modelKey(p) === key);
     if (
       !p ||
       p.provider === 'nvidia' ||
@@ -146,7 +154,7 @@ export async function saveRouting(routing: RoutingSettings, actor: string) {
         Date.now(),
       )
     )
-      throw new PoolError('unavailable', 'route requires a qualified eligible free model');
+      throw new PoolError('unavailable', 'route requires a qualified eligible model');
   }
   const pool = await poolDatabase();
   await pool.query(
@@ -198,11 +206,25 @@ export async function reserveCall(
     ]);
     const catalog = cat.rows[0]?.data as Catalog | undefined;
     const documentedFlash = p.provider === 'glm' && p.modelId === 'glm-4.7-flash';
+    let registered = false;
+    if (p.provider.startsWith('custom-')) {
+      const connection = await c.query('SELECT data FROM training_model_control WHERE id=$1', [
+        `provider:${p.provider}`,
+      ]);
+      const current = connection.rows[0]?.data as
+        | { revision: number; models: string[] }
+        | undefined;
+      registered = Boolean(
+        current && current.revision === p.connectionRevision && current.models.includes(p.modelId),
+      );
+      if (!registered) return null;
+    }
     if (
-      !catalog ||
-      catalog.httpStatus !== 200 ||
-      now - catalog.checkedAt > 86400000 ||
-      (!catalog.models.includes(p.modelId) && !documentedFlash)
+      !registered &&
+      (!catalog ||
+        catalog.httpStatus !== 200 ||
+        now - catalog.checkedAt > 86400000 ||
+        (!catalog.models.includes(p.modelId) && !documentedFlash))
     )
       return null;
     if (purpose === 'training') {
@@ -249,7 +271,7 @@ export async function reserveCall(
       if (!Number.isFinite(units) || units < bound) return null;
     }
     if (
-      p.provider === 'nvidia' &&
+      (p.provider === 'nvidia' || (p.provider.startsWith('custom-') && p.free === 'paid')) &&
       (usd > p.perCallBudgetUsd ||
         calls.filter((r) => r.startedAt >= day).reduce((n, r) => n + r.reservedUsd, 0) + usd >
           p.dailyBudgetUsd)
@@ -257,7 +279,8 @@ export async function reserveCall(
       return null;
     if (
       (p.free !== 'zero-price' || (p.quotaScope === 'local-budget' && p.remaining !== null)) &&
-      p.provider !== 'nvidia'
+      p.provider !== 'nvidia' &&
+      !(p.provider.startsWith('custom-') && p.free === 'paid')
     ) {
       const consumed = calls
         .filter((r) => r.startedAt >= (p.observedAt ?? now))
@@ -279,7 +302,10 @@ export async function reserveCall(
       outputTokens: null,
       reservedTokens: tokens,
       reservedUnits: Number.isFinite(units) ? units : 0,
-      reservedUsd: p.provider === 'nvidia' ? usd : 0,
+      reservedUsd:
+        p.provider === 'nvidia' || (p.provider.startsWith('custom-') && p.free === 'paid')
+          ? usd
+          : 0,
       purpose,
       jsonValid: null,
       ttftMs: null,

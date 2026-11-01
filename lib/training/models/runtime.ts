@@ -6,6 +6,7 @@ import { finishCall, readPoolState, reserveCall, invalidateQualification } from 
 import { modelKey, PoolError, type CallRecord, type ModelPolicy, type ModelTask } from './types';
 
 export interface ModelSelection {
+  characterId?: string;
   key: string;
   provider: string;
   modelId: string;
@@ -37,7 +38,7 @@ export async function invokePoolModel(
   let observedHttpStatus: number | null = null;
   try {
     const resolved = await languageModelFor(
-      poolTarget(policy),
+      await poolTarget(policy),
       { mode: 'disabled' },
       poolFetch(policy.provider, (status) => {
         observedHttpStatus = status;
@@ -102,6 +103,7 @@ export async function invokePoolModel(
 }
 
 export async function routeTrainingModel(input: {
+  characterId?: string;
   task: ModelTask;
   trainingId: string;
   system: string;
@@ -118,17 +120,16 @@ export async function routeTrainingModel(input: {
     };
   const state = await readPoolState();
   const now = Date.now();
-  const ordered = orderCandidates(
-    state.policies,
-    input.task,
-    input.pinned,
-    state.routing[input.task],
-  );
-  let reason = input.pinned ? 'pinned' : 'free-priority';
+  const manual =
+    input.task === 'roleplay' && input.characterId
+      ? (state.routing.characters?.[input.characterId] ?? state.routing.roleplay)
+      : state.routing[input.task];
+  const ordered = orderCandidates(state.policies, input.task, manual ?? input.pinned, manual);
+  let reason = manual ? 'administrator-route' : input.pinned ? 'pinned' : 'free-priority';
   for (const policy of ordered) {
     const key = modelKey(policy);
     if (
-      !providerConnection(policy.provider).apiKey ||
+      !(await providerConnection(policy.provider)).apiKey ||
       !eligible(
         policy,
         input.task,
@@ -155,6 +156,7 @@ export async function routeTrainingModel(input: {
             provider: policy.provider,
             modelId: policy.modelId,
             task: input.task,
+            ...(input.characterId ? { characterId: input.characterId } : {}),
             previous: input.pinned,
             reason,
             callId: result.callId,
@@ -199,6 +201,7 @@ export async function routeTrainingModel(input: {
 export function priorSelection(
   events: { type: string; payload: Record<string, unknown> }[],
   task: ModelTask,
+  characterId?: string,
 ): string | null {
   const e = [...events]
     .reverse()
@@ -206,6 +209,9 @@ export function priorSelection(
       (e) =>
         (e.type === 'model-selected' || e.type === 'model-switched') &&
         e.payload.task === task &&
+        (!characterId ||
+          e.payload.characterId === characterId ||
+          e.payload.characterId === undefined) &&
         typeof e.payload.key === 'string',
     );
   return typeof e?.payload.key === 'string' ? e.payload.key : null;

@@ -64,6 +64,9 @@ export async function qualifyModel(
     const policy = state.policies.find((p) => modelKey(p) === key);
     if (!policy) throw new PoolError('unavailable');
     const result: Qualification = {
+      ...(policy.provider.startsWith('custom-')
+        ? { connectionRevision: policy.connectionRevision }
+        : {}),
       key,
       task,
       passed: false,

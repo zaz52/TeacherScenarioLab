@@ -11,10 +11,12 @@ export const providerIds = [
   'openrouter',
   'nvidia',
 ] as const;
-export type PoolProviderId = (typeof providerIds)[number];
+export const customProviderIdSchema = z.string().regex(/^custom-[a-z0-9][a-z0-9-]{0,39}$/);
+export const poolProviderSchema = z.union([z.enum(providerIds), customProviderIdSchema]);
+export type PoolProviderId = z.infer<typeof poolProviderSchema>;
 export const policySchema = z
   .object({
-    provider: z.enum(providerIds),
+    provider: poolProviderSchema,
     modelId: z
       .string()
       .min(1)
@@ -45,6 +47,8 @@ export const policySchema = z
     // Upper bound in quota units for every request, including failed requests.
     reservePerCall: z.number().positive().nullable().default(null),
     nvidiaAuthorized: z.boolean().default(false),
+    paidAuthorized: z.boolean().default(false),
+    connectionRevision: z.number().int().positive().nullable().default(null),
     dailyBudgetUsd: z.number().nonnegative().max(100).default(0),
     perCallBudgetUsd: z.number().nonnegative().max(10).default(0),
     inputUsdPerMillion: z.number().nonnegative().nullable().default(null),
@@ -97,6 +101,7 @@ export interface CallRecord {
   ttftMs: null;
 }
 export interface Qualification {
+  connectionRevision?: number | null;
   key: string;
   task: ModelTask;
   passed: boolean;
@@ -119,6 +124,7 @@ export interface Qualification {
 export interface RoutingSettings {
   roleplay: string | null;
   evaluation: string | null;
+  characters?: Record<string, string | null>;
 }
 export const modelKey = (p: Pick<ModelPolicy, 'provider' | 'modelId'>) =>
   `${p.provider}:${p.modelId}`;

@@ -2734,6 +2734,17 @@
     "stateCompleted": "완료"
   },
   "modelCenter": {
+    "customConnection": "사용자 지정 모델 연결",
+    "connectionId": "연결 ID (custom- 접두사)",
+    "preset": "API 프로토콜",
+    "apiBaseUrl": "HTTPS API 기본 URL",
+    "apiKey": "API 키",
+    "modelIds": "모델 ID (한 줄에 하나)",
+    "secretNote": "키는 서버에서 암호화됩니다. 주소나 프로토콜 변경 시 키를 다시 입력하세요. 저장 후 예산을 설정하고 실제 자격 테스트를 통과해야 합니다.",
+    "characterRouting": "역할별 모델",
+    "inheritRoleplay": "역할 대화 기본 모델 상속",
+    "paidModelBudget": "유료 모델 예산",
+    "authorizePaid": "이 사용자 지정 모델의 유료 호출 승인",
     "title": "모델 센터",
     "overview": "개요",
     "providers": "공급업체",
