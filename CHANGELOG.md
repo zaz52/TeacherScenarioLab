@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab PostgreSQL 并发验收修复（2026-11-01，Asia/Shanghai）
+
+- ecb274d 的 CI 全部通过，Cloudflare 生产构建、公网 DNS/私网拒绝预检与双服务产品集成通过；发布门禁因 PostgreSQL 合约失败而停止。
+- PostgreSQL 合约的 394 项应用断言通过，但并发额度测试延迟接收预期拒绝，Vitest 报未处理异常。测试改为启动请求时立即接收拒绝，保留锁等待、额度错误类型和最终入库数量断言；生产额度实现与迁移沿用。
+- 本地 PostgreSQL 16 定点回归 9 通过、0 失败、0 跳过，未出现未处理异常。新提交的云端完整检查和正式发布结果待核验。
+
 ### TeacherScenarioLab 云端凭据提示与网络诊断（2026-11-01，Asia/Shanghai）
 
 - 6eeb947浏览器验收161通过、1失败；失败来自新断言同时选中页面错误提示和Next路由播报器，已按错误文本收紧定位。新8a15b1b的Linux workerd公网DNS/私网拒绝预检已通过，继续执行完整构建与集成。

@@ -113,6 +113,9 @@ describe.skipIf(!contractUrl)('owner material quota reservations on PostgreSQL',
         await second.query(insertSql, ['mat-b', 'b.pdf', Date.now()]);
         await second.query('COMMIT');
       })();
+      // Observe the expected rejection before releasing the first connection:
+      // the second backend may finish before COMMIT's callback reaches this test.
+      const observedReservation = secondReservation.catch((error: unknown) => error);
 
       // Barrier after the first usage read: the second connection is genuinely
       // blocked on the advisory lock, before it has read any usage.
@@ -121,7 +124,7 @@ describe.skipIf(!contractUrl)('owner material quota reservations on PostgreSQL',
       await first.query(insertSql, ['mat-a', 'a.pdf', Date.now()]);
       await first.query('COMMIT');
 
-      await expect(secondReservation).rejects.toBeInstanceOf(MaterialQuotaExceededError);
+      expect(await observedReservation).toBeInstanceOf(MaterialQuotaExceededError);
       const rows = await pool.query<{ id: string }>('SELECT id FROM owner_material');
       expect(rows.rows.map((row) => row.id)).toEqual(['mat-a']);
     } finally {
