@@ -22,6 +22,12 @@ Workers产品级`Admin`权限，以创建新Worker。域名绑定需要额外授
 依据：[Cloudflare Workers权限说明](https://developers.cloudflare.com/workers/authorization/workers/)。
 Token值始终保留在忽略文件或加密Secrets中。
 
+2026-11-01 13:26补充：用户新Token已解除403，目标服务初始化成功；实际Worker上传因
+源码映射104472KiB超过60MiB限制被平台拒绝，部署列表为空。配置已设置
+`upload_source_maps: false`；Wrangler4.150.0起该功能默认开启，详见
+[官方变更说明](https://developers.cloudflare.com/changelog/post/2026-10-20-source-maps-on-by-default/)。
+该开关影响部署时的堆栈源码映射，生产程序仍由同一OpenNext构建流程生成。
+
 ## 空闲调度与部署条件（2026-11-01）
 
 宿主空闲调度使用现有后台任务的启动和停止接口。默认10分钟没有活跃HTTP请求且

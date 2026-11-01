@@ -3,6 +3,7 @@
   "name": "teacher-scenario-lab",
   "main": "cloudflare-worker.mjs",
   "minify": true,
+  "upload_source_maps": false,
   "compatibility_date": "2026-10-30",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "workers_dev": true,

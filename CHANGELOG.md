@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 源码映射上传限制（2026-11-01 13:26，Asia/Shanghai）
+
+- 用户提供新部署Token，已通过隐藏输入更新忽略文件并同步GitHub加密Secrets。账户API、workers.dev子域和目标资源查询正常，原403授权阻塞解除；新凭据可见7个原有服务。
+- 8da55e4第二次Cloudflare运行通过生产构建与完整隔离验收，静态资产2432个上传成功；Worker发布被平台以10021拒绝，原因为源码映射104472KiB超过60MiB上限。目标服务已初始化，部署列表为空；网站未上线，数据库与DNS未在本轮改变。
+- 在Wrangler配置中显式设置upload_source_maps=false，采用官方开关关闭源码映射上传。Wrangler4.150.0起默认上传源码映射，部署脚本及业务实现保持当前版本；后续平台发布结果另行核验。
+
 ### TeacherScenarioLab 平台发布权限核验（2026-11-01 10:00，Asia/Shanghai）
 
 - d4d38a3 的标准 CI 与 PostgreSQL 合约成功；159 项 E2E、生产 Next.js/Docker 镜像及容器数据库检查成功。Cloudflare 构建、56178.65KiB 体积门槛、账号/产品/50条文献详情和空闲暂停、维护、并发恢复检查通过。
