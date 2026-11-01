@@ -7,6 +7,7 @@
   "compatibility_date": "2026-10-30",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "workers_dev": true,
+  "routes": [{ "pattern": "teacherlab.weiyiai.top", "custom_domain": true }],
   "durable_objects": {
     "bindings": [{ "name": "APPLICATION_HOST", "class_name": "TeacherLabHost" }],
   },

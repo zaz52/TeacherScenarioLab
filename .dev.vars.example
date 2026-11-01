@@ -1,6 +1,6 @@
 # Copy to the ignored .dev.vars for local Workers preview.
 # Set production secrets in Cloudflare Workers Settings > Variables and Secrets.
-# Public origin: https://teacherlab.weiyi.top
+# Public origin: https://teacherlab.weiyiai.top
 NEXTJS_ENV=production
 OWNER_SINGLE_USER=false
 DATABASE_URL=

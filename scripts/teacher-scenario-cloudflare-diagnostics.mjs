@@ -1,5 +1,6 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 
 const references = [];
 const bundleInputs = new Map();
@@ -50,6 +51,14 @@ const largestInputs = [...bundleInputs]
   .sort((left, right) => right[1] - left[1])
   .slice(0, 25)
   .map(([file, bytes]) => ({ file, bytes }));
+for (const input of largestInputs) {
+  const code = await readFile(input.file).catch(() => null);
+  if (code) {
+    input.sha256 = createHash('sha256').update(code).digest('hex');
+    input.aiSdk = /AI_(?:SDK|APICall|NoSuchModel)Error/.test(code.toString());
+    input.zod = /ZodError|ZodObject|ZodString/.test(code.toString());
+  }
+}
 const result = { references, bundle, largestInputs };
 await writeFile('cloudflare-dependency-diagnostics.json', JSON.stringify(result, null, 2));
 console.log(JSON.stringify(result));

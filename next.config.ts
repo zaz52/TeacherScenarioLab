@@ -48,6 +48,19 @@ const nextConfig: NextConfig = {
   // import resolves as a real Node call.
   serverExternalPackages: [
     ...(cloudflareBuild ? [] : ['@teacherlab/images']),
+    // OpenNext bundles these once after Next builds its server route layers.
+    // Keeping SDKs external here reduces duplicate copies across those layers.
+    ...(cloudflareBuild
+      ? [
+          'ai',
+          '@ai-sdk/openai',
+          '@ai-sdk/azure',
+          '@ai-sdk/anthropic',
+          '@ai-sdk/amazon-bedrock',
+          '@ai-sdk/google',
+          'zod',
+        ]
+      : []),
     '@earendil-works/pi-ai',
     '@earendil-works/pi-agent-core',
     '@openmaic/generation',

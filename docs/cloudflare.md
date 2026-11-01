@@ -1,12 +1,65 @@
 # TeacherScenarioLab Cloudflare 与 Neon 上线操作
 
 2026-10-30 用户确认生产数据库采用 Neon 免费 PostgreSQL，首页品牌为
-「教师情境实训实验室 / TeacherScenarioLab」，目标域名为 `teacherlab.weiyi.top`。
+「教师情境实训实验室 / TeacherScenarioLab」。2026-11-01用户最终确认域名为
+`teacherlab.weiyiai.top`（当前账号的 `weiyiai.top` 区域）。旧域名已废弃。
 PR #1 保持 Draft，目标分支为 `dev/teacher-scenario-lab`；合并需要用户批准。
 
 2026-11-01 用户明确授权本次继续使用此前配置的凭据部署，撤销本次发布前的轮换条件。
 凭据由 GitHub Actions 加密 Secrets 注入，发布授权绑定精确提交 SHA。
 下文历史检查点中的“待轮换”描述保留当时状态；当前发布依据本段授权执行。
+
+## 2026-11-01 生产发布与域名验收（14:05，Asia/Shanghai）
+
+代码提交 `34cd18f02ae07f40c8d1ef7ee1729c33f03f5bcf` 已成功发布到
+`teacher-scenario-lab`，初始版本为 `17c56d20-e1c2-4771-b3b7-c740652c149a`。
+管理员环境变量初始化后产生新的配置版本，部署记录以 Cloudflare 当前版本为准。
+
+用户确认后，通过 Custom Domains API 将 `teacherlab.weiyiai.top` 绑定到该 Worker，
+HTTP200；区域为 `weiyiai.top`。Wrangler routes 与页面 metadataBase 沿用这一域名。
+正式入口为 <https://teacherlab.weiyiai.top>，访问码保存在本地忽略文件 `.env.local`，
+经平台环境变量注入。管理员会话保存在本地忽略文件 `.env.live-admin.local`，
+该会话属于初始化账户，用户新建账户的管理员授权需单独绑定其公开账户ID。
+
+该提交的 [CI](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41277098216)、
+[PostgreSQL合约](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41277098223) 与
+[Cloudflare](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41277098221) 均成功。
+CI与PG测试执行汇总18900通过、0失败、774跳过，包含跨作业重复；159项Chromium E2E通过。
+标准Next.js/Docker生产构建和OpenNext构建通过，Workers上传56178.60KiB，启动25ms。
+
+生产 `/api/health`、首页、大厅、训练室、复盘、文献、设置六处页面HTTP200；
+50条文献详情均HTTP200。管理员初始化、情境v1导入发布、学员建号、创建训练、
+脚本对话和消息幂等通过；普通账号管理API返回403。生产数据库保留这些验收记录。
+此前workers.dev第36条文献详情出现一次500，完整自定义域名复测未复现；原失败证据保留。
+浏览器控制工具超时，生产可视操作验收尚未完成。
+
+**真实模型全流程未通过。** GLM刷新目录HTTP200，但资格调用期间宿主重启；
+OpenRouter零价模型目录和策略保存HTTP200，资格调用HTTP500（1101）。
+Cloudflare实际tail记录 `Durable Object's isolate exceeded its memory limit and was reset.`，
+包含 `exceededMemory` 事件。平台每个isolate的128MB上限见
+[官方内存说明](https://developers.cloudflare.com/durable-objects/observability/metrics-and-analytics/)。
+属于生产运行时内存问题；构建及隔离workerd成功不能替代此项。
+GLM初次资格因缺少刷新后的目录被busy拦截，随后调用中断留下reserved账与限时租约，
+资格均未通过，失败调用没有生成已通过资格。需要继续处理运行体积/内存并重新验收模型落账、
+评价保存和五维证据，当前上线状态为待验收。
+
+Google目录HTTP400、Groq目录HTTP403，Mistral凭据缺失；NVIDIA目录含已配置ID，
+其直接推理仍受独立费用授权和预算门槛约束。OpenRouter免费候选资格未通过，
+付费模型回退保持受限。所有供应商预设和训练后端/核心引擎保持当前实现。
+
+发布前已用TLS验证Neon连接并备份38张表；私有备份保留于仓库外。
+回滚时在Cloudflare的 `teacher-scenario-lab` Deployments选择上一个已通过验收的版本，
+回滚后逐项复测健康、登录、训练与评价。首次上线尚无完整模型验收通过的历史版本，
+当前版本不能当作完整验收通过的回滚基线。数据库备份恢复需独立批准并先核对数据变更。
+PR继续Draft，合并等待批准，main保持原状态。后续配置提交的CI与部署另记。
+
+针对实际内存失败，Workers专用Next构建把AI SDK与Zod标为serverExternalPackages，
+由OpenNext在下一阶段统一打包，减少跨服务端路由层重复代码。该调整的体积与运行结果
+仍待新的云端构建和生产复测，暂未认定内存阻塞消除。
+本机全量tsc因缺少已锁定的@opennextjs/cloudflare安装返回TS2307；
+改动文件格式、脚本语法、工作流YAML和PR目标分支规则通过，完整类型与构建继续由云端检查。
+
+以下章节为历史检查点，当前状态以上述生产验收记录为准。
 
 ## 2026-11-01 实际发布结果与权限补充
 

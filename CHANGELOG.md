@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 生产域名绑定与实际验收（2026-11-01 14:05，Asia/Shanghai）
+
+- 用户最终确认teacherlab.weiyiai.top，已成功绑定当前账号weiyiai.top区域的teacher-scenario-lab Worker；Wrangler自定义域名、页面metadataBase与环境模板同步此域名。
+- 34cd18f的三项GitHub工作流成功，标准Docker/Next与OpenNext生产构建完成；平台实际发布成功，上传56178.60KiB、启动25ms。云端测试执行汇总18900通过/0失败/774跳过（跨作业重复另计），159项Chromium E2E通过。
+- 生产六处页面及健康接口HTTP200、50条文献详情通过；管理员初始化、情境v1导入发布、创建训练、脚本对话、消息幂等与普通账号管理API403通过。生产验收账户和训练记录保留，密钥与会话均存于忽略文件或受保护变量。
+- 根据生产内存失败与构建中重复大块的证据，Workers构建将AI SDK与Zod留到OpenNext统一打包，减少Next服务端路由层重复依赖；标准Node构建依赖策略沿用原配置。体积变化与生产复测待本次工作流验证。
+- 真实模型资格验证触发Cloudflare宿主128MB内存上限，tail确认isolate重启；GLM和OpenRouter资格未通过，实际评价保存及五维证据验收仍阻塞。初次文献500证据保留，完整域名复测通过；生产浏览器操作验收因工具超时尚未完成。PR继续Draft，合并待批。
+
 ### TeacherScenarioLab 源码映射上传限制（2026-11-01 13:26，Asia/Shanghai）
 
 - 用户提供新部署Token，已通过隐藏输入更新忽略文件并同步GitHub加密Secrets。账户API、workers.dev子域和目标资源查询正常，原403授权阻塞解除；新凭据可见7个原有服务。
