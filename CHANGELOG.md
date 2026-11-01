@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 前端冷启动并发检查（2026-11-01，Asia/Shanghai）
+
+- fb8e1d9 的三项 GitHub 工作流成功，18981 项测试执行通过、0 失败、776 跳过（含跨作业重复），162 项 E2E 通过；新模型管理功能已实际发布，前端版本 e1622842、训练接口版本 7d5cca1b。
+- 生产 /api/model-config 曾返回 500，平台日志确认前端 Durable Object 内存超限；同次冷启动包含 HTTP 请求与定时维护。后续配置、健康与首页请求恢复 200，内存稳定性继续列为未通过。
+- 前端 HTTP 与定时维护共用启动等待，启动失败传递给全部等待者并允许后续重试；保留原健康检查、请求计数、空闲维护及业务处理函数。并发启动、失败重试与现有生命周期回归 22 通过、0 失败；生产复测待新版本发布。
+- 生产自定义 HTTPS API 和密钥保存成功，真实评价已有 HTTP 200 调用落账；完整资格仍待长用例结束。免费角色模型仍在校医用例被信息扫描拦截，保留失败资格与安全检查，尚未完成真实训练评价全流程。
+
 ### TeacherScenarioLab PostgreSQL 并发验收修复（2026-11-01，Asia/Shanghai）
 
 - ecb274d 的 CI 全部通过，Cloudflare 生产构建、公网 DNS/私网拒绝预检与双服务产品集成通过；发布门禁因 PostgreSQL 合约失败而停止。

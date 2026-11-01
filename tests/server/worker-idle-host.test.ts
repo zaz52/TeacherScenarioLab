@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 // The production module is shared with the custom Worker entry and has no Next imports.
-import { IdleHost, trackHostResponse } from '@/lib/cloudflare/idle-host.mjs';
+import { createStartupGate, IdleHost, trackHostResponse } from '@/lib/cloudflare/idle-host.mjs';
 
 function fixture() {
   let time = 0;
@@ -26,6 +26,59 @@ function fixture() {
 }
 
 afterEach(() => vi.restoreAllMocks());
+
+describe('Worker host cold initialization', () => {
+  it('holds concurrent HTTP and alarm admission until one cold start finishes', async () => {
+    let release!: () => void;
+    let ready = false;
+    const barrier = new Promise<void>((resolve) => (release = resolve));
+    const start = vi.fn(async () => {
+      await barrier;
+      ready = true;
+    });
+    const admit = createStartupGate({ ready: () => ready, start });
+    const http = vi.fn();
+    const alarm = vi.fn();
+    const requests = [admit().then(http), admit().then(alarm)];
+    await Promise.resolve();
+    expect(start).toHaveBeenCalledTimes(1);
+    expect(http).not.toHaveBeenCalled();
+    expect(alarm).not.toHaveBeenCalled();
+    release();
+    await Promise.all(requests);
+    expect(http).toHaveBeenCalledTimes(1);
+    expect(alarm).toHaveBeenCalledTimes(1);
+    await admit();
+    expect(start).toHaveBeenCalledTimes(1);
+  });
+
+  it('propagates a failed boot to every waiter and permits a later retry', async () => {
+    let ready = false;
+    const start = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('boot failed'))
+      .mockImplementation(async () => {
+        ready = true;
+      });
+    const admit = createStartupGate({ ready: () => ready, start });
+    const results = await Promise.allSettled([admit(), admit()]);
+    expect(results).toEqual([
+      { status: 'rejected', reason: expect.objectContaining({ message: 'boot failed' }) },
+      { status: 'rejected', reason: expect.objectContaining({ message: 'boot failed' }) },
+    ]);
+    expect(start).toHaveBeenCalledTimes(1);
+    await admit();
+    expect(start).toHaveBeenCalledTimes(2);
+    expect(ready).toBe(true);
+  });
+
+  it('serves an already initialized host without another startup request', async () => {
+    const start = vi.fn();
+    const admit = createStartupGate({ ready: () => true, start });
+    await Promise.all([admit(), admit()]);
+    expect(start).not.toHaveBeenCalled();
+  });
+});
 
 describe('Worker host idle admission', () => {
   it('waits for the idle window and pauses only an empty host', async () => {

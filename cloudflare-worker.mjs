@@ -1,6 +1,11 @@
 import handler from './.open-next/worker.js';
 import { DurableObject } from 'cloudflare:workers';
-import { currentLifecycle, IdleHost, trackHostResponse } from './lib/cloudflare/idle-host.mjs';
+import {
+  createStartupGate,
+  currentLifecycle,
+  IdleHost,
+  trackHostResponse,
+} from './lib/cloudflare/idle-host.mjs';
 
 function interval(value, fallback) {
   const number = value?.trim() ? Number(value) : fallback;
@@ -20,6 +25,18 @@ export class TeacherLabHost extends DurableObject {
     this.idle = new IdleHost({ idleMs: interval(env.TEACHERLAB_IDLE_TIMEOUT_MS, 600000) });
     this.alarmReady = Promise.resolve();
     this.receivedRequest = false;
+    this.ensureStarted = createStartupGate({
+      ready: currentLifecycle,
+      start: async () => {
+        const response = await handler.fetch(
+          new Request('https://teacherlab-host.internal/api/health'),
+          this.env,
+          this.executionContext,
+        );
+        await response.arrayBuffer();
+        if (!response.ok) throw new Error('Durable application host health check failed');
+      },
+    });
   }
 
   scheduleHeartbeat(delay = this.heartbeatMs) {
@@ -38,6 +55,7 @@ export class TeacherLabHost extends DurableObject {
     this.receivedRequest = true;
     const release = await this.idle.enter();
     try {
+      await this.ensureStarted();
       await this.scheduleHeartbeat();
       return trackHostResponse(
         await handler.fetch(request, this.env, this.executionContext),
@@ -51,15 +69,7 @@ export class TeacherLabHost extends DurableObject {
 
   async alarm() {
     try {
-      if (!currentLifecycle()) {
-        const response = await handler.fetch(
-          new Request('https://teacherlab-host.internal/api/health'),
-          this.env,
-          this.executionContext,
-        );
-        await response.arrayBuffer();
-        if (!response.ok) throw new Error('Durable application host health check failed');
-      }
+      await this.ensureStarted();
       // A maintenance-only cold start must not open another full idle window.
       const paused = await this.idle.tick({ forceIdle: !this.receivedRequest });
       await this.scheduleHeartbeat(paused ? this.maintenanceMs : this.heartbeatMs);
