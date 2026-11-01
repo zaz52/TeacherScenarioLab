@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### TeacherScenarioLab 云端凭据提示与网络诊断（2026-11-01，Asia/Shanghai）
 
+- 新workerd预检复现明确根因：运行时不支持fetch的redirect:error；DoH改用manual并拒绝全部非2xx，补充302私网目标拒绝回归。相关22项检查通过；Windows外网fetch另报内部网络错误，保留失败证据并交由云端独立核验。
 - 6eeb947的PostgreSQL合约通过，CI单元分片发现新密码输入缺少共享CredentialStorageHint；补回统一加密存储提示，相关22项回归通过、0失败。
 - Cloudflare产品回归在自定义连接保存时实际返回409，发布门禁保留阻断。增加固定原因码区分地址、DNS、实例密钥、版本冲突和换址密钥要求，返回内容不包含凭据。
 - 把公网DNS查询/私网拒绝的workerd预检提前到生产构建之前，使用现有测试Worker目录与停止机制；集成失败的响应记录限制长度并使用隔离合成凭据。此次未宣称自定义API已上线通过。

@@ -23,12 +23,13 @@ test('DoH uses a fixed TLS resolver and refuses malformed, failed and empty answ
   expect(await resolveDohRecords('models.example', 4, transport)).toEqual(['93.184.216.34']);
   const [url, options] = transport.mock.calls[0];
   expect(String(url)).toBe('https://cloudflare-dns.com/dns-query?name=models.example&type=1');
-  expect(options.redirect).toBe('error');
+  expect(options.redirect).toBe('manual');
   for (const response of [
     Response.json({ Status: 2 }),
     Response.json({ Status: 0 }),
     Response.json({ Status: 0, Answer: [{ type: 1, data: 'invalid' }] }),
     new Response(null, { status: 503 }),
+    new Response(null, { status: 302, headers: { location: 'https://127.0.0.1/' } }),
   ]) {
     transport.mockResolvedValueOnce(response);
     await expect(resolveDohRecords('models.example', 4, transport)).rejects.toBeDefined();
