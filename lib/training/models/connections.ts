@@ -25,6 +25,19 @@ interface StoredConnection extends Omit<ConnectionInput, 'apiKey' | 'revision'> 
   secret: SealedSecret;
 }
 const context = (id: string) => `training-provider:${id}`;
+export class ConnectionError extends PoolError {
+  constructor(
+    readonly reason:
+      | 'invalid-endpoint'
+      | 'dns-unverified'
+      | 'instance-secret-missing'
+      | 'revision-conflict'
+      | 'new-key-required',
+    kind: 'unavailable' | 'auth' | 'busy' = 'unavailable',
+  ) {
+    super(kind);
+  }
+}
 
 export async function readCustomConnection(id: string) {
   if (!customProviderIdSchema.safeParse(id).success) return null;
@@ -64,15 +77,16 @@ export async function saveCustomConnection(value: ConnectionInput, actor: string
   const input = connectionSchema.parse(value);
   const url = new URL(input.baseUrl);
   if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash)
-    throw new PoolError('unavailable');
+    throw new ConnectionError('invalid-endpoint');
   if (
     input.apiKey &&
     (input.baseUrl.includes(input.apiKey) ||
       input.models.some((model) => model.includes(input.apiKey!)))
   )
     throw new PoolError('auth');
-  if (await validatePublicUrlForSSRF(input.baseUrl)) throw new PoolError('unavailable');
-  if (!process.env.OPENMAIC_SECRET_KEY?.trim()) throw new PoolError('unavailable');
+  if (await validatePublicUrlForSSRF(input.baseUrl)) throw new ConnectionError('dns-unverified');
+  if (!process.env.OPENMAIC_SECRET_KEY?.trim())
+    throw new ConnectionError('instance-secret-missing');
   // The existing settings service checks supported presets, DNS and public endpoints.
   const config = await applyModelSettingsChange(null, {
     kind: 'provider',
@@ -91,10 +105,11 @@ export async function saveCustomConnection(value: ConnectionInput, actor: string
       [`provider:${input.id}`],
     );
     const old = result.rows[0]?.data as StoredConnection | undefined;
-    if ((old?.revision ?? null) !== input.revision) throw new PoolError('busy');
+    if ((old?.revision ?? null) !== input.revision)
+      throw new ConnectionError('revision-conflict', 'busy');
     // A new destination or protocol always needs a newly entered key.
     if (!input.apiKey && (!old || old.baseUrl !== input.baseUrl || old.preset !== input.preset))
-      throw new PoolError('auth');
+      throw new ConnectionError('new-key-required', 'auth');
     const revision = (old?.revision ?? 0) + 1;
     const data: StoredConnection = {
       id: input.id,

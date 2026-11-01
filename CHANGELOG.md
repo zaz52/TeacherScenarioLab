@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 云端凭据提示与网络诊断（2026-11-01，Asia/Shanghai）
+
+- 6eeb947的PostgreSQL合约通过，CI单元分片发现新密码输入缺少共享CredentialStorageHint；补回统一加密存储提示，相关22项回归通过、0失败。
+- Cloudflare产品回归在自定义连接保存时实际返回409，发布门禁保留阻断。增加固定原因码区分地址、DNS、实例密钥、版本冲突和换址密钥要求，返回内容不包含凭据。
+- 把公网DNS查询/私网拒绝的workerd预检提前到生产构建之前，使用现有测试Worker目录与停止机制；集成失败的响应记录限制长度并使用隔离合成凭据。此次未宣称自定义API已上线通过。
+
 ### TeacherScenarioLab 已知流程文本的扫描误报修复（2026-11-01，Asia/Shanghai）
 
 - 真实角色资格在校医用例反复命中fact-principal-decision；源码确认校医自身已知资料和校长资料重复包含“需上级部门决定”。原扫描将已提供给说话者的同一政策片段当作新增泄露。

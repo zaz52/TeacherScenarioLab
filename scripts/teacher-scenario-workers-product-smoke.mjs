@@ -14,7 +14,11 @@ async function request(path, { method = 'GET', body, expected = 200, credentials
     ...(body ? { body: JSON.stringify(body) } : {}),
     signal: AbortSignal.timeout(15000),
   });
-  assert.equal(response.status, expected, `${method} ${path}`);
+  assert.equal(
+    response.status,
+    expected,
+    `${method} ${path}: ${response.status === expected ? '' : (await response.clone().text()).slice(0, 300)}`,
+  );
   checks.push({ method, path, status: response.status });
   return response;
 }

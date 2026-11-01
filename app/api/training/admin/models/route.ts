@@ -24,6 +24,7 @@ import {
   taskSchema,
 } from '@/lib/training/models/types';
 import {
+  ConnectionError,
   connectionSchema,
   readCustomConnection,
   saveCustomConnection,
@@ -128,7 +129,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true, qualification: result });
     } catch (error) {
       return NextResponse.json(
-        { success: false, error: error instanceof PoolError ? error.kind : 'INVALID_REQUEST' },
+        {
+          success: false,
+          error: error instanceof PoolError ? error.kind : 'INVALID_REQUEST',
+          ...(error instanceof ConnectionError ? { reason: error.reason } : {}),
+        },
         { status: error instanceof PoolError ? 409 : 400 },
       );
     }

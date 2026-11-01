@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { CredentialStorageHint } from '@/components/settings/server-settings';
 import { useCallback, useEffect, useState } from 'react';
 import { getClientTranslation } from '@/lib/i18n';
 import {
@@ -529,6 +530,7 @@ function ConnectionEditor({
     >
       <h2 className="font-semibold">{t('customConnection')}</h2>
       <p className="text-sm">{t('secretNote')}</p>
+      <CredentialStorageHint />
       <label className="block">
         {t('connectionId')}
         <input
