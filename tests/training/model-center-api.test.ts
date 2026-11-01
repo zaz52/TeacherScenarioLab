@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   allowed: false,
   read: vi.fn(),
@@ -35,7 +35,8 @@ vi.mock('@/lib/training/models/connections', async (importOriginal) => {
   return { ...original, saveCustomConnection: mocks.connection, readCustomConnection: vi.fn() };
 });
 import { GET, POST } from '@/app/api/training/admin/models/route';
-import { policySchema } from '@/lib/training/models/types';
+import { policySchema, PoolError } from '@/lib/training/models/types';
+afterEach(() => vi.useRealTimers());
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.allowed = false;
@@ -49,6 +50,34 @@ const request = (body: unknown, origin = 'https://school.example') =>
     body: JSON.stringify(body),
   });
 describe('model admin API boundary', () => {
+  test('qualification remains forbidden before any model call for a learner', async () => {
+    const r = await POST(request({ action: 'qualify', key: 'glm:fixture', task: 'roleplay' }));
+    expect(r.status).toBe(403);
+    expect(mocks.qualify).not.toHaveBeenCalled();
+  });
+  test('an immediate qualification refusal retains HTTP 409', async () => {
+    mocks.allowed = true;
+    mocks.qualify.mockRejectedValueOnce(new PoolError('unavailable'));
+    const r = await POST(request({ action: 'qualify', key: 'glm:fixture', task: 'roleplay' }));
+    expect(r.status).toBe(409);
+    expect(await r.json()).toMatchObject({ success: false, error: 'unavailable' });
+  });
+  test('a long qualification streams until its actual failed result is ready', async () => {
+    vi.useFakeTimers();
+    mocks.allowed = true;
+    let finish!: (result: unknown) => void;
+    mocks.qualify.mockImplementationOnce(() => new Promise((resolve) => (finish = resolve)));
+    const pending = POST(request({ action: 'qualify', key: 'glm:fixture', task: 'roleplay' }));
+    await vi.advanceTimersByTimeAsync(15000);
+    const r = await pending;
+    expect(r.headers.get('content-type')).toContain('application/json');
+    const reading = r.json();
+    const qualification = { passed: false, cases: 6, successes: 3, failureKind: 'privacy' };
+    finish(qualification);
+    expect(await reading).toEqual({ success: true, qualification });
+    expect(mocks.qualify).toHaveBeenCalledWith('glm:fixture', 'roleplay', 'acct:admin');
+    expect(vi.getTimerCount()).toBe(0);
+  });
   test('custom keys are admitted through the admin boundary and never echoed', async () => {
     const connection = {
       id: 'custom-school',

@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 长模型资格请求的连接保活（2026-11-01，Asia/Shanghai）
+
+- 799a0a4 的 CI、PostgreSQL 与 Cloudflare 三项检查全部成功，冷启动等待修正版已发布；线上并发与完整页面复测单独记录。
+- 长角色资格请求发生客户端断开，三个真实调用已落账但完整资格尚未更新。资格响应超过 15 秒后发送 JSON 合法空白保活，最终完整结果仍由原资格函数产生；快速拒绝继续通过原错误处理返回。
+- 管理后台等待完整 JSON 后刷新资格；长操作失败时响应流失败，失败资格保持 passed=false。权限、同源校验、调用预算、信息扫描和资格标准沿用。
+- 保活、快速错误、长操作失败、取消清理与管理 API 回归合计 14 通过、0 失败；新增代码定点 TypeScript、ESLint 和格式检查通过。云端与真实六用例资格仍待新版本核验。
+
 ### TeacherScenarioLab 前端冷启动并发检查（2026-11-01，Asia/Shanghai）
 
 - 7e728a3 的单元与 Workers 集成通过，云端 TypeScript 发现新增启动函数漏补配套 .d.mts 导出，门禁继续拦截发布；补齐声明并定点核对新测试的类型。

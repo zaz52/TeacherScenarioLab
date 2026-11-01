@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { jsonHeartbeat } from '@/lib/server/json-heartbeat';
 import { withTrainingAdmin } from '@/lib/training/with-training-admin';
 import {
   poolOverview,
@@ -125,8 +126,12 @@ export async function POST(req: NextRequest) {
         await saveRouting(input.routing, principal.ownerId);
         return NextResponse.json({ success: true });
       }
-      const result = await qualifyModel(input.key, input.task, principal.ownerId);
-      return NextResponse.json({ success: true, qualification: result });
+      return await jsonHeartbeat(
+        qualifyModel(input.key, input.task, principal.ownerId).then((qualification) => ({
+          success: true,
+          qualification,
+        })),
+      );
     } catch (error) {
       return NextResponse.json(
         {

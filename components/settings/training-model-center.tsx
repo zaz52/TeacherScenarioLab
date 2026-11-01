@@ -68,6 +68,8 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
         body: JSON.stringify(command),
       });
       if (!r.ok) throw new Error();
+      const result = await r.json();
+      if (result.success === false) throw new Error();
       await load();
       return true;
     } catch {
