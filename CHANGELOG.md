@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 模型管理表单回归（2026-11-01，Asia/Shanghai）
+
+- 编辑已有连接时将展示字段与提交载荷分开，提交符合严格API结构；省略密钥可保留原加密值。
+- 新增三项Playwright浏览器回归，覆盖自定义表单密码输入、保存后清空密钥及再次编辑、按角色选择保持评价与其他角色设置、403时编辑入口不可用。使用明确标记的模拟API，真实后端与供应商验收分别记录；测试发现3项，执行结果待云端核验。
+
 ### TeacherScenarioLab 自定义模型与角色路由（2026-11-01，Asia/Shanghai）
 
 - 管理员可登记自定义HTTPS API、独立密钥、协议及模型ID，复用OpenMAIC设置校验、AES-GCM密钥封装、模型解析与callLLM；连接使用独立custom命名空间，保留现有预设。Mistral从本次资源中心必需供应商列表移除。

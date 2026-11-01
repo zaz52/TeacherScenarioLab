@@ -516,7 +516,10 @@ function ConnectionEditor({
       onSubmit={(e) => {
         e.preventDefault();
         void onSave({
-          ...value,
+          id: value.id,
+          preset: value.preset,
+          baseUrl: value.baseUrl,
+          revision: value.revision,
           models: models.split(/[\s,]+/).filter(Boolean),
           ...(apiKey ? { apiKey } : {}),
         }).then((saved) => {
