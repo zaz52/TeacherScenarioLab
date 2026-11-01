@@ -6,10 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 后台执行依赖延迟加载（2026-11-01 14:40，Asia/Shanghai）
+
+- 3c6d4e5的CI、PostgreSQL与Cloudflare三项工作流全部成功，18950项测试执行通过、0失败、774跳过（包含50项离线合约与跨作业重复）；159项E2E通过。生产Docker构建及数据库运行检查通过，修正版已实际发布到teacherlab.weiyiai.top，版本a67f14b9-7d09-4a5f-a30c-c46fe2a23780。
+- SDK去重使Workers上传从56178.60降为54314.29KiB、启动21ms；生产GLM实际请求返回HTTP429并按失败落账，Google评价上游HTTP503，OpenRouter角色单次HTTP200但完整资格套件仍因宿主内存重启中断。完整模型验收继续阻塞。
+- 空课程队列的轮询改为领取任务并启动心跳后加载原engine与默认services；材料轮询把解析实现和课堂错误类型的依赖延迟到实际工作路径。原执行函数、SQL、租约、状态、存储和训练后端保持当前实现。
+- 增加空队列依赖加载与模块加载期间心跳的回归，并验证材料调度器加载时不引入文档执行依赖。首轮本地回归读到私有模型配置，30失败/14通过；在D盘不含私有配置的同版源码副本中复测，45通过/0失败，ESLint与改动文件格式通过。原私有配置完整保留。
+
 ### TeacherScenarioLab 生产域名绑定与实际验收（2026-11-01 14:05，Asia/Shanghai）
 
 - 用户最终确认teacherlab.weiyiai.top，已成功绑定当前账号weiyiai.top区域的teacher-scenario-lab Worker；Wrangler自定义域名、页面metadataBase与环境模板同步此域名。
-- 34cd18f的三项GitHub工作流成功，标准Docker/Next与OpenNext生产构建完成；平台实际发布成功，上传56178.60KiB、启动25ms。云端测试执行汇总18900通过/0失败/774跳过（跨作业重复另计），159项Chromium E2E通过。
+- 34cd18f的三项GitHub工作流成功，标准Docker/Next与OpenNext生产构建完成；平台实际发布成功，上传56178.60KiB、启动25ms。云端测试执行汇总18950通过/0失败/774跳过（跨作业重复另计），159项Chromium E2E通过。
 - 生产六处页面及健康接口HTTP200、50条文献详情通过；管理员初始化、情境v1导入发布、创建训练、脚本对话、消息幂等与普通账号管理API403通过。生产验收账户和训练记录保留，密钥与会话均存于忽略文件或受保护变量。
 - 根据生产内存失败与构建中重复大块的证据，Workers构建将AI SDK与Zod留到OpenNext统一打包，减少Next服务端路由层重复依赖；标准Node构建依赖策略沿用原配置。体积变化与生产复测待本次工作流验证。
 - 真实模型资格验证触发Cloudflare宿主128MB内存上限，tail确认isolate重启；GLM和OpenRouter资格未通过，实际评价保存及五维证据验收仍阻塞。初次文献500证据保留，完整域名复测通过；生产浏览器操作验收因工具超时尚未完成。PR继续Draft，合并待批。

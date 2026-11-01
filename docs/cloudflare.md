@@ -9,6 +9,30 @@ PR #1 保持 Draft，目标分支为 `dev/teacher-scenario-lab`；合并需要�
 凭据由 GitHub Actions 加密 Secrets 注入，发布授权绑定精确提交 SHA。
 下文历史检查点中的“待轮换”描述保留当时状态；当前发布依据本段授权执行。
 
+## 2026-11-01 后台执行依赖加载检查点（14:40，Asia/Shanghai）
+
+3c6d4e5的[CI](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41279648134)、
+[PostgreSQL合约](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41279648132)和
+[Cloudflare](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41279648135)全部成功，
+测试执行汇总18950通过、0失败、774跳过，其中包括50项离线合约及跨作业重复执行。
+159项Chromium E2E通过。此前18900的汇总未包含50项离线合约，当前记录已补全。
+实际发布版本为a67f14b9-7d09-4a5f-a30c-c46fe2a23780，域名与Neon连通通过。
+
+SDK去重使上传降到54314.29KiB、启动21ms，但实际平台仍记录内存超限重启。
+GLM请求实际HTTP429并按失败记账；Google评价实际HTTP503，紧接的重试受限额拦截；
+OpenRouter零价角色单次HTTP200，完整资格测试中断。上述结果均未形成通过的模型资格，
+训练评价保存和五维证据仍待验收。
+
+源码进一步发现空队列启动会加载课程执行引擎、默认步骤服务及材料解析实现。
+课程runner将执行依赖延迟到领取任务并启动租约心跳后加载，沿用原执行函数；
+材料调度器把解析实现和课堂错误类型的依赖延迟到实际工作路径。
+领取、心跳、暂停、恢复、错误处理、SQL及训练核心保持当前实现。
+新增回归验证空队列与材料调度器的依赖边界，并检查加载期间心跳持续。
+本机首轮30项失败来自私有模型配置引用缺失环境变量，隔离源码副本在
+D:/Codex/cache/TeacherScenarioLab-lazy-import-tests-20261101中复测，45通过、0失败；
+三处改动代码与副本SHA256逐一匹配，ESLint与格式通过，私有配置与密钥保留原位。
+后续提交的云端和生产结果继续独立核验，当前尚未认定内存问题解决。
+
 ## 2026-11-01 生产发布与域名验收（14:05，Asia/Shanghai）
 
 代码提交 `34cd18f02ae07f40c8d1ef7ee1729c33f03f5bcf` 已成功发布到
@@ -24,7 +48,7 @@ HTTP200；区域为 `weiyiai.top`。Wrangler routes 与页面 metadataBase 沿�
 该提交的 [CI](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41277098216)、
 [PostgreSQL合约](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41277098223) 与
 [Cloudflare](https://github.com/zaz52/TeacherScenarioLab/actions/runs/41277098221) 均成功。
-CI与PG测试执行汇总18900通过、0失败、774跳过，包含跨作业重复；159项Chromium E2E通过。
+CI与PG测试执行汇总18950通过、0失败、774跳过，包含跨作业重复；159项Chromium E2E通过。
 标准Next.js/Docker生产构建和OpenNext构建通过，Workers上传56178.60KiB，启动25ms。
 
 生产 `/api/health`、首页、大厅、训练室、复盘、文献、设置六处页面HTTP200；
