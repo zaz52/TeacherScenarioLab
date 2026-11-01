@@ -25,5 +25,6 @@
   ],
   "vars": {
     "OWNER_SINGLE_USER": "false",
+    "NEXTJS_ENV": "production",
   },
 }

@@ -53,165 +53,234 @@ export async function registerNode(): Promise<void> {
   const { warnAboutInstanceSecret } = await import('@/lib/server/instance-secret-check');
   void warnAboutInstanceSecret();
 
-  // The one-time import of classrooms earlier versions stored as files
-  // (lib/server/legacy-classroom-import.ts). It reads the disk and the
-  // database, so it runs in the background, retrying with backoff until it
-  // completes: `register` must not wait on it.
-  const { startLegacyClassroomImport } = await import('@/lib/server/legacy-classroom-import');
-  const legacyClassroomImport = startLegacyClassroomImport();
-
-  // Imported dynamically so the Edge bundle never pulls in `pg`.
-  const { startAssetCollectorSchedule } =
-    await import('@/lib/persistence/asset-collector-schedule');
-  const assetSchedule = startAssetCollectorSchedule();
-
-  // Warn-first boot-time validation of model routing config (MODEL_ROUTES,
-  // DEFAULT_MODEL, <PREFIX>_MODELS). Cheap and non-throwing: broken config
-  // surfaces here as [config] warnings instead of failing at request time.
-  // Imported dynamically so the Edge bundle never pulls in the fs/js-yaml
-  // backed provider config it reads.
-  const { validateServerConfig } = await import('@/lib/server/config-validation');
-  validateServerConfig();
-
-  let runner: import('@/lib/server/agent-runtime/runner').AgentRunnerHandle | undefined;
-  let extractionRunner:
-    | import('@/lib/server/material-extraction/runner').MaterialExtractionRunnerHandle
-    | undefined;
-  let ownerExtractionRunner:
-    | import('@/lib/server/material-extraction/owner-extraction').OwnerExtractionRunnerHandle
-    | undefined;
-  let stopAgentEventNotifyBus: (() => Promise<void>) | null = null;
-  let generationRunner:
-    | import('@/lib/server/generation/run/runner').GenerationRunnerHandle
-    | undefined;
-  let materialExtractor:
-    | import('@/lib/server/materials/extractor-wake').OwnerMaterialExtractorHandle
-    | undefined;
-  try {
-    // Course generation runs on the server in every deployment (classic
-    // generation is the default product), so its worker does not depend on
-    // the agent runtime being enabled. It only installs a timer; its tables
-    // are provisioned by the first scan.
-    const { startGenerationRunner } = await import('@/lib/server/generation/run/runner');
-    generationRunner = startGenerationRunner();
-  } catch (error) {
-    console.error('[instrumentation] Generation runner startup failed', error);
-  }
-  try {
-    // Uploaded materials are extracted in the background from their upload
-    // on (lib/server/materials/extraction.ts), wherever uploads are served.
-    const { isServerPersistenceConfigured } = await import('@/lib/config/feature-flags');
-    if (isServerPersistenceConfigured()) {
-      const { startOwnerMaterialExtractor } = await import('@/lib/server/materials/extraction');
-      materialExtractor = startOwnerMaterialExtractor();
-    }
-  } catch (error) {
-    console.error('[instrumentation] Material extractor startup failed', error);
-  }
-  try {
-    const { isAgentRuntimeConfigured } = await import('@/lib/config/feature-flags');
-    if (isAgentRuntimeConfigured()) {
-      // One dedicated LISTEN connection per application instance. The HTTP
-      // SSE routes and the runner share its in-process fanout registry; it is
-      // not a pool client and never scales with the number of streams.
-      const { startAgentEventNotifyBus } =
-        await import('@/lib/server/agent-runtime/event-notify-bus');
-      const eventNotifyBus = startAgentEventNotifyBus();
-      stopAgentEventNotifyBus = () => eventNotifyBus.stop();
-      // startAgentRunner only installs a timer. Store/schema initialization is
-      // retained behind the store's lazy promise and never blocks register().
-      const runtime = await import('@/lib/server/agent-runtime/runner');
-      runner = runtime.startAgentRunner();
-      const extraction = await import('@/lib/server/material-extraction/runner');
-      extractionRunner = extraction.startMaterialExtractionRunner();
-      // Owner-level extraction of library sources (RFC #1716): what a
-      // conversation links is extracted once per owner, beside the session
-      // chain, which keeps serving copies made before links.
-      const ownerExtraction = await import('@/lib/server/material-extraction/owner-extraction');
-      ownerExtractionRunner = ownerExtraction.startOwnerExtractionRunner();
-      // Two bounded passes over old material objects, one per start each;
-      // neither blocks register() (see lib/server/materials/migrate-to-pool.ts).
-      const materialPasses = import('@/lib/server/materials/migrate-to-pool');
-      // Moving pre-pool material uploads into the asset pool is opt-in: it
-      // deletes their old objects, so an operator turns it on only once every
-      // instance runs this release.
-      if (process.env.MATERIALS_POOL_BACKFILL === '1') {
-        void materialPasses
-          .then(({ migrateOwnerMaterialsToPool }) => migrateOwnerMaterialsToPool())
-          .then((report) => console.info('[material-backfill] pass finished', report))
-          .catch((error) => console.error('[material-backfill] pass failed', error));
-      }
-      // Old originals of deleted sources whose cleanup after deletion failed.
-      // No new read reaches a deleted row, and this only retries a cleanup
-      // the deletion already authorized, so it needs no flag.
-      void materialPasses
-        .then(({ removeDeletedOriginals }) => removeDeletedOriginals())
-        .then((report) => console.info('[material-delete] cleanup pass finished', report))
-        .catch((error) => console.error('[material-delete] cleanup pass failed', error));
-    }
-  } catch (error) {
-    console.error('[instrumentation] Agent runtime startup failed', error);
-  }
-
-  let shutdownPromise: Promise<void> | undefined;
-  const shutdown = (): Promise<void> => {
-    shutdownPromise ??= (async () => {
-      // Park sessions before any pool they use is closed. This preserves the
-      // last durable entry-tree checkpoint for immediate takeover.
+  const startBackground = async () => {
+    // The one-time import of classrooms earlier versions stored as files
+    // (lib/server/legacy-classroom-import.ts). It reads the disk and the
+    // database, so it runs in the background, retrying with backoff until it
+    // completes: `register` must not wait on it.
+    const legacyModule = await import('@/lib/server/legacy-classroom-import');
+    let legacyBusy = false;
+    const legacyClassroomImport = legacyModule.startLegacyClassroomImport(async (signal) => {
+      legacyBusy = true;
       try {
-        await extractionRunner?.stop();
-      } catch (error) {
-        console.error('[instrumentation] Material extraction runner drain failed', error);
+        return await legacyModule.importLegacyClassrooms({ signal });
+      } finally {
+        legacyBusy = false;
       }
-      try {
-        // Bounded: a provider call cannot be cancelled. A run still going
-        // when the pool closes cannot commit anything (every write of it
-        // checks its claim in a transaction of its own); its lease expires
-        // and another instance claims the source again.
-        const drained = await ownerExtractionRunner?.stop();
-        if (drained && !drained.drained) {
-          console.warn(
-            `[instrumentation] Owner extraction not drained: ${drained.running} run(s) still going`,
+    });
+
+    // Imported dynamically so the Edge bundle never pulls in `pg`.
+    const { startAssetCollectorSchedule } =
+      await import('@/lib/persistence/asset-collector-schedule');
+    const assetSchedule = startAssetCollectorSchedule();
+
+    // Warn-first boot-time validation of model routing config (MODEL_ROUTES,
+    // DEFAULT_MODEL, <PREFIX>_MODELS). Cheap and non-throwing: broken config
+    // surfaces here as [config] warnings instead of failing at request time.
+    // Imported dynamically so the Edge bundle never pulls in the fs/js-yaml
+    // backed provider config it reads.
+    const { validateServerConfig } = await import('@/lib/server/config-validation');
+    validateServerConfig();
+
+    let runner: import('@/lib/server/agent-runtime/runner').AgentRunnerHandle | undefined;
+    let extractionRunner:
+      | import('@/lib/server/material-extraction/runner').MaterialExtractionRunnerHandle
+      | undefined;
+    let ownerExtractionRunner:
+      | import('@/lib/server/material-extraction/owner-extraction').OwnerExtractionRunnerHandle
+      | undefined;
+    let stopAgentEventNotifyBus: (() => Promise<void>) | null = null;
+    let generationRunner:
+      | import('@/lib/server/generation/run/runner').GenerationRunnerHandle
+      | undefined;
+    let materialExtractor:
+      | import('@/lib/server/materials/extractor-wake').OwnerMaterialExtractorHandle
+      | undefined;
+    let bootPasses = 0;
+    const trackBootPass = (pass: Promise<unknown>) => {
+      bootPasses++;
+      const settled = () => {
+        bootPasses--;
+      };
+      void pass.then(settled, settled);
+    };
+    try {
+      // Course generation runs on the server in every deployment (classic
+      // generation is the default product), so its worker does not depend on
+      // the agent runtime being enabled. It only installs a timer; its tables
+      // are provisioned by the first scan.
+      const { startGenerationRunner } = await import('@/lib/server/generation/run/runner');
+      generationRunner = startGenerationRunner();
+    } catch (error) {
+      console.error('[instrumentation] Generation runner startup failed', error);
+    }
+    try {
+      // Uploaded materials are extracted in the background from their upload
+      // on (lib/server/materials/extraction.ts), wherever uploads are served.
+      const { isServerPersistenceConfigured } = await import('@/lib/config/feature-flags');
+      if (isServerPersistenceConfigured()) {
+        const { startOwnerMaterialExtractor } = await import('@/lib/server/materials/extraction');
+        materialExtractor = startOwnerMaterialExtractor();
+      }
+    } catch (error) {
+      console.error('[instrumentation] Material extractor startup failed', error);
+    }
+    try {
+      const { isAgentRuntimeConfigured } = await import('@/lib/config/feature-flags');
+      if (isAgentRuntimeConfigured()) {
+        // One dedicated LISTEN connection per application instance. The HTTP
+        // SSE routes and the runner share its in-process fanout registry; it is
+        // not a pool client and never scales with the number of streams.
+        const { startAgentEventNotifyBus } =
+          await import('@/lib/server/agent-runtime/event-notify-bus');
+        const eventNotifyBus = startAgentEventNotifyBus();
+        stopAgentEventNotifyBus = () => eventNotifyBus.stop();
+        // startAgentRunner only installs a timer. Store/schema initialization is
+        // retained behind the store's lazy promise and never blocks register().
+        const runtime = await import('@/lib/server/agent-runtime/runner');
+        runner = runtime.startAgentRunner();
+        const extraction = await import('@/lib/server/material-extraction/runner');
+        extractionRunner = extraction.startMaterialExtractionRunner();
+        // Owner-level extraction of library sources (RFC #1716): what a
+        // conversation links is extracted once per owner, beside the session
+        // chain, which keeps serving copies made before links.
+        const ownerExtraction = await import('@/lib/server/material-extraction/owner-extraction');
+        ownerExtractionRunner = ownerExtraction.startOwnerExtractionRunner();
+        // Two bounded passes over old material objects, one per start each;
+        // neither blocks register() (see lib/server/materials/migrate-to-pool.ts).
+        const materialPasses = import('@/lib/server/materials/migrate-to-pool');
+        // Moving pre-pool material uploads into the asset pool is opt-in: it
+        // deletes their old objects, so an operator turns it on only once every
+        // instance runs this release.
+        if (process.env.MATERIALS_POOL_BACKFILL === '1') {
+          trackBootPass(
+            materialPasses
+              .then(({ migrateOwnerMaterialsToPool }) => migrateOwnerMaterialsToPool())
+              .then((report) => console.info('[material-backfill] pass finished', report))
+              .catch((error) => console.error('[material-backfill] pass failed', error)),
           );
         }
-      } catch (error) {
-        console.error('[instrumentation] Owner extraction runner drain failed', error);
+        // Old originals of deleted sources whose cleanup after deletion failed.
+        // No new read reaches a deleted row, and this only retries a cleanup
+        // the deletion already authorized, so it needs no flag.
+        trackBootPass(
+          materialPasses
+            .then(({ removeDeletedOriginals }) => removeDeletedOriginals())
+            .then((report) => console.info('[material-delete] cleanup pass finished', report))
+            .catch((error) => console.error('[material-delete] cleanup pass failed', error)),
+        );
       }
-      try {
-        await materialExtractor?.stop();
-      } catch (error) {
-        console.error('[instrumentation] Material extractor drain failed', error);
-      }
-      try {
-        await runner?.stop();
-      } catch (error) {
-        console.error('[instrumentation] Agent runner drain failed', error);
-      }
-      try {
-        await generationRunner?.stop();
-      } catch (error) {
-        console.error('[instrumentation] Generation runner drain failed', error);
-      }
-      try {
-        // Started at boot with the agent runtime, or on demand by the first
-        // stream that subscribes to it (a generation run's events).
-        await (
-          stopAgentEventNotifyBus ??
-          (await import('@/lib/server/agent-runtime/event-notify-bus')).stopAgentEventNotifyBus
-        )();
-      } catch (error) {
-        console.error('[instrumentation] Agent event notify bus drain failed', error);
-      }
-      try {
-        await legacyClassroomImport.stop();
-      } catch (error) {
-        console.error('[instrumentation] Legacy classroom import drain failed', error);
-      }
-      try {
-        await assetSchedule?.stop();
-      } catch (error) {
-        console.error('[instrumentation] Asset collector drain failed', error);
-      }
+    } catch (error) {
+      console.error('[instrumentation] Agent runtime startup failed', error);
+    }
+
+    let shutdownPromise: Promise<boolean> | undefined;
+    const shutdown = (options?: { idle?: boolean }): Promise<boolean> => {
+      shutdownPromise ??= (async () => {
+        let drained = true;
+        // Freeze idle maintenance timers before waiting on any other stop.
+        const legacyStop = options?.idle
+          ? legacyClassroomImport.stop().catch((error) => {
+              drained = false;
+              console.error('[instrumentation] Legacy classroom import drain failed', error);
+            })
+          : undefined;
+        const assetStop = options?.idle
+          ? assetSchedule?.stop().catch((error) => {
+              drained = false;
+              console.error('[instrumentation] Asset collector drain failed', error);
+            })
+          : undefined;
+        // Park sessions before any pool they use is closed. This preserves the
+        // last durable entry-tree checkpoint for immediate takeover.
+        try {
+          await extractionRunner?.stop();
+        } catch (error) {
+          drained = false;
+          console.error('[instrumentation] Material extraction runner drain failed', error);
+        }
+        try {
+          // Bounded: a provider call cannot be cancelled. A run still going
+          // when the pool closes cannot commit anything (every write of it
+          // checks its claim in a transaction of its own); its lease expires
+          // and another instance claims the source again.
+          const outcome = await ownerExtractionRunner?.stop();
+          if (outcome && !outcome.drained) {
+            drained = false;
+            console.warn(
+              `[instrumentation] Owner extraction not drained: ${outcome.running} run(s) still going`,
+            );
+          }
+        } catch (error) {
+          drained = false;
+          console.error('[instrumentation] Owner extraction runner drain failed', error);
+        }
+        try {
+          await materialExtractor?.stop();
+        } catch (error) {
+          drained = false;
+          console.error('[instrumentation] Material extractor drain failed', error);
+        }
+        try {
+          await runner?.stop();
+        } catch (error) {
+          drained = false;
+          console.error('[instrumentation] Agent runner drain failed', error);
+        }
+        try {
+          await generationRunner?.stop();
+        } catch (error) {
+          drained = false;
+          console.error('[instrumentation] Generation runner drain failed', error);
+        }
+        try {
+          // Started at boot with the agent runtime, or on demand by the first
+          // stream that subscribes to it (a generation run's events).
+          await (
+            stopAgentEventNotifyBus ??
+            (await import('@/lib/server/agent-runtime/event-notify-bus')).stopAgentEventNotifyBus
+          )();
+        } catch (error) {
+          drained = false;
+          console.error('[instrumentation] Agent event notify bus drain failed', error);
+        }
+        try {
+          await (legacyStop ?? legacyClassroomImport.stop());
+        } catch (error) {
+          drained = false;
+          console.error('[instrumentation] Legacy classroom import drain failed', error);
+        }
+        try {
+          await (assetStop ?? assetSchedule?.stop());
+        } catch (error) {
+          drained = false;
+          console.error('[instrumentation] Asset collector drain failed', error);
+        }
+        return drained;
+      })();
+      return shutdownPromise;
+    };
+    return {
+      stop: shutdown,
+      busy: () => legacyBusy || bootPasses > 0 || !!assetSchedule?.isRunning?.(),
+    };
+  };
+
+  const { createWorkerLifecycle, installWorkerLifecycle } =
+    await import('@/lib/server/worker-lifecycle');
+  const lifecycle = await createWorkerLifecycle({
+    start: startBackground,
+    async pending() {
+      const { getServerPersistenceProvider } = await import('@/lib/persistence/server-provider');
+      const { hasPendingBackgroundWork } = await import('@/lib/server/worker-pending-work');
+      const { pool } = await getServerPersistenceProvider(process.env.DATABASE_URL ?? '');
+      return hasPendingBackgroundWork(pool);
+    },
+    async maintain() {
+      const { maintainIdleWorker } = await import('@/lib/server/worker-maintenance');
+      await maintainIdleWorker();
+    },
+    async close() {
       const connectionString = process.env.DATABASE_URL?.trim();
       if (connectionString) {
         try {
@@ -223,12 +292,12 @@ export async function registerNode(): Promise<void> {
           console.error('[instrumentation] Persistence pool shutdown failed', error);
         }
       }
-    })();
-    return shutdownPromise;
-  };
+    },
+  });
+  installWorkerLifecycle(lifecycle);
 
-  process.once('SIGTERM', () => void shutdown());
-  process.once('SIGINT', () => void shutdown());
+  process.once('SIGTERM', () => void lifecycle.shutdown());
+  process.once('SIGINT', () => void lifecycle.shutdown());
 }
 
 /**

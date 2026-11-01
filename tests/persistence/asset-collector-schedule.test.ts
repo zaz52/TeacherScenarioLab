@@ -260,6 +260,7 @@ describe('asset collector schedule', () => {
 
     // Held open: the pass has started and is waiting on the provider, which is
     // the assertion. A fire-and-forget call, or no call at all, collects here.
+    expect(schedule?.isRunning?.()).toBe(true);
     expect(harness.getServerPersistenceProvider).toHaveBeenCalledWith(
       'postgres://collector-declares-first',
     );
@@ -270,6 +271,7 @@ describe('asset collector schedule', () => {
 
     expect(harness.collectPass).toHaveBeenCalledTimes(1);
     expect(harness.order).toEqual(['provider', 'pass']);
+    expect(schedule?.isRunning?.()).toBe(false);
   });
 
   it('logs the entry counts next to the blob count', async () => {

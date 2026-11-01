@@ -1,42 +1,72 @@
 import handler from './.open-next/worker.js';
 import { DurableObject } from 'cloudflare:workers';
+import { currentLifecycle, IdleHost, trackHostResponse } from './lib/cloudflare/idle-host.mjs';
+
+function interval(value, fallback) {
+  const number = value?.trim() ? Number(value) : fallback;
+  if (!Number.isSafeInteger(number) || number < 1000 || number > 86400000) {
+    throw new Error('Worker lifecycle interval must be between 1000 and 86400000 milliseconds');
+  }
+  return number;
+}
 
 // One process-shaped host keeps Next's stores and background workers in one I/O context.
 export class TeacherLabHost extends DurableObject {
   constructor(context, env) {
     super(context, env);
     this.executionContext = { waitUntil: (promise) => context.waitUntil(promise) };
-    this.alarmReady = null;
+    this.heartbeatMs = interval(env.TEACHERLAB_HEARTBEAT_MS, 60000);
+    this.maintenanceMs = interval(env.TEACHERLAB_MAINTENANCE_INTERVAL_MS, 1800000);
+    this.idle = new IdleHost({ idleMs: interval(env.TEACHERLAB_IDLE_TIMEOUT_MS, 600000) });
+    this.alarmReady = Promise.resolve();
+    this.receivedRequest = false;
   }
 
-  scheduleHeartbeat() {
-    this.alarmReady ??= (async () => {
+  scheduleHeartbeat(delay = this.heartbeatMs) {
+    const next = this.alarmReady.then(async () => {
       const previous = await this.ctx.storage.getAlarm();
-      if (previous === null || previous <= Date.now()) {
-        await this.ctx.storage.setAlarm(Date.now() + 60000);
+      const desired = Date.now() + delay;
+      if (previous === null || previous <= Date.now() || previous > desired) {
+        await this.ctx.storage.setAlarm(desired);
       }
-    })().catch((error) => {
-      this.alarmReady = null;
-      throw error;
     });
-    return this.alarmReady;
+    this.alarmReady = next.catch(() => undefined);
+    return next;
   }
 
   async fetch(request) {
-    await this.scheduleHeartbeat();
-    return handler.fetch(request, this.env, this.executionContext);
+    this.receivedRequest = true;
+    const release = await this.idle.enter();
+    try {
+      await this.scheduleHeartbeat();
+      return trackHostResponse(
+        await handler.fetch(request, this.env, this.executionContext),
+        release,
+      );
+    } catch (error) {
+      release();
+      throw error;
+    }
   }
 
   async alarm() {
-    this.alarmReady = null;
-    await this.scheduleHeartbeat();
-    const response = await handler.fetch(
-      new Request('https://teacherlab-host.internal/api/health'),
-      this.env,
-      this.executionContext,
-    );
-    await response.arrayBuffer();
-    if (!response.ok) throw new Error('Durable application host health check failed');
+    try {
+      if (!currentLifecycle()) {
+        const response = await handler.fetch(
+          new Request('https://teacherlab-host.internal/api/health'),
+          this.env,
+          this.executionContext,
+        );
+        await response.arrayBuffer();
+        if (!response.ok) throw new Error('Durable application host health check failed');
+      }
+      // A maintenance-only cold start must not open another full idle window.
+      const paused = await this.idle.tick({ forceIdle: !this.receivedRequest });
+      await this.scheduleHeartbeat(paused ? this.maintenanceMs : this.heartbeatMs);
+    } catch (error) {
+      await this.scheduleHeartbeat();
+      throw error;
+    }
   }
 }
 

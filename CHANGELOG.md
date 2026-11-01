@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab Workers 空闲调度（2026-11-01，Asia/Shanghai）
+
+- 用户明确要求使用此前凭据继续部署，撤销本次部署前置轮换要求。现有凭据通过sealed-box写入该仓库Actions Secrets；部署按一次性的精确SHA变量授权，先等待同一提交CI与PostgreSQL成功，再由已通过workerd验收的Linux产物执行Wrangler发布。PR继续保持Draft，域名指向确认与线上结果另行记录。
+- 用户继续要求部署；dd41f95的三项工作流已全部成功。当前Cloudflare凭据只读验证为active、账号服务数0；生产凭据轮换尚待用户确认，平台上传和DNS写入均未执行。
+- 为Neon免费容量增加宿主空闲调度：默认10分钟无请求且无后台工作时暂停轮询，每30分钟沿用原维护入口执行回收与压缩；请求恢复后台任务。流响应、执行中/等待确认的课程、材料提取、旧课程导入、启动维护及资产回收纳入保活判断，训练API、权限、账本和迁移保持原样。
+- 新增串行暂停/恢复与故障拦截、只读队列元数据查询、维护和流生命周期测试；本地相关回归127通过/1失败，失败为Windows目录POSIX权限断言，断言保留。隔离PostgreSQL的38项队列状态检查通过，测试事务已回滚；ESLint与YAML检查通过，完整workerd和Linux回归由本次推送的工作流验收。
+
 ### TeacherScenarioLab Workers 路由构建契约（2026-11-01，Asia/Shanghai）
 
 - bf08689的CI、Cloudflare与Storage PostgreSQL工作流全部成功，标准Next.js/Docker生产构建及16项容器检查通过，完整Workers应用后台错误观测为0；Workers产物56150.58KiB，16项账号、76项产品及50条文献详情检查通过。云端测试汇总18919通过、0失败、774跳过，含跨作业重复执行；Chromium E2E为159通过、0失败。原训练API、服务端存储、迁移及82个受保护文件与9a990da一致，指定24个删除文件核对通过。
