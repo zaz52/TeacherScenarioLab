@@ -122,6 +122,8 @@ test('denied model access keeps the custom connection editor unavailable (mock A
     route.fulfill({ status: 403, json: { success: false } }),
   );
   await page.goto('/settings/training/models/providers');
-  await expect(page.getByRole('alert')).toContainText('管理员权限不足或数据加载失败');
+  await expect(
+    page.getByRole('alert').filter({ hasText: '管理员权限不足或数据加载失败' }),
+  ).toBeVisible();
   await expect(page.getByRole('button', { name: '自定义模型接入', exact: true })).toHaveCount(0);
 });
