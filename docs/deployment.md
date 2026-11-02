@@ -5,6 +5,31 @@
 > [Cloudflare 与 Neon 操作说明](cloudflare.md)记录该路径及运行门槛。
 > 本文保留已验证的 Node.js standalone / Docker 部署能力；训练API、核心引擎与迁移沿用现有实现。
 
+## 2026-11-02 统一账号、模型与邮件设置
+
+当前首页以校园疫情情境实训为主入口，原课程生成保留在 `/courseware/create`。
+账号、个人模型服务、训练角色模型、情境管理、人员与邮件配置共用首页设置窗口。
+普通注册用户可维护自己的供应商、API 地址、密钥和模型清单；配置以账户 owner 隔离。
+管理员维护平台资源池及人员权限，环境管理员列表作为受保护的初始化入口。
+
+邮件由管理员在“设置 → 验证码邮件”配置。QQ 可填写 `smtp.qq.com`、465，
+163 可填写 `smtp.163.com`、465，企业邮箱使用服务商提供的 TLS SMTP 地址。
+用户名和发信地址填写完整邮箱，授权码填入密码框。保存后密码框保持空白，服务端
+使用现有实例密钥 AES-256-GCM 加密落库。SMTP 配置使用强制 TLS 和公网地址校验，
+不输出邮件正文、验证码、授权码或服务器原始错误。传输选项参照
+[Nodemailer SMTP 文档](https://nodemailer.com/smtp)。
+
+现有管理员会话保留。管理员先配置邮件，再在“账号”绑定本人邮箱，账户 ID、
+历史训练和权限继续沿用。新用户通过邮件中的六位验证码注册或登录：验证码
+10 分钟有效、最多五次验证，每邮箱一分钟一次、每小时五次，并有 IP 限流。
+人员管理可预建邮箱账号、授予或撤销管理员、停用或启用账号；预建用户仍需邮箱验证。
+验证码邮件实际送达需要有效 SMTP 授权码和服务商发信额度。
+
+新增账号、验证码、权限审计、邮件设置及个人角色路由表在现有引导锁下创建。
+部署沿用当前数据库和 `OPENMAIC_SECRET_KEY`，备份需包含新增表及加密根密钥。
+本轮按用户要求将功能验收交由用户，手动 CI 传 `run_account_checks=false` 执行
+生产镜像构建及完整性导出。自动化测试与网站功能验收的状态记为“未执行”。
+
 ## 1. 部署形态（已验证的仓库能力）
 
 ### 1GB VPS 与现有 Neon
@@ -65,10 +90,10 @@ curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不�
 | `PERSISTENCE_POSTGRES_PASSWORD`  | 使用 bundled PostgreSQL 时必填。通过 `--env-file .env.local` 同时传入 Compose 插值和应用环境；已有卷的口令变更需要单独操作与验证。                                               |
 | `OPENMAIC_SECRET_KEY`            | 保存用户模型密钥所用的加密根密钥。生产设置高熵值、所有副本一致，并与数据库一起保留受保护备份；轮换前验证旧密文的恢复方案。未设置时生成的 `data/instance-secret.key` 需要持久化。 |
 | `OWNER_SINGLE_USER`              | **生产必须设为 `false`**。Compose 默认是 `true`（单人自用模式：所有请求解析为同一个 owner，不发匿名 cookie），会破坏训练的账号/匿名/认领模型。                                   |
-| `TRAINING_ADMIN_ACCOUNT_IDS`     | 管理员账号 ID 列表（逗号分隔，形如 `acct:<uuid>`）。管理员永不自助授予，只从这里来。                                                                                             |
+| `TRAINING_ADMIN_ACCOUNT_IDS`     | 管理员账号 ID 列表（逗号分隔，形如 `acct:<uuid>`）。初始化管理员列表；其他管理员由现有管理员在人员设置中明确授予。                                                                                             |
 | `NVIDIA_API_KEY` / `GLM_API_KEY` | 模型密钥，只进 `.env.local`，不进 YAML 明文、不进源码、不进 Git。                                                                                                                |
 | `OPENMAIC_CONFIG`                | 不设时默认读工作目录的 `openmaic.yml`；需要换位置时设为文件路径。                                                                                                                |
-| `ACCESS_CODE`                    | 对外发布前必须设强值（无 ACCESS_CODE 时 Compose 默认只绑 127.0.0.1）。                                                                                                           |
+| `ACCESS_CODE`                    | 当前邮箱登录部署保持为空；容器端口绑定本机并由现有 HTTPS 隧道接入。                                                                                                           |
 | `OPENMAIC_PUBLISH_ADDRESS`       | 需要对外发布时设为 `0.0.0.0`（或指定网卡），并配合反代/隧道做 HTTPS。                                                                                                            |
 
 模型配置用 `openmaic.yml`。GLM / Google 参考 `openmaic.teacher-scenario.example.yml`，
@@ -105,10 +130,10 @@ sha256sum tsl-backup-*.dump
   错误码与厂商状态，不含密钥。
 - 进程自动重启：用 Compose 的 restart 策略；不要用 `pm2` 之外再套一层。
 
-## 5. HTTPS 与域名接入（`teacherlab.weiyi.top`）
+## 5. HTTPS 与域名接入（`teacherlab.weiyiai.top`）
 
 1. 先在部署机上把应用跑起来并通过第 6 节回归（不要先切流量）。
-2. Node.js部署时，将 `teacherlab.weiyi.top` 指到用户确认的部署机：A 记录到服务器公网 IP，或
+2. Node.js部署时，将 `teacherlab.weiyiai.top` 指到用户确认的部署机：A 记录到服务器公网 IP，或
    Cloudflare Tunnel（`cloudflared`）指向 `127.0.0.1:3000`；二选一，
    以实际服务器条件为准。
 3. HTTPS 由反代（Caddy/Nginx）或 Cloudflare 代理层终止；应用本身只

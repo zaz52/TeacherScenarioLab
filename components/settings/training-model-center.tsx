@@ -24,7 +24,14 @@ const number = (value: number | null | undefined) =>
 const date = (value: number | null | undefined) =>
   value ? new Date(value).toLocaleString() : t('unknown');
 
-export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
+export function ModelCenter({
+  view: initialView = 'overview',
+  embedded = false,
+}: {
+  view?: CenterView;
+  embedded?: boolean;
+}) {
+  const [view, setView] = useState(initialView);
   const [data, setData] = useState<Overview | null>(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -83,17 +90,31 @@ export function ModelCenter({ view = 'overview' }: { view?: CenterView }) {
     <main className="mx-auto max-w-6xl space-y-5 p-6">
       <h1 className="text-2xl font-semibold">{t('title')}</h1>
       <nav aria-label={t('title')} className="flex flex-wrap gap-4">
-        {(['overview', 'providers', 'quotas', 'routing', 'logs'] as const).map((tab) => (
-          <Link
-            key={tab}
-            aria-current={view === tab ? 'page' : undefined}
-            href={`/settings/training/models${tab === 'overview' ? '' : `/${tab}`}`}
-            className="underline"
-          >
-            {t(tab)}
-          </Link>
-        ))}
-        <Link href="/settings/training">{getClientTranslation('training.navAdmin')}</Link>
+        {(['overview', 'providers', 'quotas', 'routing', 'logs'] as const).map((tab) =>
+          embedded ? (
+            <button
+              key={tab}
+              type="button"
+              aria-current={view === tab ? 'page' : undefined}
+              className="underline"
+              onClick={() => setView(tab)}
+            >
+              {t(tab)}
+            </button>
+          ) : (
+            <Link
+              key={tab}
+              aria-current={view === tab ? 'page' : undefined}
+              href={`/settings/training/models${tab === 'overview' ? '' : `/${tab}`}`}
+              className="underline"
+            >
+              {t(tab)}
+            </Link>
+          ),
+        )}
+        {!embedded && (
+          <Link href="/settings/training">{getClientTranslation('training.navAdmin')}</Link>
+        )}
       </nav>
       <p className="rounded border p-3 text-sm">
         {t('privacyNote')}{' '}

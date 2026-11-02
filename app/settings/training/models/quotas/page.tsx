@@ -1,4 +1,4 @@
-import { ModelCenter } from '@/components/settings/training-model-center';
+import { redirect } from 'next/navigation';
 export default function Page() {
-  return <ModelCenter view="quotas" />;
+  redirect('/?settings=platform-models');
 }

@@ -22,6 +22,13 @@ import {
 } from './model-services';
 import { ServerSettingsGate } from './server-settings';
 import type { SettingsSection } from '@/lib/types/settings';
+import { AccountPanel } from '@/components/account/account-panel';
+import { useAccount } from '@/components/account/account-provider';
+import { PeopleSettings } from './people-settings';
+import { MailSettings } from './mail-settings';
+import { UserTrainingModels } from './user-training-models';
+import TrainingAdmin from './training-admin';
+import { ModelCenter as TrainingModelCenter } from './training-model-center';
 
 export { SERVICE_TAB_LABELS, type ServiceTab } from './model-services';
 
@@ -32,9 +39,15 @@ interface SettingsDialogProps {
 }
 
 const NAV: { id: SettingsSection; icon: typeof Settings; label: string }[] = [
+  { id: 'account', icon: Settings, label: 'teacherlab.account' },
   { id: 'token-plan', icon: CreditCard, label: 'settings.tokenPlan.nav' },
   { id: 'model-services', icon: Boxes, label: 'settings.modelServices.nav' },
   { id: 'course-models', icon: GraduationCap, label: 'settings.courseModels.nav' },
+  { id: 'training-routing', icon: GraduationCap, label: 'teacherlab.trainingModels' },
+  { id: 'training-admin', icon: Settings, label: 'teacherlab.scenarioAdmin' },
+  { id: 'people', icon: Settings, label: 'teacherlab.people' },
+  { id: 'mail', icon: Settings, label: 'teacherlab.mail' },
+  { id: 'platform-models', icon: Boxes, label: 'teacherlab.platformModels' },
   { id: 'skills', icon: Sparkles, label: 'settings.skills.nav' },
   { id: 'general', icon: Settings, label: 'settings.systemSettings' },
 ];
@@ -48,9 +61,11 @@ const NAV: { id: SettingsSection; icon: typeof Settings; label: string }[] = [
  */
 export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsDialogProps) {
   const { t } = useI18n();
+  const { account } = useAccount();
+  const isAdmin = account?.roles.includes('admin') === true;
 
   // Navigation
-  const [requestedSection, setActiveSection] = useState<SettingsSection>('token-plan');
+  const [requestedSection, setActiveSection] = useState<SettingsSection>('account');
   // Skills are served by the agent runtime (`/api/agent/skills` 404s without
   // it), so the section is offered only once the server says the runtime is
   // available. Until then — and on a deployment without it — the item is
@@ -64,13 +79,17 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
     ? SERVICE_TABS.filter((tab) => sections.modelServices.includes(TAB_CAPABILITY[tab]))
     : SERVICE_TABS;
   const listed = (id: SettingsSection) =>
-    id === 'skills'
-      ? skillsAvailable
-      : id === 'token-plan'
-        ? !sections || sections.tokenPlan
-        : id === 'model-services'
-          ? serviceTabs.length > 0
-          : true;
+    !NAV.some((item) => item.id === id)
+      ? false
+      : ['training-admin', 'people', 'mail', 'platform-models'].includes(id)
+        ? isAdmin
+        : id === 'skills'
+          ? skillsAvailable
+          : id === 'token-plan'
+            ? !sections || sections.tokenPlan
+            : id === 'model-services'
+              ? serviceTabs.length > 0
+              : true;
   const nav = NAV.filter(({ id }) => listed(id));
   // A section that is not listed (asked for, or the default) lands on the first one.
   const activeSection = listed(requestedSection) ? requestedSection : nav[0].id;
@@ -163,7 +182,11 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
       case 'token-plan':
         return <h2 className="text-lg font-semibold">{t('settings.tokenPlan.nav')}</h2>;
       default:
-        return null;
+        return (
+          <h2 className="text-lg font-semibold">
+            {t(NAV.find((item) => item.id === activeSection)?.label ?? 'settings.title')}
+          </h2>
+        );
     }
   };
 
@@ -234,44 +257,60 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
                 fillsHeight ? 'flex min-h-0 flex-1 flex-col pt-3' : 'flex-1 overflow-y-auto',
               )}
             >
-              {activeSection === 'general' && <GeneralSettings />}
-
-              {activeSection === 'skills' && <SkillSettings />}
-
-              {activeSection === 'token-plan' && (
-                <ServerSettingsGate>
-                  {(view, apply) => <TokenPlanSettings view={view} apply={apply} />}
-                </ServerSettingsGate>
-              )}
-
-              {activeSection === 'course-models' && (
-                <ServerSettingsGate>
-                  {(view, apply) => (
-                    <CourseModelMap
-                      view={view}
-                      apply={apply}
-                      onManageProviders={() => {
-                        setServiceTab('providers');
-                        setActiveSection('model-services');
-                      }}
-                    />
+              {activeSection === 'account' && <AccountPanel />}
+              {activeSection !== 'account' &&
+                activeSection !== 'general' &&
+                !account?.authenticated && <AccountPanel />}
+              {account?.authenticated && (
+                <>
+                  {activeSection === 'people' && isAdmin && <PeopleSettings />}
+                  {activeSection === 'mail' && isAdmin && <MailSettings />}
+                  {activeSection === 'training-admin' && isAdmin && <TrainingAdmin />}
+                  {activeSection === 'platform-models' && isAdmin && (
+                    <TrainingModelCenter view="overview" embedded />
                   )}
-                </ServerSettingsGate>
-              )}
+                  {activeSection === 'training-routing' && <UserTrainingModels />}
+                  {activeSection === 'general' && <GeneralSettings />}
 
-              {activeSection === 'model-services' && (
-                <ServerSettingsGate>
-                  {(view, apply) => (
-                    <ModelServicesPanel
-                      view={view}
-                      apply={apply}
-                      tabs={serviceTabs}
-                      tab={serviceTab}
-                      onTabChange={setServiceTab}
-                    />
+                  {activeSection === 'skills' && <SkillSettings />}
+
+                  {activeSection === 'token-plan' && (
+                    <ServerSettingsGate>
+                      {(view, apply) => <TokenPlanSettings view={view} apply={apply} />}
+                    </ServerSettingsGate>
                   )}
-                </ServerSettingsGate>
+
+                  {activeSection === 'course-models' && (
+                    <ServerSettingsGate>
+                      {(view, apply) => (
+                        <CourseModelMap
+                          view={view}
+                          apply={apply}
+                          onManageProviders={() => {
+                            setServiceTab('providers');
+                            setActiveSection('model-services');
+                          }}
+                        />
+                      )}
+                    </ServerSettingsGate>
+                  )}
+
+                  {activeSection === 'model-services' && (
+                    <ServerSettingsGate>
+                      {(view, apply) => (
+                        <ModelServicesPanel
+                          view={view}
+                          apply={apply}
+                          tabs={serviceTabs}
+                          tab={serviceTab}
+                          onTabChange={setServiceTab}
+                        />
+                      )}
+                    </ServerSettingsGate>
+                  )}
+                </>
               )}
+              {activeSection === 'general' && !account?.authenticated && <GeneralSettings />}
             </div>
 
             {/* Footer: every change is saved as it is made; only close here. */}

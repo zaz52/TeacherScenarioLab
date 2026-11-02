@@ -100,7 +100,12 @@ export async function PUT(req: NextRequest) {
   const revision = parsed.data.revision;
   const change = parsed.data.change as ModelSettingsChange;
 
-  return withRequestOwner(req, async ({ ownerId }, headers) => {
+  return withRequestOwner(req, async ({ ownerId, kind }, headers) => {
+    if (kind === 'anonymous')
+      return NextResponse.json(
+        { error: { code: 'LOGIN_REQUIRED', message: '请先使用邮箱验证码登录' } },
+        { status: 401, headers },
+      );
     const queryable = await pool();
     try {
       const current = await readWorkspaceModelConfig(queryable, ownerId);
@@ -111,6 +116,17 @@ export async function PUT(req: NextRequest) {
       await saveWorkspaceModelConfig(queryable, ownerId, next, revision, {
         clearKeys: keysClearedBy(change),
       });
+      if (
+        change.kind === 'remove-provider' ||
+        (change.kind === 'provider' && Array.isArray(change.models))
+      ) {
+        const { pruneUserRouting } = await import('@/lib/training/user-model-routing');
+        await pruneUserRouting(
+          ownerId,
+          change.id,
+          change.kind === 'remove-provider' ? [] : change.models!,
+        );
+      }
       const stored = await readWorkspaceModelConfig(queryable, ownerId);
       return NextResponse.json(modelSettingsView(stored), { headers });
     } catch (error) {

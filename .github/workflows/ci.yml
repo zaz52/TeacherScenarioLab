@@ -30,8 +30,13 @@ on:
   # main by hand before it merges. The required check must report here too, or
   # a queued entry waits until it times out.
   merge_group:
-  # Manual account-entry repair: build and run the focused browser check.
+  # Manual delivery can leave functional acceptance to the site owner.
   workflow_dispatch:
+    inputs:
+      run_account_checks:
+        description: Run runtime and focused browser acceptance
+        type: boolean
+        default: true
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -575,7 +580,7 @@ jobs:
           cache-to: type=gha,scope=openmaic-main-image,mode=${{ github.event_name == 'workflow_dispatch' && 'min' || 'max' }}
 
       - name: Start final image and verify PostgreSQL-backed runtime
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.changes.outputs.changed == 'true' && (github.event_name != 'workflow_dispatch' || inputs.run_account_checks)
         env:
           DATABASE_URL: postgres://openmaic:ci-runtime-password@127.0.0.1:5432/teacher_scenario_runtime
         run: |
@@ -591,11 +596,11 @@ jobs:
           docker exec teacher-scenario-runtime node /tmp/runtime-smoke.mjs
 
       - name: Set up focused account browser check
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' && inputs.run_account_checks
         uses: ./.github/actions/setup-workspace
 
       - name: Check account form, translations and focused workflow
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' && inputs.run_account_checks
         run: |
           pnpm exec prettier components/home/training-home-block.tsx e2e/playwright.account.config.ts e2e/tests/training-account.spec.ts lib/i18n/locales/*.json .github/workflows/ci.yml CHANGELOG.md --check
           pnpm exec eslint components/home/training-home-block.tsx
@@ -603,27 +608,27 @@ jobs:
           pnpm exec playwright install --with-deps chromium
 
       - name: Verify account creation through the production browser form
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' && inputs.run_account_checks
         env:
           TEACHERLAB_ACCOUNT_ACCESS_CODE: ci-runtime-access-code
         run: pnpm exec playwright test --config e2e/playwright.account.config.ts
 
       - name: Retain focused browser diagnostics
-        if: failure() && github.event_name == 'workflow_dispatch'
+        if: failure() && github.event_name == 'workflow_dispatch' && inputs.run_account_checks
         uses: actions/upload-artifact@v4
         with:
           name: training-account-browser-diagnostics
           path: test-results/
           retention-days: 3
 
-      - name: Export the verified image for the authorized VPS
+      - name: Export the production image for the authorized VPS
         if: success() && steps.changes.outputs.changed == 'true' && ((github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/teacher-scenario-lab-product') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feat/teacher-scenario-lab-product'))
         env:
           TEACHERLAB_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           TEACHERLAB_IMAGE_OUTPUT: ${{ runner.temp }}/teacherlab-vps-image
         run: node scripts/teacher-scenario-export-image.mjs
 
-      - name: Retain the verified VPS image and checksum
+      - name: Retain the VPS image and checksum
         if: success() && steps.changes.outputs.changed == 'true' && ((github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/teacher-scenario-lab-product') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feat/teacher-scenario-lab-product'))
         uses: actions/upload-artifact@v4
         with:
@@ -634,9 +639,9 @@ jobs:
           if-no-files-found: error
 
       - name: Runtime diagnostics
-        if: failure() && steps.changes.outputs.changed == 'true'
+        if: failure() && steps.changes.outputs.changed == 'true' && (github.event_name != 'workflow_dispatch' || inputs.run_account_checks)
         run: docker logs --tail 120 teacher-scenario-runtime || true
 
       - name: Stop runtime smoke container
-        if: always() && steps.changes.outputs.changed == 'true'
+        if: always() && steps.changes.outputs.changed == 'true' && (github.event_name != 'workflow_dispatch' || inputs.run_account_checks)
         run: docker rm --force teacher-scenario-runtime || true

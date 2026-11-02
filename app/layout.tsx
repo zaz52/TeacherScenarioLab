@@ -11,11 +11,9 @@ import 'katex/dist/katex.min.css';
 import { ThemeProvider } from '@/lib/hooks/use-theme';
 import { I18nProvider } from '@/lib/hooks/use-i18n';
 import { Toaster } from '@/components/ui/sonner';
-import { AgentRegistryInit } from '@/components/agent-registry-init';
-import { ModelSettingsInit } from '@/components/model-settings-init';
-import { StorageHealthNotice } from '@/components/storage-health-notice';
 import { AccessCodeGuard } from '@/components/access-code-guard';
-import { ProSwapWatcher } from '@/components/workbench/ProSwapWatcher';
+import { AccountProvider } from '@/components/account/account-provider';
+import { AuthenticatedInit } from '@/components/account/authenticated-init';
 import { loadLocaleResource } from '@/lib/i18n/load-resource';
 import { LOCALE_COOKIE, resolveRequestLocale } from '@/lib/i18n/resolve-locale';
 
@@ -84,15 +82,14 @@ export default async function RootLayout({
         <AdaptiveProvider initialMobileLayout={initialMobileLayout}>
           <ThemeProvider>
             <I18nProvider initialLocale={locale} initialResources={resources}>
-              <ModelSettingsInit />
-              <AgentRegistryInit />
-              <ProSwapWatcher />
-              <AccessCodeGuard>{children}</AccessCodeGuard>
-              <Toaster position="top-center" />
-              {/* After the Toaster: this one raises a toast on mount when
+              <AccountProvider>
+                <AccessCodeGuard>{children}</AccessCodeGuard>
+                <Toaster position="top-center" />
+                {/* After the Toaster: this one raises a toast on mount when
                 persistence is already broken, and a toast raised before its
                 host exists has nowhere to go. */}
-              <StorageHealthNotice />
+                <AuthenticatedInit />
+              </AccountProvider>
             </I18nProvider>
           </ThemeProvider>
         </AdaptiveProvider>

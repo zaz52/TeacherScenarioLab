@@ -1,4 +1,4 @@
-import { ModelCenter } from '@/components/settings/training-model-center';
+import { redirect } from 'next/navigation';
 export default function Page() {
-  return <ModelCenter view="providers" />;
+  redirect('/?settings=model-services');
 }

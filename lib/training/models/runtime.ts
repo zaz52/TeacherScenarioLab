@@ -118,6 +118,9 @@ export async function routeTrainingModel(input: {
       system: minimizeNames(input.system, input.names),
       prompt: minimizeNames(input.prompt, input.names),
     };
+  const { personalTrainingModel } = await import('./personal');
+  const personal = await personalTrainingModel(input);
+  if (personal) return personal;
   const state = await readPoolState();
   const now = Date.now();
   const manual =

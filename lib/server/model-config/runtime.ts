@@ -131,6 +131,7 @@ export async function requestWorkspaceId(req: OwnerAuthRequest): Promise<string 
     await import('@/lib/server/identity/resolve');
   const outcome = await resolveRequestOwner(req);
   if (!outcome.ok) throw new InvalidOwnerCredentialError();
+  if (outcome.principal.kind === 'anonymous') throw new InvalidOwnerCredentialError();
   if (outcome.principal.assurance === 'minted') return null;
   const ownerId = outcome.principal.ownerId;
   const databaseUrl = process.env.DATABASE_URL?.trim();

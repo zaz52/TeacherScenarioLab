@@ -1,23 +1,11 @@
 'use client';
 
-/**
- * TeacherScenarioLab — training block on the fork's home page.
- *
- * This is where the old parallel /training tree now lives: the scenario
- * hall, the learner's records, account and event ledger, as tabs inside
- * one section of the restored upstream home page (below the library).
- * Each tab reuses the training APIs the old pages used; only the routes
- * changed: rooms live under /classroom/training/[id], reviews under
- * /eval/training/[id], references under /courseware/references and the
- * admin console under /settings/training.
- *
- * The initial tab follows ?training= (hall | records | account | events)
- * so reviews and other pages can link back to a specific tab; tab clicks
- * stay local state and never rewrite the home page URL.
- */
+/** Scenario hall, training records and event ledger in the unified home. */
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState } from 'react';
+import { AccountPanel } from '@/components/account/account-panel';
+import { useAccount } from '@/components/account/account-provider';
 
 import { getClientTranslation } from '@/lib/i18n';
 import { trainingStateLabel } from '@/lib/training/state-label';
@@ -87,12 +75,15 @@ function dimLabelKey(dimension: string): string {
   );
 }
 
-export function TrainingHomeBlock() {
+export function TrainingHomeBlock({ unified = false }: { unified?: boolean }) {
+  const { account } = useAccount();
   const router = useRouter();
   const searchParams = useSearchParams();
   const requestedTab = searchParams.get('training');
   const [tab, setTab] = useState<TrainingTab>(
-    VALID_TABS.includes(requestedTab as TrainingTab) ? (requestedTab as TrainingTab) : 'hall',
+    VALID_TABS.includes(requestedTab as TrainingTab) && !(unified && requestedTab === 'account')
+      ? (requestedTab as TrainingTab)
+      : 'hall',
   );
 
   const [scenarios, setScenarios] = useState<HallScenario[]>([]);
@@ -106,13 +97,6 @@ export function TrainingHomeBlock() {
   const [recordsError, setRecordsError] = useState('');
   const [retraining, setRetraining] = useState('');
   const [retrainError, setRetrainError] = useState('');
-
-  const [me, setMe] = useState<MeInfo | null>(null);
-  const [meLoading, setMeLoading] = useState(true);
-  const [meError, setMeError] = useState('');
-  const [notice, setNotice] = useState('');
-  const [accountName, setAccountName] = useState('');
-  const [creatingAccount, setCreatingAccount] = useState(false);
 
   const [events, setEvents] = useState<LedgerEvent[]>([]);
   const [eventsLoading, setEventsLoading] = useState(true);
@@ -151,23 +135,6 @@ export function TrainingHomeBlock() {
       }
     })();
   }, []);
-
-  const loadMe = useCallback(async () => {
-    try {
-      const res = await fetch('/api/training/accounts/me');
-      const data = (await res.json()) as MeInfo & { success?: boolean };
-      if (!res.ok) throw new Error('load failed');
-      setMe(data);
-    } catch {
-      setMeError(t('accountLoadFailed'));
-    } finally {
-      setMeLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    void loadMe();
-  }, [loadMe]);
 
   useEffect(() => {
     (async () => {
@@ -223,62 +190,7 @@ export function TrainingHomeBlock() {
     }
   }
 
-  async function createAccount(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (creatingAccount) return;
-    setCreatingAccount(true);
-    setNotice('');
-    try {
-      const res = await fetch('/api/training/accounts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ displayName: accountName.trim() }),
-      });
-      if (!res.ok) throw new Error('create failed');
-      setMeError('');
-      await loadMe();
-    } catch {
-      setNotice(t('accountCreateFailed'));
-    } finally {
-      setCreatingAccount(false);
-    }
-  }
-
-  async function logout() {
-    setNotice('');
-    try {
-      const res = await fetch('/api/training/accounts/logout', { method: 'POST' });
-      if (!res.ok) {
-        setNotice(t('accountClaimFailed'));
-        return;
-      }
-      setNotice(t('accountLogoutDone'));
-      await loadMe();
-    } catch {
-      setNotice(t('accountClaimFailed'));
-    }
-  }
-
-  async function claim() {
-    setNotice('');
-    try {
-      const res = await fetch('/api/training/claim', { method: 'POST' });
-      const data = (await res.json()) as { success?: boolean; claimed?: number };
-      if (res.status === 409) {
-        setNotice(t('accountClaimNone'));
-        return;
-      }
-      if (!res.ok || !data.success) {
-        setNotice(t('accountClaimFailed'));
-        return;
-      }
-      setNotice(`${t('accountClaimSuccess')}：${data.claimed ?? 0}`);
-    } catch {
-      setNotice(t('accountClaimFailed'));
-    }
-  }
-
-  const isAdmin = me?.roles.includes('admin') === true;
+  const isAdmin = account?.roles.includes('admin') === true;
   const tabButton = (id: TrainingTab, label: string) => (
     <button
       key={id}
@@ -305,7 +217,7 @@ export function TrainingHomeBlock() {
       <div role="tablist" className="mt-4 flex flex-wrap gap-2">
         {tabButton('hall', t('navHall'))}
         {tabButton('records', t('navRecords'))}
-        {tabButton('account', t('navAccount'))}
+        {!unified && tabButton('account', t('navAccount'))}
         {tabButton('events', t('navEvents'))}
       </div>
       <p className="mt-4 text-sm">
@@ -316,7 +228,7 @@ export function TrainingHomeBlock() {
         >
           {t('referencesTitle')}
         </Link>
-        {isAdmin && (
+        {isAdmin && !unified && (
           <>
             {' · '}
             <Link href="/settings/training" data-testid="training-admin-link" className="underline">
@@ -425,76 +337,7 @@ export function TrainingHomeBlock() {
 
       {tab === 'account' && (
         <div className="mt-4">
-          {meLoading && <p className="text-sm">{t('trainingLoading')}</p>}
-          {!meLoading && meError && <p className="text-sm">{meError}</p>}
-          {!meLoading && !meError && me && (
-            <>
-              {notice && <p className="text-sm">{notice}</p>}
-              {!me.authenticated && (
-                <>
-                  <p className="text-sm">{t('accountAnonymous')}</p>
-                  <form className="mt-3 flex max-w-md flex-col gap-3" onSubmit={createAccount}>
-                    <label className="flex flex-col gap-1 text-sm">
-                      {t('accountDisplayName')}
-                      <input
-                        data-testid="training-account-name"
-                        value={accountName}
-                        onChange={(event) => setAccountName(event.target.value)}
-                        maxLength={200}
-                        disabled={creatingAccount}
-                        autoComplete="nickname"
-                        className="rounded-md border border-border bg-background px-3 py-2"
-                      />
-                    </label>
-                    <button
-                      type="submit"
-                      data-testid="training-account-create"
-                      disabled={creatingAccount}
-                      className="self-start rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground disabled:opacity-50"
-                    >
-                      {creatingAccount ? t('accountCreating') : t('accountCreate')}
-                    </button>
-                  </form>
-                </>
-              )}
-              {me.authenticated && (
-                <>
-                  <h3 className="font-medium">{t('accountInfo')}</h3>
-                  <p className="mt-1 text-sm">
-                    {t('accountDisplayName')}：{me.displayName ?? '—'}
-                  </p>
-                  <p className="mt-1 text-sm">
-                    {t('accountOwnerId')}：{me.ownerId}
-                  </p>
-                  <p className="mt-1 text-sm">
-                    {t('accountRoles')}：{me.roles.length > 0 ? me.roles.join('、') : '—'}
-                  </p>
-                  <p className="mt-3">
-                    <button
-                      type="button"
-                      data-testid="training-logout"
-                      onClick={() => void logout()}
-                      className="rounded-md border border-border px-3 py-1.5 text-sm"
-                    >
-                      {t('accountLogout')}
-                    </button>
-                  </p>
-                  <h3 className="mt-4 font-medium">{t('accountClaimTitle')}</h3>
-                  <p className="mt-1 text-sm">{t('accountClaimDesc')}</p>
-                  <p className="mt-3">
-                    <button
-                      type="button"
-                      data-testid="training-claim"
-                      onClick={() => void claim()}
-                      className="rounded-md border border-border px-3 py-1.5 text-sm"
-                    >
-                      {t('accountClaimButton')}
-                    </button>
-                  </p>
-                </>
-              )}
-            </>
-          )}
+          <AccountPanel />
         </div>
       )}
 

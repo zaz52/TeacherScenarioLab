@@ -54,7 +54,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  return withRequestOwner(req, async ({ ownerId }, headers) => {
+  return withRequestOwner(req, async ({ ownerId, kind }, headers) => {
+    if (kind === 'anonymous')
+      return NextResponse.json(
+        { error: { code: 'LOGIN_REQUIRED', message: '请先使用邮箱验证码登录' } },
+        { status: 401, headers },
+      );
     const queryable = (await getServerPersistenceProvider(process.env.DATABASE_URL ?? '')).pool;
     try {
       for (let attempt = 1; ; attempt++) {
