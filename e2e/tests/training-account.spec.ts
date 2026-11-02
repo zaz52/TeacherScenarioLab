@@ -45,15 +45,22 @@ test('account form recovers from failure, creates a session and preserves it on 
   await expect(block.getByText('账号入口验收', { exact: false })).toBeVisible();
   await expect(block.getByText(accountId, { exact: false })).toBeVisible();
   await expect(create).toHaveCount(0);
-  expect((await page.request.get('/api/training/admin/scenarios')).status()).toBe(403);
+  // Chromium applies loopback Secure-cookie rules to the real page requests.
+  expect(
+    await page.evaluate(async () => (await fetch('/api/training/admin/scenarios')).status),
+  ).toBe(403);
   await page.reload();
   await expect(block.getByText(accountId, { exact: false })).toBeVisible();
-  expect((await (await page.request.get('/api/training/accounts/me')).json()).authenticated).toBe(
-    true,
-  );
+  expect(
+    await page.evaluate(
+      async () => (await (await fetch('/api/training/accounts/me')).json()).authenticated,
+    ),
+  ).toBe(true);
   await block.getByTestId('training-logout').click();
   await expect(create).toBeVisible();
-  expect((await (await page.request.get('/api/training/accounts/me')).json()).authenticated).toBe(
-    false,
-  );
+  expect(
+    await page.evaluate(
+      async () => (await (await fetch('/api/training/accounts/me')).json()).authenticated,
+    ),
+  ).toBe(false);
 });
