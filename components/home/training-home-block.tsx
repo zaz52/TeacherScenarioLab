@@ -10,7 +10,7 @@ import { useAccount } from '@/components/account/account-provider';
 import { getClientTranslation } from '@/lib/i18n';
 import { characterLabel } from '@/lib/training/character-presentation';
 import { hasAdminPermission } from '@/lib/training/admin-permissions';
-import { trainingStateLabel } from '@/lib/training/state-label';
+import { TrainingHistory, TrainingTimeline } from './training-history';
 
 function t(key: string): string {
   return getClientTranslation(`training.${key}`);
@@ -49,14 +49,6 @@ interface TrendEntry {
   count: number;
 }
 
-interface MeInfo {
-  authenticated: boolean;
-  ownerId: string;
-  kind: string;
-  roles: string[];
-  displayName: string | null;
-}
-
 interface LedgerEvent {
   id: string;
   trainingId: string;
@@ -64,17 +56,6 @@ interface LedgerEvent {
   scenarioVersion: number;
   type: string;
   createdAt: number;
-}
-
-/** Dimension id → the room's dim label key (fact-checking → dimFactChecking). */
-function dimLabelKey(dimension: string): string {
-  return (
-    'dim' +
-    dimension
-      .split('-')
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join('')
-  );
 }
 
 export function TrainingHomeBlock({
@@ -95,6 +76,19 @@ export function TrainingHomeBlock({
       ? (requestedTab as TrainingTab)
       : 'hall',
   );
+  useEffect(() => {
+    setTab(
+      VALID_TABS.includes(requestedTab as TrainingTab) && !(unified && requestedTab === 'account')
+        ? (requestedTab as TrainingTab)
+        : 'hall',
+    );
+  }, [requestedTab, unified]);
+  function selectTab(value: TrainingTab) {
+    setTab(value);
+    const query = new URLSearchParams(searchParams.toString());
+    query.set('training', value);
+    router.replace(`/?${query.toString()}#training`, { scroll: false });
+  }
 
   const [scenarios, setScenarios] = useState<HallScenario[]>([]);
   const [hallLoading, setHallLoading] = useState(true);
@@ -111,6 +105,8 @@ export function TrainingHomeBlock({
   const [events, setEvents] = useState<LedgerEvent[]>([]);
   const [eventsLoading, setEventsLoading] = useState(true);
   const [eventsError, setEventsError] = useState('');
+  const [recordsOwner, setRecordsOwner] = useState(''),
+    [eventsOwner, setEventsOwner] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -128,38 +124,54 @@ export function TrainingHomeBlock({
   }, [scenarioRevision]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch('/api/training/records');
-        const data = (await res.json()) as {
-          records?: RecordEntry[];
-          trend?: TrendEntry[];
-        };
-        if (!res.ok) throw new Error('load failed');
-        setRecords(data.records ?? []);
-        setTrend(data.trend ?? []);
-      } catch {
-        setRecordsError(t('trainingLoadFailed'));
-      } finally {
-        setRecordsLoading(false);
-      }
-    })();
-  }, []);
+    if (!account?.authenticated || tab !== 'records') return;
+    const ownerId = account.ownerId,
+      controller = new AbortController();
+    setRecordsLoading(true);
+    setRecordsError('');
+    setRecords([]);
+    setTrend([]);
+    setRecordsOwner(ownerId);
+    void fetch('/api/training/records', { cache: 'no-store', signal: controller.signal })
+      .then(async (res) => {
+        if (!res.ok) throw Error();
+        const data = await res.json();
+        if (!controller.signal.aborted) {
+          setRecords(data.records ?? []);
+          setTrend(data.trend ?? []);
+        }
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setRecordsError(t('trainingLoadFailed'));
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setRecordsLoading(false);
+      });
+    return () => controller.abort();
+  }, [account?.authenticated, account?.ownerId, tab]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch('/api/training/events');
-        const data = (await res.json()) as { events?: LedgerEvent[] };
-        if (!res.ok) throw new Error('load failed');
-        setEvents(data.events ?? []);
-      } catch {
-        setEventsError(t('trainingLoadFailed'));
-      } finally {
-        setEventsLoading(false);
-      }
-    })();
-  }, []);
+    if (!account?.authenticated || tab !== 'events') return;
+    const ownerId = account.ownerId,
+      controller = new AbortController();
+    setEventsLoading(true);
+    setEventsError('');
+    setEvents([]);
+    setEventsOwner(ownerId);
+    void fetch('/api/training/events', { cache: 'no-store', signal: controller.signal })
+      .then(async (res) => {
+        if (!res.ok) throw Error();
+        const data = await res.json();
+        if (!controller.signal.aborted) setEvents(data.events ?? []);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setEventsError(t('trainingLoadFailed'));
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setEventsLoading(false);
+      });
+    return () => controller.abort();
+  }, [account?.authenticated, account?.ownerId, tab]);
 
   async function startTraining(scenarioId: string, scenarioVersion: number) {
     setStarting(scenarioId);
@@ -206,7 +218,9 @@ export function TrainingHomeBlock({
       key={id}
       type="button"
       data-testid={`training-tab-${id}`}
-      onClick={() => setTab(id)}
+      role="tab"
+      aria-selected={tab === id}
+      onClick={() => selectTab(id)}
       className={
         tab === id
           ? 'rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground'
@@ -296,61 +310,25 @@ export function TrainingHomeBlock({
       )}
 
       {tab === 'records' && (
-        <div className="mt-4">
-          {recordsLoading && <p className="text-sm">{t('trainingLoading')}</p>}
-          {!recordsLoading && recordsError && <p className="text-sm">{recordsError}</p>}
-          {!recordsLoading && !recordsError && (
-            <>
-              <h3 className="font-medium">{t('recordsTrend')}</h3>
-              <ul className="mt-2 flex flex-col gap-1 text-sm">
-                {trend.map((entry) => (
-                  <li key={entry.dimension}>
-                    {t(dimLabelKey(entry.dimension))}：{entry.average}（{entry.count}
-                    {t('recordsTrendCount')}）
-                  </li>
-                ))}
-              </ul>
-              {records.length === 0 && <p className="mt-4 text-sm">{t('recordsEmpty')}</p>}
-              {retrainError && <p className="mt-4 text-sm">{retrainError}</p>}
-              <ul className="mt-4 flex flex-col gap-3">
-                {records.map((record) => (
-                  <li
-                    key={record.training.id}
-                    data-testid={`training-record-${record.training.id}`}
-                    className="rounded-lg border border-border p-4 text-sm"
-                  >
-                    <p>
-                      <Link href={`/classroom/training/${record.training.id}`}>
-                        {record.training.scenarioId} v{record.training.scenarioVersion}（
-                        {trainingStateLabel(record.training.state, t)}）
-                      </Link>{' '}
-                      <Link href={`/eval/training/${record.training.id}`}>{t('reviewTitle')}</Link>{' '}
-                      <button
-                        type="button"
-                        data-testid={`training-retrain-${record.training.id}`}
-                        onClick={() => void retrain(record)}
-                        disabled={retraining === record.training.id}
-                        className="rounded-md border border-border px-3 py-1 text-sm disabled:opacity-50"
-                      >
-                        {retraining === record.training.id
-                          ? t('recordsRetraining')
-                          : t('recordsRetrain')}
-                      </button>
-                    </p>
-                    {record.evaluation ? (
-                      <p className="mt-1 text-muted-foreground">
-                        {t('recordsEvaluated')}：
-                        {record.evaluation.dimensions
-                          .map((d) => `${t(dimLabelKey(d.dimension))} ${d.score}`)
-                          .join('、')}
-                      </p>
-                    ) : (
-                      <p className="mt-1 text-muted-foreground">{t('recordsUnevaluated')}</p>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </>
+        <div className="mt-6">
+          {!account?.authenticated ? (
+            <AccountPanel />
+          ) : recordsLoading || recordsOwner !== account.ownerId ? (
+            <p className="text-sm">{t('trainingLoading')}</p>
+          ) : recordsError ? (
+            <p role="alert" className="text-sm">
+              {recordsError}
+            </p>
+          ) : (
+            <TrainingHistory
+              records={records}
+              trend={trend}
+              scenarios={scenarios}
+              retraining={retraining}
+              retrainError={retrainError}
+              onRetrain={(record) => void retrain(record)}
+              onStart={() => selectTab('hall')}
+            />
           )}
         </div>
       )}
@@ -362,21 +340,21 @@ export function TrainingHomeBlock({
       )}
 
       {tab === 'events' && (
-        <div className="mt-4">
-          {eventsLoading && <p className="text-sm">{t('trainingLoading')}</p>}
-          {!eventsLoading && eventsError && <p className="text-sm">{eventsError}</p>}
-          {!eventsLoading && !eventsError && events.length === 0 && (
-            <p className="text-sm">{t('eventsEmpty')}</p>
-          )}
-          {!eventsLoading && !eventsError && events.length > 0 && (
-            <ul className="flex flex-col gap-2 text-sm">
-              {events.map((event) => (
-                <li key={event.id}>
-                  {event.type} — {t('eventsTraining')} {event.trainingId}（{event.scenarioId} v
-                  {event.scenarioVersion}，{new Date(event.createdAt).toLocaleString()}）
-                </li>
-              ))}
-            </ul>
+        <div className="mt-6">
+          {!account?.authenticated ? (
+            <AccountPanel />
+          ) : eventsLoading || eventsOwner !== account.ownerId ? (
+            <p className="text-sm">{t('trainingLoading')}</p>
+          ) : eventsError ? (
+            <p role="alert" className="text-sm">
+              {eventsError}
+            </p>
+          ) : (
+            <TrainingTimeline
+              events={events}
+              scenarios={scenarios}
+              onStart={() => selectTab('hall')}
+            />
           )}
         </div>
       )}

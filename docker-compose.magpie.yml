@@ -1,0 +1,39 @@
+name: teacherlab-magpie
+services:
+  magpie:
+    image: ${MAGPIE_IMAGE:?Set the pinned Magpie image digest}
+    container_name: teacherlab-magpie
+    user: '65532:65532'
+    command: [serve]
+    restart: unless-stopped
+    environment:
+      MAGPIE_ADDR: 0.0.0.0:3425
+      MAGPIE_PUBLIC_URL: https://teacherlab.weiyiai.top/api/model-gateway
+      MAGPIE_NO_STATS: '1'
+      DO_NOT_TRACK: '1'
+      GOMEMLIMIT: 96MiB
+      GOMAXPROCS: '1'
+    ports:
+      - '127.0.0.1:3425:3425'
+    volumes:
+      - ./magpie/config:/config
+    networks:
+      - teacherlab
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 160m
+    memswap_limit: 320m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options:
+        max-size: 2m
+        max-file: '2'
+networks:
+  teacherlab:
+    external: true
+    name: teacher-scenario-lab_default

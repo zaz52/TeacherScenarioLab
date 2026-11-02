@@ -7,6 +7,7 @@ import {
 } from '@/lib/training/session-auth';
 import { accountDatabase, accountTransaction, AccountError, normalizeEmail } from './database';
 import { sendVerificationEmail } from './mail';
+import { hashPassword } from './password';
 
 function digest(value: string) {
   const secret = process.env.OPENMAIC_SECRET_KEY;
@@ -16,7 +17,7 @@ function digest(value: string) {
 interface Challenge {
   id: string;
   email: string;
-  purpose: 'login' | 'bind';
+  purpose: 'login' | 'bind' | 'register' | 'reset';
   account_id: string | null;
   code_hash: string;
   expires_at: string;
@@ -28,7 +29,7 @@ interface Challenge {
 
 export async function requestEmailCode(
   req: Request,
-  input: { email: string; displayName?: string; purpose: 'login' | 'bind' },
+  input: { email: string; displayName?: string; purpose: 'login' | 'bind' | 'register' | 'reset' },
   ownerId?: string,
 ) {
   const email = normalizeEmail(input.email);
@@ -85,7 +86,7 @@ export async function requestEmailCode(
 }
 
 export async function verifyEmailCode(
-  input: { challengeId: string; code: string },
+  input: { challengeId: string; code: string; password?: string },
   bindingOwner?: string,
 ) {
   const pool = await accountDatabase();
@@ -118,10 +119,16 @@ export async function verifyEmailCode(
     if (row.purpose === 'bind' && (!bindingOwner || row.account_id !== bindingOwner))
       return { error: 'CODE_INVALID' as const };
     const identity = await tx.query(
-      'SELECT account_id FROM teacherlab_email_identities WHERE email=$1 FOR UPDATE',
+      'SELECT account_id,verified_at FROM teacherlab_email_identities WHERE email=$1 FOR UPDATE',
       [row.email],
     );
     let accountId = identity.rows[0]?.account_id as string | undefined;
+    if ((row.purpose === 'register' || row.purpose === 'reset') && !input.password)
+      return { error: 'PASSWORD_REQUIRED' as const };
+    if (row.purpose === 'register' && identity.rows[0]?.verified_at)
+      return { error: 'EMAIL_ALREADY_USED' as const };
+    if ((row.purpose === 'login' || row.purpose === 'reset') && !identity.rows[0]?.verified_at)
+      return { error: 'ACCOUNT_NOT_FOUND' as const };
     if (row.purpose === 'bind') {
       if (accountId && accountId !== bindingOwner) return { error: 'EMAIL_ALREADY_USED' as const };
       const existing = await tx.query(
@@ -139,11 +146,31 @@ export async function verifyEmailCode(
         [accountId, row.display_name || row.email.split('@')[0], [], Date.now()],
       );
     }
+    await tx.query('SELECT account_id FROM training_accounts WHERE account_id=$1 FOR UPDATE', [
+      accountId,
+    ]);
     const access = await tx.query(
       'SELECT disabled FROM teacherlab_account_controls WHERE account_id=$1',
       [accountId],
     );
     if (access.rows[0]?.disabled) return { error: 'ACCOUNT_DISABLED' as const };
+    if (input.password && ['register', 'reset', 'bind'].includes(row.purpose)) {
+      const passwordHash = await hashPassword(input.password);
+      await tx.query(
+        `INSERT INTO teacherlab_password_credentials(account_id,password_hash,updated_at) VALUES($1,$2,$3)
+        ON CONFLICT(account_id) DO UPDATE SET password_hash=EXCLUDED.password_hash,updated_at=EXCLUDED.updated_at`,
+        [accountId, passwordHash, Date.now()],
+      );
+      if (row.purpose === 'reset')
+        await tx.query('DELETE FROM training_sessions WHERE account_id=$1', [accountId]);
+      await tx.query('INSERT INTO teacherlab_account_audit VALUES($1,$2,$3,$4,$5)', [
+        randomUUID(),
+        accountId,
+        'password-' + row.purpose,
+        accountId,
+        Date.now(),
+      ]);
+    }
     await tx.query(
       'INSERT INTO teacherlab_email_identities(email,account_id,verified_at,created_at) VALUES($1,$2,$3,$3) ON CONFLICT(email) DO UPDATE SET verified_at=EXCLUDED.verified_at',
       [row.email, accountId, Date.now()],
@@ -152,6 +179,8 @@ export async function verifyEmailCode(
       row.id,
       Date.now(),
     ]);
+    if (row.purpose === 'register' || row.purpose === 'reset')
+      return { accountId, token: null, purpose: row.purpose };
     const token = mintTrainingSessionToken();
     await tx.query(
       'INSERT INTO training_sessions(token_hash,account_id,created_at,expires_at) VALUES($1,$2,$3,$4)',
@@ -162,7 +191,7 @@ export async function verifyEmailCode(
         Date.now() + TRAINING_SESSION_TTL_MS,
       ],
     );
-    return { accountId, token };
+    return { accountId, token, purpose: row.purpose };
   });
   if ('error' in result)
     throw new AccountError(result.error === 'ACCOUNT_DISABLED' ? 403 : 400, result.error!);

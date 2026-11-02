@@ -9,6 +9,7 @@ export interface SiteAccount {
   displayName: string | null;
   email: string | null;
   emailVerified: boolean;
+  passwordConfigured?: boolean;
   adminAccess?: AdminAccess;
 }
 const Context = createContext<{

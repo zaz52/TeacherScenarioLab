@@ -38,6 +38,15 @@ export async function accountDatabase() {
           account_id TEXT PRIMARY KEY REFERENCES training_accounts(account_id) ON DELETE CASCADE,
           permissions JSONB NOT NULL DEFAULT '[]'::jsonb
         );
+        CREATE TABLE IF NOT EXISTS teacherlab_password_credentials (
+          account_id TEXT PRIMARY KEY REFERENCES training_accounts(account_id) ON DELETE CASCADE,
+          password_hash TEXT NOT NULL, updated_at BIGINT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS teacherlab_password_attempts (
+          id TEXT PRIMARY KEY, subject_hash TEXT NOT NULL, ip_hash TEXT NOT NULL, created_at BIGINT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS teacherlab_password_attempts_subject ON teacherlab_password_attempts(subject_hash,created_at);
+        CREATE INDEX IF NOT EXISTS teacherlab_password_attempts_ip ON teacherlab_password_attempts(ip_hash,created_at);
       `);
     });
     ready = { url, promise };
@@ -85,12 +94,18 @@ export async function accountAccess(accountId: string) {
   const result = await (
     await accountDatabase()
   ).query(
-    `SELECT e.email,e.verified_at,COALESCE(c.disabled,false) AS disabled FROM training_accounts a
+    `SELECT e.email,e.verified_at,COALESCE(c.disabled,false) AS disabled, (p.password_hash IS NOT NULL) AS password_configured FROM training_accounts a
      LEFT JOIN teacherlab_email_identities e USING(account_id) LEFT JOIN teacherlab_account_controls c USING(account_id)
+     LEFT JOIN teacherlab_password_credentials p USING(account_id)
      WHERE a.account_id=$1`,
     [accountId],
   );
   return result.rows[0] as
-    | { email: string | null; verified_at: string | null; disabled: boolean }
+    | {
+        email: string | null;
+        verified_at: string | null;
+        disabled: boolean;
+        password_configured: boolean;
+      }
     | undefined;
 }

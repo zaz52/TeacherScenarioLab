@@ -7,7 +7,7 @@ const schema = z
   .object({
     email: z.string().max(254),
     displayName: z.string().max(200).optional(),
-    purpose: z.enum(['login', 'bind']).default('login'),
+    purpose: z.enum(['login', 'bind', 'register', 'reset']).default('login'),
   })
   .strict();
 export async function POST(req: NextRequest) {

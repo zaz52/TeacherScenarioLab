@@ -96,3 +96,14 @@ Google 免费层可能用于产品改进和人工审核。输入仅允许虚构�
 
 CI 保留原权限与目标分支触发规则，PG 工作流显式纳入新增合约文件。浏览器测试
 覆盖管理页、额度保存和未授权拦截。当前 PR 保持 Draft，验收完成前不合并或部署。
+
+ 
+## VPS Magpie 统一入口
+
+- 官方Docker镜像固定摘要，docker-compose.magpie.yml 管理独立服务，配置位于VPS项目 magpie/config，UID65532、目录700、密钥文件600；内存上限160MiB，复用项目网络。
+- OpenAI兼容入口：https://teacherlab.weiyiai.top/api/model-gateway/v1 。仅开放带网关Bearer凭据的 /models 和 /chat/completions，上游固定为 http://teacherlab-magpie:3425。管理API保持私有，原全局SSRF限制保留，客户端不能改变私有目标。
+- 入口密钥 TEACHERLAB_MAGPIE_API_KEY 和Magpie调用密钥 TEACHERLAB_MAGPIE_UPSTREAM_KEY 分别存于受保护配置；TEACHERLAB_MAGPIE_MODEL_PREFIXES 初始 amd/。请求体最多256KiB、100条消息、8192输出token；未指定输出上限时为4096。
+- AMD凭据通过“设置→模型服务”的OpenAI兼容供应商保存，URL https://developer.amd.com.cn/radeon/api/v1 。执行者经授权从服务端受保护配置导入Magpie，核对真实目录后，将统一入口作为网站供应商配置；生成结果和评价由用户验收。
+- 网关转发远程模型，Key、额度、权限及计费条件由供应商账户决定。保留原供应商失败和资格记录，未经真实生成验收不标记资格通过，不自动把未知计费模型改为平台默认。
+- 应用和Magpie可独立回滚：保留受保护配置与Magpie持久化目录，按原镜像回退应用、按原固定摘要重建网关，main和DNS保持原状态。
+- 官方文档：https://usemagpie.ai/docs/docker ，https://usemagpie.ai/docs/integrate 。

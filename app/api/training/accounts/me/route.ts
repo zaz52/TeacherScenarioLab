@@ -36,6 +36,7 @@ export async function GET(req: NextRequest) {
         displayName,
         email: access?.email ?? null,
         emailVerified: Boolean(access?.verified_at),
+        passwordConfigured: Boolean(access?.password_configured),
         adminAccess: await getAdminAccess(principal),
       },
       { headers: { 'Cache-Control': 'no-store' } },
