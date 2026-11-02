@@ -3006,7 +3006,13 @@
       "ruleFacts": "Distinguish confirmed facts from uncertainty. Do not invent symptoms, diagnoses or causes.",
       "rulePrivacy": "Use fictional names and protect students and family privacy.",
       "ruleProcedure": "Report unusual events through school procedures, defer medical judgments to professionals and follow responsibilities for school operations.",
-      "speechError": "Browser speech recognition could not be enabled. Use a supported browser and check speech recognition settings and permissions."
+      "speechError": "Browser speech recognition could not be enabled. Use a supported browser and check speech recognition settings and permissions.",
+      "customNames": "Customize role names",
+      "customNamesHint": "Leave blank to show role types such as Student, Parent or Teacher. Display names are saved in this browser for your account and scenario; the scenario text and character identities retain their original content.",
+      "optionalName": "Optional; leave blank for role type",
+      "resetNames": "Clear names",
+      "saveNames": "Save names",
+      "nameSaveError": "Your browser could not save these names. Check site storage permissions and try again."
     }
   }
 }

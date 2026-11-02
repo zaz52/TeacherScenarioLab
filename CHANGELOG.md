@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 角色默认名称与可选显示名称（2026-11-03 03:12，Asia/Shanghai）
+
+- 用户要求学生、家长、老师等角色默认显示类型，姓名改为可选自定义。首页下拉框、训练大厅与实训室消息标签统一使用角色类型，实训室侧栏移除原始姓名的默认展示。
+- 首页与实训室新增自定义角色名称入口，覆盖当前情境全部角色，支持逐项填写和清空后保存；名称按账号、情境及版本保存在当前浏览器，首页和实训室共用。界面明确显示名称与原情境人物设定的范围，存储失败显示错误。
+- 涉及 character-presentation.ts、role-name-settings.tsx、epidemic-composer.tsx、training-room.tsx 和12种语言文案（其他语言使用英文回退）。权限、训练后端、模型提示与事件账本沿用。
+- 功能、单元、浏览器、E2E及模型调用测试由用户执行，本轮执行数0；生产构建与部署状态另记工作区交付报告。
+
 ### TeacherScenarioLab 实训室交互与情境创建（2026-11-02，Asia/Shanghai）
 
 - 角色统一展示类型与姓名，使用“学生 · 小雨、家长 · 乐乐妈妈”等标签，角色头像与选择对应。

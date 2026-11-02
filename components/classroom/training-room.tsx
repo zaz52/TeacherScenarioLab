@@ -42,6 +42,7 @@ import { trainingStateLabel } from '@/lib/training/state-label';
 import { cn } from '@/lib/utils';
 import type { SettingsSection } from '@/lib/types/settings';
 import { modelSettingsClient } from '@/lib/model-settings/client';
+import { RoleNameSettings, useRoleNames } from './role-name-settings';
 
 interface Training {
   id: string;
@@ -107,6 +108,7 @@ export function TrainingRoom() {
   const [training, setTraining] = useState<Training | null>(null),
     [scenario, setScenario] = useState<Scenario | null>(null),
     [messages, setMessages] = useState<Message[]>([]);
+  const roleNames = useRoleNames(training?.scenarioId, training?.scenarioVersion);
   const [input, setInput] = useState(''),
     [characterId, setCharacterId] = useState(''),
     [mode, setMode] = useState<'scripted' | 'model'>('scripted');
@@ -516,10 +518,17 @@ export function TrainingRoom() {
                       <strong className="block text-sm font-medium">
                         {t(`teacherlab.simulation.roles.${characterRole(character)}`)}
                       </strong>
-                      <span className="text-xs text-muted-foreground">{character.name}</span>
+                      {roleNames.names[character.id] && (
+                        <span className="text-xs text-muted-foreground">
+                          {roleNames.names[character.id]}
+                        </span>
+                      )}
                     </span>
                   </button>
                 ))}
+              </div>
+              <div className="mt-3">
+                <RoleNameSettings characters={scenario.characters} settings={roleNames} />
               </div>
             </aside>
             <section className="flex min-h-[650px] min-w-0 flex-col overflow-hidden rounded-2xl border border-border/60 bg-background/90 shadow-sm">
@@ -559,7 +568,9 @@ export function TrainingRoom() {
               </div>
               <div className="flex items-center justify-between gap-3 border-b border-border/50 px-5 py-3">
                 <span className="text-sm font-medium">
-                  {currentRole ? characterLabel(currentRole, t) : t('training.directorChoice')}
+                  {currentRole
+                    ? characterLabel(currentRole, t, roleNames.names)
+                    : t('training.directorChoice')}
                 </span>
                 <select
                   value={mode}
@@ -611,7 +622,7 @@ export function TrainingRoom() {
                           {user
                             ? scenario.learnerRole
                             : character
-                              ? characterLabel(character, t)
+                              ? characterLabel(character, t, roleNames.names)
                               : t('teacherlab.simulation.roles.other')}
                           {scripted.has(message.id) && ` · ${t('training.scriptedBadge')}`}
                         </p>

@@ -13,9 +13,11 @@ export function characterRole(character: PresentableCharacter): string {
 export function characterLabel(
   character: PresentableCharacter,
   t: (key: string) => string,
+  customNames: Readonly<Record<string, string>> = {},
 ): string {
   const role = t(`teacherlab.simulation.roles.${characterRole(character)}`);
-  return character.name === role ? role : `${role} · ${character.name}`;
+  const name = customNames[character.id]?.trim();
+  return name ? `${role} · ${name}` : role;
 }
 export function characterAvatar(character: PresentableCharacter): string {
   return (

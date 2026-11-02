@@ -7,6 +7,7 @@ import { useAccount } from '@/components/account/account-provider';
 import { useModelSettingsView } from '@/lib/model-settings/use-model-settings';
 import { characterLabel, characterAvatar } from '@/lib/training/character-presentation';
 import type { UserRouting } from '@/lib/training/user-model-routing';
+import { RoleNameSettings, useRoleNames } from '@/components/classroom/role-name-settings';
 
 export interface ComposerScenario {
   scenarioId: string;
@@ -37,6 +38,7 @@ export function useEpidemicComposer(enabled: boolean) {
     scenarios.find((value) => key(value) === selected) ??
     scenarios.find((value) => value.scenarioId === 'epi-class-fever') ??
     scenarios[0];
+  const roleNames = useRoleNames(scenario?.scenarioId, scenario?.version);
   useEffect(() => {
     if (!enabled) return;
     let active = true;
@@ -153,6 +155,7 @@ export function useEpidemicComposer(enabled: boolean) {
       setRevision((previous) => previous + 1);
     },
     scenario,
+    roleNames,
     characterId: role?.id ?? '',
     setCharacterId,
     mode,
@@ -175,34 +178,40 @@ export type EpidemicComposer = ReturnType<typeof useEpidemicComposer>;
 export function EpidemicRolePill({ composer }: { composer: EpidemicComposer }) {
   const { t } = useI18n();
   return (
-    <div className="flex items-center gap-2 rounded-full border border-border/60 bg-background/40 px-3 py-2 text-sm">
-      <span className="text-muted-foreground max-sm:hidden">
-        {t('teacherlab.composer.practiceWith')}
-      </span>
-      <img
-        src={characterAvatar(
-          composer.scenario?.characters.find((value) => value.id === composer.characterId) ?? {
-            id: 'teacher-1',
-            role: 'teacher',
-            name: '',
-          },
-        )}
-        alt=""
-        className="h-10 w-10 rounded-full bg-violet-100"
+    <div className="flex flex-wrap items-center justify-end gap-1">
+      <div className="flex items-center gap-2 rounded-full border border-border/60 bg-background/40 px-3 py-2 text-sm">
+        <span className="text-muted-foreground max-sm:hidden">
+          {t('teacherlab.composer.practiceWith')}
+        </span>
+        <img
+          src={characterAvatar(
+            composer.scenario?.characters.find((value) => value.id === composer.characterId) ?? {
+              id: 'teacher-1',
+              role: 'teacher',
+              name: '',
+            },
+          )}
+          alt=""
+          className="h-10 w-10 rounded-full bg-violet-100"
+        />
+        <select
+          aria-label={t('teacherlab.composer.role')}
+          className="max-w-32 bg-transparent text-sm outline-none"
+          value={composer.characterId}
+          onChange={(event) => composer.setCharacterId(event.target.value)}
+          disabled={composer.busy}
+        >
+          {composer.scenario?.characters.map((role) => (
+            <option key={role.id} value={role.id}>
+              {characterLabel(role, t, composer.roleNames.names)}
+            </option>
+          ))}
+        </select>
+      </div>
+      <RoleNameSettings
+        characters={composer.scenario?.characters ?? []}
+        settings={composer.roleNames}
       />
-      <select
-        aria-label={t('teacherlab.composer.role')}
-        className="max-w-32 bg-transparent text-sm outline-none"
-        value={composer.characterId}
-        onChange={(event) => composer.setCharacterId(event.target.value)}
-        disabled={composer.busy}
-      >
-        {composer.scenario?.characters.map((role) => (
-          <option key={role.id} value={role.id}>
-            {characterLabel(role, t)}
-          </option>
-        ))}
-      </select>
     </div>
   );
 }
