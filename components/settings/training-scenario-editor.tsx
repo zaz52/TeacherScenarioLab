@@ -14,6 +14,9 @@
 import { useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
+import { useAccount } from '@/components/account/account-provider';
+import { hasAdminPermission } from '@/lib/training/admin-permissions';
+import { AdminHeading, AdminNotice } from './admin-ui';
 
 export interface EditorCharacter {
   id: string;
@@ -107,6 +110,7 @@ export default function ScenarioEditor({
   mode: 'create' | 'edit';
   initial: EditorScenario;
 }) {
+  const { account } = useAccount();
   const [form, setForm] = useState<EditorScenario>(initial);
   const [rulesText, setRulesText] = useState(initial.rules.join('\n'));
   const [characters, setCharacters] = useState<EditorCharacter[]>(initial.characters);
@@ -192,10 +196,20 @@ export default function ScenarioEditor({
     }
   }
 
+  if (!hasAdminPermission(account?.adminAccess, 'scenarios.manage')) {
+    return (
+      <div className="teacherlab-admin">
+        <AdminNotice error>{t('adminRequired')}</AdminNotice>
+      </div>
+    );
+  }
   return (
-    <main>
-      <h1>{mode === 'create' ? t('adminFormTitleNew') : t('adminFormTitleEdit')}</h1>
-      {notice && <p>{notice}</p>}
+    <main className="teacherlab-admin admin-scenario-editor">
+      <AdminHeading
+        title={mode === 'create' ? t('adminFormTitleNew') : t('adminFormTitleEdit')}
+        description={t('adminPublishedNote')}
+      />
+      {notice && <AdminNotice>{notice}</AdminNotice>}
       <p>
         <label>
           {t('adminFormScenarioId')}:{' '}

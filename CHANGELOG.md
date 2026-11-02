@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 情境编辑页统一后台样式（2026-11-03 04:16，Asia/Shanghai）
+
+- 同轮后台设计补齐情境新建、编辑页：接入统一标题、表单控件、角色与事实分区、手机端单列布局，并同步按情境管理权限展示编辑器。
+- 涉及 training-scenario-editor.tsx、admin-console.css；原保存接口、草稿校验与版本冻结逻辑沿用。补齐移动端统计条奇数项布局。
+- 用户保留功能验收，单元、浏览器、E2E及模型调用测试执行数0；使用最终提交的生产镜像交付。
+
 ### TeacherScenarioLab 后台界面与分级授权（2026-11-03 04:05，Asia/Shanghai）
 
 - 用户要求重做后台 UI，验证码邮件由本人管理，并可选择其他管理员能使用的功能。保留现有设置入口，后台使用统一标题、分区面板、成员搜索、权限勾选、状态与记录详情；手机端使用分区选择，表单自适应，宽表格在独立容器滚动。

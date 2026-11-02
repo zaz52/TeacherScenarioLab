@@ -299,6 +299,33 @@
 .teacherlab-admin summary {
   cursor: pointer;
 }
+.teacherlab-admin.admin-scenario-editor > p {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.teacherlab-admin.admin-scenario-editor > p > label:only-child {
+  grid-column: 1 / -1;
+}
+.teacherlab-admin.admin-scenario-editor > section {
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.teacherlab-admin.admin-scenario-editor > section > p {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 10px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.teacherlab-admin.admin-scenario-editor textarea {
+  min-height: 100px;
+  grid-column: 1 / -1;
+}
 .teacherlab-admin pre {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -307,6 +334,10 @@
   display: none;
 }
 @media (max-width: 639px) {
+  .teacherlab-admin.admin-scenario-editor > p,
+  .teacherlab-admin.admin-scenario-editor > section > p {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .teacherlab-admin h1 {
     font-size: 21px;
   }
@@ -332,6 +363,10 @@
   }
   .teacherlab-admin .admin-stat:nth-child(n + 3) {
     border-top: 1px solid var(--border);
+  }
+  .teacherlab-admin .admin-stat:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    border-left: 0;
   }
   .teacherlab-admin button,
   .teacherlab-admin .admin-button {
