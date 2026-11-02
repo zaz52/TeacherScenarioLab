@@ -50,9 +50,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { HomeLibrary } from '@/components/home/home-library';
-import { AccountMenu } from '@/components/account/account-panel';
-import { AccountPanel } from '@/components/account/account-panel';
 import { useAccount } from '@/components/account/account-provider';
+import { TrainingHomeBlock } from './training-home-block';
+import { useEpidemicComposer, EpidemicRolePill, EpidemicModelPill } from './epidemic-composer';
 import { useMobileLayout } from '@/lib/adaptive/adaptive-provider';
 import { installPageScrollBoundary } from '@/lib/adaptive/page-scroll-boundary';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -167,7 +167,10 @@ const initialFormState: FormState = {
   vocationalTestMode: false,
 };
 
-function HomePage() {
+function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
+  const { account } = useAccount();
+  const [isTraining, setIsTraining] = useState(trainingEntry);
+  const training = useEpidemicComposer(isTraining);
   const { t } = useI18n();
   const { theme, setTheme } = useTheme();
   const router = useRouter();
@@ -259,6 +262,20 @@ function HomePage() {
     import('@/lib/types/settings').SettingsSection | undefined
   >(undefined);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const section =
+      params.get('settings') ?? (params.get('training') === 'account' ? 'account' : null);
+    if (section) {
+      setSettingsSection(section as import('@/lib/types/settings').SettingsSection);
+      setSettingsOpen(true);
+    }
+  }, []);
+  const openSettings = (section: import('@/lib/types/settings').SettingsSection) => {
+    setSettingsSection(section);
+    setSettingsOpen(true);
+  };
+
   // Generation needs the course slots it resolves (outline, content, actions)
   // to name a model, whether or not the llm root does (the server's view;
   // while it cannot be read the server has the last word).
@@ -340,6 +357,7 @@ function HomePage() {
   }, [themeOpen]);
 
   const loadClassrooms = async () => {
+    if (!account?.authenticated || isTraining) return;
     try {
       const list = await listStages();
       setClassrooms(list);
@@ -353,10 +371,12 @@ function HomePage() {
   // Courses being generated on the server: a card from the moment the run
   // starts, live through the owner's run stream.
   const { runs, forget: forgetRun } = useOwnerRuns({
+    enabled: !!account?.authenticated && !isTraining,
     onCourseChanged: () => void loadClassrooms(),
   });
 
   const loadFolders = async () => {
+    if (!account?.authenticated || isTraining) return;
     try {
       setFolders(await listFolders());
     } catch (err) {
@@ -419,7 +439,7 @@ function HomePage() {
     return () => {
       window.removeEventListener(LIBRARY_CHANGED_EVENT, onLibraryChanged);
     };
-  }, []);
+  }, [account?.authenticated, isTraining]);
 
   const handleDelete = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -643,6 +663,15 @@ function HomePage() {
   };
 
   const handleGenerate = async () => {
+    if (!account?.authenticated) {
+      openSettings('account');
+      return;
+    }
+    if (isTraining) {
+      const id = await training.start(form.requirement);
+      if (id) router.push(`/classroom/training/${id}`);
+      return;
+    }
     // No model/provider guard here: generation is gated by `canGenerate`
     // (requires a usable provider), and under the #580 invariant a usable
     // provider always has a concrete model. State A (no usable provider)
@@ -712,12 +741,15 @@ function HomePage() {
   };
 
   // Generate waits for every attached material to be uploaded and extracted.
-  const canGenerate = !!form.requirement.trim() && hasUsableProvider && courseMaterials.allReady;
+  const actionBusy = preparingGenerate || training.busy;
+  const canGenerate = isTraining
+    ? !!training.scenario && !training.loading && !training.busy
+    : !!form.requirement.trim() && hasUsableProvider && courseMaterials.allReady;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
       e.preventDefault();
-      if (canGenerate && !preparingGenerate) handleGenerate();
+      if (canGenerate && !actionBusy) handleGenerate();
     }
   };
 
@@ -767,6 +799,7 @@ function HomePage() {
     <div
       data-testid="home-page"
       data-mobile={mobile}
+      data-training={isTraining}
       className="home-page min-h-[100dvh] w-full bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 flex flex-col items-center p-4 pt-16 md:p-8 md:pt-16 overflow-x-hidden"
     >
       <input
@@ -785,7 +818,7 @@ function HomePage() {
           className="hidden"
         />
       )}
-      {mobile && (
+      {mobile && !isTraining && (
         <button
           type="button"
           data-testid="home-history-open"
@@ -943,9 +976,35 @@ function HomePage() {
             heroEnter('fade-in duration-300 delay-250'),
           )}
         >
-          {t(mobile ? 'home.mobileSubtitle' : 'home.slogan')}
+          {isTraining
+            ? t('teacherlab.composer.subtitle')
+            : t(mobile ? 'home.mobileSubtitle' : 'home.slogan')}
         </p>
 
+        <div className="mb-5 flex items-center gap-2 rounded-full border border-border/50 bg-background/60 p-1 text-xs">
+          <button
+            type="button"
+            aria-pressed={isTraining}
+            onClick={() => setIsTraining(true)}
+            className={cn(
+              'rounded-full px-4 py-2 transition-colors',
+              isTraining && 'bg-primary/10 text-primary',
+            )}
+          >
+            {t('teacherlab.composer.trainingMode')}
+          </button>
+          <button
+            type="button"
+            aria-pressed={!isTraining}
+            onClick={() => setIsTraining(false)}
+            className={cn(
+              'rounded-full px-4 py-2 transition-colors',
+              !isTraining && 'bg-primary/10 text-primary',
+            )}
+          >
+            {t('teacherlab.composer.courseMode')}
+          </button>
+        </div>
         {/* ── Unified input area ── */}
         <div
           className={cn(
@@ -960,19 +1019,76 @@ function HomePage() {
             {/* ── Greeting + Profile + Agents ── */}
             {!mobile && (
               <div className="home-profile relative z-20 flex items-start justify-between">
-                <GreetingBar />
+                <GreetingBar onOpen={() => openSettings('account')} />
                 <div className="pr-3 pt-3.5 shrink-0">
-                  <AgentBar />
+                  {isTraining ? <EpidemicRolePill composer={training} /> : <AgentBar />}
                 </div>
               </div>
             )}
 
+            {isTraining && (
+              <div className="px-4 pb-2">
+                <select
+                  aria-label={t('teacherlab.composer.scenario')}
+                  className="max-w-full rounded-full border border-border/40 bg-transparent px-3 py-1 text-xs text-muted-foreground"
+                  value={
+                    training.scenario
+                      ? `${training.scenario.scenarioId}@${training.scenario.version}`
+                      : ''
+                  }
+                  onChange={(event) => {
+                    const selected = training.scenarios.find(
+                      (value) => `${value.scenarioId}@${value.version}` === event.target.value,
+                    );
+                    if (selected) training.selectScenario(selected);
+                  }}
+                  disabled={training.busy || training.loading}
+                >
+                  {!training.scenario && (
+                    <option value="">
+                      {training.loading
+                        ? t('training.trainingLoading')
+                        : t('teacherlab.composer.noScenarios')}
+                    </option>
+                  )}
+                  {training.scenarios.map((value) => (
+                    <option
+                      key={`${value.scenarioId}@${value.version}`}
+                      value={`${value.scenarioId}@${value.version}`}
+                    >
+                      {value.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            {isTraining && mobile && (
+              <div className="flex flex-wrap items-center gap-2 px-4 pb-2">
+                <EpidemicRolePill composer={training} />
+                <select
+                  aria-label={t('training.mode')}
+                  value={training.mode}
+                  onChange={(event) => training.setMode(event.target.value as 'scripted' | 'model')}
+                  className="rounded-full border bg-transparent px-3 py-2 text-xs"
+                >
+                  <option value="scripted">{t('training.modeScripted')}</option>
+                  <option value="model">{t('training.modeModel')}</option>
+                </select>
+              </div>
+            )}
             {/* Textarea */}
             <textarea
               ref={textareaRef}
               data-testid="home-requirement"
-              aria-label={t('home.mobilePlaceholder')}
-              placeholder={t(mobile ? 'home.mobilePlaceholder' : 'upload.requirementPlaceholder')}
+              disabled={isTraining && training.busy}
+              aria-label={
+                isTraining ? t('teacherlab.composer.placeholder') : t('home.mobilePlaceholder')
+              }
+              placeholder={
+                isTraining
+                  ? t('teacherlab.composer.placeholder')
+                  : t(mobile ? 'home.mobilePlaceholder' : 'upload.requirementPlaceholder')
+              }
               className="w-full resize-none border-0 bg-transparent px-4 pt-1 pb-2 text-[13px] leading-relaxed placeholder:text-muted-foreground/40 focus:outline-none min-h-[140px] max-h-[300px]"
               value={form.requirement}
               onChange={(e) => updateForm('requirement', e.target.value)}
@@ -983,10 +1099,17 @@ function HomePage() {
             {/* Toolbar row */}
             <div className="home-composer-controls px-3 pb-3 flex items-end gap-2">
               <div className="home-desktop-generation flex-1 min-w-0">
-                {!mobile && generationToolbar}
+                {isTraining ? (
+                  <EpidemicModelPill
+                    composer={training}
+                    onSettings={() => openSettings('model-services')}
+                  />
+                ) : (
+                  !mobile && generationToolbar
+                )}
               </div>
 
-              {mobile && courseMaterials.materials.length > 0 && (
+              {mobile && !isTraining && courseMaterials.materials.length > 0 && (
                 <button
                   type="button"
                   className="home-material-status"
@@ -1007,7 +1130,7 @@ function HomePage() {
                   </span>
                 </button>
               )}
-              {mobile && (
+              {mobile && !isTraining && (
                 <button
                   type="button"
                   className="home-options-open"
@@ -1023,13 +1146,21 @@ function HomePage() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <InteractiveModeButton
-                      pressed={form.interactiveMode}
-                      label={t('toolbar.interactiveModeLabel')}
-                      onPressedChange={(pressed) => updateForm('interactiveMode', pressed)}
+                      pressed={isTraining ? training.mode === 'model' : form.interactiveMode}
+                      label={
+                        isTraining ? t('training.modeModel') : t('toolbar.interactiveModeLabel')
+                      }
+                      onPressedChange={(pressed) =>
+                        isTraining
+                          ? training.setMode(pressed ? 'model' : 'scripted')
+                          : updateForm('interactiveMode', pressed)
+                      }
                     />
                   </TooltipTrigger>
                   <TooltipContent side="top" className="text-xs">
-                    {t('toolbar.interactiveModeHint')}
+                    {isTraining
+                      ? t('teacherlab.composer.modeHint')
+                      : t('toolbar.interactiveModeHint')}
                   </TooltipContent>
                 </Tooltip>
               )}
@@ -1050,21 +1181,27 @@ function HomePage() {
               {/* Send button */}
               <button
                 data-testid="home-generate"
-                aria-label={t('toolbar.enterClassroom')}
-                hidden={mobile && !form.requirement.trim() && !preparingGenerate}
+                aria-label={
+                  isTraining ? t('teacherlab.composer.enterTraining') : t('toolbar.enterClassroom')
+                }
+                hidden={!isTraining && mobile && !form.requirement.trim() && !preparingGenerate}
                 onClick={handleGenerate}
-                disabled={!canGenerate || preparingGenerate}
+                disabled={!canGenerate || actionBusy}
                 className={cn(
                   'home-send shrink-0 h-8 rounded-lg flex items-center justify-center gap-1.5 transition-all px-3',
-                  canGenerate && !preparingGenerate
+                  canGenerate && !actionBusy
                     ? 'bg-primary text-primary-foreground hover:opacity-90 shadow-sm cursor-pointer'
                     : 'bg-muted text-muted-foreground/40 cursor-not-allowed',
                 )}
               >
                 <span className="text-xs font-medium">
-                  {preparingGenerate ? t('stage.generating') : t('toolbar.enterClassroom')}
+                  {actionBusy
+                    ? t('stage.generating')
+                    : isTraining
+                      ? t('teacherlab.composer.enterTraining')
+                      : t('toolbar.enterClassroom')}
                 </span>
-                {preparingGenerate ? (
+                {actionBusy ? (
                   <Loader2 className="size-3.5 animate-spin" />
                 ) : (
                   <ArrowUp className="size-3.5" />
@@ -1074,7 +1211,12 @@ function HomePage() {
           </div>
         </div>
 
-        {showVocationalTestUi && (
+        {isTraining && training.error && (
+          <p role="alert" className="mt-3 text-sm text-destructive">
+            {training.error}
+          </p>
+        )}
+        {showVocationalTestUi && !isTraining && (
           <motion.div
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1144,432 +1286,455 @@ function HomePage() {
           action surface across root, folder, and empty. Until the library and
           folder reads resolve, the section shows a skeleton of its own layout
           (server-rendered, so it is on screen before the page's scripts run). */}
-      <HomeLibrary
-        mobile={mobile}
-        open={historyOpen}
-        onOpenChange={setHistoryOpen}
-        title={t('classroom.recentClassrooms')}
-        headerAction={
-          !currentFolderId && !isSearching ? (
-            <button
-              type="button"
-              ref={newFolderButtonRef}
-              data-testid="home-new-folder"
-              aria-label={t('classroom.newFolderTitle')}
-              title={t('classroom.newFolderTitle')}
-              onClick={() => setNewFolderOpen(true)}
-            >
-              <FolderPlus size={20} />
-            </button>
-          ) : undefined
-        }
-      >
-        {mobile && (
-          <div className="home-mobile-library-search">
-            {currentFolderId && (
-              <button
-                type="button"
-                className="home-folder-back"
-                onClick={() => setCurrentFolderId(undefined)}
-              >
-                <ChevronRight className="rotate-180 size-4" />
-                {t('classroom.recentClassrooms')}
-              </button>
-            )}
-            {currentFolder && <p className="mb-3 text-sm font-medium">{currentFolder.name}</p>}
-            <div className="relative">
-              <Search className="absolute left-3 top-3 size-4 text-muted-foreground" />
-              <input
-                data-testid="home-mobile-search"
-                type="search"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder={t('classroom.searchPlaceholder')}
-                aria-label={t('classroom.searchAriaLabel')}
-                className="w-full h-10 rounded-xl border border-border bg-background pl-9 pr-3 text-base outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
-              />
-            </div>
-          </div>
-        )}
-        {/* Trigger — divider-line with centered text. Fixed height keeps the
-              bar geometrically stable when the New-folder action or the folder
-              path appears/disappears (entering vs leaving a folder). */}
-        <div className="home-library-actions group w-full flex items-center gap-4 h-9">
-          <div className="flex-1 h-px bg-border/40 group-hover:bg-border/70 transition-colors" />
-          <div className="shrink-0 flex items-center gap-3 text-[13px] text-muted-foreground/60 select-none">
-            <button
-              onClick={() => {
-                if (currentFolderId) setCurrentFolderId(undefined);
-                else persistRecentOpen(!recentOpen);
+      {isTraining ? (
+        <div className="relative z-10 mt-8 w-full max-w-[1000px]">
+          {account?.authenticated ? (
+            <TrainingHomeBlock
+              unified
+              onSelectScenario={(value) => {
+                training.selectScenario(value);
+                textareaRef.current?.focus();
               }}
-              className="flex items-center gap-2 hover:text-foreground/70 transition-colors cursor-pointer"
-            >
-              <Clock className="size-3.5" />
-              {t('classroom.recentClassrooms')}
-              {currentFolder && (
-                <>
-                  <ChevronRight className="size-3 opacity-40" />
-                  <span className="text-foreground/80 truncate max-w-[160px]">
-                    {currentFolder.name}
-                  </span>
-                </>
-              )}
-              {hydrated ? (
-                <span className="text-[11px] tabular-nums opacity-60">
-                  {currentFolder ? currentFolderClassrooms.length : classrooms.length}
-                </span>
-              ) : (
-                <span
-                  aria-hidden
-                  className="h-3 w-4 rounded-sm bg-slate-200/70 dark:bg-slate-700/50 animate-pulse"
-                />
-              )}
-              <motion.div
-                animate={{ rotate: recentOpen ? 180 : 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-              >
-                <ChevronDown className="size-3.5" />
-              </motion.div>
-            </button>
-
-            {/* Search toggle — icon that expands into an input in place */}
-            <AnimatePresence initial={false}>
-              {!searchOpen ? (
-                <motion.button
-                  key="search-icon"
-                  ref={searchButtonRef}
-                  type="button"
-                  aria-label={t('classroom.searchAriaLabel')}
-                  onClick={() => {
-                    setSearchOpen(true);
-                    if (!recentOpen) persistRecentOpen(true);
-                    requestAnimationFrame(() => searchInputRef.current?.focus());
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.12, ease: 'easeOut' }}
-                  className="flex items-center justify-center size-6 rounded-full text-muted-foreground/50 hover:text-foreground/70 hover:bg-muted/50 transition-colors cursor-pointer"
-                >
-                  <Search className="size-3.5" />
-                </motion.button>
-              ) : (
-                <motion.div
-                  key="search-input"
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: 200 }}
-                  exit={{ opacity: 0, width: 0 }}
-                  transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="overflow-hidden"
-                >
-                  <InputGroup
-                    className={cn(
-                      'h-7 text-[12px] rounded-full bg-muted/40 border-transparent shadow-none',
-                      'transition-colors',
-                      'hover:bg-muted/60',
-                      'has-[[data-slot=input-group-control]:focus-visible]:bg-muted/60',
-                      'has-[[data-slot=input-group-control]:focus-visible]:border-transparent',
-                      'has-[[data-slot=input-group-control]:focus-visible]:ring-0',
-                    )}
-                  >
-                    <InputGroupInput
-                      ref={searchInputRef}
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Escape') {
-                          e.preventDefault();
-                          if (searchQuery) {
-                            setSearchQuery('');
-                          } else {
-                            setSearchOpen(false);
-                            requestAnimationFrame(() => searchButtonRef.current?.focus());
-                          }
-                        }
-                      }}
-                      onBlur={() => {
-                        if (!searchQuery) {
-                          setSearchOpen(false);
-                        }
-                      }}
-                      placeholder={t('classroom.searchPlaceholder')}
-                      aria-label={t('classroom.searchAriaLabel')}
-                      className="h-7 pl-3 placeholder:text-muted-foreground/50"
-                    />
-                    {searchQuery && (
-                      <InputGroupButton
-                        size="icon-xs"
-                        aria-label={t('classroom.clearSearch')}
-                        onMouseDown={(e) => e.preventDefault()}
-                        onClick={() => {
-                          setSearchQuery('');
-                          searchInputRef.current?.focus();
-                        }}
-                      >
-                        <X />
-                      </InputGroupButton>
-                    )}
-                  </InputGroup>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
+            />
+          ) : (
             <button
-              data-testid="home-course-import"
-              onClick={triggerImport}
-              disabled={importing}
-              className="group/import grid grid-cols-[auto_0fr] hover:grid-cols-[auto_1fr] items-center gap-1 rounded-full px-1.5 py-0.5 text-[12px] text-muted-foreground/35 hover:text-muted-foreground/70 hover:bg-muted/50 transition-all duration-200 cursor-pointer"
+              onClick={() => openSettings('account')}
+              className="rounded-full border bg-background/60 px-5 py-2 text-sm"
             >
-              <Upload className="size-3" />
-              <span className="overflow-hidden opacity-0 group-hover/import:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                {t('import.classroom')}
-              </span>
+              {t('teacherlab.loginRegister')}
             </button>
-            {PPTX_IMPORT_ENABLED && (
-              <button
-                onClick={triggerPptxFileSelect}
-                disabled={pptxImporting}
-                className="group/import-pptx grid grid-cols-[auto_0fr] hover:grid-cols-[auto_1fr] items-center gap-1 rounded-full px-1.5 py-0.5 text-[12px] text-muted-foreground/35 hover:text-muted-foreground/70 hover:bg-muted/50 transition-all duration-200 cursor-pointer"
-              >
-                <Presentation className="size-3" />
-                <span className="overflow-hidden opacity-0 group-hover/import-pptx:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                  {t('import.pptx')}
-                </span>
-              </button>
-            )}
-            {/* New folder — round icon button, matches the import/upload affordances. */}
-            {!currentFolderId && !isSearching && (
+          )}
+        </div>
+      ) : (
+        <HomeLibrary
+          mobile={mobile}
+          open={historyOpen}
+          onOpenChange={setHistoryOpen}
+          title={t('classroom.recentClassrooms')}
+          headerAction={
+            !currentFolderId && !isSearching ? (
               <button
                 type="button"
-                onClick={() => {
-                  if (!recentOpen) persistRecentOpen(true);
-                  setNewFolderOpen(true);
-                }}
+                ref={newFolderButtonRef}
+                data-testid="home-new-folder"
                 aria-label={t('classroom.newFolderTitle')}
                 title={t('classroom.newFolderTitle')}
-                className="inline-flex items-center justify-center size-7 rounded-full bg-muted/40 text-muted-foreground ring-1 ring-border/50 hover:bg-muted hover:text-foreground hover:ring-border transition-[background-color,color,box-shadow] cursor-pointer"
+                onClick={() => setNewFolderOpen(true)}
               >
-                <FolderPlus className="size-3.5" />
+                <FolderPlus size={20} />
               </button>
-            )}
-          </div>
-          <div className="flex-1 h-px bg-border/40 group-hover:bg-border/70 transition-colors" />
-        </div>
+            ) : undefined
+          }
+        >
+          {mobile && (
+            <div className="home-mobile-library-search">
+              {currentFolderId && (
+                <button
+                  type="button"
+                  className="home-folder-back"
+                  onClick={() => setCurrentFolderId(undefined)}
+                >
+                  <ChevronRight className="rotate-180 size-4" />
+                  {t('classroom.recentClassrooms')}
+                </button>
+              )}
+              {currentFolder && <p className="mb-3 text-sm font-medium">{currentFolder.name}</p>}
+              <div className="relative">
+                <Search className="absolute left-3 top-3 size-4 text-muted-foreground" />
+                <input
+                  data-testid="home-mobile-search"
+                  type="search"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder={t('classroom.searchPlaceholder')}
+                  aria-label={t('classroom.searchAriaLabel')}
+                  className="w-full h-10 rounded-xl border border-border bg-background pl-9 pr-3 text-base outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                />
+              </div>
+            </div>
+          )}
+          {/* Trigger — divider-line with centered text. Fixed height keeps the
+              bar geometrically stable when the New-folder action or the folder
+              path appears/disappears (entering vs leaving a folder). */}
+          <div className="home-library-actions group w-full flex items-center gap-4 h-9">
+            <div className="flex-1 h-px bg-border/40 group-hover:bg-border/70 transition-colors" />
+            <div className="shrink-0 flex items-center gap-3 text-[13px] text-muted-foreground/60 select-none">
+              <button
+                onClick={() => {
+                  if (currentFolderId) setCurrentFolderId(undefined);
+                  else persistRecentOpen(!recentOpen);
+                }}
+                className="flex items-center gap-2 hover:text-foreground/70 transition-colors cursor-pointer"
+              >
+                <Clock className="size-3.5" />
+                {t('classroom.recentClassrooms')}
+                {currentFolder && (
+                  <>
+                    <ChevronRight className="size-3 opacity-40" />
+                    <span className="text-foreground/80 truncate max-w-[160px]">
+                      {currentFolder.name}
+                    </span>
+                  </>
+                )}
+                {hydrated ? (
+                  <span className="text-[11px] tabular-nums opacity-60">
+                    {currentFolder ? currentFolderClassrooms.length : classrooms.length}
+                  </span>
+                ) : (
+                  <span
+                    aria-hidden
+                    className="h-3 w-4 rounded-sm bg-slate-200/70 dark:bg-slate-700/50 animate-pulse"
+                  />
+                )}
+                <motion.div
+                  animate={{ rotate: recentOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <ChevronDown className="size-3.5" />
+                </motion.div>
+              </button>
 
-        {/* Expandable content. Present from the first render, so it does not
+              {/* Search toggle — icon that expands into an input in place */}
+              <AnimatePresence initial={false}>
+                {!searchOpen ? (
+                  <motion.button
+                    key="search-icon"
+                    ref={searchButtonRef}
+                    type="button"
+                    aria-label={t('classroom.searchAriaLabel')}
+                    onClick={() => {
+                      setSearchOpen(true);
+                      if (!recentOpen) persistRecentOpen(true);
+                      requestAnimationFrame(() => searchInputRef.current?.focus());
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.12, ease: 'easeOut' }}
+                    className="flex items-center justify-center size-6 rounded-full text-muted-foreground/50 hover:text-foreground/70 hover:bg-muted/50 transition-colors cursor-pointer"
+                  >
+                    <Search className="size-3.5" />
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    key="search-input"
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: 200 }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <InputGroup
+                      className={cn(
+                        'h-7 text-[12px] rounded-full bg-muted/40 border-transparent shadow-none',
+                        'transition-colors',
+                        'hover:bg-muted/60',
+                        'has-[[data-slot=input-group-control]:focus-visible]:bg-muted/60',
+                        'has-[[data-slot=input-group-control]:focus-visible]:border-transparent',
+                        'has-[[data-slot=input-group-control]:focus-visible]:ring-0',
+                      )}
+                    >
+                      <InputGroupInput
+                        ref={searchInputRef}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Escape') {
+                            e.preventDefault();
+                            if (searchQuery) {
+                              setSearchQuery('');
+                            } else {
+                              setSearchOpen(false);
+                              requestAnimationFrame(() => searchButtonRef.current?.focus());
+                            }
+                          }
+                        }}
+                        onBlur={() => {
+                          if (!searchQuery) {
+                            setSearchOpen(false);
+                          }
+                        }}
+                        placeholder={t('classroom.searchPlaceholder')}
+                        aria-label={t('classroom.searchAriaLabel')}
+                        className="h-7 pl-3 placeholder:text-muted-foreground/50"
+                      />
+                      {searchQuery && (
+                        <InputGroupButton
+                          size="icon-xs"
+                          aria-label={t('classroom.clearSearch')}
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => {
+                            setSearchQuery('');
+                            searchInputRef.current?.focus();
+                          }}
+                        >
+                          <X />
+                        </InputGroupButton>
+                      )}
+                    </InputGroup>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <button
+                data-testid="home-course-import"
+                onClick={triggerImport}
+                disabled={importing}
+                className="group/import grid grid-cols-[auto_0fr] hover:grid-cols-[auto_1fr] items-center gap-1 rounded-full px-1.5 py-0.5 text-[12px] text-muted-foreground/35 hover:text-muted-foreground/70 hover:bg-muted/50 transition-all duration-200 cursor-pointer"
+              >
+                <Upload className="size-3" />
+                <span className="overflow-hidden opacity-0 group-hover/import:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                  {t('import.classroom')}
+                </span>
+              </button>
+              {PPTX_IMPORT_ENABLED && (
+                <button
+                  onClick={triggerPptxFileSelect}
+                  disabled={pptxImporting}
+                  className="group/import-pptx grid grid-cols-[auto_0fr] hover:grid-cols-[auto_1fr] items-center gap-1 rounded-full px-1.5 py-0.5 text-[12px] text-muted-foreground/35 hover:text-muted-foreground/70 hover:bg-muted/50 transition-all duration-200 cursor-pointer"
+                >
+                  <Presentation className="size-3" />
+                  <span className="overflow-hidden opacity-0 group-hover/import-pptx:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                    {t('import.pptx')}
+                  </span>
+                </button>
+              )}
+              {/* New folder — round icon button, matches the import/upload affordances. */}
+              {!currentFolderId && !isSearching && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!recentOpen) persistRecentOpen(true);
+                    setNewFolderOpen(true);
+                  }}
+                  aria-label={t('classroom.newFolderTitle')}
+                  title={t('classroom.newFolderTitle')}
+                  className="inline-flex items-center justify-center size-7 rounded-full bg-muted/40 text-muted-foreground ring-1 ring-border/50 hover:bg-muted hover:text-foreground hover:ring-border transition-[background-color,color,box-shadow] cursor-pointer"
+                >
+                  <FolderPlus className="size-3.5" />
+                </button>
+              )}
+            </div>
+            <div className="flex-1 h-px bg-border/40 group-hover:bg-border/70 transition-colors" />
+          </div>
+
+          {/* Expandable content. Present from the first render, so it does not
               play its expand animation then: the server-rendered skeleton must
               be visible without the page's scripts. */}
-        <AnimatePresence initial={false}>
-          {(mobile || recentOpen) && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              className="w-full overflow-hidden"
-            >
-              {!hydrated ? (
-                <LibrarySkeleton />
-              ) : folders.length === 0 && classrooms.length === 0 && pendingRuns.length === 0 ? (
-                <div className="pt-8 pb-2 text-center text-[13px] text-muted-foreground/60">
-                  {mobile ? (
-                    <div className="home-empty-library">
-                      <Presentation size={36} strokeWidth={1.4} />
-                      <p>{t('home.emptyLibraryTitle')}</p>
-                      <span>{t('home.emptyLibraryBody')}</span>
-                    </div>
-                  ) : (
-                    t('classroom.emptyLibraryHint')
-                  )}
-                </div>
-              ) : !isSearching && currentFolderId && currentFolderClassrooms.length === 0 ? (
-                // Empty folder: hint directly below the centered path bar.
-                <div className="pt-8 text-center">
-                  <p className="text-[14px] text-muted-foreground">
-                    {t('classroom.emptyFolderHint')}
-                  </p>
-                </div>
-              ) : isSearching && filteredClassrooms.length === 0 ? (
-                <div className="pt-8 pb-2 text-center text-[13px] text-muted-foreground/60">
-                  {t('classroom.searchEmpty')}
-                </div>
-              ) : (
-                <div className={mobile ? '' : 'pt-8'}>
-                  {/* Breadcrumb — shown only while searching (the folder path
+          <AnimatePresence initial={false}>
+            {(mobile || recentOpen) && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                className="w-full overflow-hidden"
+              >
+                {!hydrated ? (
+                  <LibrarySkeleton />
+                ) : folders.length === 0 && classrooms.length === 0 && pendingRuns.length === 0 ? (
+                  <div className="pt-8 pb-2 text-center text-[13px] text-muted-foreground/60">
+                    {mobile ? (
+                      <div className="home-empty-library">
+                        <Presentation size={36} strokeWidth={1.4} />
+                        <p>{t('home.emptyLibraryTitle')}</p>
+                        <span>{t('home.emptyLibraryBody')}</span>
+                      </div>
+                    ) : (
+                      t('classroom.emptyLibraryHint')
+                    )}
+                  </div>
+                ) : !isSearching && currentFolderId && currentFolderClassrooms.length === 0 ? (
+                  // Empty folder: hint directly below the centered path bar.
+                  <div className="pt-8 text-center">
+                    <p className="text-[14px] text-muted-foreground">
+                      {t('classroom.emptyFolderHint')}
+                    </p>
+                  </div>
+                ) : isSearching && filteredClassrooms.length === 0 ? (
+                  <div className="pt-8 pb-2 text-center text-[13px] text-muted-foreground/60">
+                    {t('classroom.searchEmpty')}
+                  </div>
+                ) : (
+                  <div className={mobile ? '' : 'pt-8'}>
+                    {/* Breadcrumb — shown only while searching (the folder path
                         already lives in the centered header above). */}
-                  {isSearching && (
-                    <div className="mb-4 flex items-center gap-1.5 text-[13px] text-muted-foreground">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setCurrentFolderId(undefined);
-                          setSearchQuery('');
-                          setSearchOpen(false);
-                        }}
-                        className="hover:text-foreground transition-colors"
-                      >
-                        {t('classroom.recentClassrooms')}
-                      </button>
-                      <ChevronRight className="size-3.5" />
-                      <span className="text-foreground font-medium">
-                        {t('classroom.searchResults')}
-                      </span>
-                      <span className="ml-1.5 text-[12px] text-muted-foreground tabular-nums">
-                        ({filteredClassrooms.length})
-                      </span>
-                    </div>
-                  )}
+                    {isSearching && (
+                      <div className="mb-4 flex items-center gap-1.5 text-[13px] text-muted-foreground">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setCurrentFolderId(undefined);
+                            setSearchQuery('');
+                            setSearchOpen(false);
+                          }}
+                          className="hover:text-foreground transition-colors"
+                        >
+                          {t('classroom.recentClassrooms')}
+                        </button>
+                        <ChevronRight className="size-3.5" />
+                        <span className="text-foreground font-medium">
+                          {t('classroom.searchResults')}
+                        </span>
+                        <span className="ml-1.5 text-[12px] text-muted-foreground tabular-nums">
+                          ({filteredClassrooms.length})
+                        </span>
+                      </div>
+                    )}
 
-                  {/* No entrance when the grid first appears: it takes the
+                    {/* No entrance when the grid first appears: it takes the
                       skeleton's place, and fading or staggering it in would
                       flash an empty section in between. Switching views (and
                       cards added later) still animate. */}
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.div
-                      key={
-                        isSearching
-                          ? 'search'
-                          : currentFolderId
-                            ? `folder-${currentFolderId}`
-                            : 'root'
-                      }
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.2 }}
-                      className="home-library-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-8"
-                    >
-                      {/* Root + non-search: render folder tiles first. */}
-                      {!isSearching &&
-                        currentFolderId === undefined &&
-                        folders.map((folder, i) => (
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.div
+                        key={
+                          isSearching
+                            ? 'search'
+                            : currentFolderId
+                              ? `folder-${currentFolderId}`
+                              : 'root'
+                        }
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.2 }}
+                        className="home-library-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-8"
+                      >
+                        {/* Root + non-search: render folder tiles first. */}
+                        {!isSearching &&
+                          currentFolderId === undefined &&
+                          folders.map((folder, i) => (
+                            <motion.div
+                              key={folder.id}
+                              initial={{ opacity: 0, y: 16 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: i * 0.04, duration: 0.35, ease: 'easeOut' }}
+                            >
+                              <FolderCard
+                                mobile={mobile}
+                                folder={folder}
+                                courseCount={courseCountByFolder.get(folder.id) ?? 0}
+                                coverSlides={folderCovers.get(folder.id)?.slides ?? []}
+                                coverCandidates={folderCovers.get(folder.id)?.candidates ?? []}
+                                requestThumbnail={requestThumbnail}
+                                onOpen={() => setCurrentFolderId(folder.id)}
+                                onRename={handleRenameFolder(folder)}
+                                onDelete={(mode) => confirmDeleteFolder(folder, mode)}
+                                onDropCourse={(stageId) => handleMoveCourse(stageId, folder.id)}
+                              />
+                            </motion.div>
+                          ))}
+
+                        {/* Courses still being generated, before their course exists. */}
+                        {showPendingRuns &&
+                          pendingRuns.map((run) => (
+                            <motion.div
+                              key={run.id}
+                              initial={{ opacity: 0, y: 16 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.35, ease: 'easeOut' }}
+                            >
+                              <ClassroomCard
+                                mobile={mobile}
+                                classroom={pendingRunListItem(run)}
+                                formatDate={formatDate}
+                                runStatus={courseRunStatus(run)}
+                                pendingCourse
+                                onDelete={handleDelete}
+                                onRename={handleRename}
+                                confirmingDelete={pendingDeleteId === run.id}
+                                onConfirmDelete={() => confirmDelete(run.id)}
+                                onCancelDelete={() => setPendingDeleteId(null)}
+                                onClick={() => {
+                                  setHistoryOpen(false);
+                                  router.push(courseRunHref(run));
+                                }}
+                              />
+                            </motion.div>
+                          ))}
+
+                        {/* Course tiles for the active view. */}
+                        {visibleClassrooms.map((classroom, i) => (
                           <motion.div
-                            key={folder.id}
+                            key={classroom.id}
                             initial={{ opacity: 0, y: 16 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.04, duration: 0.35, ease: 'easeOut' }}
                           >
-                            <FolderCard
-                              mobile={mobile}
-                              folder={folder}
-                              courseCount={courseCountByFolder.get(folder.id) ?? 0}
-                              coverSlides={folderCovers.get(folder.id)?.slides ?? []}
-                              coverCandidates={folderCovers.get(folder.id)?.candidates ?? []}
-                              requestThumbnail={requestThumbnail}
-                              onOpen={() => setCurrentFolderId(folder.id)}
-                              onRename={handleRenameFolder(folder)}
-                              onDelete={(mode) => confirmDeleteFolder(folder, mode)}
-                              onDropCourse={(stageId) => handleMoveCourse(stageId, folder.id)}
-                            />
-                          </motion.div>
-                        ))}
-
-                      {/* Courses still being generated, before their course exists. */}
-                      {showPendingRuns &&
-                        pendingRuns.map((run) => (
-                          <motion.div
-                            key={run.id}
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.35, ease: 'easeOut' }}
-                          >
                             <ClassroomCard
                               mobile={mobile}
-                              classroom={pendingRunListItem(run)}
+                              classroom={classroom}
+                              slide={thumbnails[classroom.id]}
+                              requestThumbnail={requestThumbnail}
                               formatDate={formatDate}
-                              runStatus={courseRunStatus(run)}
-                              pendingCourse
+                              runStatus={(() => {
+                                const run = runByStageId.get(classroom.id);
+                                return run ? courseRunStatus(run) : null;
+                              })()}
                               onDelete={handleDelete}
                               onRename={handleRename}
-                              confirmingDelete={pendingDeleteId === run.id}
-                              onConfirmDelete={() => confirmDelete(run.id)}
+                              confirmingDelete={pendingDeleteId === classroom.id}
+                              onConfirmDelete={() => confirmDelete(classroom.id)}
                               onCancelDelete={() => setPendingDeleteId(null)}
                               onClick={() => {
                                 setHistoryOpen(false);
-                                router.push(courseRunHref(run));
+                                const run = runByStageId.get(classroom.id);
+                                router.push(
+                                  run ? courseRunHref(run) : `/classroom/${classroom.id}`,
+                                );
                               }}
+                              overlay={
+                                <>
+                                  <MoveToFolderMenu
+                                    variant={mobile ? 'items' : 'icon'}
+                                    folders={folders}
+                                    currentFolderId={classroom.folderId}
+                                    onMove={(folderId) => handleMoveCourse(classroom.id, folderId)}
+                                    onCreateAndMove={handleCreateAndMove(classroom.id)}
+                                  />
+                                  {/* Search view: show the owning folder as a badge. */}
+                                  {!mobile && isSearching && classroom.folderId && (
+                                    <span className="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 rounded-md bg-violet-500/80 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm pointer-events-none">
+                                      <Folder className="size-2.5" />
+                                      {folderNameById.get(classroom.folderId) ?? ''}
+                                    </span>
+                                  )}
+                                </>
+                              }
                             />
                           </motion.div>
                         ))}
-
-                      {/* Course tiles for the active view. */}
-                      {visibleClassrooms.map((classroom, i) => (
-                        <motion.div
-                          key={classroom.id}
-                          initial={{ opacity: 0, y: 16 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: i * 0.04, duration: 0.35, ease: 'easeOut' }}
-                        >
-                          <ClassroomCard
-                            mobile={mobile}
-                            classroom={classroom}
-                            slide={thumbnails[classroom.id]}
-                            requestThumbnail={requestThumbnail}
-                            formatDate={formatDate}
-                            runStatus={(() => {
-                              const run = runByStageId.get(classroom.id);
-                              return run ? courseRunStatus(run) : null;
-                            })()}
-                            onDelete={handleDelete}
-                            onRename={handleRename}
-                            confirmingDelete={pendingDeleteId === classroom.id}
-                            onConfirmDelete={() => confirmDelete(classroom.id)}
-                            onCancelDelete={() => setPendingDeleteId(null)}
-                            onClick={() => {
-                              setHistoryOpen(false);
-                              const run = runByStageId.get(classroom.id);
-                              router.push(run ? courseRunHref(run) : `/classroom/${classroom.id}`);
-                            }}
-                            overlay={
-                              <>
-                                <MoveToFolderMenu
-                                  variant={mobile ? 'items' : 'icon'}
-                                  folders={folders}
-                                  currentFolderId={classroom.folderId}
-                                  onMove={(folderId) => handleMoveCourse(classroom.id, folderId)}
-                                  onCreateAndMove={handleCreateAndMove(classroom.id)}
-                                />
-                                {/* Search view: show the owning folder as a badge. */}
-                                {!mobile && isSearching && classroom.folderId && (
-                                  <span className="absolute bottom-2 left-2 z-10 inline-flex items-center gap-1 rounded-md bg-violet-500/80 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm pointer-events-none">
-                                    <Folder className="size-2.5" />
-                                    {folderNameById.get(classroom.folderId) ?? ''}
-                                  </span>
-                                )}
-                              </>
-                            }
-                          />
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-        {/* Keep the portalled folder dialog inside the library's React tree.
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {/* Keep the portalled folder dialog inside the library's React tree.
             Touch dismissal must not also reach the drawer underneath it. */}
-        <NewFolderDialog
-          open={newFolderOpen}
-          onOpenChange={(open) => {
-            setNewFolderOpen(open);
-            if (!open) setCreateAndMoveTarget(null);
-          }}
-          folders={folders}
-          onCreate={handleCreateFolder}
-          onCloseAutoFocus={(event) => {
-            if (!mobile || !historyOpen) return;
-            event.preventDefault();
-            requestAnimationFrame(() => {
-              const target =
-                newFolderButtonRef.current ??
-                document.querySelector<HTMLInputElement>('[data-testid="home-mobile-search"]');
-              target?.focus();
-            });
-          }}
-        />
-      </HomeLibrary>
+          <NewFolderDialog
+            open={newFolderOpen}
+            onOpenChange={(open) => {
+              setNewFolderOpen(open);
+              if (!open) setCreateAndMoveTarget(null);
+            }}
+            folders={folders}
+            onCreate={handleCreateFolder}
+            onCloseAutoFocus={(event) => {
+              if (!mobile || !historyOpen) return;
+              event.preventDefault();
+              requestAnimationFrame(() => {
+                const target =
+                  newFolderButtonRef.current ??
+                  document.querySelector<HTMLInputElement>('[data-testid="home-mobile-search"]');
+                target?.focus();
+              });
+            }}
+          />
+        </HomeLibrary>
+      )}
 
       {/* TeacherScenarioLab — training entry on the fork's home page.
           The old parallel /training tree now lives here: scenario hall,
@@ -1631,16 +1796,22 @@ function HomePage() {
                 {!mobileMaterialsOpen && (
                   <div className="home-mobile-teaching-options flex flex-wrap items-start gap-3">
                     <GreetingBar reserveSpace />
-                    <AgentBar />
+                    {isTraining ? <EpidemicRolePill composer={training} /> : <AgentBar />}
                   </div>
                 )}
                 <div>{generationToolbar}</div>
                 {!mobileMaterialsOpen && (
                   <>
                     <InteractiveModeButton
-                      pressed={form.interactiveMode}
-                      label={t('toolbar.interactiveModeLabel')}
-                      onPressedChange={(pressed) => updateForm('interactiveMode', pressed)}
+                      pressed={isTraining ? training.mode === 'model' : form.interactiveMode}
+                      label={
+                        isTraining ? t('training.modeModel') : t('toolbar.interactiveModeLabel')
+                      }
+                      onPressedChange={(pressed) =>
+                        isTraining
+                          ? training.setMode(pressed ? 'model' : 'scripted')
+                          : updateForm('interactiveMode', pressed)
+                      }
                     />
                     <button
                       type="button"
@@ -1693,11 +1864,34 @@ function HomePage() {
   );
 }
 
-function GreetingBar({ reserveSpace = false }: { reserveSpace?: boolean }) {
+function GreetingBar({
+  reserveSpace = false,
+  onOpen,
+}: {
+  reserveSpace?: boolean;
+  onOpen?: () => void;
+}) {
+  const { account } = useAccount();
+  const { t } = useI18n();
   return (
-    <div className={reserveSpace ? 'min-w-36' : undefined}>
-      <AccountMenu />
-    </div>
+    <button
+      type="button"
+      onClick={() => (onOpen ? onOpen() : window.location.assign('/?settings=account'))}
+      className={cn(
+        'm-3 inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/40 px-2 py-1.5 text-sm font-medium',
+        reserveSpace && 'min-w-36',
+      )}
+    >
+      <img src="/avatars/user.png" alt="" className="h-10 w-10 rounded-full bg-violet-100" />
+      <span>
+        {account?.authenticated
+          ? t('teacherlab.composer.greeting', {
+              name: account.displayName || t('teacherlab.member'),
+            })
+          : t('teacherlab.loginRegister')}
+      </span>
+      <ChevronDown size={12} className="text-muted-foreground" />
+    </button>
   );
 }
 
@@ -2120,14 +2314,6 @@ function ClassroomCard({
   );
 }
 
-export default function Page() {
-  const { account, loading } = useAccount();
-  if (loading) return null;
-  if (!account?.authenticated)
-    return (
-      <main className="mx-auto max-w-xl p-8">
-        <AccountPanel />
-      </main>
-    );
-  return <HomePage />;
+export default function LearningWorkspace({ trainingEntry = false }: { trainingEntry?: boolean }) {
+  return <HomePage trainingEntry={trainingEntry} />;
 }

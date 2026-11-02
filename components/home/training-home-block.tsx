@@ -75,7 +75,13 @@ function dimLabelKey(dimension: string): string {
   );
 }
 
-export function TrainingHomeBlock({ unified = false }: { unified?: boolean }) {
+export function TrainingHomeBlock({
+  unified = false,
+  onSelectScenario,
+}: {
+  unified?: boolean;
+  onSelectScenario?: (scenario: HallScenario) => void;
+}) {
   const { account } = useAccount();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -262,11 +268,19 @@ export function TrainingHomeBlock({ unified = false }: { unified?: boolean }) {
                   <button
                     type="button"
                     data-testid={`training-start-${scenario.scenarioId}`}
-                    onClick={() => void startTraining(scenario.scenarioId, scenario.version)}
+                    onClick={() =>
+                      onSelectScenario
+                        ? onSelectScenario(scenario)
+                        : void startTraining(scenario.scenarioId, scenario.version)
+                    }
                     disabled={starting !== ''}
                     className="mt-3 rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground disabled:opacity-50"
                   >
-                    {starting === scenario.scenarioId ? t('hallStarting') : t('hallStart')}
+                    {onSelectScenario
+                      ? getClientTranslation('teacherlab.composer.chooseScenario')
+                      : starting === scenario.scenarioId
+                        ? t('hallStarting')
+                        : t('hallStart')}
                   </button>
                 </li>
               ))}

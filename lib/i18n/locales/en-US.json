@@ -2932,6 +2932,23 @@
       "INVALID_REQUEST": "Check the information you entered.",
       "REQUEST_REFUSED": "The request was refused. Reload this page.",
       "PERSONAL_MODEL_REQUIRED": "Select a model saved in your own Model Services and keep its configuration valid."
+    },
+    "composer": {
+      "subtitle": "Practice school epidemic communication in multi-role scenarios",
+      "trainingMode": "Epidemic practice",
+      "courseMode": "Course learning",
+      "practiceWith": "Ready to practice together?",
+      "role": "Conversation role",
+      "model": "Role dialogue model",
+      "manageModels": "Configure and add models",
+      "materialsHint": "Upload materials in course learning mode. Practice uses published scenarios.",
+      "scenario": "Training scenario",
+      "noScenarios": "No published scenarios. Ask an administrator to publish one.",
+      "placeholder": "Draft your first message to a parent, student or school doctor.\nFor example: Could you describe the symptoms and any medical advice received?",
+      "modeHint": "Enable live model dialogue, or use scripted practice when off.",
+      "enterTraining": "Enter practice",
+      "chooseScenario": "Choose scenario",
+      "greeting": "Hi, {{name}}"
     }
   }
 }

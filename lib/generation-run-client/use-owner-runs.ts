@@ -15,6 +15,7 @@ const log = createLogger('OwnerRuns');
 export { mergeOwnerRun } from './owner-runs';
 
 export interface OwnerRunsOptions {
+  enabled?: boolean;
   /** A run gained its course, or finished: the course list should be read again. */
   onCourseChanged?: (run: RunSnapshot) => void;
 }
@@ -23,6 +24,7 @@ export function useOwnerRuns(options: OwnerRunsOptions = {}): {
   runs: RunSnapshot[];
   forget: (runId: string) => void;
 } {
+  const enabled = options.enabled ?? true;
   const [runs, setRuns] = useState<RunSnapshot[]>([]);
   const watcherRef = useRef<OwnerRunsWatcher | null>(null);
   const onCourseChangedRef = useRef(options.onCourseChanged);
@@ -31,6 +33,7 @@ export function useOwnerRuns(options: OwnerRunsOptions = {}): {
   });
 
   useEffect(() => {
+    if (!enabled) return;
     const watcher = new OwnerRunsWatcher({
       listActive: listActiveGenerationRuns,
       openStream:
@@ -55,7 +58,7 @@ export function useOwnerRuns(options: OwnerRunsOptions = {}): {
       watcher.close();
       if (watcherRef.current === watcher) watcherRef.current = null;
     };
-  }, []);
+  }, [enabled]);
 
   const forget = (runId: string) => watcherRef.current?.forget(runId);
   return { runs, forget };

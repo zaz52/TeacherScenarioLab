@@ -65,6 +65,14 @@ export default function TrainingRoomPage() {
   const draftKey = `tsl-room-draft-${trainingId}`;
   useEffect(() => {
     try {
+      const entryKey = `tsl-room-entry-${trainingId}`;
+      const entry = window.sessionStorage.getItem(entryKey);
+      if (entry) {
+        const value = JSON.parse(entry) as { characterId?: unknown; mode?: unknown };
+        if (typeof value.characterId === 'string') setCharacterId(value.characterId);
+        if (value.mode === 'scripted' || value.mode === 'model') setMode(value.mode);
+        window.sessionStorage.removeItem(entryKey);
+      }
       const saved = window.localStorage.getItem(draftKey);
       if (saved) setInput(saved);
     } catch {
