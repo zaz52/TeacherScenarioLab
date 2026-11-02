@@ -150,7 +150,9 @@ async function generateCharacterReplyInner(
   let characterId = input.characterId;
   let director: DirectorPick | undefined;
   if (!characterId) {
-    const eligible = getScenarioPacks(training.scenarioId).map((pack) => pack.characterId);
+    const eligible = getScenarioPacks(training.scenarioId, scenario).map(
+      (pack) => pack.characterId,
+    );
     const lastUserMessage =
       [...history].reverse().find((message) => message.role === 'user')?.content ?? '';
     const pick = selectResponder(scenario, eligible, history, lastUserMessage);
@@ -172,7 +174,7 @@ async function generateCharacterReplyInner(
       `character ${characterId} is not in scenario ${training.scenarioId}`,
     );
   }
-  const pack = getCharacterPack(training.scenarioId, characterId);
+  const pack = getCharacterPack(training.scenarioId, characterId, scenario);
   if (!pack) {
     throw new TrainingServiceError(
       400,

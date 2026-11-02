@@ -8,6 +8,7 @@ import { AccountPanel } from '@/components/account/account-panel';
 import { useAccount } from '@/components/account/account-provider';
 
 import { getClientTranslation } from '@/lib/i18n';
+import { characterLabel } from '@/lib/training/character-presentation';
 import { trainingStateLabel } from '@/lib/training/state-label';
 
 function t(key: string): string {
@@ -78,8 +79,10 @@ function dimLabelKey(dimension: string): string {
 export function TrainingHomeBlock({
   unified = false,
   onSelectScenario,
+  scenarioRevision = 0,
 }: {
   unified?: boolean;
+  scenarioRevision?: number;
   onSelectScenario?: (scenario: HallScenario) => void;
 }) {
   const { account } = useAccount();
@@ -121,7 +124,7 @@ export function TrainingHomeBlock({
         setHallLoading(false);
       }
     })();
-  }, []);
+  }, [scenarioRevision]);
 
   useEffect(() => {
     (async () => {
@@ -263,7 +266,9 @@ export function TrainingHomeBlock({
                   <p className="mt-1 text-sm text-muted-foreground">{scenario.setting}</p>
                   <p className="mt-1 text-sm">{scenario.goal}</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {scenario.characters.map((character) => character.name).join('、')}
+                    {scenario.characters
+                      .map((character) => characterLabel(character, getClientTranslation))
+                      .join('、')}
                   </p>
                   <button
                     type="button"

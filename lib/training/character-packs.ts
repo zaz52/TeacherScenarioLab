@@ -13,6 +13,7 @@
  * facts (see roleplay.ts). Scripted replies are demo-only: model mode
  * never plays them, it builds a fresh prompt per turn (see roleplay.ts).
  */
+import type { ScenarioVersion } from './scenario';
 export interface RoleplayPack {
   characterId: string;
   background: string;
@@ -101,11 +102,44 @@ export const CHARACTER_PACKS: Record<string, RoleplayPack[]> = {
 export function getCharacterPack(
   scenarioId: string,
   characterId: string,
+  scenario?: ScenarioVersion,
 ): RoleplayPack | undefined {
-  return (CHARACTER_PACKS[scenarioId] ?? []).find((pack) => pack.characterId === characterId);
+  return getScenarioPacks(scenarioId, scenario).find((pack) => pack.characterId === characterId);
 }
 
 /** All packs for a scenario: the director's eligible responder set. */
-export function getScenarioPacks(scenarioId: string): RoleplayPack[] {
-  return [...(CHARACTER_PACKS[scenarioId] ?? [])];
+export function getScenarioPacks(scenarioId: string, scenario?: ScenarioVersion): RoleplayPack[] {
+  const existing = CHARACTER_PACKS[scenarioId];
+  if (existing) return [...existing];
+  if (!scenario || scenario.scenarioId !== scenarioId) return [];
+  return scenario.characters.map((character) => ({
+    characterId: character.id,
+    background: `你是情境中的${character.name}，角色类型为${character.role}。公开情境：${scenario.setting}。仅依据已授予你的事实回应，未知情况请说明需要核实。`,
+    emotionBaseline:
+      character.role === 'student'
+        ? '有些担心，希望教师耐心倾听。'
+        : character.role === 'parent'
+          ? '关心孩子，希望得到清楚且可靠的说明。'
+          : '理性合作，关注事实核验与职责边界。',
+    communicationStyle:
+      '使用简短自然的中文，围绕教师刚才的问题回应；不代替其他角色、不编造诊断或未经提供的病情。',
+    scriptedReplies:
+      character.role === 'student'
+        ? [
+            '老师，关于刚才这个情况，我有点担心，您能听我说说吗？',
+            '老师，哪些事情需要我向您说明？',
+            '老师，我希望大家能尊重同学的隐私。',
+          ]
+        : character.role === 'parent'
+          ? [
+              '老师，看到这个情况我有些担心，您能先说明已经核实的信息吗？',
+              '我们还需要向谁核实？后续消息会通过什么渠道通知？',
+              '我理解了，请及时告知学校确认后的安排。',
+            ]
+          : [
+              '我们先把已经确认的情况和需要核实的信息分开。',
+              '涉及疫情报告和处置，请按学校职责与所在地现行流程办理。',
+              '我们对齐后续分工，正式信息通过学校渠道通知。',
+            ],
+  }));
 }

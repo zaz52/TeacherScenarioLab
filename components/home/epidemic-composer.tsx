@@ -5,6 +5,7 @@ import { Bot, ChevronDown, Paperclip } from 'lucide-react';
 import { useI18n } from '@/lib/hooks/use-i18n';
 import { useAccount } from '@/components/account/account-provider';
 import { useModelSettingsView } from '@/lib/model-settings/use-model-settings';
+import { characterLabel, characterAvatar } from '@/lib/training/character-presentation';
 import type { UserRouting } from '@/lib/training/user-model-routing';
 
 export interface ComposerScenario {
@@ -27,6 +28,7 @@ export function useEpidemicComposer(enabled: boolean) {
     evaluation: null,
     characters: {},
   });
+  const [revision, setRevision] = useState(0);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -135,6 +137,21 @@ export function useEpidemicComposer(enabled: boolean) {
   }
   return {
     scenarios,
+    revision,
+    addScenario(value: ComposerScenario) {
+      const safe = {
+        scenarioId: value.scenarioId,
+        version: value.version,
+        title: value.title,
+        characters: value.characters,
+      };
+      setScenarios((previous) => [safe, ...previous.filter((item) => key(item) !== key(safe))]);
+      setSelected(key(safe));
+      setCharacterId(
+        safe.characters.find((item) => item.role === 'parent')?.id ?? safe.characters[0]?.id ?? '',
+      );
+      setRevision((previous) => previous + 1);
+    },
     scenario,
     characterId: role?.id ?? '',
     setCharacterId,
@@ -162,7 +179,17 @@ export function EpidemicRolePill({ composer }: { composer: EpidemicComposer }) {
       <span className="text-muted-foreground max-sm:hidden">
         {t('teacherlab.composer.practiceWith')}
       </span>
-      <img src="/avatars/teacher.png" alt="" className="h-10 w-10 rounded-full bg-violet-100" />
+      <img
+        src={characterAvatar(
+          composer.scenario?.characters.find((value) => value.id === composer.characterId) ?? {
+            id: 'teacher-1',
+            role: 'teacher',
+            name: '',
+          },
+        )}
+        alt=""
+        className="h-10 w-10 rounded-full bg-violet-100"
+      />
       <select
         aria-label={t('teacherlab.composer.role')}
         className="max-w-32 bg-transparent text-sm outline-none"
@@ -172,7 +199,7 @@ export function EpidemicRolePill({ composer }: { composer: EpidemicComposer }) {
       >
         {composer.scenario?.characters.map((role) => (
           <option key={role.id} value={role.id}>
-            {role.name}
+            {characterLabel(role, t)}
           </option>
         ))}
       </select>
