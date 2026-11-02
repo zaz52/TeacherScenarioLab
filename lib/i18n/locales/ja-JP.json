@@ -2912,7 +2912,8 @@
       "parent-1": "Parent",
       "student-1": "Student",
       "doctor-1": "School doctor / epidemic reporter",
-      "principal-1": "School principal"
+      "principal-1": "School principal",
+      "teacher-1": "Fellow teacher"
     },
     "errors": {
       "ACCOUNT_SERVICE_UNAVAILABLE": "The service is temporarily unavailable. Please try again.",

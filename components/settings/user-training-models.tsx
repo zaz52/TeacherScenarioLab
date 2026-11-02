@@ -74,7 +74,7 @@ function RoutingForm({ view }: { view: ModelSettingsView }) {
       {select(t('teacherlab.evaluationModel'), routing.evaluation, (v) =>
         setRouting((r) => ({ ...r, evaluation: v })),
       )}
-      {(['parent-1', 'student-1', 'doctor-1', 'principal-1'] as const).map((id) =>
+      {(['parent-1', 'student-1', 'teacher-1', 'doctor-1', 'principal-1'] as const).map((id) =>
         select(t('teacherlab.characters.' + id), routing.characters[id] ?? null, (v) =>
           setRouting((r) => ({ ...r, characters: { ...r.characters, [id]: v } })),
         ),

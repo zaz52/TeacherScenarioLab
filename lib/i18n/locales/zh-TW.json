@@ -2912,7 +2912,8 @@
       "parent-1": "家长角色",
       "student-1": "学生角色",
       "doctor-1": "校医 / 学校疫情报告人",
-      "principal-1": "校长角色"
+      "principal-1": "校长角色",
+      "teacher-1": "同事教师角色"
     },
     "errors": {
       "ACCOUNT_SERVICE_UNAVAILABLE": "服务暂时不可用，请稍后重试。",

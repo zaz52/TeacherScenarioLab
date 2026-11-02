@@ -42,7 +42,7 @@ import {
   Presentation,
   Loader2,
 } from 'lucide-react';
-import './home-mobile.css';
+import '@/app/home-mobile.css';
 import {
   DropdownMenu,
   DropdownMenuContent,
