@@ -29,6 +29,7 @@ import { MailSettings } from './mail-settings';
 import { UserTrainingModels } from './user-training-models';
 import TrainingAdmin from './training-admin';
 import { ModelCenter as TrainingModelCenter } from './training-model-center';
+import { hasAdminPermission } from '@/lib/training/admin-permissions';
 
 export { SERVICE_TAB_LABELS, type ServiceTab } from './model-services';
 
@@ -63,6 +64,19 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
   const { t } = useI18n();
   const { account } = useAccount();
   const isAdmin = account?.roles.includes('admin') === true;
+  const access = account?.adminAccess;
+  const canUseAdminSection = (id: SettingsSection) => {
+    if (!isAdmin) return false;
+    if (id === 'mail') return access?.isOwner === true;
+    if (id === 'people') return hasAdminPermission(access, 'people.manage');
+    if (id === 'platform-models') return hasAdminPermission(access, 'models.manage');
+    return ['scenarios.manage', 'trainings.audit', 'references.inspect'].some((permission) =>
+      hasAdminPermission(
+        access,
+        permission as 'scenarios.manage' | 'trainings.audit' | 'references.inspect',
+      ),
+    );
+  };
 
   // Navigation
   const [requestedSection, setActiveSection] = useState<SettingsSection>('account');
@@ -82,7 +96,7 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
     !NAV.some((item) => item.id === id)
       ? false
       : ['training-admin', 'people', 'mail', 'platform-models'].includes(id)
-        ? isAdmin
+        ? canUseAdminSection(id)
         : id === 'skills'
           ? skillsAvailable
           : id === 'token-plan'
@@ -201,12 +215,32 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
         <DialogTitle className="sr-only">{t('settings.title')}</DialogTitle>
         <DialogDescription className="sr-only">{t('settings.description')}</DialogDescription>
         {/* Below `sm` the nav becomes a strip above the panel. */}
-        <div className="flex h-full flex-col overflow-hidden sm:flex-row">
+        <div className="teacherlab-settings-shell flex h-full flex-col overflow-hidden sm:flex-row">
+          <label className="admin-mobile-nav">
+            <Settings size={18} className="shrink-0 text-muted-foreground" />
+            <select
+              aria-label={t('teacherlab.adminUi.chooseSection')}
+              value={activeSection}
+              onChange={(event) => setActiveSection(event.target.value as SettingsSection)}
+            >
+              {nav.map(({ id, label }) => (
+                <option key={id} value={id}>
+                  {t(label)}
+                </option>
+              ))}
+            </select>
+          </label>
           {/* Left Sidebar - Navigation */}
           <div
-            className="flex flex-shrink-0 gap-1 overflow-x-auto border-b bg-muted/30 p-2 sm:block sm:w-[var(--settings-nav-width)] sm:space-y-1 sm:overflow-visible sm:border-b-0 sm:p-3"
+            className="admin-desktop-nav flex-shrink-0 bg-muted/20 sm:w-[var(--settings-nav-width)] sm:space-y-1 sm:overflow-y-auto sm:p-3"
             style={{ '--settings-nav-width': `${sidebarWidth}px` } as React.CSSProperties}
           >
+            <div className="mb-4 px-3 pt-2">
+              <p className="text-sm font-semibold">TeacherScenarioLab</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {t('teacherlab.adminUi.settingsScope')}
+              </p>
+            </div>
             {nav.map(({ id, icon: Icon, label }) => (
               <button
                 key={id}
@@ -237,7 +271,7 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
           <div className="flex-1 flex flex-col overflow-hidden min-w-0">
             {/* Header */}
             <div className="flex items-center justify-between gap-3 border-b p-4 sm:p-5">
-              <div className="flex items-center gap-3">{getHeaderContent()}</div>
+              <div className="min-w-0">{getHeaderContent()}</div>
               <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
@@ -253,7 +287,7 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
             {/* Content */}
             <div
               className={cn(
-                'p-3 sm:p-5',
+                'min-w-0 overflow-x-hidden p-4 sm:p-6',
                 fillsHeight ? 'flex min-h-0 flex-1 flex-col pt-3' : 'flex-1 overflow-y-auto',
               )}
             >
@@ -263,10 +297,12 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
                 !account?.authenticated && <AccountPanel />}
               {account?.authenticated && (
                 <>
-                  {activeSection === 'people' && isAdmin && <PeopleSettings />}
-                  {activeSection === 'mail' && isAdmin && <MailSettings />}
-                  {activeSection === 'training-admin' && isAdmin && <TrainingAdmin />}
-                  {activeSection === 'platform-models' && isAdmin && (
+                  {activeSection === 'people' && canUseAdminSection('people') && <PeopleSettings />}
+                  {activeSection === 'mail' && canUseAdminSection('mail') && <MailSettings />}
+                  {activeSection === 'training-admin' && canUseAdminSection('training-admin') && (
+                    <TrainingAdmin />
+                  )}
+                  {activeSection === 'platform-models' && canUseAdminSection('platform-models') && (
                     <TrainingModelCenter view="overview" embedded />
                   )}
                   {activeSection === 'training-routing' && <UserTrainingModels />}

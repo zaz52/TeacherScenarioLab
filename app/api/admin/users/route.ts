@@ -2,12 +2,14 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { accountJson, withSiteAdmin } from '@/lib/server/accounts/http';
 import { listPeople, addPerson, updatePerson } from '@/lib/server/accounts/people';
+import { ADMIN_PERMISSIONS } from '@/lib/training/admin-permissions';
 export const runtime = 'nodejs';
 const create = z
   .object({
     email: z.string().max(254),
     displayName: z.string().max(200).optional(),
     admin: z.boolean().default(false),
+    permissions: z.array(z.enum(ADMIN_PERMISSIONS)).max(ADMIN_PERMISSIONS.length).optional(),
   })
   .strict();
 const update = z
@@ -15,6 +17,7 @@ const update = z
     accountId: z.string().regex(/^acct:[a-f0-9-]{36}$/),
     admin: z.boolean().optional(),
     disabled: z.boolean().optional(),
+    permissions: z.array(z.enum(ADMIN_PERMISSIONS)).max(ADMIN_PERMISSIONS.length).optional(),
   })
   .strict();
 export async function GET(req: NextRequest) {

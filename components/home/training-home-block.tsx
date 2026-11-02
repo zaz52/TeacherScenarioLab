@@ -9,6 +9,7 @@ import { useAccount } from '@/components/account/account-provider';
 
 import { getClientTranslation } from '@/lib/i18n';
 import { characterLabel } from '@/lib/training/character-presentation';
+import { hasAdminPermission } from '@/lib/training/admin-permissions';
 import { trainingStateLabel } from '@/lib/training/state-label';
 
 function t(key: string): string {
@@ -199,7 +200,7 @@ export function TrainingHomeBlock({
     }
   }
 
-  const isAdmin = account?.roles.includes('admin') === true;
+  const isAdmin = hasAdminPermission(account?.adminAccess, 'scenarios.manage');
   const tabButton = (id: TrainingTab, label: string) => (
     <button
       key={id}

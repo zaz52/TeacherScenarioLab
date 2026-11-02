@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from 'next/server';
 import type { OwnerPrincipal } from '@/lib/server/identity/types';
 import { withTrainingOwner } from '@/lib/training/with-training-owner';
 import { AccountError } from './database';
+import { canAdmin, isSiteOwner } from './admin-access';
+import type { AdminPermission } from '@/lib/training/admin-permissions';
 
 export async function accountResponse(action: () => Promise<Response>) {
   try {
@@ -57,11 +59,25 @@ export function withSignedIn(
 export function withSiteAdmin(
   req: NextRequest,
   action: (principal: OwnerPrincipal, headers: Headers) => Promise<Response>,
+  permission: AdminPermission = 'people.manage',
 ) {
   return withSignedIn(req, async (principal, headers) => {
-    if (!principal.roles.has('admin'))
+    if (!principal.roles.has('admin') || !(await canAdmin(principal, permission)))
       return NextResponse.json(
         { success: false, error: 'ADMIN_REQUIRED' },
+        { status: 403, headers },
+      );
+    return action(principal, headers);
+  });
+}
+export function withSiteOwner(
+  req: NextRequest,
+  action: (principal: OwnerPrincipal, headers: Headers) => Promise<Response>,
+) {
+  return withSignedIn(req, async (principal, headers) => {
+    if (!isSiteOwner(principal))
+      return NextResponse.json(
+        { success: false, error: 'OWNER_REQUIRED' },
         { status: 403, headers },
       );
     return action(principal, headers);

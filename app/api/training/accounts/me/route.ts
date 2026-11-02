@@ -13,6 +13,7 @@ import { NextResponse } from 'next/server';
 import { getTrainingAccount } from '@/lib/training/accounts';
 import { withTrainingOwner } from '@/lib/training/with-training-owner';
 import { accountAccess } from '@/lib/server/accounts/database';
+import { getAdminAccess } from '@/lib/server/accounts/admin-access';
 
 export const runtime = 'nodejs';
 
@@ -35,6 +36,7 @@ export async function GET(req: NextRequest) {
         displayName,
         email: access?.email ?? null,
         emailVerified: Boolean(access?.verified_at),
+        adminAccess: await getAdminAccess(principal),
       },
       { headers: { 'Cache-Control': 'no-store' } },
     );

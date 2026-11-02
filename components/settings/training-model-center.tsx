@@ -12,6 +12,10 @@ import {
 } from '@/lib/training/models/types';
 import type { poolOverview } from '@/lib/training/models/store';
 import type { providerSummaries } from '@/lib/training/models/providers';
+import { useAccount } from '@/components/account/account-provider';
+import { hasAdminPermission } from '@/lib/training/admin-permissions';
+import { characterLabel } from '@/lib/training/character-presentation';
+import { AdminHeading, AdminPanel, AdminNotice } from './admin-ui';
 
 type Overview = Awaited<ReturnType<typeof poolOverview>> & {
   providers: Awaited<ReturnType<typeof providerSummaries>>;
@@ -31,6 +35,9 @@ export function ModelCenter({
   view?: CenterView;
   embedded?: boolean;
 }) {
+  const { account } = useAccount();
+  const allowed = hasAdminPermission(account?.adminAccess, 'models.manage');
+  const ui = (key: string) => getClientTranslation('teacherlab.adminUi.' + key);
   const [view, setView] = useState(initialView);
   const [data, setData] = useState<Overview | null>(null);
   const [error, setError] = useState('');
@@ -46,22 +53,25 @@ export function ModelCenter({
   } | null>(null);
   const [characters, setCharacters] = useState<{ id: string; name: string }[]>([]);
   const load = useCallback(async () => {
+    if (!allowed) return;
+    setError('');
     try {
       const r = await fetch('/api/training/admin/models', { cache: 'no-store' });
       if (!r.ok) throw new Error();
       setData(await r.json());
-      const scenarios = await fetch('/api/training/admin/scenarios', { cache: 'no-store' });
+      const scenarios = await fetch('/api/training/scenarios', { cache: 'no-store' });
       if (scenarios.ok) {
         const body = await scenarios.json();
         const found = new Map<string, string>();
         for (const scenario of body.scenarios ?? [])
-          for (const c of scenario.characters ?? []) found.set(c.id, c.name);
+          for (const c of scenario.characters ?? [])
+            found.set(c.id, characterLabel(c, getClientTranslation));
         setCharacters([...found].map(([id, name]) => ({ id, name })));
       }
     } catch {
       setError(t('accessError'));
     }
-  }, []);
+  }, [allowed]);
   useEffect(() => {
     void load();
   }, [load]);
@@ -86,9 +96,19 @@ export function ModelCenter({
       setBusy(false);
     }
   }
+  if (!allowed)
+    return <AdminNotice error>{getClientTranslation('training.adminRequired')}</AdminNotice>;
   return (
-    <main className="mx-auto max-w-6xl space-y-5 p-6">
-      <h1 className="text-2xl font-semibold">{t('title')}</h1>
+    <main className="teacherlab-admin space-y-5">
+      <AdminHeading
+        title={t('title')}
+        description={ui('modelsDescription')}
+        action={
+          <button disabled={busy} onClick={() => void load()}>
+            {busy ? t('working') : t('refresh')}
+          </button>
+        }
+      />
       <nav aria-label={t('title')} className="flex flex-wrap gap-4">
         {(['overview', 'providers', 'quotas', 'routing', 'logs'] as const).map((tab) =>
           embedded ? (
@@ -96,7 +116,7 @@ export function ModelCenter({
               key={tab}
               type="button"
               aria-current={view === tab ? 'page' : undefined}
-              className="underline"
+              className="admin-button"
               onClick={() => setView(tab)}
             >
               {t(tab)}
@@ -106,7 +126,7 @@ export function ModelCenter({
               key={tab}
               aria-current={view === tab ? 'page' : undefined}
               href={`/settings/training/models${tab === 'overview' ? '' : `/${tab}`}`}
-              className="underline"
+              className="admin-button"
             >
               {t(tab)}
             </Link>
@@ -116,25 +136,68 @@ export function ModelCenter({
           <Link href="/settings/training">{getClientTranslation('training.navAdmin')}</Link>
         )}
       </nav>
-      <p className="rounded border p-3 text-sm">
-        {t('privacyNote')}{' '}
-        {data && (
-          <a className="underline" href={data.privacy.source} target="_blank" rel="noreferrer">
-            {t('policySource')} · {data.privacy.verifiedAt}
-          </a>
-        )}
-      </p>
-      <p className="text-sm">{t('costNote')}</p>
+      <details className="admin-detail">
+        <summary>{ui('modelPrivacy')}</summary>
+        <p className="mt-3 text-sm">
+          {t('privacyNote')}{' '}
+          {data && (
+            <a className="underline" href={data.privacy.source} target="_blank" rel="noreferrer">
+              {t('policySource')} · {data.privacy.verifiedAt}
+            </a>
+          )}
+        </p>
+        <p className="mt-2 text-sm">{t('costNote')}</p>
+      </details>
       {error && (
         <p role="alert" className="text-red-700">
           {error}
         </p>
       )}
-      <button disabled={busy} onClick={() => void load()} className="rounded border px-3 py-2">
-        {busy ? t('working') : t('refresh')}
-      </button>
       {!data && !error && <p>{t('working')}</p>}
-      {data && (view === 'providers' || view === 'overview') && (
+      {data && view === 'overview' && (
+        <>
+          <dl className="admin-stats">
+            <div className="admin-stat">
+              <dt>{t('configured')}</dt>
+              <dd>
+                {data.providers.filter((provider) => provider.configured).length} /{' '}
+                {data.providers.length}
+              </dd>
+            </div>
+            <div className="admin-stat">
+              <dt>{t('enabled')}</dt>
+              <dd>{data.policies.filter((policy) => policy.enabled).length}</dd>
+            </div>
+            <div className="admin-stat">
+              <dt>{t('samples')}</dt>
+              <dd>{data.calls.length}</dd>
+            </div>
+          </dl>
+          <AdminPanel
+            title={t('providers')}
+            action={<button onClick={() => setView('providers')}>{t('configure')}</button>}
+          >
+            <ul className="admin-list">
+              {data.providers.map((provider) => (
+                <li className="admin-row" key={provider.id}>
+                  <div className="admin-row-info">
+                    <p className="font-medium">{provider.id}</p>
+                    <p className="admin-meta">
+                      {data.policies.filter((policy) => policy.provider === provider.id).length}{' '}
+                      {t('model')}
+                    </p>
+                  </div>
+                  <span className="admin-badge">
+                    {t(provider.configured ? 'configured' : 'missing')}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </AdminPanel>
+          <AdminNotice>{ui('modelsOverviewHint')}</AdminNotice>
+        </>
+      )}
+      {data && view === 'providers' && (
         <section className="space-y-3 rounded border p-4">
           <button
             disabled={busy}
@@ -168,7 +231,7 @@ export function ModelCenter({
           )}
         </section>
       )}
-      {data && (view === 'providers' || view === 'overview') && (
+      {data && view === 'providers' && (
         <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {data.providers.map((provider) => (
             <article className="space-y-2 rounded border p-4" key={provider.id}>
@@ -271,7 +334,7 @@ export function ModelCenter({
           ))}
         </section>
       )}
-      {data && (view === 'quotas' || view === 'overview') && (
+      {data && view === 'quotas' && (
         <section className="grid gap-4 md:grid-cols-2">
           {data.policies.map((p) => {
             const key = modelKey(p);
@@ -327,7 +390,7 @@ export function ModelCenter({
           })}
         </section>
       )}
-      {data && (view === 'routing' || view === 'overview') && (
+      {data && view === 'routing' && (
         <section className="space-y-4 rounded border p-4">
           <h2 className="font-semibold">{t('routing')}</h2>
           <p>{t('orderNote')}</p>
@@ -452,7 +515,7 @@ export function ModelCenter({
           <p className="text-sm">{t('testNote')}</p>
         </section>
       )}
-      {data && (view === 'logs' || view === 'overview') && (
+      {data && view === 'logs' && (
         <section className="overflow-x-auto rounded border p-4">
           <h2 className="font-semibold">{t('performance')}</h2>
           <p className="text-sm">{t('metricsNote')}</p>

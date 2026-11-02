@@ -34,6 +34,10 @@ export async function accountDatabase() {
           id TEXT PRIMARY KEY, actor TEXT NOT NULL, action TEXT NOT NULL, subject TEXT NOT NULL, created_at BIGINT NOT NULL
         );
         CREATE TABLE IF NOT EXISTS teacherlab_user_model_routing (owner_id TEXT PRIMARY KEY, data JSONB NOT NULL);
+        CREATE TABLE IF NOT EXISTS teacherlab_admin_permissions (
+          account_id TEXT PRIMARY KEY REFERENCES training_accounts(account_id) ON DELETE CASCADE,
+          permissions JSONB NOT NULL DEFAULT '[]'::jsonb
+        );
       `);
     });
     ready = { url, promise };

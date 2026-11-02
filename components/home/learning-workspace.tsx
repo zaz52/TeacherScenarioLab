@@ -53,6 +53,7 @@ import { HomeLibrary } from '@/components/home/home-library';
 import { useAccount } from '@/components/account/account-provider';
 import { TrainingHomeBlock } from './training-home-block';
 import { ScenarioBuilder } from './scenario-builder';
+import { hasAdminPermission } from '@/lib/training/admin-permissions';
 import { useEpidemicComposer, EpidemicRolePill, EpidemicModelPill } from './epidemic-composer';
 import { useMobileLayout } from '@/lib/adaptive/adaptive-provider';
 import { installPageScrollBoundary } from '@/lib/adaptive/page-scroll-boundary';
@@ -925,7 +926,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
         initialSection={settingsSection}
       />
 
-      {builderOpen && account?.roles.includes('admin') && (
+      {builderOpen && hasAdminPermission(account?.adminAccess, 'scenarios.manage') && (
         <ScenarioBuilder
           open={builderOpen}
           onOpenChange={setBuilderOpen}
@@ -1075,7 +1076,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
                 </select>
               </div>
             )}
-            {isTraining && account?.roles.includes('admin') && (
+            {isTraining && hasAdminPermission(account?.adminAccess, 'scenarios.manage') && (
               <div className="px-4 pb-2">
                 <button
                   type="button"

@@ -2887,7 +2887,7 @@
     "save": "Save",
     "saved": "Saved",
     "reload": "Reload",
-    "peopleHint": "Add members by email. They verify ownership of that email at sign-in. New registrations are members; administrators grant administrator access.",
+    "peopleHint": "Add members by email; they must verify their email to sign in. The site owner grants administrator roles and module permissions.",
     "grantAdmin": "Grant administrator",
     "revokeAdmin": "Remove administrator",
     "addPerson": "Add person",
@@ -2931,7 +2931,9 @@
       "ACCOUNT_NOT_FOUND": "Account not found.",
       "INVALID_REQUEST": "Check the information you entered.",
       "REQUEST_REFUSED": "The request was refused. Reload this page.",
-      "PERSONAL_MODEL_REQUIRED": "Select a model saved in your own Model Services and keep its configuration valid."
+      "PERSONAL_MODEL_REQUIRED": "Select a model saved in your own Model Services and keep its configuration valid.",
+      "OWNER_REQUIRED": "This operation requires the site owner.",
+      "ADMIN_REQUIRED": "This administration module has not been granted."
     },
     "composer": {
       "subtitle": "Practice school epidemic communication in multi-role scenarios",
@@ -3013,6 +3015,54 @@
       "resetNames": "Clear names",
       "saveNames": "Save names",
       "nameSaveError": "Your browser could not save these names. Check site storage permissions and try again."
+    },
+    "adminUi": {
+      "console": "Administration",
+      "settingsScope": "Personal settings and administration",
+      "chooseSection": "Choose settings section",
+      "owner": "Site owner",
+      "ownerOnly": "Owner only",
+      "peopleDescription": "Manage members, account status and delegated administration modules.",
+      "loadedPeople": "Loaded members",
+      "memberList": "Members",
+      "findPeople": "Search name, email or account ID",
+      "noPeople": "No matching members.",
+      "noPermissions": "No administration modules granted",
+      "permissions": "Module permissions",
+      "permissionsHint": "Select the modules this person may use. Unselected modules are hidden and their APIs deny access. Changes apply to subsequent requests; refresh to update navigation.",
+      "ownerScope": "The site owner controls verification email settings, administrator roles and permission grants. People management may add ordinary members and enable or disable ordinary members.",
+      "permissionLabels": {
+        "scenarios": "Scenario management",
+        "trainings": "Training review",
+        "references": "Reference inspection",
+        "models": "Shared models",
+        "people": "People management"
+      },
+      "permissionHints": {
+        "scenarios": "Read, create, edit or delete drafts and publish scenarios",
+        "trainings": "Read cross-account training review records",
+        "references": "Read reference validity results",
+        "models": "Manage shared providers, budgets, routing and logs",
+        "people": "List members, add ordinary members, enable or disable ordinary members"
+      },
+      "confirmRevoke": "Revoke this administrator role and clear its module permissions?",
+      "confirmDisable": "Disable this account? Subsequent requests will be refused.",
+      "ownerMailDescription": "Only the site owner can read or change email delivery settings.",
+      "deliverySettings": "Verification email delivery",
+      "scenarioDescription": "Manage campus epidemic scenarios, training reviews and reference health.",
+      "loadedScenarios": "Loaded scenario versions",
+      "loadedTrainings": "Loaded training records",
+      "importCodeDraft": "Import a code template draft",
+      "scenarioId": "Scenario ID",
+      "draft": "Draft",
+      "confirmPublish": "Publish and freeze this version? Further changes require a new version.",
+      "confirmDelete": "Delete this unpublished draft?",
+      "trainingAuditHint": "Expand a record to see its complete training ID and owner. Counts describe loaded records.",
+      "recordId": "Training record",
+      "openReferences": "Open references",
+      "modelsDescription": "Review shared providers and models; manage connections, budgets and routing in separate sections.",
+      "modelPrivacy": "Usage, privacy and costs",
+      "modelsOverviewHint": "Manage connections under Providers, policies under Quotas, and role and evaluation models under Routing. Call logs retain actual outcomes."
     }
   }
 }

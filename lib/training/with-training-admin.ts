@@ -13,6 +13,7 @@ import type { OwnerPrincipal } from '@/lib/server/identity/types';
 import { requireTrainingAdmin } from './admin';
 import { TrainingServiceError } from './store';
 import { withTrainingOwner } from './with-training-owner';
+import { canAdmin, trainingAdminPermission } from '@/lib/server/accounts/admin-access';
 
 export async function withTrainingAdmin(
   req: Parameters<typeof withTrainingOwner>[0],
@@ -21,6 +22,14 @@ export async function withTrainingAdmin(
   return withTrainingOwner(req, async (principal, responseHeaders) => {
     try {
       requireTrainingAdmin(principal);
+      const permission = trainingAdminPermission(req.url);
+      if (!permission || !(await canAdmin(principal, permission))) {
+        throw new TrainingServiceError(
+          403,
+          'TRAINING_ADMIN_REQUIRED',
+          'administration permission required',
+        );
+      }
     } catch (error) {
       if (error instanceof TrainingServiceError) {
         const response = apiError(

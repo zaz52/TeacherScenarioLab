@@ -1,5 +1,6 @@
 'use client';
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+import type { AdminAccess } from '@/lib/training/admin-permissions';
 export interface SiteAccount {
   authenticated: boolean;
   ownerId: string;
@@ -8,6 +9,7 @@ export interface SiteAccount {
   displayName: string | null;
   email: string | null;
   emailVerified: boolean;
+  adminAccess?: AdminAccess;
 }
 const Context = createContext<{
   account: SiteAccount | null;

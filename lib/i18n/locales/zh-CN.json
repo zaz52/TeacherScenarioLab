@@ -2887,7 +2887,7 @@
     "save": "保存",
     "saved": "已保存",
     "reload": "重新加载",
-    "peopleHint": "可按邮箱添加成员，对方登录时仍需验证邮箱。新注册用户均为普通成员，管理员权限由管理员授予。",
+    "peopleHint": "可按邮箱添加普通成员，对方登录时仍需验证邮箱。管理员身份与功能权限由站点所有者授予。",
     "grantAdmin": "设为管理员",
     "revokeAdmin": "撤销管理员",
     "addPerson": "添加人员",
@@ -2931,7 +2931,9 @@
       "ACCOUNT_NOT_FOUND": "未找到该账号。",
       "INVALID_REQUEST": "请检查填写的信息。",
       "REQUEST_REFUSED": "请求未获接受，请刷新页面后重试。",
-      "PERSONAL_MODEL_REQUIRED": "请选择已在你的“模型服务”中保存的有效模型。"
+      "PERSONAL_MODEL_REQUIRED": "请选择已在你的“模型服务”中保存的有效模型。",
+      "OWNER_REQUIRED": "此操作由站点所有者管理。",
+      "ADMIN_REQUIRED": "尚未获得此后台功能的权限。"
     },
     "composer": {
       "subtitle": "在多角色情境中练习校园疫情沟通与处置",
@@ -3013,6 +3015,54 @@
       "resetNames": "清空名称",
       "saveNames": "保存名称",
       "nameSaveError": "当前浏览器无法保存，请检查网站存储权限后重试。"
+    },
+    "adminUi": {
+      "console": "管理工作台",
+      "settingsScope": "个人设置与站点管理",
+      "chooseSection": "选择设置分区",
+      "owner": "站点所有者",
+      "ownerOnly": "所有者专属",
+      "peopleDescription": "管理站内成员、账号状态与管理员的可用功能。",
+      "loadedPeople": "已载入成员",
+      "memberList": "成员列表",
+      "findPeople": "搜索姓名、邮箱或账号 ID",
+      "noPeople": "没有匹配的成员。",
+      "noPermissions": "尚未开通后台功能",
+      "permissions": "功能权限",
+      "permissionsHint": "勾选允许使用的后台模块。未勾选的功能会隐藏入口，服务端同时拒绝访问。保存后在后续请求生效，页面刷新可更新导航。",
+      "ownerScope": "验证码邮件配置、授予或撤销管理员、分配管理员权限由站点所有者管理。人员管理权限可添加普通成员及管理普通成员的启停。",
+      "permissionLabels": {
+        "scenarios": "情境管理",
+        "trainings": "训练抽查",
+        "references": "文献检查",
+        "models": "共享模型管理",
+        "people": "人员管理"
+      },
+      "permissionHints": {
+        "scenarios": "查看、创建、编辑草稿、删除草稿与发布情境",
+        "trainings": "查看跨账号的训练抽查记录",
+        "references": "查看文献有效性检查结果",
+        "models": "管理平台供应商、额度、调度与调用日志",
+        "people": "查看成员、添加普通成员、启用或停用普通成员"
+      },
+      "confirmRevoke": "确认撤销此人的管理员身份？已授予的后台权限也将清空。",
+      "confirmDisable": "确认停用此账号？其后续请求将被拒绝。",
+      "ownerMailDescription": "发信配置由站点所有者维护，其他成员和管理员无法读取或修改。",
+      "deliverySettings": "验证码发信设置",
+      "scenarioDescription": "维护校园疫情情境、查看训练抽查与文献库状态。",
+      "loadedScenarios": "已载入情境版本",
+      "loadedTrainings": "已载入训练记录",
+      "importCodeDraft": "从代码模板导入草稿",
+      "scenarioId": "情境 ID",
+      "draft": "草稿",
+      "confirmPublish": "确认发布此版本？发布后将冻结，后续修改需要新版本。",
+      "confirmDelete": "确认删除此未发布草稿？",
+      "trainingAuditHint": "展开记录可查看完整训练 ID 和所属账号；此处展示已载入的记录。",
+      "recordId": "训练记录",
+      "openReferences": "打开文献库",
+      "modelsDescription": "查看共享供应商与模型状态，分区维护接入、额度和角色调度。",
+      "modelPrivacy": "使用范围、隐私与费用说明",
+      "modelsOverviewHint": "在供应商中维护接入，在额度中调整模型策略，在调度中设置角色与评价模型；调用日志保留真实结果。"
     }
   }
 }
