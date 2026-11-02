@@ -30,6 +30,8 @@ on:
   # main by hand before it merges. The required check must report here too, or
   # a queued entry waits until it times out.
   merge_group:
+  # Manual account-entry repair: build and run the focused browser check.
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -40,6 +42,7 @@ concurrency:
 
 jobs:
   issue-triage:
+    if: github.event_name != 'workflow_dispatch'
     name: Issue Triage (offline contracts)
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -60,6 +63,7 @@ jobs:
   # them passed. A job added here that must gate merges has to be added to its
   # `needs` as well.
   lint:
+    if: github.event_name != 'workflow_dispatch'
     name: Lint & Typecheck
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -172,6 +176,7 @@ jobs:
   # shards never compete for CPU (running root vitest alongside the storage
   # package on one 4-core runner made 5s-timeout tests flake).
   unit:
+    if: github.event_name != 'workflow_dispatch'
     name: Unit Tests (${{ matrix.shard }}/4)
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -196,6 +201,7 @@ jobs:
         run: pnpm exec vitest run --shard=${{ matrix.shard }}/4
 
   package-tests:
+    if: github.event_name != 'workflow_dispatch'
     name: Unit Tests (packages)
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -255,6 +261,7 @@ jobs:
           node -e 'const value = JSON.parse(process.argv[1]); if (!Array.isArray(value.outlines) || value.outlines.length === 0 || !value.scene || value.sceneValidation?.valid !== true) process.exit(1)' "$output"
 
   storage-tests:
+    if: github.event_name != 'workflow_dispatch'
     name: Unit Tests (storage)
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -279,7 +286,7 @@ jobs:
   check:
     name: Lint, Typecheck & Unit Tests
     needs: [lint, unit, package-tests, storage-tests]
-    if: always()
+    if: always() && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
@@ -295,6 +302,7 @@ jobs:
           fi
 
   render-service:
+    if: github.event_name != 'workflow_dispatch'
     name: Render Service (typecheck + tests)
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -331,6 +339,7 @@ jobs:
         run: docker build --tag openmaic-render-service:ci render-service
 
   e2e:
+    if: github.event_name != 'workflow_dispatch'
     name: E2E Tests
     # The locked Playwright version does not support Ubuntu 26.04 yet.
     runs-on: ubuntu-24.04
@@ -461,8 +470,9 @@ jobs:
           retention-days: 7
 
   docker-main-image:
+    if: github.event_name != 'workflow_dispatch' || github.ref == 'refs/heads/feat/teacher-scenario-lab-product'
     name: Main image (deps + builder + runner)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     services:
       postgres:
@@ -580,18 +590,44 @@ jobs:
           docker cp scripts/teacher-scenario-runtime-smoke.mjs teacher-scenario-runtime:/tmp/runtime-smoke.mjs
           docker exec teacher-scenario-runtime node /tmp/runtime-smoke.mjs
 
-      - name: Export the verified image for the authorized VPS
-        if: success() && steps.changes.outputs.changed == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/teacher-scenario-lab-product'
+      - name: Set up focused account browser check
+        if: github.event_name == 'workflow_dispatch'
+        uses: ./.github/actions/setup-workspace
+
+      - name: Check account form, translations and focused workflow
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          pnpm exec prettier components/home/training-home-block.tsx e2e/playwright.account.config.ts e2e/tests/training-account.spec.ts lib/i18n/locales/*.json .github/workflows/ci.yml CHANGELOG.md --check
+          pnpm exec eslint components/home/training-home-block.tsx
+          pnpm check:i18n-keys
+          pnpm exec playwright install --with-deps chromium
+
+      - name: Verify account creation through the production browser form
+        if: github.event_name == 'workflow_dispatch'
         env:
-          TEACHERLAB_SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+          TEACHERLAB_ACCOUNT_ACCESS_CODE: ci-runtime-access-code
+        run: pnpm exec playwright test --config e2e/playwright.account.config.ts
+
+      - name: Retain focused browser diagnostics
+        if: failure() && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: training-account-browser-diagnostics
+          path: test-results/
+          retention-days: 3
+
+      - name: Export the verified image for the authorized VPS
+        if: success() && steps.changes.outputs.changed == 'true' && ((github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/teacher-scenario-lab-product') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feat/teacher-scenario-lab-product'))
+        env:
+          TEACHERLAB_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           TEACHERLAB_IMAGE_OUTPUT: ${{ runner.temp }}/teacherlab-vps-image
         run: node scripts/teacher-scenario-export-image.mjs
 
       - name: Retain the verified VPS image and checksum
-        if: success() && steps.changes.outputs.changed == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/teacher-scenario-lab-product'
+        if: success() && steps.changes.outputs.changed == 'true' && ((github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/teacher-scenario-lab-product') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feat/teacher-scenario-lab-product'))
         uses: actions/upload-artifact@v4
         with:
-          name: teacherlab-vps-image-${{ github.event.pull_request.head.sha }}
+          name: teacherlab-vps-image-${{ github.event.pull_request.head.sha || github.sha }}
           path: ${{ runner.temp }}/teacherlab-vps-image/
           compression-level: 0
           retention-days: 1

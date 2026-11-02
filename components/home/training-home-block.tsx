@@ -17,7 +17,7 @@
  */
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type FormEvent } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
 import { trainingStateLabel } from '@/lib/training/state-label';
@@ -111,6 +111,8 @@ export function TrainingHomeBlock() {
   const [meLoading, setMeLoading] = useState(true);
   const [meError, setMeError] = useState('');
   const [notice, setNotice] = useState('');
+  const [accountName, setAccountName] = useState('');
+  const [creatingAccount, setCreatingAccount] = useState(false);
 
   const [events, setEvents] = useState<LedgerEvent[]>([]);
   const [eventsLoading, setEventsLoading] = useState(true);
@@ -221,6 +223,27 @@ export function TrainingHomeBlock() {
     }
   }
 
+  async function createAccount(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (creatingAccount) return;
+    setCreatingAccount(true);
+    setNotice('');
+    try {
+      const res = await fetch('/api/training/accounts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ displayName: accountName.trim() }),
+      });
+      if (!res.ok) throw new Error('create failed');
+      setMeError('');
+      await loadMe();
+    } catch {
+      setNotice(t('accountCreateFailed'));
+    } finally {
+      setCreatingAccount(false);
+    }
+  }
+
   async function logout() {
     setNotice('');
     try {
@@ -274,6 +297,7 @@ export function TrainingHomeBlock() {
 
   return (
     <section
+      id="training"
       data-testid="training-home-block"
       className="w-full rounded-xl border border-border bg-background p-6"
     >
@@ -406,7 +430,33 @@ export function TrainingHomeBlock() {
           {!meLoading && !meError && me && (
             <>
               {notice && <p className="text-sm">{notice}</p>}
-              {!me.authenticated && <p className="text-sm">{t('accountAnonymous')}</p>}
+              {!me.authenticated && (
+                <>
+                  <p className="text-sm">{t('accountAnonymous')}</p>
+                  <form className="mt-3 flex max-w-md flex-col gap-3" onSubmit={createAccount}>
+                    <label className="flex flex-col gap-1 text-sm">
+                      {t('accountDisplayName')}
+                      <input
+                        data-testid="training-account-name"
+                        value={accountName}
+                        onChange={(event) => setAccountName(event.target.value)}
+                        maxLength={200}
+                        disabled={creatingAccount}
+                        autoComplete="nickname"
+                        className="rounded-md border border-border bg-background px-3 py-2"
+                      />
+                    </label>
+                    <button
+                      type="submit"
+                      data-testid="training-account-create"
+                      disabled={creatingAccount}
+                      className="self-start rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground disabled:opacity-50"
+                    >
+                      {creatingAccount ? t('accountCreating') : t('accountCreate')}
+                    </button>
+                  </form>
+                </>
+              )}
               {me.authenticated && (
                 <>
                   <h3 className="font-medium">{t('accountInfo')}</h3>

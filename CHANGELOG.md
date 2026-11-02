@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 账号创建入口修复（2026-11-02，Asia/Shanghai）
+
+- 用户反馈找不到创建账号；首页账号标签原先显示匿名提示，创建表单缺失。补齐显示名输入、创建按钮、提交状态和失败重试，创建成功后使用现有会话接口展示账户 ID；后端身份与管理员授权机制沿用。
+- 补齐 12 种语言的三项账号表单文案，增加浏览器表单失败恢复、创建账号、会话刷新保留、管理权限和登出定点回归。
+- CI 增加功能分支手动账号定点检查，复用现有生产镜像构建、运行验证和校验和 Artifact。正常 PR 与集成事件的检查保持；本次提交跳过自动批量检查，随后手动执行账号回归与镜像任务。
+- 生产访问码保持关闭；本轮网站发布结果和实际检查数据另记于工作区上线验收记录。
+
 ### TeacherScenarioLab 1GB VPS 接入准备（2026-11-02，Asia/Shanghai）
 
 - 用户提供已创建的 teacherlab-vps Tunnel Token；密钥以受限本地文件接收并通过 SFTP 保存至主机只读挂载，UID 65532、权限 400。cloudflared 已启动、配置自动重启并建立 4 条新加坡连接，原 x-ui/xray 运行正常；监控绑定本机。
