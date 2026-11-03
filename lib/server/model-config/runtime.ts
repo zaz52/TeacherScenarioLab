@@ -222,7 +222,8 @@ export async function lookupSlot(
   slot: SlotId,
   workspaceId: string | null,
 ): Promise<SlotResolution> {
-  const { layer } = deploymentConfig();
+  const { effectiveDeploymentLayer } = await import('./site-providers');
+  const layer = await effectiveDeploymentLayer();
   const workspace = workspaceId ? await (loadWorkspace ?? workspaceLayer)(workspaceId) : null;
   return lookupFromLayers(slot, { deployment: layer, workspace });
 }
@@ -273,7 +274,8 @@ export async function savedProviderTarget(
     providerOnly?: boolean;
   } = {},
 ): Promise<ResolvedModelTarget> {
-  const { layer: deployment } = deploymentConfig();
+  const { effectiveDeploymentLayer } = await import('./site-providers');
+  const deployment = await effectiveDeploymentLayer();
   const stored = workspaceId ? await (loadWorkspace ?? workspaceLayer)(workspaceId) : null;
   const workspace = usableWorkspace(stored, deployment);
   const layers = workspaceOnly
@@ -296,7 +298,8 @@ export async function assertWorkspaceModelsAuthorized(
   workspaceId: string | null,
   slots: readonly SlotId[],
 ): Promise<void> {
-  const { layer: deployment } = deploymentConfig();
+  const { effectiveDeploymentLayer } = await import('./site-providers');
+  const deployment = await effectiveDeploymentLayer();
   const workspace = workspaceId ? await (loadWorkspace ?? workspaceLayer)(workspaceId) : null;
   for (const slot of slots) {
     try {

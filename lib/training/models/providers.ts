@@ -1,4 +1,4 @@
-import { deploymentConfig } from '@/lib/server/model-config/runtime';
+import { effectiveDeploymentLayer } from '@/lib/server/model-config/site-providers';
 import {
   resolveModelReference,
   type ResolvedModelTarget,
@@ -67,7 +67,7 @@ export async function providerConnection(provider: PoolProviderId) {
   if (provider.startsWith('custom-')) return customConnection(provider);
   const profile = PROFILES[provider as keyof typeof PROFILES];
   if (!profile) throw new Error('unknown provider');
-  const configured = deploymentConfig().layer?.config.providers?.[provider];
+  const configured = (await effectiveDeploymentLayer())?.config.providers?.[provider];
   const account = process.env.CLOUDFLARE_ACCOUNT_ID?.trim();
   const baseUrl =
     provider === 'cloudflare'

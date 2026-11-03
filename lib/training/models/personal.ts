@@ -34,14 +34,18 @@ export async function personalTrainingModel(input: {
       input.task === 'roleplay' ? 'classroom.roleplay' : 'classroom.evaluation',
       ownerId,
     );
-    if (slot.status !== 'assigned' || slot.providerSource !== 'workspace') return null;
+    if (
+      slot.status !== 'assigned' ||
+      (slot.providerSource !== 'workspace' && slot.providerId !== 'teacherlab-gateway')
+    )
+      return null;
     target = slot;
   }
   const safe = protectPrompt(input.system, input.prompt);
   const resolved = await languageModelFor(target, { mode: 'disabled' });
   const callId = randomUUID(),
     startedAt = Date.now(),
-    key = `workspace:${target.providerId}:${target.modelId}`;
+    key = `${target.providerSource}:${target.providerId}:${target.modelId}`;
   const ledger = await poolDatabase();
   const record: CallRecord & { ownerId: string } = {
     id: callId,
@@ -110,7 +114,7 @@ export async function personalTrainingModel(input: {
       modelId: target.modelId!,
       task: input.task,
       previous: input.pinned,
-      reason: 'personal-workspace',
+      reason: target.providerSource === 'workspace' ? 'personal-workspace' : 'magpie-auto-route',
       callId,
     };
     return { text, selection };

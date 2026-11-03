@@ -12,6 +12,7 @@ import { modelAuthorizationResponse } from '@/lib/server/api-response';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { effectiveDeploymentLayer } from '@/lib/server/model-config/site-providers';
 
 import { isServerPersistenceConfigured } from '@/lib/config/feature-flags';
 import { ownerWriteErrorResponse } from '@/lib/persistence/owner-merges';
@@ -45,7 +46,9 @@ export async function GET(req: NextRequest) {
   if (!isServerPersistenceConfigured()) return new Response('Not found', { status: 404 });
   return withRequestOwner(req, async ({ ownerId }, headers) => {
     const stored = await readWorkspaceModelConfig(await pool(), ownerId);
-    return NextResponse.json(modelSettingsView(stored), { headers });
+    return NextResponse.json(modelSettingsView(stored, await effectiveDeploymentLayer()), {
+      headers,
+    });
   });
 }
 
@@ -128,7 +131,9 @@ export async function PUT(req: NextRequest) {
         );
       }
       const stored = await readWorkspaceModelConfig(queryable, ownerId);
-      return NextResponse.json(modelSettingsView(stored), { headers });
+      return NextResponse.json(modelSettingsView(stored, await effectiveDeploymentLayer()), {
+        headers,
+      });
     } catch (error) {
       const authorization = modelAuthorizationResponse(error);
       if (authorization)

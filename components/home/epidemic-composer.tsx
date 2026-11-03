@@ -117,7 +117,11 @@ export function useEpidemicComposer(enabled: boolean) {
     if (busy || !account?.authenticated || !role) return;
     setBusy(true);
     setError('');
-    const next = { ...routing, characters: { ...routing.characters, [role.id]: ref || null } };
+    const next = {
+      ...routing,
+      roleplay: ref ? routing.roleplay : null,
+      characters: { ...routing.characters, [role.id]: ref || null },
+    };
     try {
       const response = await fetch('/api/training/models/routing', {
         method: 'PUT',
@@ -266,12 +270,10 @@ export function EpidemicModelPill({
           onChange={(event) => void composer.changeModel(event.target.value)}
           className="max-w-44 bg-transparent font-medium outline-none"
         >
-          <option value="">{t('teacherlab.systemDefault')}</option>
-          {composer.models.map((model) => (
-            <option value={model.ref} key={model.ref}>
-              {model.label}
-            </option>
-          ))}
+          <option value="">{t('teacherlab.smartRouting')}</option>
+          {composer.model && (
+            <option value={composer.model}>{t('teacherlab.personalRoute')}</option>
+          )}
         </select>
         <button
           type="button"

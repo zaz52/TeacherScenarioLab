@@ -3222,6 +3222,18 @@
       "baseCase": "Original comprehensive case",
       "note": "Selections are saved with this training. Profiles are fictional teaching setups and adapt to dialogue. Telephone practice can use existing speech controls; voice input requires an available device and speech service.",
       "review": "Practice setup"
+    },
+    "smartRouting": "Smart routing · automatic failover",
+    "personalRoute": "Personal model selected",
+    "siteModels": {
+      "title": "Shared site provider · owner configuration",
+      "description": "Changes apply site-wide. Keys are encrypted and write-only. Enter a new key when changing the endpoint. Personal providers remain available under Add provider.",
+      "models": "Model IDs (one per line; add or remove)",
+      "keepKey": "Leave blank to retain the saved key",
+      "save": "Save site model configuration",
+      "failed": "Loading or saving failed. Check the endpoint, model IDs and key.",
+      "newKey": "A new endpoint requires its corresponding key.",
+      "conflict": "Configuration changed. Reopen this page before saving."
     }
   }
 }
