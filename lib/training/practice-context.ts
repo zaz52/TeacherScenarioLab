@@ -41,7 +41,7 @@ export function applyPracticePack(
   return {
     ...pack,
     background: group
-      ? '你是家长群中的一位家长，只依据公开信息交流。'
+      ? '你是本次群聊中的当前角色，依据公开信息并按照自身职责交流。'
       : practiceText(pack.background, practice, scenario.scenarioId),
     emotionBaseline: parent ? parent.signals : pack.emotionBaseline,
     communicationStyle:

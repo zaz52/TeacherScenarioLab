@@ -77,10 +77,13 @@ export function practiceSummary(practice: PracticeConfig) {
     practice.channel
   ];
   return (
+    (practice.focus === 'family' ? '家校沟通' : '综合校园情境') +
+    '；' +
     gradeLabel(practice.grade) +
     '；' +
     channel +
     '；' +
+    '家长沟通画像：' +
     parent.label +
     (selected ? '；本次练习重点：' + selected.task : '') +
     '。'
