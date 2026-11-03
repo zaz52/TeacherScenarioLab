@@ -16,7 +16,7 @@ export function AuthenticationPage({ initialMode = 'password' }: { initialMode?:
         <Link href="/">TeacherScenarioLab</Link>
         <Link href="/">{t('training.navHome')}</Link>
       </header>
-      <div className="auth-page-layout">
+      <div data-training-guide="account" className="auth-page-layout">
         <section className="auth-story">
           <h1>{t('teacherlab.brand')}</h1>
           <p>{t('teacherlab.auth.story')}</p>

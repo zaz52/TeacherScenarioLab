@@ -49,6 +49,10 @@
   box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary) 12%, transparent) !important;
   scroll-margin-block: 80px;
 }
+.teacherlab-guide-panel[data-slot='dialog-content'][data-placement='top'] {
+  top: max(20px, env(safe-area-inset-top));
+  bottom: auto;
+}
 @media (max-width: 640px) {
   .teacherlab-guide-panel[data-slot='dialog-content'] {
     right: 16px;

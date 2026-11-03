@@ -275,6 +275,37 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
       setSettingsOpen(true);
     }
   }, []);
+  useEffect(() => {
+    const activate = () => setIsTraining(true);
+    window.addEventListener('teacherlab-guide-training', activate);
+    return () => window.removeEventListener('teacherlab-guide-training', activate);
+  }, []);
+  useEffect(() => {
+    let guideOpened = false;
+    const handle = (event: Event) => {
+      event.preventDefault();
+      const section = (event as CustomEvent<string | null>).detail;
+      if (section === null) {
+        if (guideOpened) {
+          setSettingsOpen(false);
+          setSettingsSection(undefined);
+        }
+        guideOpened = false;
+        return;
+      }
+      if (
+        ['general', 'training-admin', 'people', 'platform-models', 'model-services'].includes(
+          section,
+        )
+      ) {
+        setSettingsSection(section as import('@/lib/types/settings').SettingsSection);
+        setSettingsOpen(true);
+        guideOpened = true;
+      }
+    };
+    window.addEventListener('teacherlab-guide-settings', handle);
+    return () => window.removeEventListener('teacherlab-guide-settings', handle);
+  }, []);
   const openSettings = (section: import('@/lib/types/settings').SettingsSection) => {
     setSettingsSection(section);
     setSettingsOpen(true);
@@ -1212,6 +1243,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
 
               {/* Send button */}
               <button
+                data-training-guide={isTraining ? 'start' : undefined}
                 data-testid="home-generate"
                 aria-label={
                   isTraining ? t('teacherlab.composer.enterTraining') : t('toolbar.enterClassroom')

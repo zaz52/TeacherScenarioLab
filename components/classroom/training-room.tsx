@@ -777,7 +777,7 @@ export function TrainingRoom() {
                       className="w-full resize-none rounded-xl border border-border/70 bg-muted/15 p-3 text-sm outline-none focus:border-violet-400"
                     />
                     <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
+                      <div data-training-guide="voice" className="flex items-center gap-2">
                         <SpeechButton
                           disabled={busy || replyPending}
                           size="md"
@@ -818,7 +818,10 @@ export function TrainingRoom() {
               </div>
             </section>
             <aside className="space-y-4 lg:col-span-2 xl:col-span-1">
-              <section className="rounded-2xl border border-border/60 bg-background/85 p-4 shadow-sm">
+              <section
+                data-training-guide="evaluation"
+                className="rounded-2xl border border-border/60 bg-background/85 p-4 shadow-sm"
+              >
                 <h2 className="mb-4 flex items-center gap-2 text-sm font-semibold">
                   <ClipboardList size={16} />
                   {t('teacherlab.simulation.progress')}
@@ -866,7 +869,6 @@ export function TrainingRoom() {
                 {training.state === 'evaluation' && (
                   <button
                     disabled={busy}
-                    data-training-guide="evaluation"
                     onClick={() => (evaluation ? void move('completed') : void evaluate())}
                     className={cn(
                       button,

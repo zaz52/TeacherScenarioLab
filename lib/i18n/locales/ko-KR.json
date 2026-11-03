@@ -3264,7 +3264,7 @@
       "close": "Close guide",
       "locate": "Locate feature",
       "contents": "Contents",
-      "located": "The matching area is highlighted. You can use the page and continue.",
+      "located": "The current feature is highlighted automatically until the next step.",
       "previous": "Previous",
       "next": "Next",
       "finish": "Finish",
@@ -3333,7 +3333,11 @@
           "title": "Administration and permissions",
           "text": "Available modules follow owner grants: scenarios, training audit, references, models and people. The owner grants administrators and exclusively configures verification mail. Published scenarios change through new versions."
         }
-      }
+      },
+      "autoLocating": "Opening and locating this feature…",
+      "targetMissing": "This area has not appeared yet. It will be highlighted when the page is ready.",
+      "needTraining": "Enter practice is highlighted. Choose a scenario and enter the room; this guide follows automatically.",
+      "needEvaluation": "Training records are highlighted. Save a formal evaluation to open an available review automatically."
     }
   }
 }

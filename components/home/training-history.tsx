@@ -90,7 +90,7 @@ export function TrainingHistory({
     groups.set(key, [...(groups.get(key) ?? []), record]);
   }
   return (
-    <div className="training-workspace">
+    <div data-training-guide="records" className="training-workspace">
       <header className="history-heading">
         <div>
           <h3>{t('training.navRecords')}</h3>
@@ -359,7 +359,7 @@ export function TrainingTimeline({
         Math.max(...b[1].map((e) => e.createdAt)) - Math.max(...a[1].map((e) => e.createdAt)),
     );
   return (
-    <div className="training-workspace">
+    <div data-training-guide="events" className="training-workspace">
       <header className="history-heading">
         <div>
           <h3>{t('training.navEvents')}</h3>
