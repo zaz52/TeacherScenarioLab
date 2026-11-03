@@ -665,9 +665,8 @@ function dropAssignmentsNaming(
 export async function applyModelSettingsChange(
   current: ModelConfigFile | null,
   change: ModelSettingsChange,
+  deployment: ModelConfigLayer | null = deploymentConfig().layer,
 ): Promise<ModelConfigFile> {
-  const { effectiveDeploymentLayer } = await import('./site-providers');
-  const deployment = await effectiveDeploymentLayer();
   const deploymentProviders = deployment?.config.providers ?? {};
   const allowProviders = userKeysAllowed(deployment);
   const next: ModelConfigFile = {

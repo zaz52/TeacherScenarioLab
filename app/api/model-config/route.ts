@@ -115,7 +115,11 @@ export async function PUT(req: NextRequest) {
       if ((current?.revision ?? null) !== revision) {
         return jsonError(409, 'CONFLICT', 'The settings changed; reload them', headers);
       }
-      const next = await applyModelSettingsChange(current?.config ?? null, change);
+      const next = await applyModelSettingsChange(
+        current?.config ?? null,
+        change,
+        await effectiveDeploymentLayer(),
+      );
       await saveWorkspaceModelConfig(queryable, ownerId, next, revision, {
         clearKeys: keysClearedBy(change),
       });
