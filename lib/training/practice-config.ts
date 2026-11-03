@@ -21,7 +21,10 @@ export const PRACTICE_GRADES = [
   'scenario',
 ] as const;
 export type PracticeGrade = (typeof PRACTICE_GRADES)[number];
+export const PRACTICE_CUSTOM_FIELDS = ['focus', 'grade', 'channel', 'parent', 'case'] as const;
+export type PracticeCustomField = (typeof PRACTICE_CUSTOM_FIELDS)[number];
 export interface PracticeConfig {
+  custom?: Partial<Record<PracticeCustomField, string>>;
   parentProfileId: string;
   grade: PracticeGrade;
   channel: (typeof PRACTICE_CHANNELS)[number];
@@ -54,11 +57,33 @@ export function parsePractice(value: unknown): PracticeConfig | null {
     !(PRACTICE_FOCUSES as readonly unknown[]).includes(v.focus) ||
     (v.caseId !== null && !SCENARIO_CASES.some((c) => c.id === v.caseId)) ||
     Object.keys(v).some(
-      (key) => !['parentProfileId', 'grade', 'channel', 'focus', 'caseId'].includes(key),
+      (key) => !['parentProfileId', 'grade', 'channel', 'focus', 'caseId', 'custom'].includes(key),
     )
   )
     return null;
-  return v as unknown as PracticeConfig;
+  if (v.custom !== undefined) {
+    if (!v.custom || typeof v.custom !== 'object' || Array.isArray(v.custom)) return null;
+    for (const [key, text] of Object.entries(v.custom)) {
+      if (
+        !(PRACTICE_CUSTOM_FIELDS as readonly string[]).includes(key) ||
+        typeof text !== 'string' ||
+        !text.trim() ||
+        text.length > 600 ||
+        /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(text)
+      )
+        return null;
+    }
+  }
+  return {
+    ...(v as unknown as PracticeConfig),
+    ...(v.custom
+      ? {
+          custom: Object.fromEntries(
+            Object.entries(v.custom).map(([key, text]) => [key, (text as string).trim()]),
+          ),
+        }
+      : {}),
+  };
 }
 export function practiceFromEvents(
   events: Array<{ type: string; payload: unknown }>,
@@ -67,8 +92,16 @@ export function practiceFromEvents(
   return configured ? parsePractice(configured.payload) : null;
 }
 export function practiceText(text: string, practice: PracticeConfig | null, scenarioId: string) {
-  if (!practice || practice.grade === 'scenario' || scenarioId !== 'epi-class-fever') return text;
-  return text.replace(/(?:某)?小学三年级|三年级/g, gradeLabel(practice.grade));
+  if (
+    !practice ||
+    (practice.grade === 'scenario' && !practice.custom?.grade) ||
+    scenarioId !== 'epi-class-fever'
+  )
+    return text;
+  return text.replace(
+    /(?:某)?小学三年级|三年级/g,
+    () => practice.custom?.grade ?? gradeLabel(practice.grade),
+  );
 }
 export function practiceSummary(practice: PracticeConfig) {
   const parent = PARENT_PROFILES.find((item) => item.id === practice.parentProfileId)!;
@@ -77,15 +110,19 @@ export function practiceSummary(practice: PracticeConfig) {
     practice.channel
   ];
   return (
-    (practice.focus === 'family' ? '家校沟通' : '综合校园情境') +
+    (practice.custom?.focus ?? (practice.focus === 'family' ? '家校沟通' : '综合校园情境')) +
     '；' +
-    gradeLabel(practice.grade) +
+    (practice.custom?.grade ?? gradeLabel(practice.grade)) +
     '；' +
-    channel +
+    (practice.custom?.channel ?? channel) +
     '；' +
     '家长沟通画像：' +
-    parent.label +
-    (selected ? '；本次练习重点：' + selected.task : '') +
+    (practice.custom?.parent ?? parent.label) +
+    (practice.custom?.case
+      ? '；本次练习重点：' + practice.custom.case
+      : selected
+        ? '；本次练习重点：' + selected.task
+        : '') +
     '。'
   );
 }

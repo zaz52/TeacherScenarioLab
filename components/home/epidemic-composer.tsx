@@ -10,6 +10,7 @@ import { TRAINING_LIBRARY_CHANGED } from './training-library-actions';
 import type { UserRouting } from '@/lib/training/user-model-routing';
 import {
   DEFAULT_PRACTICE,
+  parsePractice,
   PARENT_PROFILES,
   PRACTICE_GRADES,
   SCENARIO_CASES,
@@ -145,6 +146,10 @@ export function useEpidemicComposer(enabled: boolean) {
   }
   async function start(opening: string) {
     if (!scenario || busy || !account?.authenticated) return null;
+    if (!parsePractice(practice)) {
+      setError(t('teacherlab.practice.customRequired'));
+      return null;
+    }
     setBusy(true);
     setError('');
     try {

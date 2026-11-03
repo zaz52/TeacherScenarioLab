@@ -1074,40 +1074,37 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
             )}
 
             {isTraining && (
-              <div className="px-4 pb-2">
-                <select
-                  aria-label={t('teacherlab.composer.scenario')}
-                  className="max-w-full rounded-full border border-border/40 bg-transparent px-3 py-1 text-xs text-muted-foreground"
-                  value={
-                    training.scenario
-                      ? `${training.scenario.scenarioId}@${training.scenario.version}`
-                      : ''
-                  }
-                  onChange={(event) => {
-                    const selected = training.scenarios.find(
-                      (value) => `${value.scenarioId}@${value.version}` === event.target.value,
-                    );
-                    if (selected) training.selectScenario(selected);
-                  }}
-                  disabled={training.busy || training.loading}
-                >
-                  {!training.scenario && (
-                    <option value="">
-                      {training.loading
-                        ? t('training.trainingLoading')
-                        : t('teacherlab.composer.noScenarios')}
-                    </option>
-                  )}
+              <details
+                key={`${training.scenario?.scenarioId}@${training.scenario?.version}`}
+                className="mx-4 mb-3 rounded-xl border border-border/50 bg-background/60 text-xs"
+              >
+                <summary className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2">
+                  <span className="min-w-0 truncate text-muted-foreground">
+                    {t('teacherlab.composer.currentScenario')} ·{' '}
+                    {training.scenario?.title ?? t('teacherlab.composer.noScenarios')}
+                  </span>
+                  <span className="shrink-0 text-primary">
+                    {t('teacherlab.composer.changeScenario')}
+                  </span>
+                </summary>
+                <div className="max-h-56 space-y-1 overflow-y-auto border-t p-2">
                   {training.scenarios.map((value) => (
-                    <option
+                    <button
                       key={`${value.scenarioId}@${value.version}`}
-                      value={`${value.scenarioId}@${value.version}`}
+                      type="button"
+                      disabled={training.busy}
+                      aria-pressed={
+                        training.scenario?.scenarioId === value.scenarioId &&
+                        training.scenario?.version === value.version
+                      }
+                      className="block w-full rounded-lg px-3 py-2 text-left hover:bg-muted aria-pressed:bg-primary/10 aria-pressed:text-primary"
+                      onClick={() => training.selectScenario(value)}
                     >
                       {value.title}
-                    </option>
+                    </button>
                   ))}
-                </select>
-              </div>
+                </div>
+              </details>
             )}
             {isTraining && (
               <div data-training-guide="practice">

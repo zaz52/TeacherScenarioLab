@@ -2960,7 +2960,9 @@
       "modeHint": "Enable live model dialogue, or use scripted practice when off.",
       "enterTraining": "Enter practice",
       "chooseScenario": "Choose scenario",
-      "greeting": "Hi, {{name}}"
+      "greeting": "Hi, {{name}}",
+      "currentScenario": "Current scenario",
+      "changeScenario": "Change"
     },
     "simulation": {
       "roles": {
@@ -3165,7 +3167,7 @@
     "knowledge": {
       "title": "Knowledge & References",
       "intro": "Four collections with 50 entries each: tutor, formative assessment, parent profiles and school-family epidemic scenarios. Search 200 new references alongside the original 50.",
-      "scope": "Verified bibliographic records accompany editorial practice suggestions. Journal indexing evidence includes its edition and check date; consult original publications for findings. Profiles and cases are fictional teaching exercises.",
+      "scope": "Articles show their content status: open text, abstract-based notes or content pending. Notes include methods, findings and limitations. Practice suggestions, parent profiles and cases are editorial teaching material.",
       "back": "Back to home",
       "tutor": "Tutor",
       "assessor": "Formative assessor",
@@ -3180,7 +3182,7 @@
       "legacy": "Original references",
       "searchHint": "Search topics, practice points, titles, authors or journals",
       "results": "Results:",
-      "detail": "Practice card and source",
+      "detail": "Read article content and sources",
       "pagination": "Reference pages",
       "supportTitle": "Practice tutor & formative feedback",
       "supportMethod": "Rule-supported guidance derived from saved dialogue; review suggestions in context.",
@@ -3221,7 +3223,18 @@
       "case": "Epidemic communication focus",
       "baseCase": "Original comprehensive case",
       "note": "Selections are saved with this training. Profiles are fictional teaching setups and adapt to dialogue. Telephone practice can use existing speech controls; voice input requires an available device and speech service.",
-      "review": "Practice setup"
+      "review": "Practice setup",
+      "customLabel": "Enter custom settings",
+      "customRequired": "Complete each custom setting (1–600 characters), or choose a preset.",
+      "baseChannel": "Base channel and privacy scope",
+      "customHint": "Custom descriptions are saved with this practice and used for model dialogue and evaluation. Available roles follow the scenario. Public or private communication follows the base channel. Script mode keeps preset replies.",
+      "customPlaceholders": {
+        "focus": "Describe the communication setting and learning focus.",
+        "grade": "For example: kindergarten or first-year vocational school.",
+        "channel": "For example: video home visit or parent meeting. Select the public or private base channel below.",
+        "parent": "Describe observable communication, concerns and needs.",
+        "case": "Describe the communication task you want to practise."
+      }
     },
     "smartRouting": "Smart routing · automatic failover",
     "personalRoute": "Personal model selected",
@@ -3338,6 +3351,27 @@
       "targetMissing": "This area has not appeared yet. It will be highlighted when the page is ready.",
       "needTraining": "Enter practice is highlighted. Choose a scenario and enter the room; this guide follows automatically.",
       "needEvaluation": "Training records are highlighted. Save a formal evaluation to open an available review automatically."
+    },
+    "reading": {
+      "title": "Article content",
+      "open-text": "Open article text and reading notes",
+      "abstract": "Abstract-based reading notes",
+      "pending": "Article content pending",
+      "filter": "Filter by article content",
+      "all": "All content states",
+      "method": "Methods and scope",
+      "findings": "Main content and findings",
+      "application": "Suggested practice application",
+      "limitations": "Evidence limits",
+      "checked": "Content checked",
+      "readingSource": "View the source used for these notes",
+      "original": "Open publisher or original article",
+      "bodyTitle": "Open article text (original language)",
+      "license": "Reuse license:",
+      "reflow": "Text is reformatted by paragraph. See the original for figures, formulas and complete references. Chinese reading notes are editorial summaries.",
+      "openScope": "Licensed article text with Chinese reading notes and practice suggestions.",
+      "abstractScope": "Notes draw on the available abstract or public research description. Methods and results are limited to what that source reports.",
+      "pendingHint": "Citation and source links are available. Article content still needs to be obtained and checked. Open the original below; institutional access may be required."
     }
   }
 }

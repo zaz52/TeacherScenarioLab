@@ -1,3 +1,5 @@
+import readingIndex from './knowledge/reference-reading-index.json';
+import type { ReferenceReadingStatus } from './reference-reading';
 import { TRAINING_KNOWLEDGE } from './knowledge/catalog';
 import type { KnowledgeEntry } from './knowledge/types';
 /**
@@ -27,6 +29,8 @@ export interface TrainingReference {
   topics: ReferenceTopic[];
   summary: string;
   locator?: string;
+  readingStatus?: ReferenceReadingStatus;
+  readingSummary?: string;
   knowledge?: Omit<KnowledgeEntry, 'reference' | 'id'>;
 }
 
@@ -812,6 +816,16 @@ TRAINING_REFERENCES.push(
   })),
 );
 
+const readingSummaries = readingIndex as Record<
+  string,
+  { status: ReferenceReadingStatus; summary: string }
+>;
+for (const reference of TRAINING_REFERENCES) {
+  const reading = readingSummaries[reference.id];
+  reference.readingStatus = reading?.status ?? 'pending';
+  reference.readingSummary = reading?.summary;
+}
+
 export function getReferenceById(id: string): TrainingReference | undefined {
   return TRAINING_REFERENCES.find((ref) => ref.id === id);
 }
@@ -853,6 +867,7 @@ export function searchReferences(
       ref.authors.join(' '),
       ref.venue ?? '',
       ref.summary,
+      ref.readingSummary ?? '',
       ref.knowledge?.label ?? '',
       ref.knowledge?.application ?? '',
       ref.knowledge?.tags.join(' ') ?? '',

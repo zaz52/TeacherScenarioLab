@@ -6,7 +6,7 @@ import { parsePractice, practiceFromEvents } from '@/lib/training/practice-confi
 import { isSameOriginJsonRequest } from '@/lib/persistence/owner-claim-http';
 export const runtime = 'nodejs';
 async function bodyText(req: NextRequest) {
-  if (Number(req.headers.get('content-length') ?? 0) > 4096) return null;
+  if (Number(req.headers.get('content-length') ?? 0) > 16384) return null;
   const reader = req.body?.getReader();
   if (!reader) return '';
   const decoder = new TextDecoder();
@@ -17,7 +17,7 @@ async function bodyText(req: NextRequest) {
       const part = await reader.read();
       if (part.done) break;
       bytes += part.value.length;
-      if (bytes > 4096) {
+      if (bytes > 16384) {
         await reader.cancel();
         return null;
       }

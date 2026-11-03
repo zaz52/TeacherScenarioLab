@@ -4,7 +4,7 @@ import { BookOpen, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useI18n } from '@/lib/hooks/use-i18n';
 import type { KnowledgeSupport } from '@/lib/training/knowledge/support';
 import type { PracticeConfig } from '@/lib/training/practice-config';
-import { gradeLabel, PARENT_PROFILES } from '@/lib/training/practice-config';
+import { practiceSummary } from '@/lib/training/practice-config';
 type Source = { id: string; label: string; title: string; url: string };
 function Sources({ items, label }: { items: Source[]; label: string }) {
   return (
@@ -48,11 +48,7 @@ export function TrainingSupport({
         {t('teacherlab.knowledge.supportTitle')}
       </h2>
       {practice && (
-        <p className="rounded-lg bg-muted/40 p-3 text-xs leading-6">
-          {gradeLabel(practice.grade)} · {t('teacherlab.practice.' + practice.channel)}
-          <br />
-          {PARENT_PROFILES.find((p) => p.id === practice.parentProfileId)?.label}
-        </p>
+        <p className="rounded-lg bg-muted/40 p-3 text-xs leading-6">{practiceSummary(practice)}</p>
       )}
       <p className="text-xs leading-6 text-muted-foreground">
         {t('teacherlab.knowledge.supportMethod')}

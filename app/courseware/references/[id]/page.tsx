@@ -1,10 +1,8 @@
 'use client';
 
 /**
- * TeacherScenarioLab — reference detail page: the full verified citation
- * for one catalog entry (title, authors, year, venue, DOI link, source
- * link, topics, summary). The data is the catalog record itself; nothing
- * here is generated or embellished.
+ * Reference detail: catalog citation, source-scoped reading notes and
+ * licensed article text when available. Content scope is shown explicitly.
  */
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -12,6 +10,8 @@ import { useEffect, useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
 
+import { ReferenceReader } from '@/components/courseware/reference-reader';
+import type { ReferenceReading } from '@/lib/training/reference-reading';
 import type { TrainingReference } from '@/lib/training/references';
 
 function t(key: string): string {
@@ -21,29 +21,39 @@ function t(key: string): string {
 export default function ReferenceDetailPage() {
   const params = useParams<{ id: string }>();
   const referenceId = params.id;
-  const [reference, setReference] = useState<TrainingReference | null>(null);
+  const [reference, setReference] = useState<
+    (TrainingReference & { reading?: ReferenceReading | null }) | null
+  >(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+    setError('');
+    setReference(null);
     (async () => {
       try {
-        const res = await fetch(`/api/training/references/${encodeURIComponent(referenceId)}`);
+        const res = await fetch(`/api/training/references/${encodeURIComponent(referenceId)}`, {
+          signal: controller.signal,
+        });
         const data = (await res.json()) as {
           success?: boolean;
-          reference?: TrainingReference;
+          reference?: TrainingReference & { reading?: ReferenceReading | null };
         };
+        if (controller.signal.aborted) return;
         if (!res.ok || !data.success || !data.reference) {
           setError(t('referencesDetailNotFound'));
           return;
         }
         setReference(data.reference);
       } catch {
-        setError(t('referencesDetailNotFound'));
+        if (!controller.signal.aborted) setError(t('referencesDetailNotFound'));
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     })();
+    return () => controller.abort();
   }, [referenceId]);
 
   if (loading)
@@ -137,9 +147,10 @@ export default function ReferenceDetailPage() {
       <p>
         {t('referencesDetailTopics')}：{reference.topics.join('、')}
       </p>
-      <p>
-        {t('referencesDetailSummary')}：{reference.summary}
-      </p>
+      <ReferenceReader
+        reading={reference.reading ?? null}
+        originalUrl={reference.doi ? 'https://doi.org/' + reference.doi : reference.url}
+      />
     </main>
   );
 }

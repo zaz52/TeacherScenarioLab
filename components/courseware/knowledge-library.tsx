@@ -26,6 +26,7 @@ export function KnowledgeLibrary() {
   const [query, setQuery] = useState(''),
     [search, setSearch] = useState('');
   const [topic, setTopic] = useState('');
+  const [readingStatus, setReadingStatus] = useState('');
   const [rows, setRows] = useState<TrainingReference[]>([]),
     [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true),
@@ -57,7 +58,8 @@ export function KnowledgeLibrary() {
       });
     return () => controller.abort();
   }, [category, search, topic]);
-  const pages = Math.ceil(rows.length / 12);
+  const visibleRows = rows.filter((ref) => !readingStatus || ref.readingStatus === readingStatus);
+  const pages = Math.ceil(visibleRows.length / 12);
   return (
     <main data-training-guide="knowledge" className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6">
       <header className="rounded-3xl border border-border/60 bg-background/90 p-6 sm:p-8">
@@ -137,6 +139,22 @@ export function KnowledgeLibrary() {
             </option>
           ))}
         </select>
+        <select
+          className={control}
+          value={readingStatus}
+          aria-label={t('teacherlab.reading.filter')}
+          onChange={(e) => {
+            setReadingStatus(e.target.value);
+            setPage(0);
+          }}
+        >
+          <option value="">{t('teacherlab.reading.all')}</option>
+          {(['open-text', 'abstract', 'pending'] as const).map((status) => (
+            <option key={status} value={status}>
+              {t('teacherlab.reading.' + status)}
+            </option>
+          ))}
+        </select>
         <input
           className={control + ' min-w-0 flex-1'}
           value={query}
@@ -154,16 +172,16 @@ export function KnowledgeLibrary() {
           ? t('training.referencesLoading')
           : error
             ? t('training.referencesLoadFailed')
-            : t('teacherlab.knowledge.results') + ' ' + rows.length}
+            : t('teacherlab.knowledge.results') + ' ' + visibleRows.length}
       </p>
-      {!loading && !error && rows.length === 0 && (
+      {!loading && !error && visibleRows.length === 0 && (
         <div className="rounded-2xl border border-dashed p-8 text-sm text-muted-foreground">
           {t('training.referencesEmpty')}
         </div>
       )}
       {!loading && !error && (
         <div className="grid gap-4 md:grid-cols-2">
-          {rows.slice(page * 12, page * 12 + 12).map((ref) => (
+          {visibleRows.slice(page * 12, page * 12 + 12).map((ref) => (
             <article
               key={ref.id}
               className="flex min-w-0 flex-col rounded-2xl border border-border/60 bg-background p-5"
@@ -175,6 +193,9 @@ export function KnowledgeLibrary() {
                     : t('teacherlab.knowledge.legacy')}
                 </span>
                 <span className="rounded-full bg-muted px-2 py-1">{ref.year}</span>
+                <span className="rounded-full bg-muted px-2 py-1">
+                  {t('teacherlab.reading.' + (ref.readingStatus ?? 'pending'))}
+                </span>
               </div>
               <h2 className="font-semibold leading-7">
                 <Link href={'/courseware/references/' + ref.id}>
@@ -182,7 +203,7 @@ export function KnowledgeLibrary() {
                 </Link>
               </h2>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                {ref.knowledge?.application ?? ref.summary}
+                {ref.readingSummary ?? ref.knowledge?.application ?? ref.summary}
               </p>
               {ref.knowledge && (
                 <p className="mt-3 text-xs leading-6 text-muted-foreground">{ref.title}</p>

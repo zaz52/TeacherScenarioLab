@@ -1,0 +1,298 @@
+{
+  "ref-01": {
+    "status": "abstract",
+    "summary": "模型中每多停课一周，流行峰值通常延后约4—6天；效果受监测能力和疫情严重程度影响。"
+  },
+  "ref-02": {
+    "status": "abstract",
+    "summary": "研究提出便于学校操作的数据驱动工具，回应既有指南缺乏实证依据的问题。"
+  },
+  "ref-03": {
+    "status": "open-text",
+    "summary": "作者估计中学停止上课后，传播下降约25%。"
+  },
+  "ref-06": {
+    "status": "abstract",
+    "summary": "限制损失教学周数时，多种响应式方案效果接近；适当实施通常涉及较短、可重复的关闭。"
+  },
+  "ref-07": {
+    "status": "abstract",
+    "summary": "多项研究报告焦虑、抑郁、屏幕使用增加及活动减少等关联。"
+  },
+  "ref-09": {
+    "status": "abstract",
+    "summary": "心理困扰、儿童保护转介减少和就诊减少等现象反复出现，弱势群体风险值得关注。"
+  },
+  "ref-10": {
+    "status": "open-text",
+    "summary": "估计学习损失约0.08个标准差；低教育背景家庭学生的损失更大。"
+  },
+  "ref-11": {
+    "status": "open-text",
+    "summary": "资料同时呈现传播控制收益及学业、心理、照护负担等方面的代价。"
+  },
+  "ref-14": {
+    "status": "open-text",
+    "summary": "初步资料支持电话获取基础数感信息，并强调简短说明、练习题、关系建立与样本偏差。"
+  },
+  "ref-30": {
+    "status": "open-text",
+    "summary": "家长会、与服务者会面及参与辅导有助于联结；家长参与也可能产生隐私冲突。"
+  },
+  "ref-35": {
+    "status": "open-text",
+    "summary": "模拟组的SEGUE沟通框架中位得分为22，对照组为18；摘要报告沟通表现改善。"
+  },
+  "ref-43": {
+    "status": "open-text",
+    "summary": "69.6%的参与者呈现倦怠症状，情绪耗竭等维度也有明显负担。"
+  },
+  "ref-44": {
+    "status": "abstract",
+    "summary": "韧性在疫情压力与抑郁、主观福祉的关系中呈统计中介作用。"
+  },
+  "ref-45": {
+    "status": "abstract",
+    "summary": "超过六成报告较高压力；工作过载、不确定性和环境问题突出，压力与不适及倦怠相关。"
+  },
+  "ref-48": {
+    "status": "abstract",
+    "summary": "72%感到很大或极大压力，57%感到严重倦怠，工作与家庭平衡亦存在困难。"
+  },
+  "ref-49": {
+    "status": "open-text",
+    "summary": "信息搜寻与态度、主观规范相关；群体规范强化态度与线上辟谣的联系。"
+  },
+  "ref-50": {
+    "status": "open-text",
+    "summary": "游戏组在健康谣言识别上表现较好，效果与年龄和教育背景有关。"
+  },
+  "kb-tutor-06": {
+    "status": "abstract",
+    "summary": "延迟反馈改善师范生的教学实践，增加即时反馈后进一步改善，儿童沟通亦出现积极变化。"
+  },
+  "kb-tutor-08": {
+    "status": "abstract",
+    "summary": "第二次任务中的高水平反思指标较第一次增加，参与者认可平台对材料积累的帮助。"
+  },
+  "kb-tutor-24": {
+    "status": "abstract",
+    "summary": "研究以共同备课、教学和评价的理想基准识别实施差距，并讨论及时的配对支持。"
+  },
+  "kb-tutor-40": {
+    "status": "abstract",
+    "summary": "双方认可探究价值，但对实施有不同认识；约半数学生不预期在今后教学中继续探究。"
+  },
+  "kb-tutor-45": {
+    "status": "abstract",
+    "summary": "模型把监控过程置于核心，讨论反馈如何影响任务投入及成就。"
+  },
+  "kb-tutor-46": {
+    "status": "abstract",
+    "summary": "解释性反馈的平均效应高于单纯告知正误或给正确答案，尤其涉及高阶学习时。"
+  },
+  "kb-parents-04": {
+    "status": "abstract",
+    "summary": "家长动机信念与较好适应相关，家校关系质量呈统计中介作用。"
+  },
+  "kb-parents-08": {
+    "status": "abstract",
+    "summary": "数据支持三个因素，包括家长感知关系、教师舒适感及对家长能力的看法。"
+  },
+  "kb-parents-11": {
+    "status": "abstract",
+    "summary": "较高家长自我效能与两年后较好家校沟通及师生关系相关，儿童行为是部分路径。"
+  },
+  "kb-parents-17": {
+    "status": "abstract",
+    "summary": "识别四种父母联合教养模式；严格而有情感支持的模式在多数结果上未明显差于权威型。"
+  },
+  "kb-parents-21": {
+    "status": "abstract",
+    "summary": "母亲心理控制与问题增加相关；较低心理控制条件下的行为规则与较少外显问题相关。"
+  },
+  "kb-parents-22": {
+    "status": "abstract",
+    "summary": "权威型教养与较多亲社会行为相关，亲社会行为又与较好学业结果相关。"
+  },
+  "kb-parents-23": {
+    "status": "abstract",
+    "summary": "家校共同咨询组在若干行为指标及家校关系上改善更快，关系质量呈部分中介作用。"
+  },
+  "kb-parents-36": {
+    "status": "abstract",
+    "summary": "识别家校联系、在校和在家参与、关系质量等六维；不同家庭风险与各维联系不同。"
+  },
+  "kb-parents-44": {
+    "status": "abstract",
+    "summary": "较好导师关系通过改善亲子及师生关系，与若干积极结果间接相关。"
+  },
+  "kb-parents-48": {
+    "status": "open-text",
+    "summary": "增加家庭指导的组通过家长维持、延伸共同注意的能力，显示对儿童努力控制的间接收益。"
+  },
+  "kb-scenarios-03": {
+    "status": "abstract",
+    "summary": "疫情期间抑郁症状增加的证据较明确，焦虑症状有较小幅度增加。"
+  },
+  "kb-scenarios-04": {
+    "status": "abstract",
+    "summary": "近四分之一非常担忧疫情，性别、年级和社会经济背景间存在差异。"
+  },
+  "kb-scenarios-05": {
+    "status": "abstract",
+    "summary": "个性化、创造性与包容性被认为重要，教师培训、管理支持和器材是实施条件。"
+  },
+  "kb-scenarios-06": {
+    "status": "open-text",
+    "summary": "不同群体的变化并不一致；部分封校期间变化在复课后回落，友谊质量较稳定。"
+  },
+  "kb-scenarios-07": {
+    "status": "abstract",
+    "summary": "受访者报告学习和行为困难，网络、设备与数字素养障碍对弱势家庭更突出。"
+  },
+  "kb-scenarios-09": {
+    "status": "abstract",
+    "summary": "沟通、问题解决和个人社会领域出现小幅下降，粗细动作领域未显示相同变化。"
+  },
+  "kb-scenarios-10": {
+    "status": "abstract",
+    "summary": "多数可追踪的外来病例未引发校内传播；聚集事件常涉及校外活动或措施执行偏差。"
+  },
+  "kb-scenarios-11": {
+    "status": "abstract",
+    "summary": "家长偏好随学段而异，健康与安全担忧是关联返校选择的重要因素。"
+  },
+  "kb-scenarios-13": {
+    "status": "abstract",
+    "summary": "中心在停课期间仍提供大量服务，心理健康就诊占比出现上升。"
+  },
+  "kb-scenarios-14": {
+    "status": "abstract",
+    "summary": "文章强调实际与心理挑战复杂，需审视措施影响的证据及假设。"
+  },
+  "kb-scenarios-15": {
+    "status": "abstract",
+    "summary": "心理门诊早期下降，随后高于预期；远程服务迅速增加，青少年女生增幅突出。"
+  },
+  "kb-scenarios-16": {
+    "status": "abstract",
+    "summary": "文章展示学校与学术机构建立社区联结的促进因素和障碍。"
+  },
+  "kb-scenarios-17": {
+    "status": "abstract",
+    "summary": "负面心理体验在封控高峰增加，解封后减弱，但社会梯度仍然存在。"
+  },
+  "kb-scenarios-18": {
+    "status": "abstract",
+    "summary": "远程学习与较低学校联结、自我效能及较多部分心理问题相关。"
+  },
+  "kb-scenarios-19": {
+    "status": "abstract",
+    "summary": "心理健康相关就诊的可能性逐年提高，疫情相关学年增幅较明显。"
+  },
+  "kb-scenarios-21": {
+    "status": "abstract",
+    "summary": "校内传播和措施执行资料通过多方共享，支持了当地线下返校政策讨论与报告机制。"
+  },
+  "kb-scenarios-22": {
+    "status": "abstract",
+    "summary": "初中生部分风险指标增加，高中生的不同指标呈现不同方向变化。"
+  },
+  "kb-scenarios-24": {
+    "status": "abstract",
+    "summary": "有自闭症或注意缺陷多动症儿童的照护者报告更高负担、抑郁、焦虑与压力。"
+  },
+  "kb-scenarios-25": {
+    "status": "abstract",
+    "summary": "有心理或行为诊断的学生就诊占比从11.2%升至17.6%，凸显身心服务衔接。"
+  },
+  "kb-scenarios-26": {
+    "status": "abstract",
+    "summary": "学校支持与较少抑郁焦虑相关；疫情影响较重时，这种关联未达到相同显著水平。"
+  },
+  "kb-scenarios-27": {
+    "status": "abstract",
+    "summary": "平均每日增加约84分钟，青春期及不同设备之间变化幅度不同。"
+  },
+  "kb-scenarios-29": {
+    "status": "abstract",
+    "summary": "倦怠与较不理想的参与动机模式相关，家庭仍可能保持自主支持学习的动机。"
+  },
+  "kb-scenarios-30": {
+    "status": "abstract",
+    "summary": "公开摘要仅说明研究问题和资料来源，未披露具体效应数值。"
+  },
+  "kb-scenarios-31": {
+    "status": "abstract",
+    "summary": "较少远程学习困难与积极家庭氛围、较好师生关系及情绪调节能力相关。"
+  },
+  "kb-scenarios-34": {
+    "status": "abstract",
+    "summary": "两组适应轨迹不同，纳入学习条件后组间差异减弱；家庭环境和师生沟通重要。"
+  },
+  "kb-scenarios-35": {
+    "status": "abstract",
+    "summary": "疫情前欺凌经历与后续内外化问题相关，不同欺凌形式的交互关系复杂。"
+  },
+  "kb-scenarios-36": {
+    "status": "abstract",
+    "summary": "社交媒体使用增加，网络受欺凌与较差学校适应之间存在抑郁症状相关路径。"
+  },
+  "kb-scenarios-38": {
+    "status": "abstract",
+    "summary": "疫情期间学校疏离的报告比例较高，有心理健康状况的学生尤其需要关注。"
+  },
+  "kb-scenarios-39": {
+    "status": "abstract",
+    "summary": "疫情学习困难与之后成绩相关，并部分解释早期脆弱性与学业结果的联系。"
+  },
+  "kb-scenarios-40": {
+    "status": "abstract",
+    "summary": "容量不足、污名和专业人员代表性不足是主要障碍，学校随后强化培训及资源沟通。"
+  },
+  "kb-scenarios-42": {
+    "status": "abstract",
+    "summary": "当前摘要仅说明比较目标，未提供具体变化方向或数值。"
+  },
+  "kb-scenarios-43": {
+    "status": "abstract",
+    "summary": "家庭凝聚力下降、冲突及严厉或放任管教增加与后续儿童适应问题相关。"
+  },
+  "kb-scenarios-44": {
+    "status": "open-text",
+    "summary": "五岁时暴露组估计落后约4.39个月，三岁组未出现同样结果，个体差异也增大。"
+  },
+  "kb-scenarios-47": {
+    "status": "abstract",
+    "summary": "阳性筛查比例由11.1%升至12.2%，不同人群和就诊类型差异明显。"
+  },
+  "kb-scenarios-48": {
+    "status": "abstract",
+    "summary": "2020年4至12月总量较2019同期减少27.1%，不同药物类别变化不同。"
+  },
+  "kb-scenarios-49": {
+    "status": "abstract",
+    "summary": "整体疫苗犹豫未出现显著时期差异，但对疫苗信息的信任及态度分化有变化。"
+  },
+  "kb-scenarios-50": {
+    "status": "abstract",
+    "summary": "接近千名学生、1048个班级日的资料中，正确戴口罩时间平均约76.9%。"
+  },
+  "kb-assessor-01": {
+    "status": "abstract",
+    "summary": "样例帮助理解标准，并为形成性反馈提供共同参照，互评判断可能更客观。"
+  },
+  "kb-assessor-02": {
+    "status": "abstract",
+    "summary": "学生认可其对理解评价和改进作品的帮助；设计、反馈能力与教师持续参与被认为关键。"
+  },
+  "kb-assessor-07": {
+    "status": "abstract",
+    "summary": "标准随时间发展，但多数工具仍依赖早期概念，标准与测量之间存在不一致。"
+  },
+  "kb-assessor-08": {
+    "status": "abstract",
+    "summary": "个人态度、自我效能和培训，以及校内支持、政策和工作条件都与实施有关。"
+  }
+}

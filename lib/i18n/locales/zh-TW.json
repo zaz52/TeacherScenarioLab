@@ -2960,7 +2960,9 @@
       "modeHint": "开启真实模型对话；关闭时使用脚本演练。",
       "enterTraining": "进入实训",
       "chooseScenario": "选择此情境",
-      "greeting": "嗨，{{name}}"
+      "greeting": "嗨，{{name}}",
+      "currentScenario": "Current scenario",
+      "changeScenario": "Change"
     },
     "simulation": {
       "roles": {
@@ -3165,7 +3167,7 @@
     "knowledge": {
       "title": "知识与文献库",
       "intro": "助教、助评、家长类型、疫情家校沟通场景，每类50条。200篇新增关联文献与原有50篇文献可一起检索。",
-      "scope": "条目提供可追溯题录与编辑整理的实训应用。期刊收录依据标明版本和核对日期，研究结论请查阅原文。家长画像与场景案例用于虚构教学练习。",
+      "scope": "Articles show their content status: open text, abstract-based notes or content pending. Notes include methods, findings and limitations. Practice suggestions, parent profiles and cases are editorial teaching material.",
       "back": "返回首页",
       "tutor": "助教",
       "assessor": "助评",
@@ -3180,7 +3182,7 @@
       "legacy": "原有文献",
       "searchHint": "搜索主题、知识点、标题、作者或期刊",
       "results": "检索结果：",
-      "detail": "知识卡与文献出处",
+      "detail": "Read article content and sources",
       "pagination": "文献分页",
       "supportTitle": "实训助教与助评",
       "supportMethod": "基于已保存对话的规则辅助提示，建议结合上下文复核。",
@@ -3221,7 +3223,18 @@
       "case": "疫情沟通重点",
       "baseCase": "原情境综合沟通",
       "note": "本次选择随训练保存。画像用于教学模拟，个体表现依据实际互动变化。电话模式可结合现有语音按钮练习，语音输入取决于设备与语音服务可用性。",
-      "review": "本次实训设置"
+      "review": "本次实训设置",
+      "customLabel": "Enter custom settings",
+      "customRequired": "Complete each custom setting (1–600 characters), or choose a preset.",
+      "baseChannel": "Base channel and privacy scope",
+      "customHint": "Custom descriptions are saved with this practice and used for model dialogue and evaluation. Available roles follow the scenario. Public or private communication follows the base channel. Script mode keeps preset replies.",
+      "customPlaceholders": {
+        "focus": "Describe the communication setting and learning focus.",
+        "grade": "For example: kindergarten or first-year vocational school.",
+        "channel": "For example: video home visit or parent meeting. Select the public or private base channel below.",
+        "parent": "Describe observable communication, concerns and needs.",
+        "case": "Describe the communication task you want to practise."
+      }
     },
     "smartRouting": "智能路由 · 自动切换",
     "personalRoute": "已指定个人模型",
@@ -3338,6 +3351,27 @@
       "targetMissing": "对应区域暂未显示，请检查页面加载状态；功能出现后将自动定位。",
       "needTraining": "已定位“进入实训”。请先选择情境并进入训练室，指引将自动跟随定位。",
       "needEvaluation": "已定位训练记录。正式评价保存后，指引会自动打开可用的复盘页。"
+    },
+    "reading": {
+      "title": "Article content",
+      "open-text": "Open article text and reading notes",
+      "abstract": "Abstract-based reading notes",
+      "pending": "Article content pending",
+      "filter": "Filter by article content",
+      "all": "All content states",
+      "method": "Methods and scope",
+      "findings": "Main content and findings",
+      "application": "Suggested practice application",
+      "limitations": "Evidence limits",
+      "checked": "Content checked",
+      "readingSource": "View the source used for these notes",
+      "original": "Open publisher or original article",
+      "bodyTitle": "Open article text (original language)",
+      "license": "Reuse license:",
+      "reflow": "Text is reformatted by paragraph. See the original for figures, formulas and complete references. Chinese reading notes are editorial summaries.",
+      "openScope": "Licensed article text with Chinese reading notes and practice suggestions.",
+      "abstractScope": "Notes draw on the available abstract or public research description. Methods and results are limited to what that source reports.",
+      "pendingHint": "Citation and source links are available. Article content still needs to be obtained and checked. Open the original below; institutional access may be required."
     }
   }
 }
