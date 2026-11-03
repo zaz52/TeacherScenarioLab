@@ -2570,7 +2570,7 @@
     "dimCoordination": "Координация",
     "dimResponsibility": "Ответственность",
     "evaluateFailed": "Оценивание не удалось. Повторите попытку.",
-    "referencesTitle": "Библиотека источников",
+    "referencesTitle": "Knowledge & References",
     "referencesTopicAll": "Все темы",
     "referencesTopicEpidemicSchool": "Эпидемии и школа",
     "referencesTopicHomeSchool": "Общение семьи и школы",
@@ -2734,7 +2734,13 @@
     "stateCoordination": "Координация",
     "stateProposal": "Предложение действий",
     "stateEvaluation": "Оценка",
-    "stateCompleted": "Завершено"
+    "stateCompleted": "Завершено",
+    "knowledgeFictionalParent": "Fictional communication profile; sample opening",
+    "knowledgeFictionalCase": "A fictional practice case adapted to school-family epidemic communication.",
+    "knowledgeEditorialNote": "Practice guidance is editorial teaching design; consult the original study for its findings.",
+    "knowledgeJournalSource": "Journal indexing evidence",
+    "knowledgeMetadataScope": "Bibliographic details and research topics are checked; consult the publication for full-text evidence appraisal.",
+    "knowledgeMetadataSource": "Bibliographic source"
   },
   "modelCenter": {
     "customConnection": "Подключение своей модели",
@@ -3102,7 +3108,8 @@
         "model": "Model selected",
         "switch": "Model switched",
         "rumor": "Parent group rumor",
-        "activity": "Training activity"
+        "activity": "Training activity",
+        "practice": "Practice setup saved"
       },
       "eventHints": {
         "created": "The training is ready to continue in the room.",
@@ -3115,7 +3122,8 @@
         "model": "The actual model selection was recorded.",
         "switch": "A model switch was recorded.",
         "rumor": "A parent group rumor needs verification and a response.",
-        "activity": "This activity was saved in the training ledger."
+        "activity": "This activity was saved in the training ledger.",
+        "practice": "Grade, parent profile and communication channel were saved with this training."
       }
     },
     "auth": {
@@ -3153,6 +3161,67 @@
       "setPassword": "Set password",
       "openLoginPage": "Open sign-in page",
       "story": "Practice multi-role communication in campus epidemic scenarios and review evidence-based evaluations."
+    },
+    "knowledge": {
+      "title": "Knowledge & References",
+      "intro": "Four collections with 50 entries each: tutor, formative assessment, parent profiles and school-family epidemic scenarios. Search 200 new references alongside the original 50.",
+      "scope": "Verified bibliographic records accompany editorial practice suggestions. Journal indexing evidence includes its edition and check date; consult original publications for findings. Profiles and cases are fictional teaching exercises.",
+      "back": "Back to home",
+      "tutor": "Tutor",
+      "assessor": "Formative assessor",
+      "parents": "Parent profiles",
+      "scenarios": "Epidemic communication",
+      "tutorHint": "Review specific wording, suggested revisions and related reading.",
+      "assessorHint": "Evidence-linked formative feedback after each 10 complete exchanges.",
+      "parentsHint": "50 composite communication profiles based on observable needs.",
+      "scenariosHint": "10 school-family topics across 5 example grade levels.",
+      "category": "Knowledge collection",
+      "all": "All knowledge and references",
+      "legacy": "Original references",
+      "searchHint": "Search topics, practice points, titles, authors or journals",
+      "results": "Results:",
+      "detail": "Practice card and source",
+      "pagination": "Reference pages",
+      "supportTitle": "Practice tutor & formative feedback",
+      "supportMethod": "Rule-supported guidance derived from saved dialogue; review suggestions in context.",
+      "supportError": "Support is temporarily unavailable. You can continue; a later message reloads it.",
+      "rounds": "Complete exchanges:",
+      "nextAt": "Next feedback at:",
+      "rewrite": "Suggested wording:",
+      "evidence": "Locate dialogue evidence",
+      "reading": "Related knowledge and sources",
+      "noRisk": "Current rules found no wording to review. Continue checking facts, acknowledging concerns and agreeing actions.",
+      "reportMethod": "This view retrieves observable cues and wording concerns from 10 teacher turns, with original message evidence. Formal five-dimension scoring uses the training evaluation flow.",
+      "waitForTen": "Formative feedback appears after 10 complete learner-message + character-reply exchanges. Unanswered messages and reply retries add no exchanges.",
+      "open": "Browse tutor knowledge",
+      "dim": {
+        "communication": "Communication",
+        "fact-checking": "Fact checking",
+        "judgment": "Educational judgment",
+        "coordination": "Coordination",
+        "responsibility": "Professional responsibility"
+      },
+      "status": {
+        "review": "Wording to review",
+        "observed": "Observable cues retrieved",
+        "missing": "No cue retrieved in this group"
+      }
+    },
+    "practice": {
+      "title": "Set up this practice",
+      "focus": "Practice scope",
+      "family": "School-family communication (parents)",
+      "campus": "Campus scenario (including students)",
+      "grade": "Grade level",
+      "channel": "Communication channel",
+      "private": "Private chat",
+      "phone": "Telephone practice",
+      "group": "Public parent group",
+      "parentType": "Parent type (50 composite profiles)",
+      "case": "Epidemic communication focus",
+      "baseCase": "Original comprehensive case",
+      "note": "Selections are saved with this training. Profiles are fictional teaching setups and adapt to dialogue. Telephone practice can use existing speech controls; voice input requires an available device and speech service.",
+      "review": "Practice setup"
     }
   }
 }

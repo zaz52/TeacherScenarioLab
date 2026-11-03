@@ -7,6 +7,14 @@ import { useAccount } from '@/components/account/account-provider';
 import { useModelSettingsView } from '@/lib/model-settings/use-model-settings';
 import { characterLabel, characterAvatar } from '@/lib/training/character-presentation';
 import type { UserRouting } from '@/lib/training/user-model-routing';
+import {
+  DEFAULT_PRACTICE,
+  PARENT_PROFILES,
+  PRACTICE_GRADES,
+  SCENARIO_CASES,
+  gradeLabel,
+  type PracticeConfig,
+} from '@/lib/training/practice-config';
 import { RoleNameSettings, useRoleNames } from '@/components/classroom/role-name-settings';
 
 export interface ComposerScenario {
@@ -23,7 +31,8 @@ export function useEpidemicComposer(enabled: boolean) {
   const [scenarios, setScenarios] = useState<ComposerScenario[]>([]);
   const [selected, setSelected] = useState('');
   const [characterId, setCharacterId] = useState('parent-1');
-  const [mode, setMode] = useState<'scripted' | 'model'>('scripted');
+  const [mode, setMode] = useState<'scripted' | 'model'>('model');
+  const [practice, setPractice] = useState<PracticeConfig>(DEFAULT_PRACTICE);
   const [routing, setRouting] = useState<UserRouting>({
     roleplay: null,
     evaluation: null,
@@ -39,6 +48,19 @@ export function useEpidemicComposer(enabled: boolean) {
     scenarios.find((value) => value.scenarioId === 'epi-class-fever') ??
     scenarios[0];
   const roleNames = useRoleNames(scenario?.scenarioId, scenario?.version);
+  useEffect(() => {
+    if (!scenario) return;
+    setPractice((previous) => ({
+      ...previous,
+      grade:
+        scenario.scenarioId === 'epi-class-fever'
+          ? previous.grade === 'scenario'
+            ? 'g3'
+            : previous.grade
+          : 'scenario',
+      focus: scenario.characters.some((c) => c.role === 'parent') ? previous.focus : 'campus',
+    }));
+  }, [scenario?.scenarioId]);
   useEffect(() => {
     if (!enabled) return;
     let active = true;
@@ -74,8 +96,14 @@ export function useEpidemicComposer(enabled: boolean) {
       active = false;
     };
   }, [enabled, account?.authenticated, t]);
+  const characters =
+    scenario?.characters.filter(
+      (value) => practice.focus !== 'family' || value.role === 'parent',
+    ) ?? [];
   const role =
-    scenario?.characters.find((value) => value.id === characterId) ?? scenario?.characters[0];
+    characters.find((value) => value.id === characterId) ??
+    characters.find((value) => value.role === 'parent') ??
+    characters[0];
   const model = role ? (routing.characters[role.id] ?? routing.roleplay) : routing.roleplay;
   const models =
     view?.providers
@@ -109,12 +137,13 @@ export function useEpidemicComposer(enabled: boolean) {
     setBusy(true);
     setError('');
     try {
-      const response = await fetch('/api/training/trainings', {
+      const response = await fetch('/api/training-practice', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           scenarioId: scenario.scenarioId,
           scenarioVersion: scenario.version,
+          practice,
         }),
       });
       const data = await response.json();
@@ -155,6 +184,9 @@ export function useEpidemicComposer(enabled: boolean) {
       setRevision((previous) => previous + 1);
     },
     scenario,
+    characters,
+    practice,
+    setPractice,
     roleNames,
     characterId: role?.id ?? '',
     setCharacterId,
@@ -169,7 +201,9 @@ export function useEpidemicComposer(enabled: boolean) {
     start,
     selectScenario(value: ComposerScenario) {
       setSelected(key(value));
-      setCharacterId(value.characters[0]?.id ?? '');
+      const parent = value.characters.find((character) => character.role === 'parent');
+      setPractice((previous) => ({ ...previous, focus: parent ? 'family' : 'campus' }));
+      setCharacterId(parent?.id ?? value.characters[0]?.id ?? '');
     },
   };
 }
@@ -201,17 +235,14 @@ export function EpidemicRolePill({ composer }: { composer: EpidemicComposer }) {
           onChange={(event) => composer.setCharacterId(event.target.value)}
           disabled={composer.busy}
         >
-          {composer.scenario?.characters.map((role) => (
+          {composer.characters.map((role) => (
             <option key={role.id} value={role.id}>
               {characterLabel(role, t, composer.roleNames.names)}
             </option>
           ))}
         </select>
       </div>
-      <RoleNameSettings
-        characters={composer.scenario?.characters ?? []}
-        settings={composer.roleNames}
-      />
+      <RoleNameSettings characters={composer.characters} settings={composer.roleNames} />
     </div>
   );
 }

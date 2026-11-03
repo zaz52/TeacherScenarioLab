@@ -14,6 +14,8 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getClientTranslation } from '@/lib/i18n';
+import { practiceFromEvents, practiceSummary } from '@/lib/training/practice-config';
+import { characterLabel } from '@/lib/training/character-presentation';
 import { trainingStateLabel } from '@/lib/training/state-label';
 
 interface TrainingInfo {
@@ -82,6 +84,7 @@ export default function TrainingReviewPage() {
   const [events, setEvents] = useState<TrainingEvent[]>([]);
   const [disclosures, setDisclosures] = useState<DisclosedFact[]>([]);
   const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
+  const practice = practiceFromEvents(events);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -172,7 +175,8 @@ export default function TrainingReviewPage() {
   const messageById = new Map(messages.map((message) => [message.id, message]));
   const characterName = (characterId: string | null): string => {
     if (!characterId) return t('reviewTeacher');
-    return scenario?.characters.find((c) => c.id === characterId)?.name ?? characterId;
+    const character = scenario?.characters.find((c) => c.id === characterId);
+    return character ? characterLabel(character, getClientTranslation) : characterId;
   };
   const transitions = events.filter((event) => event.type === 'training-transition');
 
@@ -193,6 +197,12 @@ export default function TrainingReviewPage() {
           {t('reviewState')}：{trainingStateLabel(training.state, t)}
         </p>
       </section>
+      {practice && (
+        <section className="my-5 rounded-xl border p-4 text-sm leading-7">
+          <h2>{getClientTranslation('teacherlab.practice.review')}</h2>
+          <p>{practiceSummary(practice)}</p>
+        </section>
+      )}
       <section>
         <h2>{t('reviewMessages')}</h2>
         {messages.length === 0 && <p>{t('reviewEmpty')}</p>}

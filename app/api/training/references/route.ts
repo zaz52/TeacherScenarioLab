@@ -28,9 +28,13 @@ export async function GET(req: NextRequest) {
   if (topic !== null && !REFERENCE_TOPICS.includes(topic as ReferenceTopic)) {
     return apiError('INVALID_REQUEST', 400, `unknown topic: ${topic}`);
   }
+  const category = req.nextUrl.searchParams.get('category') ?? undefined;
+  if (category && !['legacy', 'tutor', 'assessor', 'parents', 'scenarios'].includes(category)) {
+    return apiError('INVALID_REQUEST', 400, 'unknown knowledge category');
+  }
   const query = req.nextUrl.searchParams.get('q') ?? '';
   return withTrainingOwner(req, async () => {
-    const references = searchReferences(query, topic ?? undefined);
+    const references = searchReferences(query, topic ?? undefined, category);
     return NextResponse.json({
       success: true,
       references,

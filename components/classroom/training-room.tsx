@@ -42,6 +42,10 @@ import { trainingStateLabel } from '@/lib/training/state-label';
 import { cn } from '@/lib/utils';
 import type { SettingsSection } from '@/lib/types/settings';
 import { modelSettingsClient } from '@/lib/model-settings/client';
+import { TrainingSupport } from './training-support';
+import { useAccount } from '@/components/account/account-provider';
+import { practiceText, type PracticeConfig } from '@/lib/training/practice-config';
+import type { KnowledgeSupport } from '@/lib/training/knowledge/support';
 import { RoleNameSettings, useRoleNames } from './role-name-settings';
 
 interface Training {
@@ -106,12 +110,30 @@ export function TrainingRoom() {
     params = useParams<{ id: string }>(),
     id = params.id;
   const [training, setTraining] = useState<Training | null>(null),
-    [scenario, setScenario] = useState<Scenario | null>(null),
+    [rawScenario, setScenario] = useState<Scenario | null>(null),
     [messages, setMessages] = useState<Message[]>([]);
+  const { account } = useAccount();
+  const supportKey = (account?.ownerId ?? '') + ':' + id;
+  const [supportIdentity, setSupportIdentity] = useState('');
+  const [storedPractice, setPractice] = useState<PracticeConfig | null>(null);
+  const [support, setSupport] = useState<KnowledgeSupport | null>(null);
+  const [supportLoading, setSupportLoading] = useState(false);
+  const [supportError, setSupportError] = useState(false);
+  const practice = supportIdentity === supportKey ? storedPractice : null;
+  const scenario = rawScenario && {
+    ...rawScenario,
+    setting: practiceText(rawScenario.setting, practice, training?.scenarioId ?? ''),
+    goal: practiceText(rawScenario.goal, practice, training?.scenarioId ?? ''),
+    learnerRole: practiceText(rawScenario.learnerRole, practice, training?.scenarioId ?? ''),
+  };
+  const visibleCharacters =
+    scenario?.characters.filter(
+      (character) => practice?.focus !== 'family' || character.role === 'parent',
+    ) ?? [];
   const roleNames = useRoleNames(training?.scenarioId, training?.scenarioVersion);
   const [input, setInput] = useState(''),
     [characterId, setCharacterId] = useState(''),
-    [mode, setMode] = useState<'scripted' | 'model'>('scripted');
+    [mode, setMode] = useState<'scripted' | 'model'>('model');
   const [busy, setBusy] = useState(false),
     [replying, setReplying] = useState(false),
     [error, setError] = useState(''),
@@ -209,6 +231,49 @@ export function TrainingRoom() {
       /* Local draft recovery is optional. */
     }
   }, [id, draftKey]);
+  useEffect(() => {
+    const controller = new AbortController();
+    setSupportError(false);
+    setSupportLoading(true);
+    if (!account?.authenticated) {
+      setPractice(null);
+      setSupport(null);
+      setSupportLoading(false);
+      return;
+    }
+    void fetch('/api/training-practice/' + id + '/support', {
+      cache: 'no-store',
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok || !data.success) throw Error();
+        if (!controller.signal.aborted) {
+          setPractice(data.practice);
+          setSupport(data.support);
+          setSupportIdentity(supportKey);
+        }
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setSupportError(true);
+          setSupport(null);
+          setPractice(null);
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setSupportLoading(false);
+      });
+    return () => controller.abort();
+  }, [id, messages.length, account?.authenticated, account?.ownerId]);
+  useEffect(() => {
+    if (
+      practice?.focus === 'family' &&
+      scenario &&
+      !scenario.characters.some((c) => c.id === characterId && c.role === 'parent')
+    )
+      setCharacterId(scenario.characters.find((c) => c.role === 'parent')?.id ?? '');
+  }, [practice?.focus, rawScenario, characterId]);
   useEffect(() => () => cancelSpeech.current?.(), []);
   useEffect(() => {
     bottom.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -497,7 +562,7 @@ export function TrainingRoom() {
                   <MessageCircle size={18} />
                   {t('training.directorChoice')}
                 </button>
-                {scenario.characters.map((character) => (
+                {visibleCharacters.map((character) => (
                   <button
                     key={character.id}
                     disabled={busy}
@@ -528,7 +593,7 @@ export function TrainingRoom() {
                 ))}
               </div>
               <div className="mt-3">
-                <RoleNameSettings characters={scenario.characters} settings={roleNames} />
+                <RoleNameSettings characters={visibleCharacters} settings={roleNames} />
               </div>
             </aside>
             <section className="flex min-h-[650px] min-w-0 flex-col overflow-hidden rounded-2xl border border-border/60 bg-background/90 shadow-sm">
@@ -815,6 +880,12 @@ export function TrainingRoom() {
                   </button>
                 )}
               </section>
+              <TrainingSupport
+                support={supportIdentity === supportKey ? support : null}
+                practice={practice}
+                loading={supportLoading}
+                error={supportError}
+              />
               <section className="rounded-2xl border border-border/60 bg-background/85 p-4 shadow-sm">
                 <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold">
                   <ShieldCheck size={16} />

@@ -1,3 +1,6 @@
+import { knowledgePrompt } from './knowledge/catalog';
+import { practiceFromEvents } from './practice-config';
+import { applyPracticePack, applyPracticeScenario } from './practice-context';
 /**
  * TeacherScenarioLab — single-role reply service (server only).
  *
@@ -76,6 +79,12 @@ export function buildCharacterPrompt(
   systemLines.push(
     '只扮演这个角色。不要透露你不知道的事，不要替其他角色说话，不要编造医学诊断。回复用中文，简短自然，像真人说话。根据教师的实际问题动态回应，不要背诵或机械重复固定台词。',
   );
+  const role = scenario.characters.find((character) => character.id === pack.characterId)?.role;
+  if (role === 'parent')
+    systemLines.push(
+      '以下为沟通风格的教学提示，当前角色事实和信息权限保持最高优先级。研究条目用于后台参考，回复采用角色的日常表达：\n' +
+        knowledgePrompt('parents', pack.emotionBaseline),
+    );
   const system = systemLines.join('\n');
   const visibleHistory = history
     .filter(
@@ -137,8 +146,8 @@ async function generateCharacterReplyInner(
       `training ${trainingId} pins missing scenario ${training.scenarioId} version ${training.scenarioVersion}`,
     );
   }
-  const scenario = toScenarioVersion(record);
-  if (!scenario) {
+  const baseScenario = toScenarioVersion(record);
+  if (!baseScenario) {
     throw new TrainingServiceError(
       500,
       'INVALID_REQUEST',
@@ -147,12 +156,18 @@ async function generateCharacterReplyInner(
   }
   const history = await store.listMessages(trainingId, { includeSuperseded: false });
   const events = await store.listEvents(trainingId);
+  const practice = practiceFromEvents(events);
+  const scenario = applyPracticeScenario(baseScenario, practice);
   let characterId = input.characterId;
   let director: DirectorPick | undefined;
   if (!characterId) {
-    const eligible = getScenarioPacks(training.scenarioId, scenario).map(
-      (pack) => pack.characterId,
-    );
+    const eligible = getScenarioPacks(training.scenarioId, scenario)
+      .filter(
+        (pack) =>
+          practice?.focus !== 'family' ||
+          scenario.characters.some((c) => c.id === pack.characterId && c.role === 'parent'),
+      )
+      .map((pack) => pack.characterId);
     const lastUserMessage =
       [...history].reverse().find((message) => message.role === 'user')?.content ?? '';
     const pick = selectResponder(scenario, eligible, history, lastUserMessage);
@@ -174,7 +189,13 @@ async function generateCharacterReplyInner(
       `character ${characterId} is not in scenario ${training.scenarioId}`,
     );
   }
-  const pack = getCharacterPack(training.scenarioId, characterId, scenario);
+  if (practice?.focus === 'family' && character.role !== 'parent')
+    throw new TrainingServiceError(
+      400,
+      'INVALID_REQUEST',
+      'family practice supports parent dialogue',
+    );
+  let pack = getCharacterPack(training.scenarioId, characterId, scenario);
   if (!pack) {
     throw new TrainingServiceError(
       400,
@@ -182,6 +203,7 @@ async function generateCharacterReplyInner(
       `character ${characterId} has no roleplay pack`,
     );
   }
+  pack = applyPracticePack(pack, scenario, practice);
   const priorReplies = history.filter(
     (message) => message.role === 'character' && message.characterId === characterId,
   ).length;
@@ -195,17 +217,21 @@ async function generateCharacterReplyInner(
     events,
     userMessages,
   );
-  const disclosedFacts = getDisclosedFacts(scenario, {
+  let disclosedFacts = getDisclosedFacts(scenario, {
     state: training.state,
     events: [...events, ...firedEvents.map((type) => ({ type }))],
     userMessages,
   });
 
+  if (practice?.channel === 'group')
+    disclosedFacts = disclosedFacts.filter((fact) => fact.visibility === 'public');
   let selection: ModelSelection | undefined;
   const knownFacts = scenario.facts.filter(
     (fact) =>
       fact.visibility === 'public' ||
-      (fact.visibility === 'character-private' && fact.ownerCharacterId === characterId),
+      (practice?.channel !== 'group' &&
+        fact.visibility === 'character-private' &&
+        fact.ownerCharacterId === characterId),
   );
   knownFacts.push(...disclosedFacts);
   let text: string;
@@ -220,7 +246,9 @@ async function generateCharacterReplyInner(
     text = pack.scriptedReplies[Math.min(priorReplies, pack.scriptedReplies.length - 1)] as string;
   } else {
     const { system, prompt } = buildCharacterPrompt(
-      scenario,
+      practice?.channel === 'group'
+        ? { ...scenario, facts: scenario.facts.filter((fact) => fact.visibility === 'public') }
+        : scenario,
       pack,
       character.name,
       history,
@@ -241,7 +269,8 @@ async function generateCharacterReplyInner(
             const disclosedIds = new Set(disclosedFacts.map((f) => f.id));
             const forbidden = scenario.facts.filter(
               (f) =>
-                (f.visibility === 'character-private' && f.ownerCharacterId !== characterId) ||
+                (f.visibility === 'character-private' &&
+                  (practice?.channel === 'group' || f.ownerCharacterId !== characterId)) ||
                 (f.visibility === 'hidden' && !disclosedIds.has(f.id)),
             );
             const anonymized = forbidden.map((f) => ({
@@ -287,7 +316,8 @@ async function generateCharacterReplyInner(
   const disclosedIds = new Set(disclosedFacts.map((fact) => fact.id));
   const forbiddenFacts = scenario.facts.filter(
     (fact) =>
-      (fact.visibility === 'character-private' && fact.ownerCharacterId !== characterId) ||
+      (fact.visibility === 'character-private' &&
+        (practice?.channel === 'group' || fact.ownerCharacterId !== characterId)) ||
       (fact.visibility === 'hidden' && !disclosedIds.has(fact.id)),
   );
   const leaked = scanReplyForLeaks(text, forbiddenFacts, knownFacts);

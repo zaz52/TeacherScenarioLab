@@ -2570,7 +2570,7 @@
     "dimCoordination": "协同处置",
     "dimResponsibility": "专业责任",
     "evaluateFailed": "评价失败，请重试。",
-    "referencesTitle": "文献库",
+    "referencesTitle": "知识与文献库",
     "referencesTopicAll": "全部主题",
     "referencesTopicEpidemicSchool": "疫情与学校",
     "referencesTopicHomeSchool": "家校沟通",
@@ -2734,7 +2734,13 @@
     "stateCoordination": "协同处置",
     "stateProposal": "方案制定",
     "stateEvaluation": "训练评价",
-    "stateCompleted": "已完成"
+    "stateCompleted": "已完成",
+    "knowledgeFictionalParent": "教学用虚构沟通画像；开场参考",
+    "knowledgeFictionalCase": "本案例为结合疫情家校沟通主题编写的虚构实训案例。",
+    "knowledgeEditorialNote": "实训应用为编辑整理的教学建议；文献研究结论以原文为准。",
+    "knowledgeJournalSource": "查看期刊收录依据",
+    "knowledgeMetadataScope": "已核验题录与研究主题，全文证据审阅仍需结合原文。",
+    "knowledgeMetadataSource": "查看题录来源"
   },
   "modelCenter": {
     "customConnection": "自定义模型接入",
@@ -3102,7 +3108,8 @@
         "model": "选用了对话模型",
         "switch": "切换了模型",
         "rumor": "家长群出现传言",
-        "activity": "训练活动"
+        "activity": "训练活动",
+        "practice": "实训设置已保存"
       },
       "eventHints": {
         "created": "训练已建立，可进入训练室继续。",
@@ -3115,7 +3122,8 @@
         "model": "本次训练记录了实际使用的模型选择。",
         "switch": "本次训练记录了模型切换。",
         "rumor": "情境中出现了需要核实和回应的家长群传言。",
-        "activity": "这项活动已记录在本次训练的事件账本中。"
+        "activity": "这项活动已记录在本次训练的事件账本中。",
+        "practice": "本次年级、家长画像与沟通方式已记入训练。"
       }
     },
     "auth": {
@@ -3153,6 +3161,67 @@
       "setPassword": "设置登录密码",
       "openLoginPage": "打开独立登录页面",
       "story": "围绕校园疫情情境开展多角色沟通训练，用对话证据完成五维评价与复盘。"
+    },
+    "knowledge": {
+      "title": "知识与文献库",
+      "intro": "助教、助评、家长类型、疫情家校沟通场景，每类50条。200篇新增关联文献与原有50篇文献可一起检索。",
+      "scope": "条目提供可追溯题录与编辑整理的实训应用。期刊收录依据标明版本和核对日期，研究结论请查阅原文。家长画像与场景案例用于虚构教学练习。",
+      "back": "返回首页",
+      "tutor": "助教",
+      "assessor": "助评",
+      "parents": "家长类型",
+      "scenarios": "疫情沟通场景",
+      "tutorHint": "定位需要核对的说法，提供改写与关联阅读。",
+      "assessorHint": "每10轮完整互动提供带消息证据的阶段反馈。",
+      "parentsHint": "50种组合沟通画像，关注可观察表现与沟通需求。",
+      "scenariosHint": "10个疫情家校沟通主题，覆盖5个年级示例。",
+      "category": "知识库分类",
+      "all": "全部知识与文献",
+      "legacy": "原有文献",
+      "searchHint": "搜索主题、知识点、标题、作者或期刊",
+      "results": "检索结果：",
+      "detail": "知识卡与文献出处",
+      "pagination": "文献分页",
+      "supportTitle": "实训助教与助评",
+      "supportMethod": "基于已保存对话的规则辅助提示，建议结合上下文复核。",
+      "supportError": "辅助反馈暂时不可用，可继续实训；后续消息会重新加载。",
+      "rounds": "完整互动轮数：",
+      "nextAt": "下次阶段反馈：",
+      "rewrite": "参考说法：",
+      "evidence": "定位对话证据",
+      "reading": "查看关联知识与文献",
+      "noRisk": "当前规则尚未检出需复核的措辞。可继续核实事实、回应担忧与约定行动。",
+      "reportMethod": "根据本组10轮教师发言检索行为线索与需复核措辞，展示原消息证据。正式五维评分在训练评价流程生成。",
+      "waitForTen": "累计10轮“学员发言＋角色回复”后自动显示阶段反馈。未回复的发言与回复重试不增加轮数。",
+      "open": "浏览助教知识库",
+      "dim": {
+        "communication": "沟通能力",
+        "fact-checking": "信息核实",
+        "judgment": "教育判断",
+        "coordination": "协同处置",
+        "responsibility": "专业责任"
+      },
+      "status": {
+        "review": "有措辞需复核",
+        "observed": "检索到行为线索",
+        "missing": "本组尚未检索到线索"
+      }
+    },
+    "practice": {
+      "title": "设置本次实训",
+      "focus": "训练范围",
+      "family": "家校沟通（家长）",
+      "campus": "综合校园情境（含学生）",
+      "grade": "训练年级",
+      "channel": "沟通方式",
+      "private": "一对一私聊",
+      "phone": "电话沟通练习",
+      "group": "家长群公开沟通",
+      "parentType": "家长类型（50种组合画像）",
+      "case": "疫情沟通重点",
+      "baseCase": "原情境综合沟通",
+      "note": "本次选择随训练保存。画像用于教学模拟，个体表现依据实际互动变化。电话模式可结合现有语音按钮练习，语音输入取决于设备与语音服务可用性。",
+      "review": "本次实训设置"
     }
   }
 }

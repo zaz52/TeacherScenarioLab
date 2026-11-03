@@ -1,0 +1,2053 @@
+[
+  {
+    "id": "kb-parents-01",
+    "category": "parents",
+    "label": "孩子健康·反复确认",
+    "application": "可观察表现：反复询问症状与就医安排；连续追问同一个重点。沟通重点：先核实已知症状和就医信息，医疗判断交由专业人员。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["健康", "症状", "就医", "发热"],
+    "reference": {
+      "id": "kb-parents-01",
+      "title": "发达地区家长感知到的家校合作状况与学校育人环境的关系探究——基于潜剖面分析",
+      "authors": ["梁丽婵", "陆彩霞", "孙丽萍"],
+      "year": 2021,
+      "url": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/021b96a74f0d29c70d4c981620b04434",
+      "venue": "中国电化教育",
+      "locator": "2021(06):105-111",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：发达地区家长感知到的家校合作状况与学校育人环境的关系探究——基于潜剖面分析。关联实训主题：孩子健康·反复确认。"
+    },
+    "journal": {
+      "label": "中文核心（原刊网站标注）",
+      "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/021b96a74f0d29c70d4c981620b04434",
+      "edition": "原刊网站，2026-11-03核对",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "原刊或机构来源页",
+      "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/021b96a74f0d29c70d4c981620b04434",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "health-confirm",
+      "label": "孩子健康·反复确认",
+      "signals": "反复询问症状与就医安排；连续追问同一个重点",
+      "need": "先核实已知症状和就医信息，医疗判断交由专业人员",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "孩子发热以后，我们应该先向谁确认情况？",
+      "tags": ["健康", "症状", "就医", "发热"]
+    }
+  },
+  {
+    "id": "kb-parents-02",
+    "category": "parents",
+    "label": "孩子健康·质疑追问",
+    "application": "可观察表现：反复询问症状与就医安排；要求理由和具体依据。沟通重点：先核实已知症状和就医信息，医疗判断交由专业人员。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["健康", "症状", "就医", "发热"],
+    "reference": {
+      "id": "kb-parents-02",
+      "title": "后疫情时代家校协同的变革路径探析——基于“停课不停学”期间1440个家庭的问卷调查",
+      "authors": ["白然", "张伟远", "管艳", "谢青松"],
+      "year": 2021,
+      "url": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/92497d983f561979bc08b80ff96a2b3e",
+      "venue": "中国电化教育",
+      "locator": "2021(03):30-37",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：后疫情时代家校协同的变革路径探析——基于“停课不停学”期间1440个家庭的问卷调查。关联实训主题：孩子健康·质疑追问。"
+    },
+    "journal": {
+      "label": "中文核心（原刊网站标注）",
+      "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/021b96a74f0d29c70d4c981620b04434",
+      "edition": "原刊网站，2026-11-03核对",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "原刊或机构来源页",
+      "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/92497d983f561979bc08b80ff96a2b3e",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "health-question",
+      "label": "孩子健康·质疑追问",
+      "signals": "反复询问症状与就医安排；要求理由和具体依据",
+      "need": "先核实已知症状和就医信息，医疗判断交由专业人员",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "孩子发热以后，我们应该先向谁确认情况？",
+      "tags": ["健康", "症状", "就医", "发热"]
+    }
+  },
+  {
+    "id": "kb-parents-03",
+    "category": "parents",
+    "label": "孩子健康·谨慎观望",
+    "application": "可观察表现：反复询问症状与就医安排；答复简短，较少主动提供信息。沟通重点：先核实已知症状和就医信息，医疗判断交由专业人员。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["健康", "症状", "就医", "发热"],
+    "reference": {
+      "id": "kb-parents-03",
+      "title": "A Randomized Trial Examining the Effects of Conjoint Behavioral Consultation and the Mediating Role of the Parent–Teacher Relationship",
+      "authors": [
+        "Susan M. Sheridan",
+        "James A. Bovaird",
+        "Todd A. Glover",
+        "S. Andrew Garbacz",
+        "Amanda Witte",
+        "Kyongboon Kwon"
+      ],
+      "year": 2012,
+      "url": "https://doi.org/10.1080/02796015.2012.12087374",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.2012.12087374",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：A Randomized Trial Examining the Effects of Conjoint Behavioral Consultation and the Mediating Role of the Parent–Teacher Relationship。关联实训主题：孩子健康·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.2012.12087374",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "health-quiet",
+      "label": "孩子健康·谨慎观望",
+      "signals": "反复询问症状与就医安排；答复简短，较少主动提供信息",
+      "need": "先核实已知症状和就医信息，医疗判断交由专业人员",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "孩子发热以后，我们应该先向谁确认情况？",
+      "tags": ["健康", "症状", "就医", "发热"]
+    }
+  },
+  {
+    "id": "kb-parents-04",
+    "category": "parents",
+    "label": "孩子健康·急切求解",
+    "application": "可观察表现：反复询问症状与就医安排；希望尽快得到明确行动方案。沟通重点：先核实已知症状和就医信息，医疗判断交由专业人员。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["健康", "症状", "就医", "发热"],
+    "reference": {
+      "id": "kb-parents-04",
+      "title": "Parent beliefs and children's social-behavioral functioning: The mediating role of parent–teacher relationships",
+      "authors": ["Elizabeth Moorman Kim", "Susan M. Sheridan", "Kyongboon Kwon", "Natalie Koziol"],
+      "year": 2013,
+      "url": "https://doi.org/10.1016/j.jsp.2013.01.003",
+      "venue": "Journal of School Psychology",
+      "doi": "10.1016/j.jsp.2013.01.003",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parent beliefs and children's social-behavioral functioning: The mediating role of parent–teacher relationships。关联实训主题：孩子健康·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.jsp.2013.01.003",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "health-urgent",
+      "label": "孩子健康·急切求解",
+      "signals": "反复询问症状与就医安排；希望尽快得到明确行动方案",
+      "need": "先核实已知症状和就医信息，医疗判断交由专业人员",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "孩子发热以后，我们应该先向谁确认情况？",
+      "tags": ["健康", "症状", "就医", "发热"]
+    }
+  },
+  {
+    "id": "kb-parents-05",
+    "category": "parents",
+    "label": "孩子健康·协作商量",
+    "application": "可观察表现：反复询问症状与就医安排；主动讨论可行方案。沟通重点：先核实已知症状和就医信息，医疗判断交由专业人员。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["健康", "症状", "就医", "发热"],
+    "reference": {
+      "id": "kb-parents-05",
+      "title": "A cocaring framework for infants and toddlers: Applying a model of coparenting to parent–teacher relationships",
+      "authors": [
+        "Sarah N. Lang",
+        "Angela R. Tolbert",
+        "Sarah J. Schoppe-Sullivan",
+        "Amy E. Bonomi"
+      ],
+      "year": 2016,
+      "url": "https://doi.org/10.1016/j.ecresq.2015.08.004",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2015.08.004",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：A cocaring framework for infants and toddlers: Applying a model of coparenting to parent–teacher relationships。关联实训主题：孩子健康·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2015.08.004",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "health-collaborative",
+      "label": "孩子健康·协作商量",
+      "signals": "反复询问症状与就医安排；主动讨论可行方案",
+      "need": "先核实已知症状和就医信息，医疗判断交由专业人员",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "孩子发热以后，我们应该先向谁确认情况？",
+      "tags": ["健康", "症状", "就医", "发热"]
+    }
+  },
+  {
+    "id": "kb-parents-06",
+    "category": "parents",
+    "label": "健康隐私·反复确认",
+    "application": "可观察表现：担心姓名和健康信息被公开；连续追问同一个重点。沟通重点：说明信息使用范围，通过私密渠道核实个体信息。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["隐私", "公开", "姓名", "群"],
+    "reference": {
+      "id": "kb-parents-06",
+      "title": "The Family-School Partnership: An Opportunity to Promote the Learning Competence of All Students",
+      "authors": ["Sandra L. Christenson"],
+      "year": 2004,
+      "url": "https://doi.org/10.1080/02796015.2004.12086233",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.2004.12086233",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：The Family-School Partnership: An Opportunity to Promote the Learning Competence of All Students。关联实训主题：健康隐私·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.2004.12086233",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "privacy-confirm",
+      "label": "健康隐私·反复确认",
+      "signals": "担心姓名和健康信息被公开；连续追问同一个重点",
+      "need": "说明信息使用范围，通过私密渠道核实个体信息",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "孩子的情况会在家长群里公开吗？",
+      "tags": ["隐私", "公开", "姓名", "群"]
+    }
+  },
+  {
+    "id": "kb-parents-07",
+    "category": "parents",
+    "label": "健康隐私·质疑追问",
+    "application": "可观察表现：担心姓名和健康信息被公开；要求理由和具体依据。沟通重点：说明信息使用范围，通过私密渠道核实个体信息。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["隐私", "公开", "姓名", "群"],
+    "reference": {
+      "id": "kb-parents-07",
+      "title": "Behavioral parent-teacher consultation: Conceptual and research considerations",
+      "authors": ["Susan M. Sheridan", "Thomas R. Kratochwill"],
+      "year": 1992,
+      "url": "https://doi.org/10.1016/0022-4405(92)90025-z",
+      "venue": "Journal of School Psychology",
+      "doi": "10.1016/0022-4405(92)90025-z",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Behavioral parent-teacher consultation: Conceptual and research considerations。关联实训主题：健康隐私·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/0022-4405(92)90025-z",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "privacy-question",
+      "label": "健康隐私·质疑追问",
+      "signals": "担心姓名和健康信息被公开；要求理由和具体依据",
+      "need": "说明信息使用范围，通过私密渠道核实个体信息",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "孩子的情况会在家长群里公开吗？",
+      "tags": ["隐私", "公开", "姓名", "群"]
+    }
+  },
+  {
+    "id": "kb-parents-08",
+    "category": "parents",
+    "label": "健康隐私·谨慎观望",
+    "application": "可观察表现：担心姓名和健康信息被公开；答复简短，较少主动提供信息。沟通重点：说明信息使用范围，通过私密渠道核实个体信息。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["隐私", "公开", "姓名", "群"],
+    "reference": {
+      "id": "kb-parents-08",
+      "title": "Psychometric properties of a parent- and teacher-report measure for autistic children: Parent-Teacher Relationship Quality Scale (PTRQS)",
+      "authors": ["Lana Andoni", "Narmene Hamsho", "Jan Blacher", "Abbey Eisenhower"],
+      "year": 2022,
+      "url": "https://doi.org/10.1016/j.jsp.2022.08.004",
+      "venue": "Journal of School Psychology",
+      "doi": "10.1016/j.jsp.2022.08.004",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Psychometric properties of a parent- and teacher-report measure for autistic children: Parent-Teacher Relationship Quality Scale (PTRQS)。关联实训主题：健康隐私·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.jsp.2022.08.004",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "privacy-quiet",
+      "label": "健康隐私·谨慎观望",
+      "signals": "担心姓名和健康信息被公开；答复简短，较少主动提供信息",
+      "need": "说明信息使用范围，通过私密渠道核实个体信息",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "孩子的情况会在家长群里公开吗？",
+      "tags": ["隐私", "公开", "姓名", "群"]
+    }
+  },
+  {
+    "id": "kb-parents-09",
+    "category": "parents",
+    "label": "健康隐私·急切求解",
+    "application": "可观察表现：担心姓名和健康信息被公开；希望尽快得到明确行动方案。沟通重点：说明信息使用范围，通过私密渠道核实个体信息。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["隐私", "公开", "姓名", "群"],
+    "reference": {
+      "id": "kb-parents-09",
+      "title": "Congruence in Parent–Teacher Communication: Implications for the Efficacy of CBC for Students With Behavioral Concerns",
+      "authors": [
+        "S. Andrew Garbacz",
+        "Susan M. Sheridan",
+        "Natalie A. Koziol",
+        "Kyongboon Kwon",
+        "Shannon R. Holmes"
+      ],
+      "year": 2015,
+      "url": "https://doi.org/10.17105/spr-14-0035.1",
+      "venue": "School Psychology Review",
+      "doi": "10.17105/spr-14-0035.1",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Congruence in Parent–Teacher Communication: Implications for the Efficacy of CBC for Students With Behavioral Concerns。关联实训主题：健康隐私·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.17105/spr-14-0035.1",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "privacy-urgent",
+      "label": "健康隐私·急切求解",
+      "signals": "担心姓名和健康信息被公开；希望尽快得到明确行动方案",
+      "need": "说明信息使用范围，通过私密渠道核实个体信息",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "孩子的情况会在家长群里公开吗？",
+      "tags": ["隐私", "公开", "姓名", "群"]
+    }
+  },
+  {
+    "id": "kb-parents-10",
+    "category": "parents",
+    "label": "健康隐私·协作商量",
+    "application": "可观察表现：担心姓名和健康信息被公开；主动讨论可行方案。沟通重点：说明信息使用范围，通过私密渠道核实个体信息。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["隐私", "公开", "姓名", "群"],
+    "reference": {
+      "id": "kb-parents-10",
+      "title": "Perspectives and Practices in Family-School Partnerships: A National Survey of School Psychologists",
+      "authors": ["Lynn E. Pelco", "Roger R. Ries", "Lisa Jacobson", "Susan Melka"],
+      "year": 2000,
+      "url": "https://doi.org/10.1080/02796015.2000.12086012",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.2000.12086012",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Perspectives and Practices in Family-School Partnerships: A National Survey of School Psychologists。关联实训主题：健康隐私·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.2000.12086012",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "privacy-collaborative",
+      "label": "健康隐私·协作商量",
+      "signals": "担心姓名和健康信息被公开；主动讨论可行方案",
+      "need": "说明信息使用范围，通过私密渠道核实个体信息",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "孩子的情况会在家长群里公开吗？",
+      "tags": ["隐私", "公开", "姓名", "群"]
+    }
+  },
+  {
+    "id": "kb-parents-11",
+    "category": "parents",
+    "label": "信息可信度·反复确认",
+    "application": "可观察表现：追问消息来源和学校口径；连续追问同一个重点。沟通重点：区分确认信息与待核实消息，给出正式通知渠道。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["消息", "来源", "通知", "核实"],
+    "reference": {
+      "id": "kb-parents-11",
+      "title": "The role of parenting self-efficacy on teacher-child relationships and parent-teacher communication: Evidence from an Australian national longitudinal study",
+      "authors": ["Tianyi Ma", "Cassandra L. Tellegen", "Matthew R. Sanders"],
+      "year": 2024,
+      "url": "https://doi.org/10.1016/j.jsp.2024.101296",
+      "venue": "Journal of School Psychology",
+      "doi": "10.1016/j.jsp.2024.101296",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：The role of parenting self-efficacy on teacher-child relationships and parent-teacher communication: Evidence from an Australian national longitudinal study。关联实训主题：信息可信度·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.jsp.2024.101296",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "trust-confirm",
+      "label": "信息可信度·反复确认",
+      "signals": "追问消息来源和学校口径；连续追问同一个重点",
+      "need": "区分确认信息与待核实消息，给出正式通知渠道",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "群里的说法是真的吗？学校确认过了吗？",
+      "tags": ["消息", "来源", "通知", "核实"]
+    }
+  },
+  {
+    "id": "kb-parents-12",
+    "category": "parents",
+    "label": "信息可信度·质疑追问",
+    "application": "可观察表现：追问消息来源和学校口径；要求理由和具体依据。沟通重点：区分确认信息与待核实消息，给出正式通知渠道。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["消息", "来源", "通知", "核实"],
+    "reference": {
+      "id": "kb-parents-12",
+      "title": "Associations between daily parent–teacher communication, child’s problem behavior, and parent–child relationship mediated by parental self-efficacy",
+      "authors": [
+        "Keiko K. Fujisawa",
+        "Kayo Nozaki",
+        "Michio Naoi",
+        "Chizuru Shikishima",
+        "Hideo Akabayashi"
+      ],
+      "year": 2025,
+      "url": "https://doi.org/10.1016/j.ecresq.2025.05.001",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2025.05.001",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Associations between daily parent–teacher communication, child’s problem behavior, and parent–child relationship mediated by parental self-efficacy。关联实训主题：信息可信度·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2025.05.001",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "trust-question",
+      "label": "信息可信度·质疑追问",
+      "signals": "追问消息来源和学校口径；要求理由和具体依据",
+      "need": "区分确认信息与待核实消息，给出正式通知渠道",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "群里的说法是真的吗？学校确认过了吗？",
+      "tags": ["消息", "来源", "通知", "核实"]
+    }
+  },
+  {
+    "id": "kb-parents-13",
+    "category": "parents",
+    "label": "信息可信度·谨慎观望",
+    "application": "可观察表现：追问消息来源和学校口径；答复简短，较少主动提供信息。沟通重点：区分确认信息与待核实消息，给出正式通知渠道。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["消息", "来源", "通知", "核实"],
+    "reference": {
+      "id": "kb-parents-13",
+      "title": "Patterns of Family-School Contact in Preschool and Kindergarten",
+      "authors": ["Sara E. Rimm-Kaufman", "Robert C. Pianta"],
+      "year": 1999,
+      "url": "https://doi.org/10.1080/02796015.1999.12085975",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.1999.12085975",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Patterns of Family-School Contact in Preschool and Kindergarten。关联实训主题：信息可信度·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.1999.12085975",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "trust-quiet",
+      "label": "信息可信度·谨慎观望",
+      "signals": "追问消息来源和学校口径；答复简短，较少主动提供信息",
+      "need": "区分确认信息与待核实消息，给出正式通知渠道",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "群里的说法是真的吗？学校确认过了吗？",
+      "tags": ["消息", "来源", "通知", "核实"]
+    }
+  },
+  {
+    "id": "kb-parents-14",
+    "category": "parents",
+    "label": "信息可信度·急切求解",
+    "application": "可观察表现：追问消息来源和学校口径；希望尽快得到明确行动方案。沟通重点：区分确认信息与待核实消息，给出正式通知渠道。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["消息", "来源", "通知", "核实"],
+    "reference": {
+      "id": "kb-parents-14",
+      "title": "Application of Participatory Action Research to Family-School Intervention",
+      "authors": ["Bonnie S. Ho"],
+      "year": 2002,
+      "url": "https://doi.org/10.1080/02796015.2002.12086145",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.2002.12086145",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Application of Participatory Action Research to Family-School Intervention。关联实训主题：信息可信度·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.2002.12086145",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "trust-urgent",
+      "label": "信息可信度·急切求解",
+      "signals": "追问消息来源和学校口径；希望尽快得到明确行动方案",
+      "need": "区分确认信息与待核实消息，给出正式通知渠道",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "群里的说法是真的吗？学校确认过了吗？",
+      "tags": ["消息", "来源", "通知", "核实"]
+    }
+  },
+  {
+    "id": "kb-parents-15",
+    "category": "parents",
+    "label": "信息可信度·协作商量",
+    "application": "可观察表现：追问消息来源和学校口径；主动讨论可行方案。沟通重点：区分确认信息与待核实消息，给出正式通知渠道。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["消息", "来源", "通知", "核实"],
+    "reference": {
+      "id": "kb-parents-15",
+      "title": "Children's Achievement in Early Elementary School: Longitudinal Effects of Parental Involvement, Expectations, and Quality of Assistance.",
+      "authors": ["Michelle M. Englund", "Amy E. Luckner", "Gloria J. L. Whaley", "Byron Egeland"],
+      "year": 2004,
+      "url": "https://doi.org/10.1037/0022-0663.96.4.723",
+      "venue": "Journal of Educational Psychology",
+      "doi": "10.1037/0022-0663.96.4.723",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Children's Achievement in Early Elementary School: Longitudinal Effects of Parental Involvement, Expectations, and Quality of Assistance.。关联实训主题：信息可信度·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/0022-0663.96.4.723",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "trust-collaborative",
+      "label": "信息可信度·协作商量",
+      "signals": "追问消息来源和学校口径；主动讨论可行方案",
+      "need": "区分确认信息与待核实消息，给出正式通知渠道",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "群里的说法是真的吗？学校确认过了吗？",
+      "tags": ["消息", "来源", "通知", "核实"]
+    }
+  },
+  {
+    "id": "kb-parents-16",
+    "category": "parents",
+    "label": "学习连续性·反复确认",
+    "application": "可观察表现：担心请假或居家学习落下进度；连续追问同一个重点。沟通重点：协商可完成的学习支持和反馈时间。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["学习", "作业", "进度", "请假"],
+    "reference": {
+      "id": "kb-parents-16",
+      "title": "Parenting Styles, Adolescents' Attributions, and Educational Outcomes in Nine Heterogeneous High Schools",
+      "authors": [
+        "Kristan L. Glasgow",
+        "Sanford M. Dornbusch",
+        "Lisa Troyer",
+        "Laurence Steinberg",
+        "Philip L. Ritter"
+      ],
+      "year": 1997,
+      "url": "https://doi.org/10.2307/1131675",
+      "venue": "Child Development",
+      "doi": "10.2307/1131675",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parenting Styles, Adolescents' Attributions, and Educational Outcomes in Nine Heterogeneous High Schools。关联实训主题：学习连续性·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.2307/1131675",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "learning-confirm",
+      "label": "学习连续性·反复确认",
+      "signals": "担心请假或居家学习落下进度；连续追问同一个重点",
+      "need": "协商可完成的学习支持和反馈时间",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "孩子请假后，学习任务怎么跟上？",
+      "tags": ["学习", "作业", "进度", "请假"]
+    }
+  },
+  {
+    "id": "kb-parents-17",
+    "category": "parents",
+    "label": "学习连续性·质疑追问",
+    "application": "可观察表现：担心请假或居家学习落下进度；要求理由和具体依据。沟通重点：协商可完成的学习支持和反馈时间。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["学习", "作业", "进度", "请假"],
+    "reference": {
+      "id": "kb-parents-17",
+      "title": "Reconsidering the Typology of Parenting Styles and Its Association With Preschoolers' Development in Chinese Families",
+      "authors": ["Lixin Ren", "Yeqing Li", "Xuan Li", "Jiayi Li", "Lin Li", "Jieqiong Fan"],
+      "year": 2025,
+      "url": "https://doi.org/10.1111/cdev.14236",
+      "venue": "Child Development",
+      "doi": "10.1111/cdev.14236",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Reconsidering the Typology of Parenting Styles and Its Association With Preschoolers' Development in Chinese Families。关联实训主题：学习连续性·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/cdev.14236",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "learning-question",
+      "label": "学习连续性·质疑追问",
+      "signals": "担心请假或居家学习落下进度；要求理由和具体依据",
+      "need": "协商可完成的学习支持和反馈时间",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "孩子请假后，学习任务怎么跟上？",
+      "tags": ["学习", "作业", "进度", "请假"]
+    }
+  },
+  {
+    "id": "kb-parents-18",
+    "category": "parents",
+    "label": "学习连续性·谨慎观望",
+    "application": "可观察表现：担心请假或居家学习落下进度；答复简短，较少主动提供信息。沟通重点：协商可完成的学习支持和反馈时间。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["学习", "作业", "进度", "请假"],
+    "reference": {
+      "id": "kb-parents-18",
+      "title": "Links between parenting styles, parent–child academic interaction, parent–school interaction, and early academic skills and social behaviors in young children of English-speaking Caribbean immigrants",
+      "authors": [
+        "Jaipaul L. Roopnarine",
+        "Ambika Krishnakumar",
+        "Aysegul Metindogan",
+        "Melanie Evans"
+      ],
+      "year": 2006,
+      "url": "https://doi.org/10.1016/j.ecresq.2006.04.007",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2006.04.007",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Links between parenting styles, parent–child academic interaction, parent–school interaction, and early academic skills and social behaviors in young children of English-speaking Caribbean immigrants。关联实训主题：学习连续性·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2006.04.007",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "learning-quiet",
+      "label": "学习连续性·谨慎观望",
+      "signals": "担心请假或居家学习落下进度；答复简短，较少主动提供信息",
+      "need": "协商可完成的学习支持和反馈时间",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "孩子请假后，学习任务怎么跟上？",
+      "tags": ["学习", "作业", "进度", "请假"]
+    }
+  },
+  {
+    "id": "kb-parents-19",
+    "category": "parents",
+    "label": "学习连续性·急切求解",
+    "application": "可观察表现：担心请假或居家学习落下进度；希望尽快得到明确行动方案。沟通重点：协商可完成的学习支持和反馈时间。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["学习", "作业", "进度", "请假"],
+    "reference": {
+      "id": "kb-parents-19",
+      "title": "Mediating role of parent-teacher cocaring relationships in the associations between teacher-child relationships and parenting stress in Early Head Start",
+      "authors": ["Dahyung Ryu", "Shinyoung Jeon", "Erin G. Fox", "Sarah N. Lang"],
+      "year": 2026,
+      "url": "https://doi.org/10.1016/j.ecresq.2026.03.005",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2026.03.005",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Mediating role of parent-teacher cocaring relationships in the associations between teacher-child relationships and parenting stress in Early Head Start。关联实训主题：学习连续性·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2026.03.005",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "learning-urgent",
+      "label": "学习连续性·急切求解",
+      "signals": "担心请假或居家学习落下进度；希望尽快得到明确行动方案",
+      "need": "协商可完成的学习支持和反馈时间",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "孩子请假后，学习任务怎么跟上？",
+      "tags": ["学习", "作业", "进度", "请假"]
+    }
+  },
+  {
+    "id": "kb-parents-20",
+    "category": "parents",
+    "label": "学习连续性·协作商量",
+    "application": "可观察表现：担心请假或居家学习落下进度；主动讨论可行方案。沟通重点：协商可完成的学习支持和反馈时间。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["学习", "作业", "进度", "请假"],
+    "reference": {
+      "id": "kb-parents-20",
+      "title": "Examining the Parent-Teacher Connection, Parenting Self-Efficacy, and Child Behavior During the Transition to Early Elementary School",
+      "authors": [
+        "Caleb Eisen Flack",
+        "Garret James Hall",
+        "S. Andrew Garbacz",
+        "Elizabeth A. Stormshak",
+        "Laura Lee McIntyre"
+      ],
+      "year": 2024,
+      "url": "https://doi.org/10.1080/2372966x.2024.2426973",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/2372966x.2024.2426973",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Examining the Parent-Teacher Connection, Parenting Self-Efficacy, and Child Behavior During the Transition to Early Elementary School。关联实训主题：学习连续性·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/2372966x.2024.2426973",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "learning-collaborative",
+      "label": "学习连续性·协作商量",
+      "signals": "担心请假或居家学习落下进度；主动讨论可行方案",
+      "need": "协商可完成的学习支持和反馈时间",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "孩子请假后，学习任务怎么跟上？",
+      "tags": ["学习", "作业", "进度", "请假"]
+    }
+  },
+  {
+    "id": "kb-parents-21",
+    "category": "parents",
+    "label": "照护与资源·反复确认",
+    "application": "可观察表现：反映陪护时间、设备或网络困难；连续追问同一个重点。沟通重点：询问实际资源，提供可选支持并约定后续联系。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["陪护", "设备", "网络", "困难"],
+    "reference": {
+      "id": "kb-parents-21",
+      "title": "The Role of Parenting Styles in Children's Problem Behavior",
+      "authors": ["Kaisa Aunola", "Jari-Erik Nurmi"],
+      "year": 2005,
+      "url": "https://doi.org/10.1111/j.1467-8624.2005.00840.x-i1",
+      "venue": "Child Development",
+      "doi": "10.1111/j.1467-8624.2005.00840.x-i1",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：The Role of Parenting Styles in Children's Problem Behavior。关联实训主题：照护与资源·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/j.1467-8624.2005.00840.x-i1",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "resources-confirm",
+      "label": "照护与资源·反复确认",
+      "signals": "反映陪护时间、设备或网络困难；连续追问同一个重点",
+      "need": "询问实际资源，提供可选支持并约定后续联系",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "我们白天陪护有困难，能一起想办法吗？",
+      "tags": ["陪护", "设备", "网络", "困难"]
+    }
+  },
+  {
+    "id": "kb-parents-22",
+    "category": "parents",
+    "label": "照护与资源·质疑追问",
+    "application": "可观察表现：反映陪护时间、设备或网络困难；要求理由和具体依据。沟通重点：询问实际资源，提供可选支持并约定后续联系。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["陪护", "设备", "网络", "困难"],
+    "reference": {
+      "id": "kb-parents-22",
+      "title": "Longitudinal Relations Among Parenting Styles, Prosocial Behaviors, and Academic Outcomes in U.S. Mexican Adolescents",
+      "authors": [
+        "Gustavo Carlo",
+        "Rebecca M B White",
+        "Cara Streit",
+        "George P Knight",
+        "Katharine H Zeiders"
+      ],
+      "year": 2018,
+      "url": "https://doi.org/10.1111/cdev.12761",
+      "venue": "Child Development",
+      "doi": "10.1111/cdev.12761",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Longitudinal Relations Among Parenting Styles, Prosocial Behaviors, and Academic Outcomes in U.S. Mexican Adolescents。关联实训主题：照护与资源·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/cdev.12761",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "resources-question",
+      "label": "照护与资源·质疑追问",
+      "signals": "反映陪护时间、设备或网络困难；要求理由和具体依据",
+      "need": "询问实际资源，提供可选支持并约定后续联系",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "我们白天陪护有困难，能一起想办法吗？",
+      "tags": ["陪护", "设备", "网络", "困难"]
+    }
+  },
+  {
+    "id": "kb-parents-23",
+    "category": "parents",
+    "label": "照护与资源·谨慎观望",
+    "application": "可观察表现：反映陪护时间、设备或网络困难；答复简短，较少主动提供信息。沟通重点：询问实际资源，提供可选支持并约定后续联系。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["陪护", "设备", "网络", "困难"],
+    "reference": {
+      "id": "kb-parents-23",
+      "title": "A randomized trial examining the effects of Conjoint Behavioral Consultation in rural schools: Student outcomes and the mediating role of the teacher–parent relationship",
+      "authors": [
+        "Susan M. Sheridan",
+        "Amanda L. Witte",
+        "Shannon R. Holmes",
+        "Michael J. Coutts",
+        "Amy L. Dent",
+        "Gina M. Kunz",
+        "ChaoRong Wu"
+      ],
+      "year": 2017,
+      "url": "https://doi.org/10.1016/j.jsp.2016.12.002",
+      "venue": "Journal of School Psychology",
+      "doi": "10.1016/j.jsp.2016.12.002",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：A randomized trial examining the effects of Conjoint Behavioral Consultation in rural schools: Student outcomes and the mediating role of the teacher–parent relationship。关联实训主题：照护与资源·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.jsp.2016.12.002",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "resources-quiet",
+      "label": "照护与资源·谨慎观望",
+      "signals": "反映陪护时间、设备或网络困难；答复简短，较少主动提供信息",
+      "need": "询问实际资源，提供可选支持并约定后续联系",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "我们白天陪护有困难，能一起想办法吗？",
+      "tags": ["陪护", "设备", "网络", "困难"]
+    }
+  },
+  {
+    "id": "kb-parents-24",
+    "category": "parents",
+    "label": "照护与资源·急切求解",
+    "application": "可观察表现：反映陪护时间、设备或网络困难；希望尽快得到明确行动方案。沟通重点：询问实际资源，提供可选支持并约定后续联系。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["陪护", "设备", "网络", "困难"],
+    "reference": {
+      "id": "kb-parents-24",
+      "title": "A Comparison of Parent and Teacher Acceptability Ratings of Behavioral and Conjoint Behavioral Consultation",
+      "authors": ["Paula Freer", "T. Steuart Watson"],
+      "year": 1999,
+      "url": "https://doi.org/10.1080/02796015.1999.12085993",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.1999.12085993",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：A Comparison of Parent and Teacher Acceptability Ratings of Behavioral and Conjoint Behavioral Consultation。关联实训主题：照护与资源·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.1999.12085993",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "resources-urgent",
+      "label": "照护与资源·急切求解",
+      "signals": "反映陪护时间、设备或网络困难；希望尽快得到明确行动方案",
+      "need": "询问实际资源，提供可选支持并约定后续联系",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "我们白天陪护有困难，能一起想办法吗？",
+      "tags": ["陪护", "设备", "网络", "困难"]
+    }
+  },
+  {
+    "id": "kb-parents-25",
+    "category": "parents",
+    "label": "照护与资源·协作商量",
+    "application": "可观察表现：反映陪护时间、设备或网络困难；主动讨论可行方案。沟通重点：询问实际资源，提供可选支持并约定后续联系。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["陪护", "设备", "网络", "困难"],
+    "reference": {
+      "id": "kb-parents-25",
+      "title": "Parenting Styles and Conceptions of Parental Authority during Adolescence",
+      "authors": ["Judith G. Smetana"],
+      "year": 1995,
+      "url": "https://doi.org/10.2307/1131579",
+      "venue": "Child Development",
+      "doi": "10.2307/1131579",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parenting Styles and Conceptions of Parental Authority during Adolescence。关联实训主题：照护与资源·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.2307/1131579",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "resources-collaborative",
+      "label": "照护与资源·协作商量",
+      "signals": "反映陪护时间、设备或网络困难；主动讨论可行方案",
+      "need": "询问实际资源，提供可选支持并约定后续联系",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "我们白天陪护有困难，能一起想办法吗？",
+      "tags": ["陪护", "设备", "网络", "困难"]
+    }
+  },
+  {
+    "id": "kb-parents-26",
+    "category": "parents",
+    "label": "情绪支持·反复确认",
+    "application": "可观察表现：表达担忧、疲惫或无助；连续追问同一个重点。沟通重点：回应具体感受，使用短句并确认下一步。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["担心", "焦虑", "疲惫", "情绪"],
+    "reference": {
+      "id": "kb-parents-26",
+      "title": "Beyond Parental Control and Authoritarian Parenting Style: Understanding Chinese Parenting Through the Cultural Notion of Training",
+      "authors": ["Ruth K. Chao"],
+      "year": 1994,
+      "url": "https://doi.org/10.2307/1131308",
+      "venue": "Child Development",
+      "doi": "10.2307/1131308",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Beyond Parental Control and Authoritarian Parenting Style: Understanding Chinese Parenting Through the Cultural Notion of Training。关联实训主题：情绪支持·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.2307/1131308",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "emotion-confirm",
+      "label": "情绪支持·反复确认",
+      "signals": "表达担忧、疲惫或无助；连续追问同一个重点",
+      "need": "回应具体感受，使用短句并确认下一步",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "这几天一直担心孩子，我有点不知道该怎么办。",
+      "tags": ["担心", "焦虑", "疲惫", "情绪"]
+    }
+  },
+  {
+    "id": "kb-parents-27",
+    "category": "parents",
+    "label": "情绪支持·质疑追问",
+    "application": "可观察表现：表达担忧、疲惫或无助；要求理由和具体依据。沟通重点：回应具体感受，使用短句并确认下一步。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["担心", "焦虑", "疲惫", "情绪"],
+    "reference": {
+      "id": "kb-parents-27",
+      "title": "Parents' motivations for involvement in children's education: An empirical test of a theoretical model of parental involvement.",
+      "authors": [
+        "Christa L. Green",
+        "Joan M. T. Walker",
+        "Kathleen V. Hoover-Dempsey",
+        "Howard M. Sandler"
+      ],
+      "year": 2007,
+      "url": "https://doi.org/10.1037/0022-0663.99.3.532",
+      "venue": "Journal of Educational Psychology",
+      "doi": "10.1037/0022-0663.99.3.532",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parents' motivations for involvement in children's education: An empirical test of a theoretical model of parental involvement.。关联实训主题：情绪支持·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/0022-0663.99.3.532",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "emotion-question",
+      "label": "情绪支持·质疑追问",
+      "signals": "表达担忧、疲惫或无助；要求理由和具体依据",
+      "need": "回应具体感受，使用短句并确认下一步",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "这几天一直担心孩子，我有点不知道该怎么办。",
+      "tags": ["担心", "焦虑", "疲惫", "情绪"]
+    }
+  },
+  {
+    "id": "kb-parents-28",
+    "category": "parents",
+    "label": "情绪支持·谨慎观望",
+    "application": "可观察表现：表达担忧、疲惫或无助；答复简短，较少主动提供信息。沟通重点：回应具体感受，使用短句并确认下一步。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["担心", "焦虑", "疲惫", "情绪"],
+    "reference": {
+      "id": "kb-parents-28",
+      "title": "Including fathers in the picture: A meta-analysis of parental involvement and students’ academic achievement.",
+      "authors": ["Sung won Kim", "Nancy E. Hill"],
+      "year": 2015,
+      "url": "https://doi.org/10.1037/edu0000023",
+      "venue": "Journal of Educational Psychology",
+      "doi": "10.1037/edu0000023",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Including fathers in the picture: A meta-analysis of parental involvement and students’ academic achievement.。关联实训主题：情绪支持·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/edu0000023",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "emotion-quiet",
+      "label": "情绪支持·谨慎观望",
+      "signals": "表达担忧、疲惫或无助；答复简短，较少主动提供信息",
+      "need": "回应具体感受，使用短句并确认下一步",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "这几天一直担心孩子，我有点不知道该怎么办。",
+      "tags": ["担心", "焦虑", "疲惫", "情绪"]
+    }
+  },
+  {
+    "id": "kb-parents-29",
+    "category": "parents",
+    "label": "情绪支持·急切求解",
+    "application": "可观察表现：表达担忧、疲惫或无助；希望尽快得到明确行动方案。沟通重点：回应具体感受，使用短句并确认下一步。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["担心", "焦虑", "疲惫", "情绪"],
+    "reference": {
+      "id": "kb-parents-29",
+      "title": "Direct and Indirect Longitudinal Effects of Parental Involvement on Student Achievement: Second-Order Latent Growth Modeling Across Ethnic Groups.",
+      "authors": ["Sehee Hong", "Hsiu-Zu Ho"],
+      "year": 2005,
+      "url": "https://doi.org/10.1037/0022-0663.97.1.32",
+      "venue": "Journal of Educational Psychology",
+      "doi": "10.1037/0022-0663.97.1.32",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Direct and Indirect Longitudinal Effects of Parental Involvement on Student Achievement: Second-Order Latent Growth Modeling Across Ethnic Groups.。关联实训主题：情绪支持·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/0022-0663.97.1.32",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "emotion-urgent",
+      "label": "情绪支持·急切求解",
+      "signals": "表达担忧、疲惫或无助；希望尽快得到明确行动方案",
+      "need": "回应具体感受，使用短句并确认下一步",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "这几天一直担心孩子，我有点不知道该怎么办。",
+      "tags": ["担心", "焦虑", "疲惫", "情绪"]
+    }
+  },
+  {
+    "id": "kb-parents-30",
+    "category": "parents",
+    "label": "情绪支持·协作商量",
+    "application": "可观察表现：表达担忧、疲惫或无助；主动讨论可行方案。沟通重点：回应具体感受，使用短句并确认下一步。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["担心", "焦虑", "疲惫", "情绪"],
+    "reference": {
+      "id": "kb-parents-30",
+      "title": "Advancing Consultation and Family, School, and Community Collaboration",
+      "authors": ["Matthew J. Gormley", "Justin P. Allen", "Shane R. Jimerson"],
+      "year": 2024,
+      "url": "https://doi.org/10.1080/2372966x.2024.2325294",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/2372966x.2024.2325294",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Advancing Consultation and Family, School, and Community Collaboration。关联实训主题：情绪支持·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/2372966x.2024.2325294",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "emotion-collaborative",
+      "label": "情绪支持·协作商量",
+      "signals": "表达担忧、疲惫或无助；主动讨论可行方案",
+      "need": "回应具体感受，使用短句并确认下一步",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "这几天一直担心孩子，我有点不知道该怎么办。",
+      "tags": ["担心", "焦虑", "疲惫", "情绪"]
+    }
+  },
+  {
+    "id": "kb-parents-31",
+    "category": "parents",
+    "label": "返校安排·反复确认",
+    "application": "可观察表现：希望明确返校条件和通知时间；连续追问同一个重点。沟通重点：核实学校当前流程，说明待确认事项和回访节点。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["返校", "复课", "条件", "时间"],
+    "reference": {
+      "id": "kb-parents-31",
+      "title": "Are family-teacher communication quality and child and family characteristics associated with head start children's classroom engagement? It's complicated",
+      "authors": ["Wendy Ochoa", "Lok-Wah Li", "Fuko Kiyama", "Christine M. McWayne"],
+      "year": 2024,
+      "url": "https://doi.org/10.1016/j.ecresq.2023.11.007",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2023.11.007",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Are family-teacher communication quality and child and family characteristics associated with head start children's classroom engagement? It's complicated。关联实训主题：返校安排·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2023.11.007",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "return-confirm",
+      "label": "返校安排·反复确认",
+      "signals": "希望明确返校条件和通知时间；连续追问同一个重点",
+      "need": "核实学校当前流程，说明待确认事项和回访节点",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "孩子什么时候可以返校，要向学校确认哪些事项？",
+      "tags": ["返校", "复课", "条件", "时间"]
+    }
+  },
+  {
+    "id": "kb-parents-32",
+    "category": "parents",
+    "label": "返校安排·质疑追问",
+    "application": "可观察表现：希望明确返校条件和通知时间；要求理由和具体依据。沟通重点：核实学校当前流程，说明待确认事项和回访节点。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["返校", "复课", "条件", "时间"],
+    "reference": {
+      "id": "kb-parents-32",
+      "title": "Parent-staff communication in day care centers during morning and afternoon transitions",
+      "authors": ["Richard C. Endsley", "Patricia A. Minish"],
+      "year": 1991,
+      "url": "https://doi.org/10.1016/0885-2006(91)90002-3",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/0885-2006(91)90002-3",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parent-staff communication in day care centers during morning and afternoon transitions。关联实训主题：返校安排·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/0885-2006(91)90002-3",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "return-question",
+      "label": "返校安排·质疑追问",
+      "signals": "希望明确返校条件和通知时间；要求理由和具体依据",
+      "need": "核实学校当前流程，说明待确认事项和回访节点",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "孩子什么时候可以返校，要向学校确认哪些事项？",
+      "tags": ["返校", "复课", "条件", "时间"]
+    }
+  },
+  {
+    "id": "kb-parents-33",
+    "category": "parents",
+    "label": "返校安排·谨慎观望",
+    "application": "可观察表现：希望明确返校条件和通知时间；答复简短，较少主动提供信息。沟通重点：核实学校当前流程，说明待确认事项和回访节点。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["返校", "复课", "条件", "时间"],
+    "reference": {
+      "id": "kb-parents-33",
+      "title": "Parent-caregiver communication and quality of care in diverse child care settings",
+      "authors": ["Alisa S. Ghazvini", "Christine A. Readdick"],
+      "year": 1994,
+      "url": "https://doi.org/10.1016/0885-2006(94)90006-x",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/0885-2006(94)90006-x",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parent-caregiver communication and quality of care in diverse child care settings。关联实训主题：返校安排·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/0885-2006(94)90006-x",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "return-quiet",
+      "label": "返校安排·谨慎观望",
+      "signals": "希望明确返校条件和通知时间；答复简短，较少主动提供信息",
+      "need": "核实学校当前流程，说明待确认事项和回访节点",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "孩子什么时候可以返校，要向学校确认哪些事项？",
+      "tags": ["返校", "复课", "条件", "时间"]
+    }
+  },
+  {
+    "id": "kb-parents-34",
+    "category": "parents",
+    "label": "返校安排·急切求解",
+    "application": "可观察表现：希望明确返校条件和通知时间；希望尽快得到明确行动方案。沟通重点：核实学校当前流程，说明待确认事项和回访节点。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["返校", "复课", "条件", "时间"],
+    "reference": {
+      "id": "kb-parents-34",
+      "title": "Reciprocal Peer Tutoring and Parent Partnership: Does Parent Involvement Make a Difference?",
+      "authors": ["Lauren Rio Heller", "John W. Fantuzzo"],
+      "year": 1993,
+      "url": "https://doi.org/10.1080/02796015.1993.12085670",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.1993.12085670",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Reciprocal Peer Tutoring and Parent Partnership: Does Parent Involvement Make a Difference?。关联实训主题：返校安排·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.1993.12085670",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "return-urgent",
+      "label": "返校安排·急切求解",
+      "signals": "希望明确返校条件和通知时间；希望尽快得到明确行动方案",
+      "need": "核实学校当前流程，说明待确认事项和回访节点",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "孩子什么时候可以返校，要向学校确认哪些事项？",
+      "tags": ["返校", "复课", "条件", "时间"]
+    }
+  },
+  {
+    "id": "kb-parents-35",
+    "category": "parents",
+    "label": "返校安排·协作商量",
+    "application": "可观察表现：希望明确返校条件和通知时间；主动讨论可行方案。沟通重点：核实学校当前流程，说明待确认事项和回访节点。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["返校", "复课", "条件", "时间"],
+    "reference": {
+      "id": "kb-parents-35",
+      "title": "Rational-Emotive Parent Consultation",
+      "authors": ["Marie R. Joyce"],
+      "year": 1990,
+      "url": "https://doi.org/10.1080/02796015.1990.12085469",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.1990.12085469",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Rational-Emotive Parent Consultation。关联实训主题：返校安排·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.1990.12085469",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "return-collaborative",
+      "label": "返校安排·协作商量",
+      "signals": "希望明确返校条件和通知时间；主动讨论可行方案",
+      "need": "核实学校当前流程，说明待确认事项和回访节点",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "孩子什么时候可以返校，要向学校确认哪些事项？",
+      "tags": ["返校", "复课", "条件", "时间"]
+    }
+  },
+  {
+    "id": "kb-parents-36",
+    "category": "parents",
+    "label": "家校分工·反复确认",
+    "application": "可观察表现：不清楚家长和学校分别负责什么；连续追问同一个重点。沟通重点：列明双方分工、联系人和回访节点。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["分工", "联系", "合作", "家长"],
+    "reference": {
+      "id": "kb-parents-36",
+      "title": "Parent Involvement in School Conceptualizing Multiple Dimensions and Their Relations with Family and Demographic Risk Factors",
+      "authors": ["Gwynne O. Kohl", "Liliana J. Lengua", "Robert J. McMahon"],
+      "year": 2000,
+      "url": "https://doi.org/10.1016/s0022-4405(00)00050-9",
+      "venue": "Journal of School Psychology",
+      "doi": "10.1016/s0022-4405(00)00050-9",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parent Involvement in School Conceptualizing Multiple Dimensions and Their Relations with Family and Demographic Risk Factors。关联实训主题：家校分工·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/s0022-4405(00)00050-9",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "cooperation-confirm",
+      "label": "家校分工·反复确认",
+      "signals": "不清楚家长和学校分别负责什么；连续追问同一个重点",
+      "need": "列明双方分工、联系人和回访节点",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "接下来家长要做什么，学校这边谁来联系？",
+      "tags": ["分工", "联系", "合作", "家长"]
+    }
+  },
+  {
+    "id": "kb-parents-37",
+    "category": "parents",
+    "label": "家校分工·质疑追问",
+    "application": "可观察表现：不清楚家长和学校分别负责什么；要求理由和具体依据。沟通重点：列明双方分工、联系人和回访节点。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["分工", "联系", "合作", "家长"],
+    "reference": {
+      "id": "kb-parents-37",
+      "title": "Trajectories of classroom externalizing behavior: Contributions of child characteristics, family characteristics, and the teacher–child relationship during the school transition",
+      "authors": [
+        "Rebecca B. Silver",
+        "Jeffrey R. Measelle",
+        "Jeffrey M. Armstrong",
+        "Marilyn J. Essex"
+      ],
+      "year": 2005,
+      "url": "https://doi.org/10.1016/j.jsp.2004.11.003",
+      "venue": "Journal of School Psychology",
+      "doi": "10.1016/j.jsp.2004.11.003",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Trajectories of classroom externalizing behavior: Contributions of child characteristics, family characteristics, and the teacher–child relationship during the school transition。关联实训主题：家校分工·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.jsp.2004.11.003",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "cooperation-question",
+      "label": "家校分工·质疑追问",
+      "signals": "不清楚家长和学校分别负责什么；要求理由和具体依据",
+      "need": "列明双方分工、联系人和回访节点",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "接下来家长要做什么，学校这边谁来联系？",
+      "tags": ["分工", "联系", "合作", "家长"]
+    }
+  },
+  {
+    "id": "kb-parents-38",
+    "category": "parents",
+    "label": "家校分工·谨慎观望",
+    "application": "可观察表现：不清楚家长和学校分别负责什么；答复简短，较少主动提供信息。沟通重点：列明双方分工、联系人和回访节点。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["分工", "联系", "合作", "家长"],
+    "reference": {
+      "id": "kb-parents-38",
+      "title": "Relative efficacy of parent and teacher involvement in a shared-reading intervention for preschool children from low-income backgrounds",
+      "authors": ["Christopher J Lonigan", "Grover J Whitehurst"],
+      "year": 1998,
+      "url": "https://doi.org/10.1016/s0885-2006(99)80038-6",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/s0885-2006(99)80038-6",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Relative efficacy of parent and teacher involvement in a shared-reading intervention for preschool children from low-income backgrounds。关联实训主题：家校分工·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/s0885-2006(99)80038-6",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "cooperation-quiet",
+      "label": "家校分工·谨慎观望",
+      "signals": "不清楚家长和学校分别负责什么；答复简短，较少主动提供信息",
+      "need": "列明双方分工、联系人和回访节点",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "接下来家长要做什么，学校这边谁来联系？",
+      "tags": ["分工", "联系", "合作", "家长"]
+    }
+  },
+  {
+    "id": "kb-parents-39",
+    "category": "parents",
+    "label": "家校分工·急切求解",
+    "application": "可观察表现：不清楚家长和学校分别负责什么；希望尽快得到明确行动方案。沟通重点：列明双方分工、联系人和回访节点。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["分工", "联系", "合作", "家长"],
+    "reference": {
+      "id": "kb-parents-39",
+      "title": "Impact of Parenting Practices on Adolescent Achievement: Authoritative Parenting, School Involvement, and Encouragement to Succeed",
+      "authors": [
+        "Laurence Steinberg",
+        "Susie D. Lamborn",
+        "Sanford M. Dornbusch",
+        "Nancy Darling"
+      ],
+      "year": 1992,
+      "url": "https://doi.org/10.2307/1131532",
+      "venue": "Child Development",
+      "doi": "10.2307/1131532",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Impact of Parenting Practices on Adolescent Achievement: Authoritative Parenting, School Involvement, and Encouragement to Succeed。关联实训主题：家校分工·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.2307/1131532",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "cooperation-urgent",
+      "label": "家校分工·急切求解",
+      "signals": "不清楚家长和学校分别负责什么；希望尽快得到明确行动方案",
+      "need": "列明双方分工、联系人和回访节点",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "接下来家长要做什么，学校这边谁来联系？",
+      "tags": ["分工", "联系", "合作", "家长"]
+    }
+  },
+  {
+    "id": "kb-parents-40",
+    "category": "parents",
+    "label": "家校分工·协作商量",
+    "application": "可观察表现：不清楚家长和学校分别负责什么；主动讨论可行方案。沟通重点：列明双方分工、联系人和回访节点。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["分工", "联系", "合作", "家长"],
+    "reference": {
+      "id": "kb-parents-40",
+      "title": "Parent-Child Relationship, Home Learning Environment, and School Readiness",
+      "authors": [
+        "Faith Lamb Parker",
+        "Alison Y. Boak",
+        "Kenneth W. Griffin",
+        "Carol Ripple",
+        "Lenore Peay"
+      ],
+      "year": 1999,
+      "url": "https://doi.org/10.1080/02796015.1999.12085974",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.1999.12085974",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parent-Child Relationship, Home Learning Environment, and School Readiness。关联实训主题：家校分工·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.1999.12085974",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "cooperation-collaborative",
+      "label": "家校分工·协作商量",
+      "signals": "不清楚家长和学校分别负责什么；主动讨论可行方案",
+      "need": "列明双方分工、联系人和回访节点",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "接下来家长要做什么，学校这边谁来联系？",
+      "tags": ["分工", "联系", "合作", "家长"]
+    }
+  },
+  {
+    "id": "kb-parents-41",
+    "category": "parents",
+    "label": "同伴关系·反复确认",
+    "application": "可观察表现：担心孩子被议论或孤立；连续追问同一个重点。沟通重点：保护健康隐私，回应同伴关系并商量支持方式。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["同学", "议论", "孤立", "关系"],
+    "reference": {
+      "id": "kb-parents-41",
+      "title": "Parent Involvement in Preschool: Predictors and the Relation of Involvement to Preliteracy Development",
+      "authors": ["David H. Arnold", "Alexandra Zeljo", "Greta L. Doctoroff", "Camilo Ortiz"],
+      "year": 2008,
+      "url": "https://doi.org/10.1080/02796015.2008.12087910",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.2008.12087910",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parent Involvement in Preschool: Predictors and the Relation of Involvement to Preliteracy Development。关联实训主题：同伴关系·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.2008.12087910",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "peer-confirm",
+      "label": "同伴关系·反复确认",
+      "signals": "担心孩子被议论或孤立；连续追问同一个重点",
+      "need": "保护健康隐私，回应同伴关系并商量支持方式",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "孩子担心同学议论，老师能怎样帮助？",
+      "tags": ["同学", "议论", "孤立", "关系"]
+    }
+  },
+  {
+    "id": "kb-parents-42",
+    "category": "parents",
+    "label": "同伴关系·质疑追问",
+    "application": "可观察表现：担心孩子被议论或孤立；要求理由和具体依据。沟通重点：保护健康隐私，回应同伴关系并商量支持方式。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["同学", "议论", "孤立", "关系"],
+    "reference": {
+      "id": "kb-parents-42",
+      "title": "Positive Relationships Between Parent School Involvement and Public School Inner-City Preschoolers' Development and Academic Performance",
+      "authors": ["Rebecca A. Marcon"],
+      "year": 1999,
+      "url": "https://doi.org/10.1080/02796015.1999.12085973",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.1999.12085973",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Positive Relationships Between Parent School Involvement and Public School Inner-City Preschoolers' Development and Academic Performance。关联实训主题：同伴关系·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.1999.12085973",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "peer-question",
+      "label": "同伴关系·质疑追问",
+      "signals": "担心孩子被议论或孤立；要求理由和具体依据",
+      "need": "保护健康隐私，回应同伴关系并商量支持方式",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "孩子担心同学议论，老师能怎样帮助？",
+      "tags": ["同学", "议论", "孤立", "关系"]
+    }
+  },
+  {
+    "id": "kb-parents-43",
+    "category": "parents",
+    "label": "同伴关系·谨慎观望",
+    "application": "可观察表现：担心孩子被议论或孤立；答复简短，较少主动提供信息。沟通重点：保护健康隐私，回应同伴关系并商量支持方式。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["同学", "议论", "孤立", "关系"],
+    "reference": {
+      "id": "kb-parents-43",
+      "title": "Parent involvement in Head Start programs: the role of parent, teacher and classroom characteristics",
+      "authors": [
+        "Dina C. Castro",
+        "Donna M. Bryant",
+        "Ellen S. Peisner-Feinberg",
+        "Martie L. Skinner"
+      ],
+      "year": 2004,
+      "url": "https://doi.org/10.1016/j.ecresq.2004.07.005",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2004.07.005",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parent involvement in Head Start programs: the role of parent, teacher and classroom characteristics。关联实训主题：同伴关系·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2004.07.005",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "peer-quiet",
+      "label": "同伴关系·谨慎观望",
+      "signals": "担心孩子被议论或孤立；答复简短，较少主动提供信息",
+      "need": "保护健康隐私，回应同伴关系并商量支持方式",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "孩子担心同学议论，老师能怎样帮助？",
+      "tags": ["同学", "议论", "孤立", "关系"]
+    }
+  },
+  {
+    "id": "kb-parents-44",
+    "category": "parents",
+    "label": "同伴关系·急切求解",
+    "application": "可观察表现：担心孩子被议论或孤立；希望尽快得到明确行动方案。沟通重点：保护健康隐私，回应同伴关系并商量支持方式。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["同学", "议论", "孤立", "关系"],
+    "reference": {
+      "id": "kb-parents-44",
+      "title": "Pathways of influence in school-based mentoring: The mediating role of parent and teacher relationships",
+      "authors": [
+        "Christian S. Chan",
+        "Jean E. Rhodes",
+        "Waylon J. Howard",
+        "Sarah R. Lowe",
+        "Sarah E.O. Schwartz",
+        "Carla Herrera"
+      ],
+      "year": 2013,
+      "url": "https://doi.org/10.1016/j.jsp.2012.10.001",
+      "venue": "Journal of School Psychology",
+      "doi": "10.1016/j.jsp.2012.10.001",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Pathways of influence in school-based mentoring: The mediating role of parent and teacher relationships。关联实训主题：同伴关系·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.jsp.2012.10.001",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "peer-urgent",
+      "label": "同伴关系·急切求解",
+      "signals": "担心孩子被议论或孤立；希望尽快得到明确行动方案",
+      "need": "保护健康隐私，回应同伴关系并商量支持方式",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "孩子担心同学议论，老师能怎样帮助？",
+      "tags": ["同学", "议论", "孤立", "关系"]
+    }
+  },
+  {
+    "id": "kb-parents-45",
+    "category": "parents",
+    "label": "同伴关系·协作商量",
+    "application": "可观察表现：担心孩子被议论或孤立；主动讨论可行方案。沟通重点：保护健康隐私，回应同伴关系并商量支持方式。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["同学", "议论", "孤立", "关系"],
+    "reference": {
+      "id": "kb-parents-45",
+      "title": "Parent–child and teacher–child relationships in Chinese preschoolers: The moderating role of preschool experiences and the mediating role of social competence",
+      "authors": ["Xiao Zhang"],
+      "year": 2011,
+      "url": "https://doi.org/10.1016/j.ecresq.2010.09.001",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2010.09.001",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parent–child and teacher–child relationships in Chinese preschoolers: The moderating role of preschool experiences and the mediating role of social competence。关联实训主题：同伴关系·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2010.09.001",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "peer-collaborative",
+      "label": "同伴关系·协作商量",
+      "signals": "担心孩子被议论或孤立；主动讨论可行方案",
+      "need": "保护健康隐私，回应同伴关系并商量支持方式",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "孩子担心同学议论，老师能怎样帮助？",
+      "tags": ["同学", "议论", "孤立", "关系"]
+    }
+  },
+  {
+    "id": "kb-parents-46",
+    "category": "parents",
+    "label": "持续反馈·反复确认",
+    "application": "可观察表现：需要了解变化、回访和处理进度；连续追问同一个重点。沟通重点：提供更新时间和联系渠道，复述双方已确认安排。回应策略：逐项回应并请对方复述关键安排。",
+    "tags": ["变化", "回访", "进度", "反馈"],
+    "reference": {
+      "id": "kb-parents-46",
+      "title": "Family Interaction Patterns and Children's Conduct Problems at Home and School: A Longitudinal Perspective",
+      "authors": ["Gregory S Pettit", "John E. Bates", "Kenneth A. Dodge"],
+      "year": 1993,
+      "url": "https://doi.org/10.1080/02796015.1993.12085663",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.1993.12085663",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Family Interaction Patterns and Children's Conduct Problems at Home and School: A Longitudinal Perspective。关联实训主题：持续反馈·反复确认。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.1993.12085663",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "updates-confirm",
+      "label": "持续反馈·反复确认",
+      "signals": "需要了解变化、回访和处理进度；连续追问同一个重点",
+      "need": "提供更新时间和联系渠道，复述双方已确认安排",
+      "strategy": "逐项回应并请对方复述关键安排",
+      "opening": "后续有变化的话，我们怎么及时知道？",
+      "tags": ["变化", "回访", "进度", "反馈"]
+    }
+  },
+  {
+    "id": "kb-parents-47",
+    "category": "parents",
+    "label": "持续反馈·质疑追问",
+    "application": "可观察表现：需要了解变化、回访和处理进度；要求理由和具体依据。沟通重点：提供更新时间和联系渠道，复述双方已确认安排。回应策略：提供可核验来源，承认尚未确认的信息。",
+    "tags": ["变化", "回访", "进度", "反馈"],
+    "reference": {
+      "id": "kb-parents-47",
+      "title": "Early school-based parent involvement, children’s self-regulated learning and academic achievement: An Australian longitudinal study",
+      "authors": ["Graham R. Daniel", "Cen Wang", "Donna Berthelsen"],
+      "year": 2016,
+      "url": "https://doi.org/10.1016/j.ecresq.2015.12.016",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2015.12.016",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Early school-based parent involvement, children’s self-regulated learning and academic achievement: An Australian longitudinal study。关联实训主题：持续反馈·质疑追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2015.12.016",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "updates-question",
+      "label": "持续反馈·质疑追问",
+      "signals": "需要了解变化、回访和处理进度；要求理由和具体依据",
+      "need": "提供更新时间和联系渠道，复述双方已确认安排",
+      "strategy": "提供可核验来源，承认尚未确认的信息",
+      "opening": "后续有变化的话，我们怎么及时知道？",
+      "tags": ["变化", "回访", "进度", "反馈"]
+    }
+  },
+  {
+    "id": "kb-parents-48",
+    "category": "parents",
+    "label": "持续反馈·谨慎观望",
+    "application": "可观察表现：需要了解变化、回访和处理进度；答复简短，较少主动提供信息。沟通重点：提供更新时间和联系渠道，复述双方已确认安排。回应策略：用开放问题邀请表达，并允许稍后私下补充。",
+    "tags": ["变化", "回访", "进度", "反馈"],
+    "reference": {
+      "id": "kb-parents-48",
+      "title": "An early parenting intervention focused on enriched parent–child interactions improves effortful control in the early years of school",
+      "authors": [
+        "C Bennett",
+        "E M Westrupp",
+        "S K Bennetts",
+        "J Love",
+        "N J Hackworth",
+        "D Berthelsen",
+        "J M Nicholson"
+      ],
+      "year": 2025,
+      "url": "https://doi.org/10.1111/cdev.14166",
+      "venue": "Child Development",
+      "doi": "10.1111/cdev.14166",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：An early parenting intervention focused on enriched parent–child interactions improves effortful control in the early years of school。关联实训主题：持续反馈·谨慎观望。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/cdev.14166",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "updates-quiet",
+      "label": "持续反馈·谨慎观望",
+      "signals": "需要了解变化、回访和处理进度；答复简短，较少主动提供信息",
+      "need": "提供更新时间和联系渠道，复述双方已确认安排",
+      "strategy": "用开放问题邀请表达，并允许稍后私下补充",
+      "opening": "后续有变化的话，我们怎么及时知道？",
+      "tags": ["变化", "回访", "进度", "反馈"]
+    }
+  },
+  {
+    "id": "kb-parents-49",
+    "category": "parents",
+    "label": "持续反馈·急切求解",
+    "application": "可观察表现：需要了解变化、回访和处理进度；希望尽快得到明确行动方案。沟通重点：提供更新时间和联系渠道，复述双方已确认安排。回应策略：先说明眼下可做的步骤，再约定后续节点。",
+    "tags": ["变化", "回访", "进度", "反馈"],
+    "reference": {
+      "id": "kb-parents-49",
+      "title": "Site-level predictors of children’s school and social competence in the Chicago Child–Parent Centers",
+      "authors": ["Melissa A Clements", "Arthur J Reynolds", "Edmond Hickey"],
+      "year": 2004,
+      "url": "https://doi.org/10.1016/j.ecresq.2004.04.005",
+      "venue": "Early Childhood Research Quarterly",
+      "doi": "10.1016/j.ecresq.2004.04.005",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Site-level predictors of children’s school and social competence in the Chicago Child–Parent Centers。关联实训主题：持续反馈·急切求解。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.ecresq.2004.04.005",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "updates-urgent",
+      "label": "持续反馈·急切求解",
+      "signals": "需要了解变化、回访和处理进度；希望尽快得到明确行动方案",
+      "need": "提供更新时间和联系渠道，复述双方已确认安排",
+      "strategy": "先说明眼下可做的步骤，再约定后续节点",
+      "opening": "后续有变化的话，我们怎么及时知道？",
+      "tags": ["变化", "回访", "进度", "反馈"]
+    }
+  },
+  {
+    "id": "kb-parents-50",
+    "category": "parents",
+    "label": "持续反馈·协作商量",
+    "application": "可观察表现：需要了解变化、回访和处理进度；主动讨论可行方案。沟通重点：提供更新时间和联系渠道，复述双方已确认安排。回应策略：确认共同目标，邀请提出可承担的行动。",
+    "tags": ["变化", "回访", "进度", "反馈"],
+    "reference": {
+      "id": "kb-parents-50",
+      "title": "Parents' and School Psychologists' Perspectives on Parent Involvement Activities",
+      "authors": [
+        "Sandra L. Christenson",
+        "Christine M. Hurley",
+        "Susan M. Sheridan",
+        "Kevin Fenstermacher"
+      ],
+      "year": 1997,
+      "url": "https://doi.org/10.1080/02796015.1997.12085852",
+      "venue": "School Psychology Review",
+      "doi": "10.1080/02796015.1997.12085852",
+      "topics": ["home-school"],
+      "summary": "研究主题索引：Parents' and School Psychologists' Perspectives on Parent Involvement Activities。关联实训主题：持续反馈·协作商量。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02796015.1997.12085852",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "parentProfile": {
+      "id": "updates-collaborative",
+      "label": "持续反馈·协作商量",
+      "signals": "需要了解变化、回访和处理进度；主动讨论可行方案",
+      "need": "提供更新时间和联系渠道，复述双方已确认安排",
+      "strategy": "确认共同目标，邀请提出可承担的行动",
+      "opening": "后续有变化的话，我们怎么及时知道？",
+      "tags": ["变化", "回访", "进度", "反馈"]
+    }
+  }
+]

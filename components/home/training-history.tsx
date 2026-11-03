@@ -259,6 +259,7 @@ export function TrainingHistory({
 }
 const eventKeys: Record<string, string> = {
   'training-created': 'created',
+  'practice-configured': 'practice',
   'training-started': 'started',
   'user-message': 'message',
   'character-reply': 'reply',

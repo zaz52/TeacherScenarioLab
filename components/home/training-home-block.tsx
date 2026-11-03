@@ -2,6 +2,7 @@
 
 /** Scenario hall, training records and event ledger in the unified home. */
 import Link from 'next/link';
+import { DEFAULT_PRACTICE } from '@/lib/training/practice-config';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AccountPanel } from '@/components/account/account-panel';
@@ -62,9 +63,11 @@ export function TrainingHomeBlock({
   unified = false,
   onSelectScenario,
   scenarioRevision = 0,
+  practiceFocus = 'family',
 }: {
   unified?: boolean;
   scenarioRevision?: number;
+  practiceFocus?: 'family' | 'campus';
   onSelectScenario?: (scenario: HallScenario) => void;
 }) {
   const { account } = useAccount();
@@ -177,10 +180,22 @@ export function TrainingHomeBlock({
     setStarting(scenarioId);
     setHallError('');
     try {
-      const res = await fetch('/api/training/trainings', {
+      const res = await fetch('/api/training-practice', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ scenarioId, scenarioVersion }),
+        body: JSON.stringify({
+          scenarioId,
+          scenarioVersion,
+          practice: {
+            ...DEFAULT_PRACTICE,
+            grade: scenarioId === 'epi-class-fever' ? DEFAULT_PRACTICE.grade : 'scenario',
+            focus: scenarios
+              .find((s) => s.scenarioId === scenarioId && s.version === scenarioVersion)
+              ?.characters.some((c) => c.role === 'parent')
+              ? 'family'
+              : 'campus',
+          },
+        }),
       });
       const data = (await res.json()) as { training?: { id: string } };
       if (!res.ok || !data.training) throw new Error('start failed');
@@ -195,12 +210,11 @@ export function TrainingHomeBlock({
     setRetraining(record.training.id);
     setRetrainError('');
     try {
-      const res = await fetch('/api/training/trainings', {
+      const res = await fetch('/api/training-practice', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          scenarioId: record.training.scenarioId,
-          scenarioVersion: record.training.scenarioVersion,
+          sourceTrainingId: record.training.id,
         }),
       });
       const data = (await res.json()) as { training?: { id: string } };
@@ -282,6 +296,12 @@ export function TrainingHomeBlock({
                   <p className="mt-1 text-sm">{scenario.goal}</p>
                   <p className="mt-1 text-sm text-muted-foreground">
                     {scenario.characters
+                      .filter(
+                        (character) =>
+                          practiceFocus !== 'family' ||
+                          !scenario.characters.some((c) => c.role === 'parent') ||
+                          character.role === 'parent',
+                      )
                       .map((character) => characterLabel(character, getClientTranslation))
                       .join('、')}
                   </p>

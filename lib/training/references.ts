@@ -1,3 +1,5 @@
+import { TRAINING_KNOWLEDGE } from './knowledge/catalog';
+import type { KnowledgeEntry } from './knowledge/types';
 /**
  * 训练文献库：不少于 50 篇真实学术文献，供训练评价与复盘引用。
  *
@@ -24,6 +26,8 @@ export interface TrainingReference {
   url?: string;
   topics: ReferenceTopic[];
   summary: string;
+  locator?: string;
+  knowledge?: Omit<KnowledgeEntry, 'reference' | 'id'>;
 }
 
 export const TRAINING_REFERENCES: TrainingReference[] = [
@@ -800,6 +804,14 @@ export const TRAINING_REFERENCES: TrainingReference[] = [
   },
 ];
 
+TRAINING_REFERENCES.push(
+  ...TRAINING_KNOWLEDGE.map(({ reference, id: _id, ...knowledge }) => ({
+    ...reference,
+    topics: reference.topics as ReferenceTopic[],
+    knowledge,
+  })),
+);
+
 export function getReferenceById(id: string): TrainingReference | undefined {
   return TRAINING_REFERENCES.find((ref) => ref.id === id);
 }
@@ -820,13 +832,20 @@ export function listReferences(topic?: string): TrainingReference[] {
  * topics or year. Pure substring matching — no ranking, no fabrication:
  * a reference either matches the catalog text or it does not.
  */
-export function searchReferences(query: string, topic?: string): TrainingReference[] {
+export function searchReferences(
+  query: string,
+  topic?: string,
+  category?: string,
+): TrainingReference[] {
   const terms = query
     .trim()
     .toLowerCase()
     .split(/\s+/)
     .filter((term) => term.length > 0);
-  const pool = listReferences(topic);
+  const pool = listReferences(topic).filter(
+    (ref) =>
+      !category || (category === 'legacy' ? !ref.knowledge : ref.knowledge?.category === category),
+  );
   if (terms.length === 0) return pool;
   return pool.filter((ref) => {
     const haystack = [
@@ -834,6 +853,9 @@ export function searchReferences(query: string, topic?: string): TrainingReferen
       ref.authors.join(' '),
       ref.venue ?? '',
       ref.summary,
+      ref.knowledge?.label ?? '',
+      ref.knowledge?.application ?? '',
+      ref.knowledge?.tags.join(' ') ?? '',
       ref.topics.join(' '),
       String(ref.year),
     ]

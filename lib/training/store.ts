@@ -1,3 +1,4 @@
+import { parsePractice, type PracticeConfig } from './practice-config';
 /**
  * TeacherScenarioLab — training service layer (server only).
  *
@@ -56,8 +57,11 @@ function notFound(what: string, id: string): TrainingServiceError {
  */
 export async function createTraining(
   ownerId: string,
-  input: { scenarioId: string; scenarioVersion: number },
+  input: { scenarioId: string; scenarioVersion: number; practice?: PracticeConfig },
 ): Promise<TrainingRecord> {
+  const practice = input.practice === undefined ? null : parsePractice(input.practice);
+  if (input.practice !== undefined && !practice)
+    throw new TrainingServiceError(400, 'INVALID_REQUEST', 'invalid practice setup');
   const scenarioId = input.scenarioId?.trim();
   if (!scenarioId) {
     throw new TrainingServiceError(400, 'MISSING_REQUIRED_FIELD', 'scenarioId is required');
@@ -93,6 +97,15 @@ export async function createTraining(
       `stored scenario ${scenarioId} version ${input.scenarioVersion} has an unknown disclosure state`,
     );
   }
+  if (
+    practice?.focus === 'family' &&
+    !version.characters.some((character) => character.role === 'parent')
+  )
+    throw new TrainingServiceError(
+      400,
+      'INVALID_REQUEST',
+      'family practice needs a parent character',
+    );
   const validationErrors = validateScenarioVersion(version);
   if (validationErrors.length > 0) {
     // Stored data that fails its own validation is a server data bug, not
@@ -121,6 +134,14 @@ export async function createTraining(
       payload: { scenarioId, scenarioVersion: input.scenarioVersion },
       createdAt: now,
     });
+    if (practice)
+      await tx.appendEvent({
+        id: randomUUID(),
+        trainingId,
+        type: 'practice-configured',
+        payload: { ...practice },
+        createdAt: now,
+      });
     return training;
   });
 }

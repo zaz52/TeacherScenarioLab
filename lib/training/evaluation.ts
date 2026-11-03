@@ -1,3 +1,6 @@
+import { knowledgePrompt } from './knowledge/catalog';
+import { practiceFromEvents, practiceSummary } from './practice-config';
+import { applyPracticeScenario } from './practice-context';
 /**
  * TeacherScenarioLab — five-dimension training evaluation (server only).
  *
@@ -84,6 +87,15 @@ export function buildEvaluationPrompt(
     '注意：若对话中学生问及同桌等他人病情，须在 responsibility 维度中考查教师是否保护他人健康隐私、同时安抚提问学生。',
     '证据只能引用教师消息的 id，且每条证据 id 必须真实出现在对话记录里；不得引用角色消息，不得编造 id。',
     `合法教师消息 ID：${JSON.stringify(teacherIds)}。evidence 必须从此列表逐字复制完整 ID，保留 UUID 连字符。`,
+    '以下实训评价提示可用于检查表现，证据仍以本次教师消息为准：\n' +
+      knowledgePrompt(
+        'assessor',
+        transcript
+          .filter((message) => message.role === 'user')
+          .map((message) => message.content)
+          .join(' ')
+          .slice(-8000),
+      ),
     '返回一个完整 JSON 对象。五个维度各出现一次，comment 简明具体，suggestions 包含1至3条建议。评分与证据依据实际表现。',
     `结构示例：${JSON.stringify(example)}`,
   ].join('\n');
@@ -227,18 +239,26 @@ async function generateEvaluationInner(
   }
   const record = await store.getScenarioVersion(training.scenarioId, training.scenarioVersion);
   if (!record) throw notFound('scenario', `${training.scenarioId} v${training.scenarioVersion}`);
-  const scenario = toScenarioVersion(record);
-  if (!scenario) {
+  const baseScenario = toScenarioVersion(record);
+  if (!baseScenario) {
     throw new TrainingServiceError(
       500,
       'INVALID_REQUEST',
       `training ${trainingId} pins scenario with an unknown disclosure state`,
     );
   }
+  const events = await store.listEvents(trainingId);
+  const practice = practiceFromEvents(events);
+  const configuredScenario = applyPracticeScenario(baseScenario, practice);
+  const scenario = practice
+    ? {
+        ...configuredScenario,
+        goal: configuredScenario.goal + ' 本次练习设置：' + practiceSummary(practice),
+      }
+    : configuredScenario;
   const transcript = await store.listMessages(trainingId, { includeSuperseded: false });
   const { system, prompt } = buildEvaluationPrompt(scenario, transcript);
   let selection: ModelSelection | undefined;
-  const events = await store.listEvents(trainingId);
   const generate =
     deps.generateModelEvaluation ??
     (async (system: string, prompt: string) => {
