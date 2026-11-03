@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { isSameOriginJsonRequest } from '@/lib/persistence/owner-claim-http';
 import { jsonHeartbeat } from '@/lib/server/json-heartbeat';
 import { withTrainingAdmin } from '@/lib/training/with-training-admin';
 import {
@@ -74,10 +75,7 @@ const command = z.discriminatedUnion('action', [
 ]);
 export async function POST(req: NextRequest) {
   return withTrainingAdmin(req, async (principal) => {
-    if (
-      !req.headers.get('content-type')?.startsWith('application/json') ||
-      (req.headers.get('origin') && req.headers.get('origin') !== req.nextUrl.origin)
-    )
+    if (!isSameOriginJsonRequest(req))
       return NextResponse.json({ success: false, error: 'INVALID_REQUEST' }, { status: 403 });
     if (Number(req.headers.get('content-length') ?? 0) > 16000)
       return NextResponse.json({ success: false, error: 'INVALID_REQUEST' }, { status: 413 });

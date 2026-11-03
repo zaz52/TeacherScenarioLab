@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab 反向代理共享模型保存修复（2026-11-03，Asia/Shanghai）
+
+- 共享模型连接保存实际返回403，原Origin比较受Cloudflare后内部HTTP地址影响。复用现有同源JSON请求校验，管理员权限、请求大小、模型与地址限制继续沿用。
+- AMD真实模型目录返回HTTP200，Magpie已配置7个文本模型；个人模型连接已保存。生成、评价、密码及邮件功能验收由用户执行，代理功能测试执行数0。生产构建与最终发布状态记入交付报告。
+
 ### TeacherScenarioLab 训练历史、独立登录与 Magpie 网关（2026-11-03 05:34，Asia/Shanghai）
 
 - 用户要求整理训练记录、事件中心，接入VPS统一模型网关，并补充独立登录与密码登录。训练历史展示情境名称、状态、评价摘要、继续训练和复盘入口；没有评价时显示未评价，事件使用中文时间线，技术ID收进详情。
