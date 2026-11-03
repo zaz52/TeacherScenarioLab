@@ -11,6 +11,11 @@ import { useAccount } from '@/components/account/account-provider';
 import { getClientTranslation } from '@/lib/i18n';
 import { characterLabel } from '@/lib/training/character-presentation';
 import { hasAdminPermission } from '@/lib/training/admin-permissions';
+import {
+  LibraryRemoveButton,
+  LibraryTrash,
+  TRAINING_LIBRARY_CHANGED,
+} from './training-library-actions';
 import { TrainingHistory, TrainingTimeline } from './training-history';
 
 function t(key: string): string {
@@ -93,6 +98,15 @@ export function TrainingHomeBlock({
     router.replace(`/?${query.toString()}#training`, { scroll: false });
   }
 
+  const [libraryRevision, setLibraryRevision] = useState(0);
+  const [scenarioTitles, setScenarioTitles] = useState<
+    Array<{ scenarioId: string; version: number; title: string }>
+  >([]);
+  useEffect(() => {
+    const refresh = () => setLibraryRevision((value) => value + 1);
+    window.addEventListener(TRAINING_LIBRARY_CHANGED, refresh);
+    return () => window.removeEventListener(TRAINING_LIBRARY_CHANGED, refresh);
+  }, []);
   const [scenarios, setScenarios] = useState<HallScenario[]>([]);
   const [hallLoading, setHallLoading] = useState(true);
   const [hallError, setHallError] = useState('');
@@ -112,19 +126,28 @@ export function TrainingHomeBlock({
     [eventsOwner, setEventsOwner] = useState('');
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch('/api/training/scenarios');
-        const data = (await res.json()) as { scenarios?: HallScenario[] };
-        if (!res.ok) throw new Error('load failed');
-        setScenarios(data.scenarios ?? []);
-      } catch {
-        setHallError(t('trainingLoadFailed'));
-      } finally {
-        setHallLoading(false);
-      }
-    })();
-  }, [scenarioRevision]);
+    const controller = new AbortController();
+    setHallLoading(true);
+    setHallError('');
+    setScenarios([]);
+    setScenarioTitles([]);
+    void fetch('/api/training/scenarios', { cache: 'no-store', signal: controller.signal })
+      .then(async (res) => {
+        if (!res.ok) throw Error();
+        const data = await res.json();
+        if (!controller.signal.aborted) {
+          setScenarios(data.scenarios ?? []);
+          setScenarioTitles(data.scenarioTitles ?? data.scenarios ?? []);
+        }
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setHallError(t('trainingLoadFailed'));
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setHallLoading(false);
+      });
+    return () => controller.abort();
+  }, [scenarioRevision, libraryRevision, account?.ownerId]);
 
   useEffect(() => {
     if (!account?.authenticated || tab !== 'records') return;
@@ -151,7 +174,7 @@ export function TrainingHomeBlock({
         if (!controller.signal.aborted) setRecordsLoading(false);
       });
     return () => controller.abort();
-  }, [account?.authenticated, account?.ownerId, tab]);
+  }, [account?.authenticated, account?.ownerId, tab, libraryRevision]);
 
   useEffect(() => {
     if (!account?.authenticated || tab !== 'events') return;
@@ -174,7 +197,7 @@ export function TrainingHomeBlock({
         if (!controller.signal.aborted) setEventsLoading(false);
       });
     return () => controller.abort();
-  }, [account?.authenticated, account?.ownerId, tab]);
+  }, [account?.authenticated, account?.ownerId, tab, libraryRevision]);
 
   async function startTraining(scenarioId: string, scenarioVersion: number) {
     setStarting(scenarioId);
@@ -252,7 +275,7 @@ export function TrainingHomeBlock({
       className="w-full rounded-xl border border-border bg-background p-6"
     >
       <h2 className="text-lg font-semibold">{t('trainingHomeTitle')}</h2>
-      <div role="tablist" className="mt-4 flex flex-wrap gap-2">
+      <div data-training-guide="history" role="tablist" className="mt-4 flex flex-wrap gap-2">
         {tabButton('hall', t('navHall'))}
         {tabButton('records', t('navRecords'))}
         {!unified && tabButton('account', t('navAccount'))}
@@ -277,7 +300,10 @@ export function TrainingHomeBlock({
       </p>
 
       {tab === 'hall' && (
-        <div className="mt-4">
+        <div className="mt-4" data-training-guide="scenarios">
+          <div className="mb-3 flex justify-end">
+            <LibraryTrash kind="scenario" />
+          </div>
           {hallLoading && <p className="text-sm">{t('trainingLoading')}</p>}
           {!hallLoading && hallError && <p className="text-sm">{hallError}</p>}
           {!hallLoading && !hallError && scenarios.length === 0 && (
@@ -291,7 +317,14 @@ export function TrainingHomeBlock({
                   data-testid={`training-scenario-${scenario.scenarioId}`}
                   className="rounded-lg border border-border p-4"
                 >
-                  <h3 className="font-medium">{scenario.title}</h3>
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="font-medium">{scenario.title}</h3>
+                    <LibraryRemoveButton
+                      kind="scenario"
+                      itemKey={`${scenario.scenarioId}@${scenario.version}`}
+                      title={scenario.title}
+                    />
+                  </div>
                   <p className="mt-1 text-sm text-muted-foreground">{scenario.setting}</p>
                   <p className="mt-1 text-sm">{scenario.goal}</p>
                   <p className="mt-1 text-sm text-muted-foreground">
@@ -343,7 +376,7 @@ export function TrainingHomeBlock({
             <TrainingHistory
               records={records}
               trend={trend}
-              scenarios={scenarios}
+              scenarios={scenarioTitles}
               retraining={retraining}
               retrainError={retrainError}
               onRetrain={(record) => void retrain(record)}
@@ -372,7 +405,7 @@ export function TrainingHomeBlock({
           ) : (
             <TrainingTimeline
               events={events}
-              scenarios={scenarios}
+              scenarios={scenarioTitles}
               onStart={() => selectTab('hall')}
             />
           )}

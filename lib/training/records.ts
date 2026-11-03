@@ -11,6 +11,7 @@ import type { TrainingEvaluationRecord, TrainingRecord } from '@openmaic/storage
 
 import { EVALUATION_DIMENSIONS, type EvaluationDimension } from './evaluation';
 import { getTrainingStore } from './server';
+import { removedKeys } from './library';
 
 export interface TrainingRecordEntry {
   training: TrainingRecord;
@@ -31,7 +32,8 @@ export interface TrainingRecords {
 /** The learner's trainings with evaluations and the dimension trend. */
 export async function getTrainingRecords(ownerId: string): Promise<TrainingRecords> {
   const store = (await getTrainingStore()).forOwner(ownerId);
-  const trainings = await store.listTrainings();
+  const removed = await removedKeys(ownerId, 'training');
+  const trainings = (await store.listTrainings()).filter((training) => !removed.has(training.id));
   const records = await Promise.all(
     trainings.map(
       async (training): Promise<TrainingRecordEntry> => ({

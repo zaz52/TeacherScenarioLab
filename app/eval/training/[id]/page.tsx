@@ -181,7 +181,7 @@ export default function TrainingReviewPage() {
   const transitions = events.filter((event) => event.type === 'training-transition');
 
   return (
-    <main>
+    <main data-training-guide="review">
       <h1>{t('reviewTitle')}</h1>
       <p>
         <Link href={`/classroom/training/${training.id}`}>{t('reviewBackRoom')}</Link>{' '}

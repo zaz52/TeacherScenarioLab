@@ -761,6 +761,7 @@ export function TrainingRoom() {
                 {canTalk ? (
                   <>
                     <textarea
+                      data-training-guide="dialogue"
                       rows={3}
                       maxLength={20000}
                       value={input}
@@ -865,6 +866,7 @@ export function TrainingRoom() {
                 {training.state === 'evaluation' && (
                   <button
                     disabled={busy}
+                    data-training-guide="evaluation"
                     onClick={() => (evaluation ? void move('completed') : void evaluate())}
                     className={cn(
                       button,

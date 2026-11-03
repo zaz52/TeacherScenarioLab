@@ -3234,6 +3234,106 @@
       "failed": "Loading or saving failed. Check the endpoint, model IDs and key.",
       "newKey": "A new endpoint requires its corresponding key.",
       "conflict": "Configuration changed. Reopen this page before saving."
+    },
+    "library": {
+      "remove": "Delete",
+      "confirm": "Move to deleted items?",
+      "scenarioHint": "This scenario moves to your deleted list and can be restored. Published versions and historical snapshots are retained.",
+      "trainingHint": "This attempt moves out of your records, trends and event list. Messages, evaluations and the event ledger are retained for restoration.",
+      "cancel": "Cancel",
+      "working": "Working…",
+      "failed": "Operation failed. Please retry.",
+      "trash": "Deleted items",
+      "restore": "Restore",
+      "deletedScenarios": "Deleted scenarios",
+      "deletedTrainings": "Deleted training attempts",
+      "restoreHint": "Restore an item to bring it back to your lists.",
+      "empty": "No deleted items.",
+      "attempts": "training attempts",
+      "expand": "Expand details",
+      "messages": "messages",
+      "more": "Show more",
+      "groupedEvents": "Each attempt has one card. Expand it to browse its activity."
+    },
+    "guide": {
+      "title": "Getting started",
+      "welcomeTitle": "First visit? Start here",
+      "welcomeText": "A step-by-step guide to scenarios, dialogue, evaluation and history.",
+      "start": "Start guide",
+      "later": "Later",
+      "close": "Close guide",
+      "locate": "Locate feature",
+      "contents": "Contents",
+      "located": "The matching area is highlighted. You can use the page and continue.",
+      "previous": "Previous",
+      "next": "Next",
+      "finish": "Finish",
+      "steps": {
+        "welcome": {
+          "title": "Meet TeacherScenarioLab",
+          "text": "Practice school–family communication during an epidemic: select a scenario and partner, converse, receive feedback and review. Reopen this guide from the lower-left button."
+        },
+        "account": {
+          "title": "Register or sign in",
+          "text": "Register using email, a verification code and a password. Existing accounts can sign in by password or email code. Training history and personal models belong to your account. Contact the site owner if verification mail does not arrive."
+        },
+        "scenario": {
+          "title": "Choose a scenario",
+          "text": "Start training shows the setting, goals and roles. Select a scenario to load it into the composer. Delete moves a scenario to your own restorable deleted list."
+        },
+        "practice": {
+          "title": "Set grade, parent profile and channel",
+          "text": "Choose family communication or a campus scenario, then grade, parent profile, private chat/telephone practice/group chat and focus. Family mode addresses parents; campus mode includes other roles. Display names are optional."
+        },
+        "models": {
+          "title": "Smart routing and personal models",
+          "text": "Magpie dispatches the default request among configured candidates and can try alternatives after upstream limits or failures. Manage personal providers and role assignments in Settings. If all candidates fail, retain the attempt and retry later."
+        },
+        "opening": {
+          "title": "Write an opening and enter practice",
+          "text": "Enter your first message, then enter practice. You may also compose in the training room. Use fictional materials and remove sensitive student records and contact information."
+        },
+        "room": {
+          "title": "Talk to the selected role",
+          "text": "Read the public briefing, choose your partner and send a message. The character responds within its information permissions. Retry failures as indicated. Scripted mode provides fixed demonstration lines."
+        },
+        "voice": {
+          "title": "Text and voice",
+          "text": "Use text, microphone input or read-aloud controls. Voice depends on browser permission, device support and configured services. Telephone practice changes the dialogue style."
+        },
+        "feedback": {
+          "title": "Tutor hints and formative feedback",
+          "text": "The support panel flags expressions for review and links suggested wording to sources. Every ten completed learner-message/character-reply rounds provide rule-assisted feedback with message anchors."
+        },
+        "evaluation": {
+          "title": "Generate a formal evaluation",
+          "text": "Advance through the phases, then request evaluation. Communication, fact-checking, judgment, coordination and responsibility scores should cite actual teacher messages. Failed model calls remain visible for retry."
+        },
+        "review": {
+          "title": "Review and repeat",
+          "text": "After saving evaluation, open review for scores, comments, suggestions and evidence. History offers review and retraining. A repeated attempt copies its setup and keeps a separate record."
+        },
+        "records": {
+          "title": "Organize your attempts",
+          "text": "History groups attempts by scenario and version. Expand a group, search or filter, continue practice or review. Deleted attempts are restorable and rejoin the visible statistics after restoration."
+        },
+        "events": {
+          "title": "Browse one attempt at a time",
+          "text": "The event center has one collapsed card per attempt. Expand it for activity, model selection and evaluation events. Search, filter and load more events in batches."
+        },
+        "references": {
+          "title": "Knowledge and references",
+          "text": "Search tutor, assessor, parent and epidemic-scenario collections. Open an entry for training suggestions, bibliographic metadata and source links. Check its indexing version and verification scope alongside the original paper."
+        },
+        "settings": {
+          "title": "Account and model settings",
+          "text": "The home gear opens settings. Account manages sign-in; Model Services manages personal providers; Training Roles and Evaluation assigns models. Course configuration serves course learning. The site owner can also edit shared providers."
+        },
+        "admin": {
+          "title": "Administration and permissions",
+          "text": "Available modules follow owner grants: scenarios, training audit, references, models and people. The owner grants administrators and exclusively configures verification mail. Published scenarios change through new versions."
+        }
+      }
     }
   }
 }

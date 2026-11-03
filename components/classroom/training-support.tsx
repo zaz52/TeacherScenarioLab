@@ -39,7 +39,10 @@ export function TrainingSupport({
 }) {
   const { t } = useI18n();
   return (
-    <section className="space-y-4 rounded-2xl border border-violet-400/40 bg-background/90 p-4">
+    <section
+      data-training-guide="support"
+      className="space-y-4 rounded-2xl border border-violet-400/40 bg-background/90 p-4"
+    >
       <h2 className="flex items-center gap-2 text-sm font-semibold">
         <BookOpen size={16} />
         {t('teacherlab.knowledge.supportTitle')}

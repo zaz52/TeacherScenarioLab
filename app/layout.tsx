@@ -12,6 +12,7 @@ import { ThemeProvider } from '@/lib/hooks/use-theme';
 import { I18nProvider } from '@/lib/hooks/use-i18n';
 import { Toaster } from '@/components/ui/sonner';
 import { AccessCodeGuard } from '@/components/access-code-guard';
+import { NewcomerGuide } from '@/components/home/newcomer-guide';
 import { AccountProvider } from '@/components/account/account-provider';
 import { AuthenticatedInit } from '@/components/account/authenticated-init';
 import { loadLocaleResource } from '@/lib/i18n/load-resource';
@@ -83,7 +84,10 @@ export default async function RootLayout({
           <ThemeProvider>
             <I18nProvider initialLocale={locale} initialResources={resources}>
               <AccountProvider>
-                <AccessCodeGuard>{children}</AccessCodeGuard>
+                <AccessCodeGuard>
+                  {children}
+                  <NewcomerGuide />
+                </AccessCodeGuard>
                 <Toaster position="top-center" />
                 {/* After the Toaster: this one raises a toast on mount when
                 persistence is already broken, and a toast raised before its

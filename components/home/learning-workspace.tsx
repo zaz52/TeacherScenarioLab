@@ -908,7 +908,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
         <div className="w-[1px] h-4 bg-gray-200 dark:bg-gray-700" />
 
         {/* Settings Button */}
-        <div className="home-desktop-settings relative">
+        <div data-training-guide="settings" className="home-desktop-settings relative">
           <button
             aria-label={t('settings.title')}
             onClick={() => setSettingsOpen(true)}
@@ -1029,6 +1029,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
         >
           <div
             data-pro-morph="composer"
+            data-training-guide="composer"
             className="home-composer w-full rounded-2xl border border-border/60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-xl shadow-black/[0.03] dark:shadow-black/20 transition-shadow focus-within:shadow-2xl focus-within:shadow-violet-500/[0.06]"
           >
             {/* ── Greeting + Profile + Agents ── */}
@@ -1077,7 +1078,11 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
                 </select>
               </div>
             )}
-            {isTraining && <PracticeOptions composer={training} />}
+            {isTraining && (
+              <div data-training-guide="practice">
+                <PracticeOptions composer={training} />
+              </div>
+            )}
             {isTraining && hasAdminPermission(account?.adminAccess, 'scenarios.manage') && (
               <div className="px-4 pb-2">
                 <button
@@ -1125,7 +1130,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
 
             {/* Toolbar row */}
             <div className="home-composer-controls px-3 pb-3 flex items-end gap-2">
-              <div className="home-desktop-generation flex-1 min-w-0">
+              <div data-training-guide="models" className="home-desktop-generation flex-1 min-w-0">
                 {isTraining ? (
                   <EpidemicModelPill
                     composer={training}

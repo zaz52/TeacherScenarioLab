@@ -34,6 +34,12 @@ export async function accountDatabase() {
           id TEXT PRIMARY KEY, actor TEXT NOT NULL, action TEXT NOT NULL, subject TEXT NOT NULL, created_at BIGINT NOT NULL
         );
         CREATE TABLE IF NOT EXISTS teacherlab_user_model_routing (owner_id TEXT PRIMARY KEY, data JSONB NOT NULL);
+        CREATE TABLE IF NOT EXISTS teacherlab_library_removed (
+          owner_id TEXT NOT NULL REFERENCES training_accounts(account_id) ON DELETE CASCADE,
+          kind TEXT NOT NULL CHECK (kind IN ('scenario','training')), item_key TEXT NOT NULL,
+          title TEXT NOT NULL, removed_at BIGINT NOT NULL,
+          PRIMARY KEY(owner_id,kind,item_key)
+        );
         CREATE TABLE IF NOT EXISTS teacherlab_admin_permissions (
           account_id TEXT PRIMARY KEY REFERENCES training_accounts(account_id) ON DELETE CASCADE,
           permissions JSONB NOT NULL DEFAULT '[]'::jsonb

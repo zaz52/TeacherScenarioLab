@@ -6,6 +6,7 @@ import { useI18n } from '@/lib/hooks/use-i18n';
 import { useAccount } from '@/components/account/account-provider';
 import { useModelSettingsView } from '@/lib/model-settings/use-model-settings';
 import { characterLabel, characterAvatar } from '@/lib/training/character-presentation';
+import { TRAINING_LIBRARY_CHANGED } from './training-library-actions';
 import type { UserRouting } from '@/lib/training/user-model-routing';
 import {
   DEFAULT_PRACTICE,
@@ -39,6 +40,12 @@ export function useEpidemicComposer(enabled: boolean) {
     characters: {},
   });
   const [revision, setRevision] = useState(0);
+  const [libraryRevision, setLibraryRevision] = useState(0);
+  useEffect(() => {
+    const refresh = () => setLibraryRevision((value) => value + 1);
+    window.addEventListener(TRAINING_LIBRARY_CHANGED, refresh);
+    return () => window.removeEventListener(TRAINING_LIBRARY_CHANGED, refresh);
+  }, []);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -79,7 +86,7 @@ export function useEpidemicComposer(enabled: boolean) {
     return () => {
       active = false;
     };
-  }, [enabled, t]);
+  }, [enabled, t, libraryRevision, account?.ownerId]);
   useEffect(() => {
     if (!enabled || !account?.authenticated) return;
     let active = true;

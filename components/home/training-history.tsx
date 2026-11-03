@@ -5,6 +5,7 @@ import { ArrowRight, BookOpen, Clock3, MessageCircle, Search, RotateCcw } from '
 import { useI18n } from '@/lib/hooks/use-i18n';
 import { trainingStateLabel } from '@/lib/training/state-label';
 import './training-workspace.css';
+import { LibraryRemoveButton, LibraryTrash } from './training-library-actions';
 
 export interface HistoryRecord {
   training: {
@@ -73,6 +74,7 @@ export function TrainingHistory({
   const { t, locale, label } = useHistoryLabels(scenarios);
   const [search, setSearch] = useState(''),
     [filter, setFilter] = useState('all');
+  const [recordLimits, setRecordLimits] = useState<Record<string, number>>({});
   const evaluated = records.filter((record) => record.evaluation !== null).length;
   const visible = records.filter(
     (record) =>
@@ -82,6 +84,11 @@ export function TrainingHistory({
         .toLowerCase()
         .includes(search.toLowerCase()),
   );
+  const groups = new Map<string, HistoryRecord[]>();
+  for (const record of visible) {
+    const key = `${record.training.scenarioId}@${record.training.scenarioVersion}`;
+    groups.set(key, [...(groups.get(key) ?? []), record]);
+  }
   return (
     <div className="training-workspace">
       <header className="history-heading">
@@ -89,10 +96,13 @@ export function TrainingHistory({
           <h3>{t('training.navRecords')}</h3>
           <p>{t('teacherlab.history.recordsIntro')}</p>
         </div>
-        <button onClick={onStart}>
-          {t('training.navHall')}
-          <ArrowRight size={15} />
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <LibraryTrash kind="training" />
+          <button onClick={onStart}>
+            {t('training.navHall')}
+            <ArrowRight size={15} />
+          </button>
+        </div>
       </header>
       <dl className="history-stats">
         <div>
@@ -179,75 +189,124 @@ export function TrainingHistory({
           )}
           {!visible.length && <p className="history-notice">{t('teacherlab.history.noMatches')}</p>}
           <ul className="history-records">
-            {visible.map((record) => (
-              <li
-                key={record.training.id}
-                data-testid={`training-record-${record.training.id}`}
-                className="history-record"
-              >
-                <div className="history-record-header">
-                  <div>
-                    <h4>{label(record.training.scenarioId, record.training.scenarioVersion)}</h4>
-                    <p className="history-muted">
-                      v{record.training.scenarioVersion} ·{' '}
-                      {trainingStateLabel(record.training.state, (key) => t('training.' + key))}
-                    </p>
-                  </div>
-                  <span className="history-status">
-                    {record.evaluation
-                      ? t('training.recordsEvaluated')
-                      : t('training.recordsUnevaluated')}
-                  </span>
-                </div>
-                <p className="history-summary">
-                  {record.evaluation?.summary || t('teacherlab.history.continueForScore')}
-                </p>
-                {record.evaluation && (
-                  <div className="history-scores">
-                    {record.evaluation.dimensions.map((dimension) => (
-                      <span key={dimension.dimension}>
-                        {t(dimKey(dimension.dimension))}
-                        <strong>{dimension.score}</strong>
-                      </span>
+            {[...groups].map(([groupKey, entries]) => (
+              <li key={groupKey} className="history-group">
+                <details>
+                  <summary className="history-group-summary">
+                    <div>
+                      <strong>
+                        {label(entries[0].training.scenarioId, entries[0].training.scenarioVersion)}
+                      </strong>
+                      <p className="history-muted">
+                        {entries.length} {t('teacherlab.library.attempts')} ·{' '}
+                        {t('teacherlab.library.expand')}
+                      </p>
+                    </div>
+                    <time>
+                      {new Date(
+                        Math.max(...entries.map((record) => record.training.updatedAt)),
+                      ).toLocaleDateString(locale)}
+                    </time>
+                  </summary>
+                  <ul className="history-records mt-3">
+                    {entries.slice(0, recordLimits[groupKey] ?? 5).map((record) => (
+                      <li
+                        key={record.training.id}
+                        data-testid={`training-record-${record.training.id}`}
+                        className="history-record"
+                      >
+                        <div className="history-record-header">
+                          <div>
+                            <h4>
+                              {label(record.training.scenarioId, record.training.scenarioVersion)}
+                            </h4>
+                            <p className="history-muted">
+                              v{record.training.scenarioVersion} ·{' '}
+                              {trainingStateLabel(record.training.state, (key) =>
+                                t('training.' + key),
+                              )}
+                            </p>
+                          </div>
+                          <span className="history-status">
+                            {record.evaluation
+                              ? t('training.recordsEvaluated')
+                              : t('training.recordsUnevaluated')}
+                          </span>
+                        </div>
+                        <p className="history-summary">
+                          {record.evaluation?.summary || t('teacherlab.history.continueForScore')}
+                        </p>
+                        {record.evaluation && (
+                          <div className="history-scores">
+                            {record.evaluation.dimensions.map((dimension) => (
+                              <span key={dimension.dimension}>
+                                {t(dimKey(dimension.dimension))}
+                                <strong>{dimension.score}</strong>
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        <div className="history-record-footer">
+                          <time dateTime={new Date(record.training.updatedAt).toISOString()}>
+                            <Clock3 size={14} />
+                            {new Date(record.training.updatedAt).toLocaleString(locale)}
+                          </time>
+                          <div className="history-actions">
+                            <LibraryRemoveButton
+                              kind="training"
+                              itemKey={record.training.id}
+                              title={label(
+                                record.training.scenarioId,
+                                record.training.scenarioVersion,
+                              )}
+                            />
+                            <Link
+                              className="history-primary"
+                              href={
+                                record.evaluation
+                                  ? `/eval/training/${record.training.id}`
+                                  : `/classroom/training/${record.training.id}`
+                              }
+                            >
+                              {record.evaluation
+                                ? t('training.reviewTitle')
+                                : t('teacherlab.history.continueTraining')}
+                              <ArrowRight size={15} />
+                            </Link>
+                            <button
+                              data-testid={`training-retrain-${record.training.id}`}
+                              disabled={Boolean(retraining)}
+                              onClick={() => onRetrain(record)}
+                            >
+                              <RotateCcw size={14} />
+                              {retraining === record.training.id
+                                ? t('training.recordsRetraining')
+                                : t('training.recordsRetrain')}
+                            </button>
+                          </div>
+                        </div>
+                        <details className="history-identifiers">
+                          <summary>{t('teacherlab.history.identifiers')}</summary>
+                          <p>
+                            {record.training.scenarioId} · {record.training.id}
+                          </p>
+                        </details>
+                      </li>
                     ))}
-                  </div>
-                )}
-                <div className="history-record-footer">
-                  <time dateTime={new Date(record.training.updatedAt).toISOString()}>
-                    <Clock3 size={14} />
-                    {new Date(record.training.updatedAt).toLocaleString(locale)}
-                  </time>
-                  <div className="history-actions">
-                    <Link
-                      className="history-primary"
-                      href={
-                        record.evaluation
-                          ? `/eval/training/${record.training.id}`
-                          : `/classroom/training/${record.training.id}`
+                  </ul>
+                  {entries.length > (recordLimits[groupKey] ?? 5) && (
+                    <button
+                      className="mt-3"
+                      onClick={() =>
+                        setRecordLimits((previous) => ({
+                          ...previous,
+                          [groupKey]: (previous[groupKey] ?? 5) + 5,
+                        }))
                       }
                     >
-                      {record.evaluation
-                        ? t('training.reviewTitle')
-                        : t('teacherlab.history.continueTraining')}
-                      <ArrowRight size={15} />
-                    </Link>
-                    <button
-                      data-testid={`training-retrain-${record.training.id}`}
-                      disabled={Boolean(retraining)}
-                      onClick={() => onRetrain(record)}
-                    >
-                      <RotateCcw size={14} />
-                      {retraining === record.training.id
-                        ? t('training.recordsRetraining')
-                        : t('training.recordsRetrain')}
+                      {t('teacherlab.library.more')}
                     </button>
-                  </div>
-                </div>
-                <details className="history-identifiers">
-                  <summary>{t('teacherlab.history.identifiers')}</summary>
-                  <p>
-                    {record.training.scenarioId} · {record.training.id}
-                  </p>
+                  )}
                 </details>
               </li>
             ))}
@@ -281,90 +340,60 @@ export function TrainingTimeline({
   onStart: () => void;
 }) {
   const { t, locale, label } = useHistoryLabels(scenarios);
-  const [filter, setFilter] = useState('all');
-  const visible = events.filter((event) => filter === 'all' || event.trainingId === filter);
-  const trainings = [...new Map(events.map((event) => [event.trainingId, event])).values()];
+  const [search, setSearch] = useState(''),
+    [filter, setFilter] = useState('all');
+  const [limits, setLimits] = useState<Record<string, number>>({});
+  const groups = new Map<string, HistoryEvent[]>();
+  for (const event of events)
+    groups.set(event.trainingId, [...(groups.get(event.trainingId) ?? []), event]);
+  const visible = [...groups]
+    .filter(
+      ([id, items]) =>
+        (filter === 'all' || id === filter) &&
+        `${label(items[0].scenarioId, items[0].scenarioVersion)} ${id}`
+          .toLowerCase()
+          .includes(search.toLowerCase()),
+    )
+    .sort(
+      (a, b) =>
+        Math.max(...b[1].map((e) => e.createdAt)) - Math.max(...a[1].map((e) => e.createdAt)),
+    );
   return (
     <div className="training-workspace">
       <header className="history-heading">
         <div>
           <h3>{t('training.navEvents')}</h3>
-          <p>{t('teacherlab.history.eventsIntro')}</p>
+          <p>{t('teacherlab.library.groupedEvents')}</p>
         </div>
         <span className="history-count">
-          {visible.length} {t('teacherlab.history.activities')}
+          {groups.size} {t('teacherlab.library.attempts')}
         </span>
       </header>
-      {events.length ? (
-        <>
-          <div className="history-toolbar">
-            <label className="history-filter-label">
-              {t('teacherlab.history.filterTraining')}
-              <select value={filter} onChange={(event) => setFilter(event.target.value)}>
-                <option value="all">{t('teacherlab.history.allTrainings')}</option>
-                {trainings.map((event) => (
-                  <option key={event.trainingId} value={event.trainingId}>
-                    {label(event.scenarioId, event.scenarioVersion)} ·{' '}
-                    {event.trainingId.slice(0, 8)}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <ol className="history-timeline">
-            {visible.map((event, index) => {
-              const key = eventKeys[event.type] ?? 'activity';
-              const day = new Date(event.createdAt).toLocaleDateString(locale);
-              const previousDay = index
-                ? new Date(visible[index - 1].createdAt).toLocaleDateString(locale)
-                : '';
-              return (
-                <li key={event.id}>
-                  {day !== previousDay && <h4 className="history-day">{day}</h4>}
-                  <div className="history-timeline-row">
-                    <span className="history-dot" aria-hidden="true" />
-                    <div className="history-timeline-body">
-                      <div className="history-event-heading">
-                        <strong>{t('teacherlab.history.eventLabels.' + key)}</strong>
-                        <time dateTime={new Date(event.createdAt).toISOString()}>
-                          {new Date(event.createdAt).toLocaleTimeString(locale, {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
-                        </time>
-                      </div>
-                      <p>
-                        {label(event.scenarioId, event.scenarioVersion)} · v{event.scenarioVersion}
-                      </p>
-                      <p className="history-muted">{t('teacherlab.history.eventHints.' + key)}</p>
-                      <Link
-                        href={
-                          event.type === 'evaluation-completed'
-                            ? `/eval/training/${event.trainingId}`
-                            : `/classroom/training/${event.trainingId}`
-                        }
-                      >
-                        {t(
-                          event.type === 'evaluation-completed'
-                            ? 'training.reviewTitle'
-                            : 'teacherlab.history.openTraining',
-                        )}
-                        <ArrowRight size={14} />
-                      </Link>
-                      <details className="history-identifiers">
-                        <summary>{t('teacherlab.history.identifiers')}</summary>
-                        <p>
-                          {event.type} · {event.trainingId}
-                        </p>
-                      </details>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </>
-      ) : (
+      <div className="history-toolbar">
+        <label>
+          <Search size={16} />
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            aria-label={t('teacherlab.history.searchRecords')}
+            placeholder={t('teacherlab.history.searchRecords')}
+          />
+        </label>
+        <select
+          aria-label={t('teacherlab.history.filterTraining')}
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="all">{t('teacherlab.history.allTrainings')}</option>
+          {[...groups].map(([id, items]) => (
+            <option key={id} value={id}>
+              {label(items[0].scenarioId, items[0].scenarioVersion)} · {id.slice(0, 8)}
+            </option>
+          ))}
+        </select>
+      </div>
+      {!events.length ? (
         <div className="history-empty">
           <MessageCircle size={26} />
           <h4>{t('training.eventsEmpty')}</h4>
@@ -374,6 +403,82 @@ export function TrainingTimeline({
             <ArrowRight size={15} />
           </button>
         </div>
+      ) : (
+        <ul className="history-records">
+          {visible.map(([id, unsorted]) => {
+            const items = [...unsorted].sort(
+              (a, b) => b.createdAt - a.createdAt || a.id.localeCompare(b.id),
+            );
+            const latest = items[0],
+              limit = limits[id] ?? 20;
+            return (
+              <li key={id} className="history-group">
+                <details key={`${id}:${filter}`} open={filter === id || undefined}>
+                  <summary className="history-group-summary">
+                    <div>
+                      <strong>{label(latest.scenarioId, latest.scenarioVersion)}</strong>
+                      <p className="history-muted">
+                        {items.length} {t('teacherlab.history.activities')} ·{' '}
+                        {items.filter((e) => e.type === 'user-message').length}{' '}
+                        {t('teacherlab.library.messages')} · {t('teacherlab.library.expand')}
+                      </p>
+                    </div>
+                    <time>{new Date(latest.createdAt).toLocaleString(locale)}</time>
+                  </summary>
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+                    <Link className="text-primary underline" href={`/classroom/training/${id}`}>
+                      {t('teacherlab.history.openTraining')}
+                    </Link>
+                    <LibraryRemoveButton
+                      kind="training"
+                      itemKey={id}
+                      title={label(latest.scenarioId, latest.scenarioVersion)}
+                    />
+                  </div>
+                  <ol className="history-timeline mt-4">
+                    {items.slice(0, limit).map((event) => {
+                      const key = eventKeys[event.type] ?? 'activity';
+                      return (
+                        <li key={event.id}>
+                          <div className="history-timeline-row">
+                            <span className="history-dot" aria-hidden="true" />
+                            <div className="history-timeline-body">
+                              <div className="history-event-heading">
+                                <strong>{t('teacherlab.history.eventLabels.' + key)}</strong>
+                                <time dateTime={new Date(event.createdAt).toISOString()}>
+                                  {new Date(event.createdAt).toLocaleString(locale)}
+                                </time>
+                              </div>
+                              <p className="history-muted">
+                                {t('teacherlab.history.eventHints.' + key)}
+                              </p>
+                              <details className="history-identifiers">
+                                <summary>{t('teacherlab.history.identifiers')}</summary>
+                                <p>
+                                  {event.type} · {event.trainingId}
+                                </p>
+                              </details>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                  {items.length > limit && (
+                    <button
+                      onClick={() => setLimits((previous) => ({ ...previous, [id]: limit + 20 }))}
+                    >
+                      {t('teacherlab.library.more')}
+                    </button>
+                  )}
+                </details>
+              </li>
+            );
+          })}
+          {!visible.length && (
+            <li className="history-notice">{t('teacherlab.history.noMatches')}</li>
+          )}
+        </ul>
       )}
     </div>
   );

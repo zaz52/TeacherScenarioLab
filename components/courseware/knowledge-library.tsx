@@ -59,7 +59,7 @@ export function KnowledgeLibrary() {
   }, [category, search, topic]);
   const pages = Math.ceil(rows.length / 12);
   return (
-    <main className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6">
+    <main data-training-guide="knowledge" className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6">
       <header className="rounded-3xl border border-border/60 bg-background/90 p-6 sm:p-8">
         <Link
           href="/"
