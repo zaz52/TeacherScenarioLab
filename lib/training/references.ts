@@ -510,6 +510,7 @@ export const TRAINING_REFERENCES: TrainingReference[] = [
     authors: ['J. J. Barr'],
     year: 2006,
     venue: 'Dissertation Abstracts International',
+    url: 'https://books.google.com/books?id=Nibx8aN47_kC',
     topics: ['home-school'],
     summary: '家长参与、学生成绩与家长信任的关系（博士论文）',
   },

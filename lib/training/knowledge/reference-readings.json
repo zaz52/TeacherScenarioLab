@@ -2537,5 +2537,1673 @@
     "sourceUrl": "https://www.tandfonline.com/doi/full/10.1080/0969594X.2021.1884042",
     "checkedAt": "2026-11-04",
     "scope": "abstract"
+  },
+  "ref-04": {
+    "method": "学校流感暴发的描述性调查，访谈学生和工作人员并追踪19天传播过程。",
+    "findings": "报告约44%的师生发病，停课、临时诊疗及社区健康教育共同实施，可能限制了向周边学校扩散。",
+    "application": "练习向家长说明已经核实的范围、学校联系人和协同安排。",
+    "limitations": "多项措施同时实施，观察资料无法单独确定某项措施的因果效果；历史数据不替代现行处置流程。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.59096%2Fosir.v4i2.263354&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-05": {
+    "method": "公共卫生部门对学校聚集性流感事件开展现场调查和采样。",
+    "findings": "确认4例乙型流感并发现响应预案与沟通网络存在缺口，团队随后协调学校建立信息联系和预防宣传。",
+    "application": "在疫情沟通中明确核实、报告、反馈的责任人和联系渠道。",
+    "limitations": "属于单次事件报告，样本与特定地区背景限制推广；感染比例不能用作当前班级风险预测。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1093%2Feurpub%2Fckad160.1540&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-08": {
+    "method": "按PRISMA流程筛选学校关闭期间6–13岁儿童的研究，纳入10项。",
+    "findings": "父母心理健康、亲子互动和养育压力与儿童情绪及行为问题相联系，研究质量与指标存在差异。",
+    "application": "回应家长担忧时，同时询问照护压力、孩子情绪和可获得的支持。",
+    "limitations": "停课与其他疫情压力共同发生，综述无法将所有心理变化归因于学校关闭。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.3233%2Fdev-220322&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-12": {
+    "method": "德国2647名家长在线调查，分别分析小学和中学远程教学活动及家长感知的学习表现。",
+    "findings": "师生沟通与多项学习表现相关，家校沟通与动机及学习进展相关；学生投入和家庭资源也具有独立关联。",
+    "application": "沟通中兼顾任务反馈、学习动机和家庭实际条件，约定适合的联系频率。",
+    "limitations": "基于家长报告和相关分析，关联不代表增加联系必然提高成绩。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1024%2F1010-0652%2Fa000306&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-13": {
+    "method": "学校关闭期间对家长实施短信和电话支持的随机试验。",
+    "findings": "短信与电话组合使学习结果提高约0.12个标准差，展示了低技术家庭支持的潜力。",
+    "application": "为网络条件不足的家庭提供简短短信、电话回访和具体可执行的学习建议。",
+    "limitations": "效果来自特定干预及环境，不能直接视为本平台或任何电话沟通的预期效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.3386%2Fw28205&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-15": {
+    "method": "哥斯达黎加学前儿童家庭的15周短信干预，检验直接接受信息及家长网络外溢效应。",
+    "findings": "接受短信家庭的儿童认知技能提升约0.11–0.12个标准差，家长参与增加；未发现信息在网络内自然扩散的证据。",
+    "application": "重要安排逐户确认接收，提供简短亲子活动建议并追踪执行困难。",
+    "limitations": "研究对象为学前家庭，干预持续时间和当地网络条件限制迁移。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.18235%2F0003913&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-16": {
+    "method": "坦桑尼亚11名校长、教师和家长的质性案例研究，采用访谈与文档分析。",
+    "findings": "手机帮助传递材料并维持联系，设备、网络费用及家长教学支持能力仍构成障碍。",
+    "application": "先询问家庭可用设备与通信条件，再商定短信、电话或在线联系方案。",
+    "limitations": "单个案例及小样本呈现经历，不能估计各方式的普遍效果大小。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.56279%2Fped.v42i1.1&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-17": {
+    "method": "对英格兰7所小学的学校人员和家长开展49次访谈。",
+    "findings": "疫情促使联系渠道调整，参与者报告更深入的合作及相互理解，同时仍有资源和接触障碍。",
+    "application": "提供可回应的双向渠道，询问家庭实际困难并约定反馈。",
+    "limitations": "质性访谈和特定学校背景不支持对所有家庭作普遍效果推断。",
+    "sourceUrl": "https://discovery.ucl.ac.uk/id/eprint/10161195/",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-18": {
+    "method": "分析澳大利亚17所学校疫情第一波期间的家校邮件，结合内容、主题及可读性分析。",
+    "findings": "邮件用于传递事实、说明决定和表达关怀，但大量信息仍偏单向且可读性不一，研究强调社区关怀。",
+    "application": "通知保持简明，区分事实、行动、联系人和反馈入口。",
+    "limitations": "样本偏向维多利亚及独立学校，文字可读性工具不能完整反映文化与情绪理解。",
+    "sourceUrl": "https://www.tandfonline.com/doi/full/10.1080/10510974.2024.2377477",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-19": {
+    "method": "在英格兰小学教育者中开展混合方法研究，问卷271人，并在两次停课后进行访谈。",
+    "findings": "教师期待家长帮助获取资源、参与或监督学习活动，但弱势家庭面临更多参与障碍。",
+    "application": "询问设备、时间及理解要求的困难，与家长协商可实行的学习支持。",
+    "limitations": "结果主要来自教师视角及特定停课时期，不能推断家长参与不足的个人原因。",
+    "sourceUrl": "https://cronfa.swansea.ac.uk/Record/cronfa58626/Download/58626__21723__94d8d319edd24a16bddc6bd03ed4cf1c.pdf",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-20": {
+    "method": "调查1234名家长和209名教师，比较不同学段的家庭与学校互信。",
+    "findings": "小学阶段信任通常较高，互动质量比联系次数或人口特征更能预测信任，信任也与学校表现指标相关。",
+    "application": "通过解释依据、倾听和兑现反馈约定改善互动质量。",
+    "limitations": "来自单一学区的调查，无法证明互信或沟通方式导致成绩变化。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fs0022-4405%2800%2900048-0&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-21": {
+    "method": "对南非两所不同资源条件学校的家长和教师开展访谈与开放问卷，使用主题分析。",
+    "findings": "不同资源背景的家长都关心子女教育并采取参与策略，但参与学校活动的程度存在差异。",
+    "application": "理解家长时间和资源限制，提供多种参与方式。",
+    "limitations": "两校小样本的质性结论不能用于给所有家庭贴参与意愿标签。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.15700%2Fsaje.v43n3a2201&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-22": {
+    "method": "222名小学教师和33名校长参与的积极倾听实证调查。",
+    "findings": "教师描述的做法包括关注与观察、保持中立、共情、澄清提问和复述家长主要观点。",
+    "application": "练习先复述担忧，再核对信息，并以开放问题邀请家长补充。",
+    "limitations": "主要依据教育者自述，不能直接推定实际互动质量或学生结果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.24018%2Fejedu.2021.2.6.186&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-23": {
+    "method": "对印尼8所幼儿园203份家长问卷分析，并检验29题量表的信效度。",
+    "findings": "家长整体对教师持积极态度，背景特征未充分反映态度及实践，研究建议扩大参与机会并解释伙伴关系。",
+    "application": "先了解具体关切和沟通经历，邀请家长参与可执行的安排。",
+    "limitations": "特定地区样本与自报指标限制推广，量表可靠性不等于干预有效性。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.31004%2Fobsesi.v7i1.3590&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-24": {
+    "method": "17名特殊需要儿童家长参与焦点小组，依据Epstein六领域框架进行质性分析。",
+    "findings": "家长参与涵盖家庭支持、沟通、志愿活动、居家学习、决策与社区资源协作。",
+    "application": "为有特殊需要的学生核对个别支持、家庭意见及社区转介安排。",
+    "limitations": "质性研究说明参与经验，不能据此估算某一种支持措施的效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.23960%2Fjpp.v15i1.pp31-42&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-25": {
+    "method": "围绕小学教师与不同家庭合作的研究性讨论，涉及成绩沟通、会谈和困难议题。",
+    "findings": "文章梳理建立伙伴关系的价值与障碍，并关注残障、低收入及特殊才能学生家庭的差异。",
+    "application": "在沟通前了解家庭条件，准备具体、尊重且可协商的反馈。",
+    "limitations": "可取得摘要未披露清晰样本、分析方法或效果量，应作为议题框架阅读。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.5937%2Finovacije1801134g&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-26": {
+    "method": "中国农村地区4000余名8–10岁儿童参加的两学期随机对照试验。",
+    "findings": "双周学习行为反馈改善学业表现，向家长同步反馈对部分低龄留守儿童带来额外数学收益。",
+    "application": "向照护者提供可理解的具体反馈，并约定支持动作及回访。",
+    "limitations": "特定地区、年龄及评分卡干预的效果不能直接外推至疫情对话训练。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.2139%2Fssrn.3129291&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-27": {
+    "method": "巴基斯坦Pishin地区620名家长和620名学生的分层问卷调查。",
+    "findings": "家庭支持和家校沟通与成绩联系较强，志愿参与和决策参与受到当地资源及文化条件制约。",
+    "application": "区分家长能够参与的方式，协商与现实资源相符的支持行动。",
+    "limitations": "相关研究及特定农村背景不支持因果推断；参与领域间的比较需结合完整统计模型。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.58622%2Fv24akn37&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-28": {
+    "method": "在印尼日惹150名幼儿家长中开发并检验双向沟通与家长参与量表。",
+    "findings": "两套量表具有较高内部一致性，沟通与参与程度显著相关，提供当地情境的测量工具。",
+    "application": "以双向反馈和明确参与机会检查家校沟通流程。",
+    "limitations": "量表检验和回归关联不构成因果证据，跨地区使用需重新核验。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.25217%2Fji.v11i1.6911&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-29": {
+    "method": "使用多伦多共情问卷比较希腊Drama地区小学教师与家长的情感共情。",
+    "findings": "两组共情水平均较高且未见显著组间差异，教师组内观察到性别关联。",
+    "application": "平等对待双方经验，通过复述与确认共同理解孩子需要。",
+    "limitations": "量表主要测量情感共情，自报及地区样本限制实际沟通行为的解释。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.55976%2Frppe.42026151928-43&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-32": {
+    "method": "据SEDL研究注释，研究使用幼儿园至二年级儿童家长及教师问卷和学校记录进行相关分析。",
+    "findings": "家庭支持、学校联系和参与与部分社会情绪表现相关，未发现对学业成绩的相应解释，相关程度总体有限。",
+    "application": "分别关注行为、动机、关系及学业目标，核对家校行动的具体作用范围。",
+    "limitations": "内容依据教育研究机构的研究注释，原会议全文仍需查阅；关联不能转为确定的成绩提升承诺。",
+    "sourceUrl": "https://sedl.org/connections/resources/citations/91.html",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-33": {
+    "method": "开发ELK角色扮演模拟，比较76名师范生在人际互动和独立练习两种模式下的表现。",
+    "findings": "三轮练习后，参与者更关注学生已有理解及误解，提问策略出现幅度有限的提升。",
+    "application": "训练中用追问了解对方理解，再依据回应调整解释。",
+    "limitations": "短期、特定模拟任务的提升不能直接等同于真实课堂或家校沟通能力。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.35542%2Fosf.io%2Fw8yzb&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-34": {
+    "method": "41名师范生随机接受虚拟教室语音训练加信息课，或仅信息课，并比较前后表现。",
+    "findings": "两组部分语音及自我效能指标改善，加入虚拟情境训练者的沟通信心提升更多。",
+    "application": "在接近真实沟通的条件下练习表达，并区分自信和客观表现。",
+    "limitations": "小样本且针对语音及噪声场景，不能直接当作疫情家校沟通成效证据。",
+    "sourceUrl": "https://orbi.uliege.be/handle/2268/301863",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-36": {
+    "method": "大规模高中教职工在线虚拟角色培训研究，含基线、培训后及3个月随访比较。",
+    "findings": "培训后识别心理困扰、沟通和转介的准备与自我效能评分较高，部分随访人员报告转介增加。",
+    "application": "练习尊重地了解困扰、核对支持需要，并按职责联络专业服务。",
+    "limitations": "随访依赖自报且流失较多，设计及比较时间点限制因果解释；转介报告不能等同于学生实际接受服务。",
+    "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8959801/",
+    "checkedAt": "2026-11-04",
+    "scope": "open-text",
+    "fullText": {
+      "pmcid": "PMC8959801",
+      "doi": "10.1007/s41347-022-00243-9",
+      "title": "High School Educator Training by Simulation to Address Emotional and Behavioral Concerns in School Settings: A Randomized Study",
+      "license": {
+        "label": "CC BY",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "sections": [
+        {
+          "title": "Abstract",
+          "paragraphs": [
+            "The purpose of this study is to examine the impact of an online virtual human role-play simulation in teaching high school educators and staff to identify, talk to, and if necessary, refer students in psychological distress to support services. High school educators (N = 31,144) from 43 US states and 5 American territories completed a baseline survey and then randomly assigned to a wait-list control or treatment group. Participants in the treatment group completed the training simulation which included active learning strategies to teach evidenced-based communication strategies such as motivational interviewing to build skills and shift attitudes. Immediately after the training, treatment group participants completed a post-survey and then a 3-month follow-up survey. Baseline and post-surveys included the validated gatekeeper behavior scale measures which assess attitudinal constructs that predict helping behaviors. Self-reported helping behaviors were collected at baseline from both groups and at the 3-month follow-up for the treatment group. The treatment group participants’ post and follow-up data were compared to the control group’s baseline measures. The treatment group post-training scores were significantly higher (p < .001) than the control group’s baseline scores for all gatekeeper behavior scale attitudinal constructs of preparedness, likelihood, and self-efficacy to engage in helping behaviors. A teacher subsample reported significant increases (p < .001) in the number of students referred to mental health support services when compared to baseline measures of the control group. Role-play simulations hold promise in teaching educators to become the “eyes and ears” of student mental health by empowering them to identify students in psychological distress, engage them in effective conversations about their concerns, and if necessary, make a referral to behavioral health support services. Future studies need to implement measures that document students entering counseling as a result of self-reported referrals and examine the impact of the training on the overall mental health culture within schools. Such studies could lead to simulations being widely adopted to support public health initiatives that address student mental health and wellness.",
+            "Keywords: Adolescent health, Mental health, Prevention, Suicide, Simulations"
+          ]
+        },
+        {
+          "title": "Introduction",
+          "paragraphs": [
+            "The need for effective gatekeeper training addressing student mental health problems and related behavioral challenges has never been more pronounced. According to the US Youth Risk Behavior Surveillance Survey, 30% of students nationwide reported that during the prior 12 months, they had felt so sad or hopeless (almost every day for 2 or more weeks in a row) that they stopped doing some usual activities (Kann et al., 2016). The suicide rate among US adolescents has tripled over the past 60 years, becoming the second leading cause of death in this age group (Eaton et al., 2012; Kann et al., 2016) with similar increases observed in other high-income countries (Cha et al., 2018). This is further complicated by the impact of the COVID-19 pandemic and its relationship with increasing mental health problems and psychosocial difficulties (Fegert, et al., 2020; World Health Organization, 2020). Unfortunately, many barriers exist in accessing mental healthcare services (Fazel et al., 2014; Loewen, 1993) which include cultural factors that reinforce stigma or perceived stigma in particular groups, such as those that emphasize individualism and self-reliance, low interpersonal dependency, and discomfort with emotions and their relationship with gender norms (Komiya et al., 2000). When combined, barriers contribute to only one-third (36%) of US adolescents with mental disorders receiving services for their illness (Merikangas et al., 2010). Furthermore, based on the US National Comorbidity Survey (Merikangas et al., 2010), fewer than one in five affected adolescents received services for anxiety, eating, or substance use disorders, with marked racial disparities; findings that are similar to those in other high-income nations such as in Europe, Canada, and Australia (Fazel et al., 2014; Malla et al., 2016). Yet, the evidence in supporting early mental healthcare treatment has clearly established that adolescents who accessed treatment have better educational and mental health outcomes in young adulthood starting at 18 years of age (Neufeld et al., 2017). Additionally, early treatment can impact teachers with high levels of burnout (i.e., lower levels of career commitment and job satisfaction) due to the link between teacher stress and students’ problematic behaviors (e.g., vandalism, aggression, verbal abuse, and other challenges) and dealing with parents of disruptive students (Fore et al., 2002; Maslach et al., 1986; Otero-Lopez et al., 2009). Thus, it stands to reason that when effective gatekeeper skills are applied and students are referred to support services, teacher burnout can potentially be reduced.",
+            "While school interventions by counselors, nurses, and mental health professional are often used as a marker of improved access, resources may be limited, especially during the pandemic; thus, task-shifting or building skills, attitudes, and knowledge in the teaching workforce may have broader impact on students-similar to training primary care providers or pediatricians to provide mental health services across the broader population. Three areas of intervention appear promising. First, gatekeeper training involves teaching individuals to recognize the signs of psychological distress, to approach and talk with those they are concerned about, and if necessary and available, to make a referral to mental health support services. In general, gatekeeper training programs have demonstrated increases in knowledge and self-efficacy, but relatively few studies have examined changes in gatekeeper behaviors (Arensman et al., 2016; Gask et al., 2017; Hangartner et al., 2019; Lamis et al., 2017; Mo et al., 2018; Osteen, 2018; Rallis, 2017; Rallis et al., 2018; Reiff et al., 2019; Sylvara & Mandracchia, 2019; Terpstra et al., 2018; Yeates, 2019). Another area of exploration that has gained traction is using virtual human role-plays for developing evidence-based communication skills such as motivational interviewing (MI)-“virtual humans (VH) are defined as automated, three-dimensional agents that converse, understand, reason, and exhibit emotions-to leverage conversations to drive behavioral and attitudinal change” (Albright et al., 2016a). MI is a goal-oriented, person-centered counseling approach designed to help people resolve their ambivalence about behavior change in a supportive, collaborative style (Miller & Rollnick, 2013). MI involves strategically evoking participants’ thoughts and feelings, to explore internal conflicts and to build upon or amplify existing motivational resources. This is done by (1) asking open-ended questions, (2) providing affirmation, (3) reflective listening (listening closely and selectively emphasizing the person’s statements), and (4) summarizing the person’s self-assessments (Miller & Rollnick, 2012). Teaching MI skills with gatekeeper virtual role-play simulations has been successfully demonstrated in several studies (Albright et al., 2018; Bradley & Kendall, 2019; Bradley et al., 2019; Coleman et al., 2019; Long et al., 2018; Pasco et al., 2012; Rein et al., 2018; Vallance et al., 2014).",
+            "Lastly, the advantages of using VHs in role-plays are numerous. This includes learners feeling less judged, social evaluative threat, and embarrassment when compared to face-to-face role-plays with instructors and/or peers, which can lead to reduced learning, retention, and negative emotions (Brom et al., 2016; Cooper et al., 2018; Jouriles et al., 2011; Liew et al., 2014; Mesagno et al., 2012; Plancher et al., 2019; Plass & Kalyuga, 2019; Smallwood et al., 2009; Taylor, 2018; Van Ast et al., 2014). Also, VH simulations can support high fidelity which results in accurate knowledge dissemination, the elimination of trainer bias, and dashboards that can deliver reliable performance feedback (Albright et al., 2016a). Plus, the complex algorithms within game engines that drive role-play simulations can provide each learner with a unique and realistic experience because VHs can continually respond in the most efficacious way to promote skill development. Lastly, the fact that learners find it easier to talk to and open up with VHs and are less concerned about making mistakes (along with other advantages) cannot be understated (Fiske et al., 2019; Hart & Proctor, 2019; Kang & Gratch, 2010; Lucas et al., 2014; McGaghie et al., 2009; Rizzo et al., 2016; Robb et al., 2015)."
+          ]
+        },
+        {
+          "title": "Objectives",
+          "paragraphs": [
+            "The objectives of this study are to examine the effectiveness of an online virtual role-play simulation designed to teach high school educators and staff to (1) identify students in psychological distress, (2) approach students they are concerned about and engage them in a conversation using evidenced-based MI communication strategies, and (3) make a referral to mental health support services if necessary. Specifically, we hypothesize that the training will result in (1) high satisfaction ratings; (2) a significant increase in the belief that part of the role of educators is to connect students experiencing psychological distress with mental health support services; (3) significant pre- to post-intervention improvements in high school educators’ attitudes of preparedness, likelihood, and self-efficacy to identify signs of student psychological distress, talk to students about concerns, and make a referral to mental health support services; and (4) a significant change in self-reported gatekeeper behaviors 3 months following completion of the training that include identifying students in psychological distress, approaching and talking with them about concerns, and making referrals to mental health support services."
+          ]
+        },
+        {
+          "title": "Simulation Overview",
+          "paragraphs": [
+            "At-Risk for High School Educators, was developed by Kognito (www.kognito.com) and is listed in Section III of the US Suicide Prevention Resource Center’s Best Practices Registry for Suicide Prevention (2012) and included in the US Substance Abuse and Mental Health Services Administration’s (SAMHSA) National Registry of Evidence-Based Programs and Practices (2016). In the simulation, participants enter an online environment where they practice role-playing with emotionally responsive virtual students coded with memory, personality, and will respond like real students in psychological distress. For each conversation, participants need to create a safe environment, gain the virtual student’s trust, and gather enough information to determine what the perceived psychological distress is by using specific MI strategies that are imbedded into the active learning experience.",
+            "Participants communicate with the virtual students by selecting from a dynamic menu of dialogue options. The dialogue options represent a variety of effective, neutral, and ineffective conversation tactics determined by nationally recognized subject matter experts and end-users. In some cases, a tactic that is ineffective at one point in the conversation may be effective elsewhere. Once participants choose a dialogue option, they see their virtual character ‘‘perform’’ the dialogue and then observe the verbal and nonverbal response of the virtual student. A new set of dialogue options then appears, based on which tactic was selected. A virtual coach provides real-time positive feedback for correct tactics and makes suggestions for tactics less likely to improve communication such as being judgmental, critical, or making a diagnosis. Each conversation continues to build on the MI strategies they used previously to scaffold the learning.",
+            "The first role-play is with a student who is experiencing anxiety, is suspected of cutting, became overwhelmed when hearing she got a “B” on an exam, and has been texting the yearbook committee teacher at all hours at night asking questions. The second is with a student who is academically at-risk, has poor attendance, outbursts of anger, and is suspected of illicit drug use and bullying. The last role-play is with a student who is shy, withdrawn, and revealed possible suicidal thoughts in an essay, which turns out to be related to his father dying by suicide.",
+            "The role-plays are completed once the participants earn the student’s trust, who then reveal what is creating the psychological distress, which ultimately leads to recommendations and a referral. The participant then has access to a dashboard after each conversation which provides an overview of the student’s signs of distress, how they did in managing the conversation, advice on how to refer other students with similar symptoms, and a reminder to follow-up with the student. When participants successfully conclude all three conversations, they are provided with a printable summary of best practices and a certificate of completion. Lastly, the simulation includes a wide range of didactic resources such as customized referral information for local resources, a summary of course content and links to national resources such as the National Suicide Prevention Lifeline, Suicide Prevention Resource Center’s teachers resource page, and stop bullying information."
+          ]
+        },
+        {
+          "title": "Design",
+          "paragraphs": [
+            "All participants agreed to an informed consent, and upon completing a baseline survey, were randomly placed into either the treatment or wait-list control groups. Treatment group participants completed the simulation, and immediately afterwards a post-survey, and 3-months later, a follow-up survey. The treatment group participants’ post and follow-up data were compared to the control group’s baseline measures (see Fig. 1 for study flow consort diagram). All training and data collected by the surveys were from computers of the participant’s choice in order to maximize a private and structured learning environment and could therefore be in their office, home, or other environment. The Baruch College Human Research Protection Program/Institutional Review Board determined that no ethics approval was required for this study."
+          ]
+        },
+        {
+          "title": "Participants",
+          "paragraphs": [
+            "The original sample consisted of 44,792 participants recruited by email from district superintendent offices, principals, or word-of-mouth and accessed the training at no cost as it was provided by a state or local government entity such as the state department of health or education, county health department, or school district. We excluded 13,648 teachers and staff who did not complete the study, leaving a final sample size of 31,144 from 43 US states and five American territories (79.8% in the US State of Texas) to be randomly assigned to a treatment or waitlist control group. All participants who were dropped from the study were significantly higher on baseline measurements of preparedness (p < 0.01; Cohen’s d = 0.03), likelihood (p < 0.05, Cohen’s d = 0.02), and self-efficacy (p < 0.001; Cohen’s d = 0.04). In the final sample, 15,684 were randomly assigned to a waitlist control group, and 15,460 were assigned to a treatment group. In total, the median time for participants in the treatment group to complete the baseline survey, the training simulation, and that post survey was 104 min."
+          ]
+        },
+        {
+          "title": "Measures",
+          "paragraphs": [
+            "All measures were based on Kirkpatrick’s training evaluation model (Kirkpatrick, 1996; Kirkpatrick & Kirkpatrick, 2006). This model comprises four levels and includes level one satisfaction; level two learning, impact on attitudes, knowledge, and/or skills; level three behavior, represents any changes in behavior; and level 4 results, the overall long-term benefits derived from the training such as a shift in student mental health culture or return on investment. The learning stage is important to evaluate because behavior will not change if the desired attitudes, knowledge, and skills are not acquired. The fourth level was not assessed as it was not within the scope of this study.",
+            "Level one measures were included in the post-training survey and included levels of satisfaction and means efficacy. Means efficacy is a measure of an individual’s belief in the utility of the tools available for performing a job and has been correlated with changes in behavior (Eden et al., 2010). Specifically, level one items included:",
+            "Overall, how would you rate the course? (4-point Likert scale from “poor” to “excellent”)Would you recommend the simulation to a colleague? (yes or no)All educators in their institution should take the training. (yes or no)To what extent do you think that the course is (means efficacy-5-point Likert scale from “not at all or to very little extent” to “a very great extent”):A useful tool?Well-constructed?Easy to use?Likely to help you with troubled students?Based on scenarios that are relevant to you and your students?",
+            "Level two measures were administered at baseline and in the post-survey and included the gatekeeper behavior scale (GBS). The GBS is a validated 11-item tool used to determine the impact of online gatekeeper simulations (Albright et al., 2016b). The GBS measures attitudes and intentions that have been shown to be related to changes in gatekeeper behaviors and include three dimensions or subscales: participant’s preparedness, likelihood, and self-efficacy to engage in gatekeeper behaviors such as identifying students in psychological distress, engaging them in a conversation about their concerns, and making a referral to support services. The preparedness composite is comprised of five items, the likelihood or behavioral intent two items, and self-efficacy four items (for individual items and Likert scales see Appendix 1). In this study, participant preparedness was computed as the average of five separate items (Cronbach’s α = 0.91), likelihood as the average of two separate items (Cronbach’s α = 0.78), and self-efficacy as the average of four separate items (Cronbach’s α = 0.89).",
+            "Two additional level two measures assessed included (1) belief that part of the role of educators is to connect students experiencing psychological distress with mental health support services and( 2) participants being able to recognize signs of psychological distress in themselves. Both measures were rated on a 4-point Likert scale ranging from “strongly disagree” to “strongly agree.”",
+            "Level three measures of behavior were obtained in two ways. First, participants were asked in the 3-month follow-up survey, if as a result of the training there were increases in the number of students: (1) recognized as exhibiting signs of psychological distress, (2) approached to discuss concern, and (3) referred for mental health support. Responses were reported based on a 4-point Likert scale from “strongly disagree” to “strongly agree.” The second measurement involved participants reporting in the baseline and follow-up surveys the approximate number of students over the past 2 academic months they had (1) been concerned about due to their psychological distress, (2) approached to discuss concerns about their psychological distress, and (3) referred to school support services. This second measurement was assessed in two ways. The first was comparing the baseline behaviors of the control group to the follow-up behaviors in the treatment group, and the second was examining changes in behaviors from baseline to follow-up within the treatment group. Lastly, treatment group participants were asked at follow-up if there had been an increase in the number of conversations they had with other adults in their school community regarding students they were concerned about since completing the training. Responses were rated on a 4-point Likert scale ranging from “strongly disagree” to “strongly agree.”",
+            "All demographics were collected in the post survey and included gender, race/ethnicity, primary role, age, and years working in education."
+          ]
+        },
+        {
+          "title": "Analyses",
+          "paragraphs": [
+            "In order to reduce type I error as the GBS outcomes were expected to be closely associated, a multivariate analysis (Hotelling’s T2) was utilized to assess the impact of the simulation on outcomes as a whole. Independent samples t-tests were used to compare control and treatment groups on each scale individually and finally to compare groups on each individual item. To determine if the treatment group experienced an increase in self-reported gatekeeper behaviors, two analyses were conducted. First, a set of independent samples t-tests were run to determine if the treatment group exhibited higher helping behaviors at follow-up than reported by the waitlist control group at baseline. Second, a paired-samples t-test was run to determine if these behaviors increased within the treatment group from baseline to follow-up. Before conducting the independent samples t-tests, analyses revealed that all behaviors were not significantly different between treatment group and control group at baseline. Lastly, a separate statistical analysis was conducted on a subsample that only included teachers to determine if this group experienced an increase in self-reported number of students helped. This was accomplished in the same two ways. First, a set of independent samples t-tests were run to determine if the teacher treatment group exhibited significantly higher helping behaviors than the waitlist control group, and second, a set of paired-samples t-tests were run to determine if these behaviors increased within the treatment group. Lastly, to address possible developer bias, all statistical analyses and results were conducted and drafted by independent consultants from the University of Georgia, USA."
+          ]
+        },
+        {
+          "title": "Results",
+          "paragraphs": [
+            "Demographics show that 65% of participants were early to mid-career and white, female teachers (Table 1). Ninety-two percent were required to complete the simulation as part of their school district training requirements, and 12.0% had previously received mental health training.",
+            "The control and treatment groups did not differ significantly on gender, race/ethnicity, age, years in education, work role, or previous degree of mental health training (all χ2-test and t-test p-values were greater than 0.05). Additionally, the control group and treatment group did not differ significantly on initial levels of preparedness, likelihood, or self-efficacy (all independent-samples t-test p-values were greater than 0.05). Note that sample size varies slightly for analyses below due to individual missing data.",
+            "Complete demographic information is presented in Table 1. Note that sample size varies slightly for analyses below due to individual missing data."
+          ]
+        },
+        {
+          "title": "Level One: Satisfaction and Means Efficacy",
+          "paragraphs": [
+            "After completing the training, participants reported that they were highly satisfied with the simulation, with an average rating of 3.17 on a 4-point scale (37.2% of participants rated the simulation “excellent” and 43.0% as “very good”). In addition, 98% of participants agreed or strongly agreed that all educators in their school should take the simulation, and 95% indicated that they would recommend the simulation to a colleague. Additional means efficacy information about treatment group attitudes toward the simulation can be seen in Table 2. Overall, the results suggest that most participants found the simulation to be helpful and effective."
+          ]
+        },
+        {
+          "title": "Level Two: Gatekeeper Attitudes and Beliefs",
+          "paragraphs": [
+            "Results from the GBS Hotelling’s T2 test indicated that the treatment group post-survey results differed significantly on the three outcome variables of preparedness, likelihood, and self-efficacy when compared to the control group baseline, F(3,31,057) = 2329.98, p < 0.001, η2 partial = 0.18.",
+            "Statistical analyses consisted of evaluating each of the three primary outcomes individually. Preparedness of the treatment group (M = 4.13, SD = 0.64) was significantly higher than preparedness of the control group (M = 3.48, SD = 0.73), t(31,122) = 83.65, p < 0.001. Likelihood of the treatment group (M = 3.52, SD = 0.54) was significantly higher than likelihood of the control group (M = 3.25, SD = 0.61), t(31,097) = 42.16, p < 0.001. Lastly, self-efficacy of the treatment group (M = 3.36, SD = 0.50) was significantly higher than self-efficacy of the control group (M = 3.02, SD = 0.57), t(31,080) = 55.63, p < 0.001. Independent-samples t-test results for each individual item from the preparedness, likelihood, and self-efficacy scales can be seen in Table 3.",
+            "Table 3 also shows that the treatment group had significantly higher beliefs that part of the role of educators is to connect students experiencing psychological distress to mental health support services, t(30,074) = 25.52, p < 0.001. Lastly, although it was not a direct aim of this intervention, it is interesting to note that a small subsample within the treatment group rated their ability to recognize signs of psychological distress in themselves significantly higher than the control group, t(229) = 2.32, p < 0.05."
+          ]
+        },
+        {
+          "title": "Level Three: Gatekeeper Behaviors",
+          "paragraphs": [
+            "To assess the change in behaviors, we examined the responses of 1724 participants 3 months after completion of the training. When asked if as a result of the simulation they had changed key behaviors in assisting students in psychological distress, an average of 41.8% either “agreed” or “strongly agreed” that they had increased the number of students they recognized as in psychological distress, approached to talk to, and referred to mental health services (see Table 4). Lastly, 56.7% either agreed or strongly agreed that as a result of taking the simulation, there was an increased number of conversations they had with other adults within their school community regarding students they were concerned about.",
+            "When comparing gatekeeper behaviors in the treatment group at follow-up with the control group baseline behaviors, there was a significant increase in the number of students: (1) concerned about due to psychological distress and (2) approached to discuss this concern (see Table 5).",
+            "To further investigate the impact on referrals, data from a teacher subsample (N = 1120) was analyzed. There were no significant increases when comparing the control and treatment groups; however, the results show a significant increase in referrals to school support services for the within group analysis (see Table 6)."
+          ]
+        },
+        {
+          "title": "Discussion",
+          "paragraphs": [
+            "There are a several limitations to note that include the relatively short follow-up time and the use of self-reported data. Gaining access to the schools’ support services (counseling) referral records would have allowed us to objectively measure the impact of the intervention. In addition, some triangulation of the data with student input about their perceptions of teachers who completed the training and those who did not might further enhance the findings. This can include assessing the impact of the skills taught taking into account the perceptions of students from diverse cultural backgrounds as MI is a critical component of the simulation and a useful tool in cross-cultural communication due to its non-confrontational and supportive nature (Lundahl & Burke, 2009). It is also important to note that those participants who dropped out appear to have initially higher preparedness, likelihood, and self-efficacy scores than those who remained to complete the post-test. However, effect sizes are small, suggesting that the large sample size might be driving this finding. Even so, it is possible that the simulation may not have the same impact on non-completers, perhaps because they initially had higher skill sets to assist students experiencing psychological distress. In addition, although the study’s use of a wait-list control design with random assignment to the treatment and control group provides good internal validity, there was no comparison to traditional face-to-face professional development. However, the control group not receiving training is often the standard of preparation given the lack of teacher pre-service or in-service training. Lastly, the level one survey item on how you would rate the training is skewed positively.",
+            "Beyond the limitations, the results show that all four hypotheses were supported. The simulation significantly increased the GBS attitudes of preparedness, likelihood, and self-efficacy in participant ability to identify, talk to, and refer students in psychological distress. Participants also reported statistically significant increases in two gatekeeper behaviors at follow-up that included the number of students: (1) concerned about due to psychological distress and (2) approached to discuss this concern. A subsample of teachers reported significant increases for referrals to school support services. This enhanced role of the teacher as a natural helper and a trusted adult who conveys a sense of care and concern on school campuses is important to acknowledge as school communities enact universal suicide prevention strategies (Joshi et al., 2015, 2017). Ninety-five percent of participants also indicated that they would recommend the simulation to a colleague. Lastly, there was a significant increase in the belief that part of the role of faculty, staff, and administrators is to connect students experiencing psychological distress with mental health support services. This result coupled with 57.8% of participants stating that there was an increased number of conversations they had with other educators regarding student mental health is encouraging.",
+            "The results have significant implications for teachers. The increase in self-efficacy measures is quite noteworthy, as Bandura’s (1977) integrative framework of personal efficacy or perceived behavior control posits that self-efficacy is both a direct and indirect predictor of behavior. When self-efficacy is high and people feel confident in their abilities, this also leads to a sense of control in terms of ability to change their behavior in future circumstances. In this study, participants reported significant increases (p < 0.001) in their self-efficacy to (1) discuss my concerns with a student exhibiting signs of psychological distress, (2) know where to refer a student for mental health support, (3) help a suicidal student seek help, and (4) recommend mental health support services to a student exhibiting signs of psychological distress.",
+            "Teachers, school administrators, and parents have had to re-evaluate the structure and process of education as a result of the challenges spurred by COVID-19-but perhaps this is an opportunity to improve. Mental health disorders are increasing among school-aged youth, and we must be especially careful as we do not yet fully understand the mental health consequences of COVID-19. This underscores the importance of expanding school-based interprofessional in-person and virtual assessment, prevention, and interventions for mental health and illness for students and families (Collishaw, 2015; Fazel et al., 2014; Kann et al., 2016). Professional development is an investment-and this requires time, expense, and other costs-but it may be “cost-effective” in terms of skill development, student and educator recruitment and retention, and in building a stronger, more supportive organizational culture in academic institutions. As more teachers and staff assume the role of a gatekeeper and talk with their colleagues about students they are concerned about, the more likely it is that they will build a culture that supports student mental health, which hopefully improves student outcomes and ameliorates the potential for teacher burnout. According to a 2018 report by the National Association of Elementary School Principals, an increase in the number of students experiencing trauma correlated directly with an increase in the number of teachers and administrators at risk for developing compassion fatigue (Elliot et al., 2018). Due to heavy workloads and hectic schedules, it is not uncommon that teachers are subject to developing mental health concerns, which contribute to teacher attrition. Therefore, administrative interventions for teachers can help them gain skills to identify, triage, and refer students in need of support."
+          ]
+        },
+        {
+          "title": "Conclusion",
+          "paragraphs": [
+            "The results of this study provide hope that the large percentage of school-aged children who are experiencing psychological disorders, many who have not been identified or treated, could benefit immensely from high school educators and staff being trained as gatekeepers. The timing is critical, for students who access needed care in adolescence have better educational and mental health outcomes (Neufeld et al., 2017). The results also addressed some of the barriers to accessing mental health treatment including a lack of teacher and staff awareness and understanding of how psychological disorders might present which can influence students’ help-seeking behaviors (Loewen, 1993) as well as flexibility in how the intervention is delivered, as it is well suited to remote platforms. Finally, the enormous global impact of COVID-19 on student mental health, especially those with pre-existing conditions such as anxiety and mood disorders, is overwhelming. Schools are well placed to identify and treat students suffering from the psychological consequences of COVID-19.",
+            "There are several advantages of learning through online virtual role-play simulations that include (1) the lower cost and improved logistics when compared to organizing live skill practice and assessment sessions with trained actors (especially as this is taught on a virtual platform), (2) addressing the challenge of standardizing the learning experience, (3) reducing the discomfort participants often experience in live role-playing in a workshop setting, and (4) 24/7 availability and easy scalability. In a broader sense, At-Risk for High School Educators represents the impact that advances in simulation and gaming technology can have on our capability to help address serious public health concerns in a scalable manner to better support student mental health and improve access to services. Whether online or mobile, contextually rich online and risk-free learning environments can enable participants to bring their knowledge and skills into the real world to support a culture of mental health and supportive learning communities. Education and mental health research demonstrate the value of such engagement-based pedagogy (Lane & Rollnick, 2007; Sandler et al., 2014) and how online simulations, such as At-Risk for High School Educators, could engage large numbers of teachers in better supporting the mental health needs of their students and helping them access mental health services in a timely manner."
+          ]
+        }
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8959801/",
+      "checkedAt": "2026-11-04",
+      "scope": "licensed-full-text"
+    }
+  },
+  "ref-37": {
+    "method": "阐述情境危机沟通理论，整合利益相关者归因、声誉威胁与回应策略研究。",
+    "findings": "危机责任判断和既往情境影响公众反应，回应策略需要结合具体责任与利益相关者需要。",
+    "application": "区分已知事实、责任边界与回应需求，保持解释一致并及时更正。",
+    "limitations": "主要针对组织危机声誉，教育情境还需优先考虑学生权益、隐私及学校职责。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1057%2Fpalgrave.crr.1550049&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-38": {
+    "method": "对英国四个地区12名小学、中学和特殊学校校长开展深度访谈。",
+    "findings": "领导者通过连接、协调和缓冲等适应性策略，迅速调整教育供给及沟通协作。",
+    "application": "练习在信息变化时说明暂定安排、责任人和后续更新机制。",
+    "limitations": "小样本质性材料反映疫情早期经验，难以量化各策略的独立效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F15700763.2021.1917623&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-39": {
+    "method": "英国四个地区疫情初期学校领导经历的探索性质性研究。",
+    "findings": "校长依托既有团队提供情感及道德支持，并对家长、教职工、学生和外部机构采取灵活沟通方式。",
+    "application": "回应不确定性时说明当前行动，兼顾情绪支持与跨岗位协同。",
+    "limitations": "规模较小且以校长观点为主，其他参与者感受仍需单独了解。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1177%2F1741143220987841&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-40": {
+    "method": "对澳大利亚、斐济和新西兰五项解释性质性研究进行二次分析。",
+    "findings": "及时清晰的沟通和福祉支持是共同实践，危机时长、社区需求及政府要求形成不同应对方式。",
+    "application": "按本校家庭需要调整沟通渠道、反馈节奏和支持资源。",
+    "limitations": "跨研究资料和政策环境存在差异，比较结果不构成统一最优方案。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F13632434.2023.2171005&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-41": {
+    "method": "便利选取加纳15名学校领导及教育负责人开展电话访谈，使用主题分析。",
+    "findings": "资源不足和规则执行困难带来挑战，参与者强调韧性、灵活性、职责分担和有效沟通。",
+    "application": "明确校内分工，说明可落实的措施和需要进一步协调的资源。",
+    "limitations": "小规模便利样本反映特定国家疫情阶段经验，不能作为普遍领导效果的估计。",
+    "sourceUrl": "https://www.ijspe.com/article/a1fd90e5-d99f-440b-a9af-35d237d9be2d",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-42": {
+    "method": "访谈印度Uttarakhand地区50名校长并结合现场观察，研究疫情及自然灾害中的教育韧性。",
+    "findings": "教学指导、协作决策和适应性规划与维持学习连续性及降低辍学风险相联系。",
+    "application": "将教学、家庭沟通和社区支持分工协调，记录后续跟进安排。",
+    "limitations": "质性案例揭示实践关联，不能据此确定独立因果效应或适用于所有地区。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.32674%2F306ezr71&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-46": {
+    "method": "美国3州5856名K12教师在线调查，比较2020年秋不同教学方式并开展回归分析。",
+    "findings": "同时承担线上和线下任务的教师报告更高压力、焦虑及抑郁症状和较低福祉。",
+    "application": "安排疫情沟通任务时考虑教师工作负担，明确联系时段和协作分工。",
+    "limitations": "基于自报和观察性比较，不能确定教学模式直接造成心理变化。",
+    "sourceUrl": "https://scholars.uky.edu/en/publications/teacher-stress-and-mental-health-during-the-covid-19-pandemic-dif/",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "ref-47": {
+    "method": "对19个拉美国家及西班牙的2004名教师开展横断面问卷，使用职业倦怠量表及回顾性疫情经历资料。",
+    "findings": "情绪耗竭和去人格化与个人、学校和学生因素共同相关，工作负担及既有健康困难需要受到关注。",
+    "application": "在家校沟通困难时关注教师支持需求，协调工作量与专业帮助。",
+    "limitations": "社交平台招募、自报与回顾资料限制代表性及因果推断，量表阈值不能代替临床诊断。",
+    "sourceUrl": "https://www.mdpi.com/2673-5318/6/3/101",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-01": {
+    "method": "在首次教育实习前后比较视频同伴反馈、同伴加专家反馈和常规指导。",
+    "findings": "同伴反馈支持课堂管理专业观察，增加专家反馈的组在总表现及监控、节奏管理方面进步更大。",
+    "application": "助教先指出对话证据，再给出专家式解释与可改进动作。",
+    "limitations": "针对课堂管理的特定干预，不能直接代替疫情沟通效果验证。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2018.08.008&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-02": {
+    "method": "178名师范生的模拟诊断实验，比较神经网络自适应反馈、静态专家答案及单人或双人学习。",
+    "findings": "自适应反馈提高书面论证质量，未提高诊断准确性；静态反馈在双人学习中可能妨碍过程。",
+    "application": "纠错时解释判断依据，并分别检查理由质量与判断是否准确。",
+    "limitations": "自动反馈的成效取决于任务、互动形式及测量维度，不能保证所有指标同步改善。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.learninstruc.2022.101620&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-03": {
+    "method": "两项跨参与者多基线单一个案实验，各含3名特殊教育师范生及3名儿童。",
+    "findings": "培训及表现反馈增加有计划教学尝试的使用，并出现维持和迁移；实施频率、准确性与儿童目标反应相联系。",
+    "application": "纠错建议指向可观察行为，提供练习、反馈及再次应用机会。",
+    "limitations": "样本小且干预含多个要素，无法分离单一反馈作用或直接外推其他情境。",
+    "sourceUrl": "https://acikerisim.omu.edu.tr/entities/publication/4ecdefe4-20bd-4ad0-a92f-57d39e87c319",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-04": {
+    "method": "开发同步在线反馈工具，培训8名教师教育者依据录像练习评分。",
+    "findings": "教师角色编码的一致性较好，反馈层级达到可接受水平，参与者对工具给予积极评价。",
+    "application": "用明确观察标准和反馈层级组织训练纠错。",
+    "limitations": "属于工具开发与试用研究，规模化效果及真实课堂收益仍需验证。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2022.103780&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-05": {
+    "method": "245名师范生随机参加无支架、固定支架或实时自适应支架的视频评价模拟。",
+    "findings": "未发现自适应支架对判断准确性具有显著优势；过程分析提示需要核验适应依据和支持机制。",
+    "application": "将即时提示与最终判断分开记录，复核自动反馈的适用依据。",
+    "limitations": "短期任务的结果指标可能不足以捕捉过程变化，自动编码准确性也会影响解释。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.learninstruc.2024.101994&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-07": {
+    "method": "比较在线视频反思和反馈方案与日志写作方案，分析前后测及反思文本。",
+    "findings": "视频组对积极教学事件的反思更深入，同伴和专家解释促进第二次反思形成更平衡的判断。",
+    "application": "复盘同时标出有效做法和需调整的说法，并引用原话解释。",
+    "limitations": "研究涉及特定反思方案，其结果不直接证明所有自动反馈系统有效。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2016.05.020&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-09": {
+    "method": "梳理反思评价标准，并从内容及深度两个角度分析师范生反思发展。",
+    "findings": "反思主题和深化速度受个人背景、实践环境及交流方式影响。",
+    "application": "助教区分描述经过、解释原因及提出行动三个层次。",
+    "limitations": "反思质量依赖具体情境，单一文本长度或统一关键词不能充分代表质量。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2005.05.007&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-10": {
+    "method": "分析不同结果导向师资培养路径中的反思实例，并提出反思评价量规。",
+    "findings": "有意义的反思关注学习过程与教学道德，能够与明确的培养结果相结合。",
+    "application": "评价时同时关注对话效果、判断依据及专业责任。",
+    "limitations": "属于概念与实例分析，未提供通用量规效度或干预效果估计。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2004.02.004&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-11": {
+    "method": "比较视频同伴反馈培训、额外专家反馈培训与对照组。",
+    "findings": "两种培训均改善反馈信念和质量，额外专家反馈带来的反馈质量提升更大。",
+    "application": "纠错提示采用具体证据、解释和下一步建议的结构。",
+    "limitations": "研究反映教师教育中的反馈训练，迁移到家校沟通仍需结合实际任务。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2023.104099&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-12": {
+    "method": "分析25名小学师范生的70篇反思日志，关注学习者、内容、评价和教学之间的联系。",
+    "findings": "将不同教学因素联系起来与简单并列观点存在差别，整合性反思有助于形成更复杂的教学理解。",
+    "application": "复盘时连接家长关切、已知事实、回应策略和后续行动。",
+    "limitations": "文本分析展示反思特征，不能单独证明其对学生结果的影响。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2005.11.005&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-13": {
+    "method": "连续三年整合教学法和管理培养课程，由准管理者向微格教学提供额外反馈。",
+    "findings": "师范生从反馈中认识教学技能，重视督导过程及有经验教师的支持，并调整对教学的理解。",
+    "application": "邀请不同职责视角对同一对话提出有依据的改进建议。",
+    "limitations": "课程协作背景和参与者体验限制推广，摘要未给出独立对照效应。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2F0742-051x%2895%2900035-i&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-14": {
+    "method": "72名师范生随机分入互动式及常规同伴评价组。",
+    "findings": "互动组在学习设计、反馈质量和反馈采纳方面表现更好，采纳反馈与干预效果存在中介关联。",
+    "application": "助评后允许学员解释、追问并修订回应，记录建议是否被采用。",
+    "limitations": "单门课程及特定设计任务限制推广，中介分析也需审慎解释。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0742051X23003967",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-15": {
+    "method": "分析6名实习教师对未来教学的图示及口头反思，讨论时间分布式反思。",
+    "findings": "预期与现实差距、文化叙事和希望构成重要主题，反思应兼顾事后回顾与事前设想。",
+    "application": "在对话前预想对方疑问，对话后核对哪些预判需要调整。",
+    "limitations": "样本较小，提出的反思框架仍需在不同培养环境中检验。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fs0742-051x%2800%2900040-8&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-16": {
+    "method": "系统综述15项课堂模拟研究，考察师范生人际能力、福祉及模拟使用体验。",
+    "findings": "多数研究报告课堂管理或一般教学技能收益，4项显示自我效能改善；技术故障和缺少易用界面构成障碍。",
+    "application": "训练界面清楚提示任务、反馈和操作，结合真实互动后的反思。",
+    "limitations": "针对人际能力的直接证据有限，纳入研究未报告焦虑结果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.compedu.2018.10.015&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-17": {
+    "method": "通过形成性实验研究共同反思过程，运用Dewey的判断、分析与综合观点解释。",
+    "findings": "有经验者能帮助讨论聚焦教学与学习，但研究所界定的深层反思仍未充分发生。",
+    "application": "助教追问证据和替代解释，推动参与者形成有依据的判断。",
+    "limitations": "提供讨论支持不必然形成深层反思，实施机制需要进一步研究。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2013.10.012&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-18": {
+    "method": "讨论以反思日志支持师范生形成实践知识和个人教学理论的方法。",
+    "findings": "反思需要观察、重构及理解，迎合督导期望的写作可能掩盖真实思考。",
+    "application": "鼓励学员说明不确定之处和真实判断过程，再据证据修正。",
+    "limitations": "方法讨论与实践经验不提供可推广的因果效果估计。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2F0742-051x%2894%2900031-z&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-19": {
+    "method": "98名师范生随机进入自适应、静态或无反馈VR课堂条件，结合眼动及自报测量。",
+    "findings": "两种反馈均提升主观注意表现感受，客观视觉注意改善主要见于自适应反馈。",
+    "application": "分开记录学员主观体验及实际证据能力，依据真实过程调整提示。",
+    "limitations": "眼动课堂注意任务与文本家校沟通不同，不能直接迁移效果大小。",
+    "sourceUrl": "https://edoc.ku.de/id/eprint/35036/",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-20": {
+    "method": "在四学期培养项目中实施课前、课中、课后三部分反思框架，并访谈实习教师。",
+    "findings": "持续使用框架与主动思考及改进教学的理解相联系。",
+    "application": "将疫情对话准备、即时调整和事后复盘连接起来。",
+    "limitations": "特定培养项目及访谈资料难以区分框架与其他支持的作用。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fs0742-051x%2899%2900029-3&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-21": {
+    "method": "分析2名中学师范生15周实践中的周记、课程分析及录像反思。",
+    "findings": "写作更能显化思考过程，对主动建构教学知识的推动仍有限；任务类型与读者值得关注。",
+    "application": "复盘要求解释为何这样回应，并面向实际沟通对象提出下一步。",
+    "limitations": "两人深入个案不能代表全部师范生，书面表达也不能完全代替实际表现。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2F0742-051x%2894%2990042-6&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-22": {
+    "method": "对荷兰职业教育机构456名教师开展问卷，分析自我效能、目标取向与领导支持。",
+    "findings": "自我效能和学习目标取向与反思、寻求反馈正相关，目标取向参与解释其关系。",
+    "application": "设置具体改进目标，鼓励学员主动请求针对某句话的反馈。",
+    "limitations": "横断调查和统计中介关系不能证明确定的因果路径。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2010.02.011&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-23": {
+    "method": "考察教师教育者与15名师范生开展视频反思时的引导动作。",
+    "findings": "有针对性的引导帮助参与者形成关于识字教学与学习的有依据判断，并据此提出促进反思的框架。",
+    "application": "纠错时邀请学员结合对话证据提出判断，再讨论理由。",
+    "limitations": "特定教育者与学科环境的发现需要结合其他训练情境复核。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2016.04.003&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-25": {
+    "method": "综述1997–2007年间8项师范教育同伴教练研究。",
+    "findings": "研究在教练关系、持续时间和策略上有共同点，也在目标、实践背景、培训及效果上存在差异。",
+    "application": "同伴反馈前先约定观察重点、证据记录方式与改进目标。",
+    "limitations": "纳入研究数量有限且实施差异较大，不支持统一的效果承诺。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2009.10.015&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-26": {
+    "method": "分析师资培养第二学年基于艺术的反思材料，采用关系取向的方法理解身份发展。",
+    "findings": "个人与专业身份联结的意识与韧性、福祉及应对学习障碍的能力相联系。",
+    "application": "复盘中讨论专业角色、情绪及现实限制，形成可持续的改进计划。",
+    "limitations": "质性研究解释经历，无法单独确定艺术反思带来的因果收益。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2021.103424&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-27": {
+    "method": "对在线课程中提供给27名师范生的教育者反馈开展教学自我研究。",
+    "findings": "文章用强制、权威和劝说等权力视角分析反馈，讨论如何支持以学习者资源为基础的思考。",
+    "application": "解释纠错理由并邀请学员提出证据与替代方案，关注表达中的权力关系。",
+    "limitations": "特定教育者反馈的自我研究具有情境性，公开材料未提供可推广的单一效果量。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0742051X22003821",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-28": {
+    "method": "分析教育者与26名师范生围绕识字教学录像开展的双人反思对话。",
+    "findings": "积极话语分析识别出3类对话模式，可为教学内容知识和能动身份的表达提供空间。",
+    "application": "采用邀请解释、共同核对和探讨选择的问法引导反思。",
+    "limitations": "结论来自特定学科的对话分析，不能直接推定模型提示词的通用效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2017.03.012&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-29": {
+    "method": "通过现场个案研究考察师范生对青少年、教学实践及教师能动性的反思。",
+    "findings": "有结构的真实观察与学习共同体帮助参与者在既有印象、理论和课堂经验之间重新协商理解。",
+    "application": "复盘中对照实际回应检查原有家长印象，并提出可核对的新解释。",
+    "limitations": "案例经验依赖培养环境，不能将观察到的变化归因于单一反思活动。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2008.11.017&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-30": {
+    "method": "分析8名不同学科和文化背景师范生的持续对话日志。",
+    "findings": "发展呈现初始、中间和沉浸三个阶段，个人经历、学科文化及实践质量共同影响反思。",
+    "application": "按照学员已有经验提供渐进支持，记录判断和做法如何变化。",
+    "limitations": "少量纵向个案呈现发展过程，阶段划分不能机械用于所有学员。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2F0742-051x%2892%2990061-7&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-32": {
+    "method": "分析科威特社会科师范生的129份反思表及43次访谈。",
+    "findings": "结构化录像反思、重复循环和协作反馈与意识、问题解决、自信及自我调节的发展相联系。",
+    "application": "复盘后再次练习相似任务，核对自己的判断和行动变化。",
+    "limitations": "质性资料呈现机制与体验，不能单独证明录像反思带来的因果收益。",
+    "sourceUrl": "https://pure.ku.edu.kw/en/publications/the-value-of-systematic-iterative-video-based-reflection-analysis/",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-33": {
+    "method": "以集体个案方法分析农业教育师范生观察微型课程后的元认知反思。",
+    "findings": "研究发现观察范围偏窄、依赖近期零散知识及缺少可行动改变等问题。",
+    "application": "助教要求指出具体情境证据，并提出下一次能够实施的调整。",
+    "limitations": "任务与培养背景特定，观察到的困难不宜视为所有师范生的固定特征。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0742051X22000695",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-34": {
+    "method": "回顾教师教育者与高中科学教师持续10年的合作，比较4种收集学生反馈的方法。",
+    "findings": "学生访谈对反思最有个人意义，日志、观察表和问卷可能更适合启动较低压力的反思。",
+    "application": "按学员接受程度选择反馈入口，逐步结合具体对话展开深入复盘。",
+    "limitations": "长期合作中的经验比较缺少独立随机对照，实际适用方式取决于参与者和情境。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2006.04.006&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-35": {
+    "method": "对3名实习教师开展12周质性研究，考察核心反思与缺陷话语。",
+    "findings": "反思帮助参与者识别、质疑及超越以不足定义学生或自己的表达方式。",
+    "application": "纠错时聚焦可观察行为、已有资源和改进机会，减少对家长或学生的固定标签。",
+    "limitations": "小样本探索说明可能过程，不能据此量化长期行为改变。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.tate.2018.01.009&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-36": {
+    "method": "在信息通信技术微格教学中实施戏剧式合作隐喻与前瞻反思，分析叙述和创作材料。",
+    "findings": "参与者关注从教师套话转向教学过程，教师身份认同及从教意向有所增加。",
+    "application": "通过角色转换预想家长回应，随后比较预期与实际互动。",
+    "limitations": "特定课程中的前后变化不等同于有对照的因果效果，身份表达也不能替代技能测量。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0742051X18302798",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-37": {
+    "method": "34名科学与数学师范生参加生成式AI支持的VR对话教学多案例研究，收集观察及半结构访谈。",
+    "findings": "研究从参与者经验说明模拟练习的潜力，并形成支持互动学习和虚拟学生设计的启示。",
+    "application": "使用角色模拟提供练习机会，结合真实发言和参与者体验调整引导。",
+    "limitations": "质性体验研究未给出可推广的能力提升量，AI模拟的真实性仍需具体审视。",
+    "sourceUrl": "https://scholars.library.tamu.edu/vivo/display/n1588122SE",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-38": {
+    "method": "49名学生参加网络工作心理学课程，比较反思加同伴反馈、反思加导师反馈与常规学习。",
+    "findings": "反思配合反馈有利于自我调节学习，导师反馈条件的学习结果优于其他两组。",
+    "application": "用开放提示引导学员反思，再给出针对回应的具体辅导。",
+    "limitations": "小样本与课程情境限制迁移，研究不保证任意自动反馈产生同等效果。",
+    "sourceUrl": "https://eric.ed.gov/?id=EJ779735",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-39": {
+    "method": "82名学生参加反馈策略与反思任务的组合实验，分析写作动机、过程和表现。",
+    "findings": "反馈是否提供改进策略与反思任务存在交互，策略反馈也可能降低部分低自我效能学生的信心。",
+    "application": "给出建议后询问学员如何使用，并关注反馈是否造成额外挫败。",
+    "limitations": "效果依赖任务组合及初始动机，增加建议数量不必然改善全部结果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.learninstruc.2011.10.003&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-41": {
+    "method": "比较英语课堂中教师反馈与自动作文评价相结合的使用情况。",
+    "findings": "组合反馈与更多高层次教师反馈、较强学习坚持相关，研究报告节省反馈时间且写作质量未受损。",
+    "application": "让自动反馈承担辅助工作，由学员和教师结合证据理解与修订。",
+    "limitations": "特定写作软件及课堂背景不能直接证明任何模型评价具有相同效果。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0360131516301142",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-42": {
+    "method": "跟踪德国64个班1026名一年级学生，并分析19班354人的录像反馈资料。",
+    "findings": "不准确的教师预期仍与年末成绩关联，反馈方式随预期变化，但未充分解释预期效应。",
+    "application": "评价依据实际表现及原话，检查对学员的先入预期。",
+    "limitations": "观察性设计及自愿样本限制因果解释，研究不能支持刻意制造不准确期待。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S095947521930177X",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-44": {
+    "method": "根据作者2023年同主题公开访谈整理，讨论任务表现、同伴反馈及学习者的反馈使用。",
+    "findings": "作者强调反馈应支持学习者后续发展，反馈的理解、实际运用和关系条件值得持续关注。",
+    "application": "让学员用自己的话解释建议，再通过下一次回应展示改进。",
+    "limitations": "内容依据作者公开讲解，原专题评论全文尚未取得；访谈观点不等同于新的实验效果证据。",
+    "sourceUrl": "https://faculti.net/putting-learners-at-the-heart-of-the-feedback-process",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-47": {
+    "method": "将4个研究生在线课程分配至传统概念图教学或增加关系框架教学，连续3周练习并反馈。",
+    "findings": "重复练习与反馈改善结构质量；关系框架教学进一步影响关系表达质量的变化。",
+    "application": "复盘将事实、担忧、职责与行动建立清晰联系，并进行多轮修订。",
+    "limitations": "课程级分配与短期测量限制一般化，概念图收益不能直接等同于对话技能收益。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.learninstruc.2018.01.011&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-48": {
+    "method": "对PISA2018中60501名15岁学生建立多层结构方程模型，分析反馈、自我概念和纪律氛围。",
+    "findings": "反馈与阅读成绩之间存在经阅读自我概念的间接关联，积极课堂氛围也与自我概念相关。",
+    "application": "采用具体、尊重且面向任务的反馈，关注学员如何理解自己的能力。",
+    "limitations": "跨文化观察数据和统计中介关系无法确定反馈造成成绩变化。",
+    "sourceUrl": "https://research.cuhk.edu.hk/en/publications/teacher-feedback-disciplinary-climate-student-self-concept-and-re-2/",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-49": {
+    "method": "分析32个OECD国家250912名15岁学生的PISA2018资料，使用多层中介模型。",
+    "findings": "多数国家的过程反馈感知与成长型思维及数字阅读成绩正相关，中介关系存在国家差异。",
+    "application": "强调策略、过程及可改进动作，结合学员实际证据沟通。",
+    "limitations": "横断资料不支持确定因果，不同文化背景下的关联也不能统一套用。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S095947522400001X",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-tutor-50": {
+    "method": "两项研究比较教师对州级测验图形中均值差异的识别、效率及敏感性。",
+    "findings": "教师判断准确度较高，但通常只把中大型差异视为有意义；重复接触和图形类型影响表现。",
+    "application": "展示评价趋势时解释指标含义及变化范围，结合对话证据判断。",
+    "limitations": "图形判断任务不代表教学决策的全部过程，小差异也需结合测量误差与实际意义。",
+    "sourceUrl": "https://doi.org/10.1016/j.learninstruc.2022.101717",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-03": {
+    "method": "研究12名教师在英国初中地理中规划和实施阶段性评价任务。",
+    "findings": "形成性评价的理解、课程标准与教师实践知识共同影响任务设计，形成性和总结性用途之间存在张力。",
+    "application": "先明确训练评价的改进目的、能力维度和所需证据。",
+    "limitations": "特定学科及政策背景下的任务设计研究，不能直接确立通用评分标准。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F09695940601035502&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-04": {
+    "method": "12名教育心理学研究生开展配对写作互评，并与教师评价比较。",
+    "findings": "双方评价的正负比例相近，但具体关注点仅部分重合；学生觉得费时且有社交压力，同时认可学习价值。",
+    "application": "将同伴意见与助评证据并列核对，允许不同观察角度。",
+    "limitations": "样本小且来源于特定课程，自述收益和评价重合程度不等同于长期学习效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F713611428&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-05": {
+    "method": "调查本科生首次参与形成性同伴互评的体验与看法。",
+    "findings": "大多数参与者评价积极，少数学生认为帮助较小，设计需照顾学习方式差异。",
+    "application": "提供清楚标准及示例，并允许学员说明哪些反馈更有帮助。",
+    "limitations": "体验研究不能保证所有学习者都会从同一互评流程中获益。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02602930801955986&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-06": {
+    "method": "以社会文化框架比较形成性自评和基于自评分数的总结性自评。",
+    "findings": "两种方案均给学习者能动性提供空间，面向未来的能动表达主要见于总结性自评组。",
+    "application": "让学员说明自评依据及后续目标，并讨论评分权和参与方式。",
+    "limitations": "特定高等教育方案的比较结果不能推定某类自评在所有情境中更好。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/02602938.2020.1720595",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-09": {
+    "method": "比较同一学校42名10–11岁学生的独立书面互评与小组讨论式口头互评。",
+    "findings": "讨论式口头互评组的口语进步更多，反馈也更常包含建议；书面反馈多为描述。",
+    "application": "助评在标出证据后邀请学员讨论替代表达与下一步行动。",
+    "limitations": "单校小样本的口语任务结果不直接证明自动评价或其他年龄群的效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2020.100917&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-10": {
+    "method": "结合文献分析和课程试用，提出计划、形成性及总结性三个阶段的PFS自评模型。",
+    "findings": "模型强调学习自评方法、共同制定评分表、反思指导及形成性练习。",
+    "application": "在正式评价前解释标准并练习有证据的自评，评价后形成行动计划。",
+    "limitations": "模型开发与试用经验尚不足以确立普遍效果，其信效度需要结合具体实施核验。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/02602938.2021.1922874",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-11": {
+    "method": "调查96名教师及1095名学生，按目标澄清、回应获取、解释、反馈及教学调整五阶段分析。",
+    "findings": "双方大部分感知相近，评价活动更多用于说明要求和获取回应，较少用于调整后续学习。",
+    "application": "评价结果应连接具体修订行动，随后检查改进是否落实。",
+    "limitations": "问卷感知和实施频率不能完整代表课堂实际质量。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2021.101027&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-12": {
+    "method": "在香港585名中小学教师中开发形成性评价素养量表，开展因子与Rasch分析。",
+    "findings": "概念、实践和社会情感三个维度得到结构支持，量表与评价实践的关联提供外部效度证据。",
+    "application": "助评同时关注评价理解、证据使用及反馈的情感影响。",
+    "limitations": "量表在特定教师群体中验证，跨情境使用及训练效果仍需独立检验。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2022.101183&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-13": {
+    "method": "分析数学教师参加形成性评价专业发展后的问卷和访谈，采用期望—价值理论解释。",
+    "findings": "参与者对价值与可实现性的信念，以及试用、反思、专家和同伴支持，与实践发展相联系。",
+    "application": "提供可试用的反馈动作、解释依据，并留出持续练习和交流时间。",
+    "limitations": "成功项目中的回溯解释不能独立确定每个支持要素的因果贡献。",
+    "sourceUrl": "https://www.tandfonline.com/doi/full/10.1080/0969594X.2018.1430685",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-14": {
+    "method": "结合文献综述和英国建筑学毕业课程案例，访谈6名参与同伴评价的学生。",
+    "findings": "案例显示同伴评价具有学习潜力，同时涉及实施中的收益和困难，需要结合课程设计理解。",
+    "application": "说明互评目的、分工及证据要求，给予参与者讨论反馈的空间。",
+    "limitations": "小规模焦点小组及特定课程限制外推，不能把同伴评价视为统一有效方案。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02602938.2015.1077196&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-15": {
+    "method": "6名农村学校补救阅读教师开展基于教学探究的专业发展。",
+    "findings": "教师反思及督导观察显示专业成长，一年级风险学生在某项音韵阅读指标上优于非项目教师班级。",
+    "application": "围绕真实困难设计评价，使用反馈调整下一轮支持。",
+    "limitations": "教师数量有限，单项阅读结果不能扩展为全部能力或所有学生的收益。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F09695940903565545&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-16": {
+    "method": "在美国小学3–5年级检验写作投入量表，使用验证性因子分析并收集教师评价。",
+    "findings": "量表在研究群体中显示可接受信效度，教师认为有助于形成性写作评价。",
+    "application": "评分维度应有清晰定义，同时了解学生投入及学习过程。",
+    "limitations": "工具效度与教师认可不能单独证明采用量表会提高写作成绩。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F0969594x.2022.2054942&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-17": {
+    "method": "系统综述22篇中小学教师使用数字工具开展形成性评价的研究。",
+    "findings": "成功使用需要清楚的评价定义、工具与教学一致以及解读数据并调整学习的能力。",
+    "application": "将模型评分、对话证据和可执行的改进动作联结起来。",
+    "limitations": "研究定义不统一且存在知识空白，数字化工具本身不能保证形成性作用。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.edurev.2023.100568&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-18": {
+    "method": "荷兰农业职业教育中的协作行动研究，分析教师评价观念与新成果导向评价的匹配。",
+    "findings": "迭代探究揭示既有观念与所需观念的差距，观念转变是调整实践的重要前提。",
+    "application": "共同讨论五维评价的含义，并检查实际反馈是否服务培养目标。",
+    "limitations": "结论来自特定课程改革，推广需核对本地培养和评价制度。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2013.03.001&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-19": {
+    "method": "分析澳大利亚国家课程与教师专业标准改革中的形成性评价政策及支持。",
+    "findings": "政策倡导较强，但支持教师有效实施的条件不足，评价需要与课程整体衔接。",
+    "application": "为管理员和教师提供解释标准、示例及反馈使用指导。",
+    "limitations": "政策分析不能代替具体学校的实施效果研究。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F0969594x.2017.1374924&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-20": {
+    "method": "结合多种测量、层级线性模型与路径分析，探索小学科学教师知识、评价实践和学生学习。",
+    "findings": "形成性评价实践与学生学习正相关，教师知识与实践之间的关系呈混合结果。",
+    "application": "评分同时查看真实互动证据与实际调整行为，保留不确定判断。",
+    "limitations": "探索性关联模型无法确定知识、实践及学习之间的因果顺序。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F0969594x.2015.1006521&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-21": {
+    "method": "在中国两所不同背景大学观察英语课堂并访谈师生，研究评价政策如何落实。",
+    "findings": "分析重点是反馈内容、反馈指向及学生评价参与，呈现政策在具体课堂中的情境化实施。",
+    "application": "结合任务及参与者实际理解设计评价，并核对反馈是否进入后续学习。",
+    "limitations": "公开摘要未列出完整组间结果，具体差异需查原文，不能自行推断。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/0969594X.2013.790308",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-22": {
+    "method": "对香港3名实习教师开展17次课堂观察和24次访谈，研究英语写作形成性评价。",
+    "findings": "参与者能够把原则转为策略，但学校问责文化形成阻力，导师开放态度与支持十分关键。",
+    "application": "将反馈应用到下一次沟通，并明确提供支持和解释的角色。",
+    "limitations": "多案例研究反映实习情境，不能以少数个案估计总体效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2021.101019&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-23": {
+    "method": "西班牙大学177名学生参与形成性及总结性互评准实验，结合问卷与开放回答。",
+    "findings": "匿名与非匿名组多项社会情感指标未见显著差异，匿名的安全感和非匿名的澄清对话各有价值。",
+    "application": "根据评价用途解释隐私与对话安排，并询问学员的顾虑。",
+    "limitations": "部分分析有效样本不同，偏好也受具体经历影响，不能把匿名视为普遍更优。",
+    "sourceUrl": "https://doi.org/10.1016/j.stueduc.2024.101410",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-24": {
+    "method": "格林纳达252名初中教师的形成性评价问卷调查。",
+    "findings": "受训与未受训教师的看法及态度存在差异，报告的实践频率却相近。",
+    "application": "核对评价是否实际进入教学调整，结合记录了解使用情况。",
+    "limitations": "自报频率与态度不能替代观察证据，横断研究不能确定培训因果效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F0969594x.2014.919248&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-25": {
+    "method": "范围综述综合坦桑尼亚2005–2024年的41项教师评价研究。",
+    "findings": "评价素养不足、班级规模、资源限制和高利害考试文化妨碍形成性实践，部分反馈偏重评判。",
+    "application": "把评分改进建议与教师日常任务结合，提供具体范例和解释支持。",
+    "limitations": "综述以一国为重点且强调证据范围，不能给出统一干预效果。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0191491X25000537",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-26": {
+    "method": "连续三年的教师培养行动研究，使用活动系统框架分析数字工具与协作评价。",
+    "findings": "计划、行动、观察及反思的循环促进初任教师协作学习，并揭示系统中的矛盾。",
+    "application": "保留反馈后的行动与反思记录，支持同伴及导师共同讨论。",
+    "limitations": "实践改进发生于具体培养项目，研究者兼任教师可能影响解释。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02602931003782541&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-27": {
+    "method": "美国州级教师评价素养专业发展项目，持续5个学年月份，包含作业、网络研讨和材料开发。",
+    "findings": "教师评价任务自我效能提高，评价概念知识未见改变，信心与实际知识仅有有限关联。",
+    "application": "在反馈中区分自信变化和证据能力变化，提供真实任务练习。",
+    "limitations": "结果提示测量敏感性及迁移问题，不能把信心提升当作知识掌握。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2019.04.003&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-28": {
+    "method": "越南大学英语系的访谈及2886份课程体验调查，比较课堂观察与总结性评价。",
+    "findings": "缺少共同的良好教学定义或有用反馈时，形成性建议可能难以转化为教学改进。",
+    "application": "先统一能力定义及证据标准，再说明每条改进建议如何落实。",
+    "limitations": "单一院系背景与不同评价用途相互影响，所得经验不能机械推广。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02602938.2014.939609&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-29": {
+    "method": "跟踪香港12所中小学296名教师的形成性实践和自我效能。",
+    "findings": "研究提供同事间形成性评价实践及信念相互关联、可能传播的证据，强调学校和同伴支持。",
+    "application": "安排有证据的示范、同伴讨论及可获得的专业支持。",
+    "limitations": "纵向研究仍非实验，依赖自报且学校数量有限，不能确立社会传播的确定因果。",
+    "sourceUrl": "https://www.tandfonline.com/doi/full/10.1080/0969594X.2023.2198676",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-30": {
+    "method": "在欧洲高等教育机构比较教师采用反馈原则的意图与学生体验。",
+    "findings": "双方看法在多数方面一致，研究强调双向对话、自评和共同参与的作用。",
+    "application": "评价后邀请学员解释理解和改进计划，核对双方对建议的认识。",
+    "limitations": "特定机构的共识结果不意味着所有课程或角色都具有相同体验。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2020.100904&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-31": {
+    "method": "以伊朗英语教师的情绪关键事件为线索，结合叙述、观察、讨论和访谈进行案例分析。",
+    "findings": "个人、制度及社会文化环境共同塑造评价中的情绪劳动、能动性和表达空间。",
+    "application": "反馈时同时关注判断依据、制度限制及参与者情绪，支持解释和协商。",
+    "limitations": "结论来自特定语言教育情境，不能把所有情绪反应归因于评价本身。",
+    "sourceUrl": "https://doi.org/10.1016/j.stueduc.2023.101285",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-32": {
+    "method": "针对Black与Wiliam的研究综述作理论评论，分析形成性评价与反馈质量。",
+    "findings": "反馈还需让学习者理解、联系作品特征并能够行动；清晰标准与稳定参照有助于识别实际进步。",
+    "application": "把五维评价连接具体对话和改进行动，并让学员练习解释及运用反馈。",
+    "limitations": "本文是理论评论，未报告新的随机试验；实际效果依赖反馈质量、学习文化与实施时间。",
+    "sourceUrl": "https://people.bath.ac.uk/edspd/Weblinks/MA_Ass/Resources/Using%20assessment%20formatively/Royce%20Sadler%201998%20AiE.pdf",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-33": {
+    "method": "围绕形成性评价的定义、效果主张、学科、测量、教师支持和制度开展批判性综述。",
+    "findings": "不同实施方式被同一术语涵盖，部分常见效果量主张依据薄弱，评价设计需要学科和测量基础。",
+    "application": "逐条展示评分依据、适用范围及待确认信息，审慎解释总分。",
+    "limitations": "概念综述强调证据质量，未提供可直接套用到本平台的统一提升幅度。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F0969594x.2010.513678&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-34": {
+    "method": "将形成性评价置于教学理论、自我调节学习和课堂话语框架中分析。",
+    "findings": "提出统整不同形成性实践的理论依据，并连接动态评价及其他教学方法。",
+    "application": "将对话证据、反馈解释和后续学习行动作为一个连续过程。",
+    "limitations": "理论框架提供研究方向，其实际效果依赖具体实现和参与环境。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1007%2Fs11092-008-9068-5&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-35": {
+    "method": "内容分析21项形成性使用评分量规的研究，比较任务、设计及表现与自我调节结果。",
+    "findings": "量规具有促进学习的潜力，但作用路径和调节条件多样，仍有问题待研究。",
+    "application": "解释五维量规的具体含义，并引导学员据其修订回应。",
+    "limitations": "不同任务与实施方式差异明显，公布评分表不保证自动发生改进。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.edurev.2013.01.002&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-36": {
+    "method": "分析形成性与总结性评价在用途、可靠性、判断参照及所需信息上的差别。",
+    "findings": "简单累加过程分数不足以形成可靠的总结判断，两类评价的独立功能需要保留。",
+    "application": "阶段助评帮助改进，正式评价结合完整训练证据形成判断。",
+    "limitations": "属于理论论证，具体评分方案仍需验证其效度与可靠性。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F0969594970040304&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-37": {
+    "method": "元分析24项高校写作同伴反馈定量研究，比较无反馈、自评及教师反馈。",
+    "findings": "同伴反馈总体优于无反馈，与教师反馈效果相近；结论受合格研究数量限制。",
+    "application": "组织基于标准和证据的互评，并让学员实际修订回应。",
+    "limitations": "任务集中于高等教育写作，研究设计差异和数量限制迁移与效果量解释。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/02602938.2018.1545896",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-38": {
+    "method": "53名本科生在一学期七个教学设计任务中参与形成性同伴评价，收集评分和问卷。",
+    "findings": "自评与教师评分的一致性随时间改善，学生认为互评有助于反思及承担学习责任。",
+    "application": "让学员先自评、参考同伴证据再修订，并保留前后判断的变化。",
+    "limitations": "单门课程的混合方法研究，缺少独立随机对照，改善不能完全归因于模型。",
+    "sourceUrl": "https://eric.ed.gov/?id=EJ1504768",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-39": {
+    "method": "48名高年级心理学学生修订心理报告，部分自愿参加同伴互评，全部接受教师反馈。",
+    "findings": "群体上初稿到终稿各维度改善，师生评价说明反馈及修订具有学习价值。",
+    "application": "提供初次表现、具体反馈和再次修改机会，并观察建议采纳情况。",
+    "limitations": "互评非随机且教师知晓稿件版本，不能分离同伴与教师反馈的独立作用。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/02602938.2018.1459470",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-40": {
+    "method": "挪威高中两年干预背景下的问卷与焦点访谈研究，比较师生反馈体验。",
+    "findings": "师生、不同性别及学科之间的反馈感知有差异，学生在职业训练中感受到更多反馈。",
+    "application": "询问学员实际理解和使用反馈的情况，结合原话核对。",
+    "limitations": "感知差异不直接说明哪一方更准确，学科及课程环境影响体验。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2012.04.001&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-41": {
+    "method": "在10名教师科学课堂中开展两年研究，区分计划式与互动式形成性评价。",
+    "findings": "计划式评价侧重引出、解释和采取行动，互动式评价侧重即时注意、识别和回应。",
+    "application": "助评既检查既定目标，也关注对话中出现的新线索。",
+    "limitations": "评价过程依赖教师教学知识，特定课堂研究不能建立统一自动评分规则。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F09695949993026&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-42": {
+    "method": "讨论课堂教学对话如何成为非正式形成性评价。",
+    "findings": "对话能够自然显化学生思考，随后通过提问、核查和共同建构支持学习。",
+    "application": "以学员实际回应作为证据，通过追问了解判断依据。",
+    "limitations": "概念论述与既有证据讨论需要与具体任务结合，不能仅凭发言数量判断掌握程度。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2011.04.003&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-43": {
+    "method": "检验形成性评价感知、基本心理需要和学习动机之间的理论关系。",
+    "findings": "较多感知的形成性评价与自主、胜任感及自主学习动机相关，心理需要参与解释其关联。",
+    "application": "给学员选择、明确改进理由并支持可实现的成功体验。",
+    "limitations": "感知和统计中介不能单独建立因果，具体反馈形式仍需结合情境。",
+    "sourceUrl": "https://eric.ed.gov/?id=EJ1288539",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-44": {
+    "method": "对大学三年级生物学生开展半结构访谈，研究其如何使用导师反馈。",
+    "findings": "反馈用于激励、学习、反思、澄清理解及丰富学习环境，使用方式具有差异。",
+    "application": "给出反馈后要求学员复述其理解，并说明将修改哪项做法。",
+    "limitations": "学生自述的使用方式不等同于被客观验证的学习收益。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02602930500099177&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-45": {
+    "method": "访谈50名高中英语和解剖课程中的表现良好学生，分析其评价体验。",
+    "findings": "参与者持续开展自评，并整合利用形成性和总结性信息理解自己的学习。",
+    "application": "帮助学员把阶段反馈、正式评价与个人改进目标连接起来。",
+    "limitations": "研究聚焦成功学生，不能直接代表学习困难者的评价体验。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F09695940123775&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-46": {
+    "method": "综述高等教育形成性及共享评价的经验和挑战。",
+    "findings": "明确目标、指导学习、学生参与以及将反馈作为对话，是文章总结的核心实践。",
+    "application": "评价后组织学员解释证据、共同确认行动并检查可行性。",
+    "limitations": "不同制度和课程的执行条件存在差异，综述经验不能替代本地实施核验。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02602938.2015.1083535&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-47": {
+    "method": "数学教师实施8个月形成性评价的个案研究，以两班对照并结合问卷及质性资料。",
+    "findings": "学生自我调节学习的动机信念和课堂行为出现积极变化，实践同时整合多个评价要素。",
+    "application": "将目标、证据、反馈和自我调整连续实施，保存变化过程。",
+    "limitations": "单个教师及班级背景限制推广，无法分离各评价要素的独立贡献。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.stueduc.2020.100955&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-48": {
+    "method": "对多个国家形成性评价改进项目进行理论评论，讨论评价、学习和角色变化。",
+    "findings": "实践常只取得部分成功，制度压力、教师改变的时间及学生责任转变影响实施。",
+    "application": "给予持续支持和反思时间，将反馈连接真实学习行动。",
+    "limitations": "评论综合不同项目且直接课堂证据有限，不应简化为可快速复制的统一方案。",
+    "sourceUrl": "https://people.bath.ac.uk/edspd/Weblinks/PGCES%20ULL%20articles/Learning%20and%20Assessment/Black%202015%20AiE.pdf",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-assessor-50": {
+    "method": "医学病理课程70名学生中收集17人的书面体验并开展小组访谈，比较书面个人评价与口头组评。",
+    "findings": "形成性评价帮助参与者认识已掌握内容及仍需学习的部分，两种形式带来不同体验。",
+    "application": "明确指出已显示的能力和下一轮练习重点，提供适合的反馈形式。",
+    "limitations": "特定医学课程的体验研究不直接证明家校训练的评分有效性。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02602938.2011.572153&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-01": {
+    "method": "原刊摘要报告2481名初一学生及2313名家长问卷，使用潜剖面分析。",
+    "findings": "家长感知的家校合作分为6类，课外活动、评价导向、教学方式和教师理念均与类型相关。",
+    "application": "从家长实际体验了解合作条件，结合活动和教学安排寻找改进点。",
+    "limitations": "问卷分类与统计预测不能直接作为固定家长标签或因果结论。",
+    "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/021b96a74f0d29c70d4c981620b04434",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-02": {
+    "method": "原刊摘要结合疫情家校研究梳理和1440个家庭的问卷调查。",
+    "findings": "不同陪伴背景下居家学习表现有差异，研究区分陪伴、指导和旁观三类参与，并提出制度、技术、学校和研究支持。",
+    "application": "先询问参与条件，再共同确定家庭可以承担的具体支持任务。",
+    "limitations": "群体分类服务研究分析，不能用来固化对家长的评价；问卷关联不等于因果。",
+    "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/92497d983f561979bc08b80ff96a2b3e",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-03": {
+    "method": "对207名学生、82个班级开展为期八周的家校联合行为咨询随机试验。",
+    "findings": "干预组适应行为和社交技能改善较大，教师报告的亲师关系改善参与解释积极行为变化。",
+    "application": "共同确定问题、行动和跟进方式，评价时同时关注学生表现与合作关系。",
+    "limitations": "部分结果依赖教师报告，八周特定干预的结果不等同于所有家校沟通的效果。",
+    "sourceUrl": "https://doi.org/10.1080/02796015.2012.12087374",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-05": {
+    "method": "通过半结构访谈分析10对享受补助托育家庭的家长与教师关系。",
+    "findings": "开放沟通、相互支持及对照护实践的协商是共同照护关系的重要主题。",
+    "application": "疫情沟通中核对家庭照护条件，尊重照护者经验并协商一致行动。",
+    "limitations": "小样本婴幼儿托育研究侧重关系经验，不能直接解释所有学段家庭。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.ecresq.2015.08.004&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-06": {
+    "method": "以系统生态视角讨论家庭与学校伙伴关系及学校心理工作者的参与。",
+    "findings": "文章强调共同目标、持续支持、关注合作过程及学生学业、社会和情绪发展的机会。",
+    "application": "将家长作为合作参与者，围绕孩子需要明确共同目标和支持资源。",
+    "limitations": "属于理论和实践讨论，未提供一个伙伴关系方案的独立因果效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02796015.2004.12086233&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-07": {
+    "method": "提出家长与教师共同参与行为咨询的理论、程序和研究方向。",
+    "findings": "联合问题解决有助于识别跨家庭与学校的情境因素，促进一致支持与效果迁移。",
+    "application": "共同核对问题发生的时间、地点和表现，再约定家庭及学校各自行动。",
+    "limitations": "本文主要阐述潜在机制，具体成效需要结合后续干预研究判断。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2F0022-4405%2892%2990025-z&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-09": {
+    "method": "在家校联合行为咨询试验中，分析166名儿童家庭及74名教师的亲师沟通看法。",
+    "findings": "双方对沟通质量看法的一致性调节了干预对教师报告社交技能的作用。",
+    "application": "请家长复述约定并主动确认沟通感受，关注双方理解是否一致。",
+    "limitations": "调节变量未被随机操纵，报告来源与样本环境限制因果解释和迁移。",
+    "sourceUrl": "https://iris.sena.edu.co/EdsRecord/trh%2C109946376",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-10": {
+    "method": "调查417名学校心理工作者对家庭合作的看法及过去一年十二类合作活动。",
+    "findings": "受访者普遍支持家校合作，超过95%曾咨询家庭如何支持儿童学习与行为；活动参与与年级及合作信念有关。",
+    "application": "主动提供家庭可执行的支持建议，并评估服务是否真正到达不同家庭。",
+    "limitations": "自报实践不能证明合作活动的独立效果，历史调查也不代表当前地区的普及率。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/02796015.2000.12086012",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-12": {
+    "method": "利用日本239名学前儿童资料，分析日常家校沟通、家长自我效能和亲子关系。",
+    "findings": "沟通与较高家长自我效能相关，后者与较少行为问题及冲突相联系，高资源家庭的关联更强。",
+    "application": "提供提升家长应对能力的具体信息，并关注低资源家庭获得支持的困难。",
+    "limitations": "统计中介和调节关系不证明确定的因果路径，托育背景限制推广。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.ecresq.2025.05.001&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-13": {
+    "method": "结合290个家庭横断面与71个家庭纵向资料，使用教师日记记录学前至幼儿园家校接触。",
+    "findings": "学前接触较多，进入幼儿园后接触减少且更偏学校发起；项目间家访与书面信息形式不同。",
+    "application": "转换年级时重新约定联系渠道、频率及积极信息的反馈方式。",
+    "limitations": "研究来自少数项目，联系频率差异不能用于推断个别家长是否负责。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/02796015.1999.12085975",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-14": {
+    "method": "以文化与语言多样小学为个案，采用参与式行动研究共同设计家校伙伴项目。",
+    "findings": "结合研究依据与家庭文化特点的合作方式获得参与家长和教师认可，并显示持续实施潜力。",
+    "application": "邀请家庭共同定义需求，提供语言适配并让家长参与方案选择。",
+    "limitations": "个案经验依赖组织环境和参与过程，不能当作普适因果效应。",
+    "sourceUrl": "https://www.tandfonline.com/doi/full/10.1080/02796015.2002.12086145",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-15": {
+    "method": "追踪187名低收入家庭儿童及母亲至小学三年级，分析指导质量、期望与参与。",
+    "findings": "早期指导质量、后续家长期望和儿童既往成绩相互关联，显示家庭支持与儿童发展存在动态联系。",
+    "application": "了解孩子已有表现和家庭支持经历，再共同制定现实的阶段目标。",
+    "limitations": "纵向模型优于单次关联，但无法排除未测量因素或直接确立因果关系。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1037%2F0022-0663.96.4.723&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-16": {
+    "method": "两学年跟踪美国9所高中学生，分析教养方式、成败归因和教育结果。",
+    "findings": "部分学生的外部或能力不足归因与随后较低课堂投入、作业参与相联系，归因未完全解释家庭影响。",
+    "application": "引导家长讨论可调整的支持和策略，避免用固定能力标签解释困难。",
+    "limitations": "自报资料与特定年代学校背景限制结论，教养类型不能作为个体诊断。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.2307%2F1131675&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-18": {
+    "method": "对70名加勒比移民家庭父母开展调查，分析教养方式及家庭、学校互动与幼儿表现。",
+    "findings": "父亲和母亲的参与方式均与部分学业及社会表现相关，父亲的学校联系具有独立关联。",
+    "application": "根据实际照护安排邀请父亲或其他照护者参与信息核对与行动协商。",
+    "limitations": "小样本回归研究存在文化和情境限制，关联不能直接用于评价某个家庭。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.ecresq.2006.04.007&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-19": {
+    "method": "分析Early Head Start照护环境中教师与儿童关系、家长教师共同照护及母亲养育压力的统计联系。",
+    "findings": "共同照护质量参与解释师幼关系与母亲养育困扰的关联；师幼冲突也与母亲感知儿童难以照料有关。",
+    "application": "讨论儿童表现时同步了解家庭压力，协调家庭和教师的照护策略。",
+    "limitations": "统计中介不建立因果，婴幼儿照护环境与小学疫情沟通存在情境差异。",
+    "sourceUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0885200626000347",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-20": {
+    "method": "纵向追踪175名幼儿园至三年级儿童照护者，使用随机截距交叉滞后模型。",
+    "findings": "一至二年级养育自我效能与亲师联系存在相互关联；二年级自我效能可预测后续部分儿童表现，联系本身未显示相同直接预测。",
+    "application": "增强家长可执行行动与胜任体验，同时持续维护沟通渠道。",
+    "limitations": "纵向关联仍受未观测因素影响，不能承诺增加联系次数会直接改善行为。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/2372966X.2024.2426973",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-24": {
+    "method": "让111名家长和61名教师评价教师单独、家长单独及家校联合咨询的可接受性。",
+    "findings": "在学业、行为和社会情绪问题上，双方总体更偏好家校联合咨询。",
+    "application": "提供共同讨论和共同制定行动的选择，并确认家庭的接受程度。",
+    "limitations": "研究衡量偏好和可接受性，不能据此认定联合咨询的实际效果一定更好。",
+    "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/02796015.1999.12085993",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-25": {
+    "method": "调查110名青少年及其父母，比较教养方式、家庭规则与权威边界判断。",
+    "findings": "家长与孩子对教养方式的感知有差异，分歧尤其涉及个人自主范围，并与冲突及情绪自主性相关。",
+    "application": "先分别了解双方对责任、隐私和自主空间的理解，再协商可接受安排。",
+    "limitations": "样本以白人中产家庭为主，不能直接概括其他文化或家庭。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.2307%2F1131579&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-26": {
+    "method": "比较华人移民及欧洲裔美国学前儿童母亲的教养观念，控制教育与常用教养量表得分。",
+    "findings": "传统权威和专制分类未充分体现华人“管教”观念的含义，文化特定概念有助于补充理解。",
+    "application": "询问具体行为及其用意，尊重文化差异并避免简单归类。",
+    "limitations": "文化比较不意味着某一种教养方式普遍优越，也不能据群体结果推断个人。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.2307%2F1131308&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-27": {
+    "method": "对美国853名一至六年级学生家长调查，检验家长参与的动机、邀请与生活条件模型。",
+    "findings": "控制社会经济条件后，模型仍能解释家庭及学校参与差异，不同学段的预测因素有所不同。",
+    "application": "明确邀请家长参与，同时核对时间、资源及角色期待。",
+    "limitations": "模型预测不等同于因果干预，不应以某一动机指标判断参与意愿。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1037%2F0022-0663.99.3.532&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-28": {
+    "method": "元分析比较父亲及母亲教育参与与幼儿园至高中学生成绩之间的关联。",
+    "findings": "双方参与与成绩的关联总体相近，母亲平均参与水平较高，不同参与类型的关联存在差异。",
+    "application": "按家庭实际照护分工提供参与机会，避免将沟通责任固定给母亲。",
+    "limitations": "纳入研究的定义及设计不同，长期关联也不能单独证明参与导致成绩提升。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1037%2Fedu0000023&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-29": {
+    "method": "采用跨族群纵向潜在增长模型，分析家长参与与教育期望、控制感及成绩。",
+    "findings": "直接关联在族群间存在差异，经教育期望等因素体现的间接关联较为一致。",
+    "application": "帮助家长与学生形成具体、可实现的学习期待并定期回顾。",
+    "limitations": "统计路径受模型及所测变量限制，族群结果不能用作个体刻板判断。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1037%2F0022-0663.97.1.32&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-30": {
+    "method": "作为专题导论，综合五项学校咨询与跨系统合作研究，讨论服务覆盖及合作实施。",
+    "findings": "平等参与、信任、清晰可达的沟通及任务共享是扩大服务覆盖的重要议题。",
+    "application": "明确各方职责和转介衔接，邀请资源较少的家庭参与决策。",
+    "limitations": "本文属于导论与研究综合，不提供新的随机试验效果量，历史服务数据需按当前情境核实。",
+    "sourceUrl": "https://www.tandfonline.com/doi/full/10.1080/2372966X.2024.2325294",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-31": {
+    "method": "研究326名低收入且语言文化多样的Head Start儿童，比较教师与独立观察者的课堂投入评价。",
+    "findings": "教师感知的良好亲师沟通与两类投入评价均相关；部分儿童家庭特征的关联只出现在教师评分中。",
+    "application": "建立早期沟通关系，综合不同观察来源，检查评价是否受家庭标签影响。",
+    "limitations": "观察性关联不能证明沟通导致投入改善，两类评分差异也不能直接判定某方错误。",
+    "sourceUrl": "https://doi.org/10.1016/j.ecresq.2023.11.007",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-32": {
+    "method": "观察16所托育中心在接送时段的家长与工作人员交流。",
+    "findings": "中心之间差异明显，多数交流很短，约一半超过日常寒暄并涉及孩子行为、健康或当日经历。",
+    "application": "简短接触时先核对关键事实，为需展开的问题预约适当渠道。",
+    "limitations": "观察特定托育场景，接触次数或时长不能单独代表沟通质量。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2F0885-2006%2891%2990002-3&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-33": {
+    "method": "调查12个不同资助背景托育中心的201名家长和49名照护者。",
+    "findings": "照护者报告的沟通频率和重要性通常高于家长，沟通与照护质量呈正相关。",
+    "application": "主动询问家长是否收到并理解信息，核对双方的沟通体验。",
+    "limitations": "跨机构关联可能受资源及管理差异影响，不能单独确定沟通的因果效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2F0885-2006%2894%2990006-x&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-34": {
+    "method": "在84名有学业风险的四、五年级学生中比较互惠同伴辅导、辅导加家长参与及对照条件。",
+    "findings": "辅导加家长参与组数学计算正确性更高，单独辅导组也优于对照组。",
+    "application": "把学校支持和家庭可完成的协作任务衔接，并记录实际表现。",
+    "limitations": "结果针对特定数学干预，不能外推为所有家长参与方式均有相同收益。",
+    "sourceUrl": "https://eric.ed.gov/?id=EJ486050",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-35": {
+    "method": "通过个案和理性情绪疗法材料，说明间接支持儿童及支持家长心理健康两类咨询。",
+    "findings": "两类咨询可分别围绕儿童支持与家长信念情绪展开，需要区分服务目标和专业职责。",
+    "application": "识别沟通中情绪与解释的关系，教师在职责内支持并对专业咨询需求作转介。",
+    "limitations": "属于咨询方法与个案说明，未提供一般化效果量；临床实施需要相应专业资质。",
+    "sourceUrl": "https://eric.ed.gov/?id=EJ479079",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-37": {
+    "method": "跟踪283名儿童从幼儿园至小学三年级的外化行为，分析家庭和师生关系。",
+    "findings": "入学时师生冲突与行为问题更快增长相关，亲近关系与部分高风险儿童问题减少相联系。",
+    "application": "在家校沟通中保持合作关系，具体描述行为并确认支持措施。",
+    "limitations": "观察性轨迹模型无法完全区分关系影响和儿童原有困难带来的反向作用。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.jsp.2004.11.003&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-38": {
+    "method": "对低收入家庭3–4岁儿童实施6周互动共读随机试验，比较家庭、学校及联合方式。",
+    "findings": "干预后口语表现改善，包含家庭阅读的条件收益较大。",
+    "application": "协商简单可行的居家支持活动，并提供示范和反馈。",
+    "limitations": "特定语言干预与短期后测不能直接代表疫情沟通训练的效果。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fs0885-2006%2899%2980038-6&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-39": {
+    "method": "跟踪约6400名美国14–18岁青少年，分析教养、学校参与及鼓励与学业投入。",
+    "findings": "支持、监督和心理自主性与较好表现相关，家长参与的关联也随家庭教养环境变化。",
+    "application": "在明确安排的同时解释理由、尊重孩子表达并鼓励适当自主。",
+    "limitations": "青少年自报与观察性资料不能建立确定因果，不宜用群体类型给家庭定性。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.2307%2F1131532&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-40": {
+    "method": "探索Head Start项目中家庭互动、家庭学习环境与儿童入学准备的前后关联。",
+    "findings": "家长对游戏与促进学习的理解与儿童独立性、创造性相关；较高烦躁与严厉程度与部分不利表现相关。",
+    "application": "询问家庭互动困难，提供可实现的支持并鼓励积极亲子活动。",
+    "limitations": "探索性关联不能说明养育方式单独造成儿童表现，项目样本不代表所有家庭。",
+    "sourceUrl": "https://www.tandfonline.com/doi/full/10.1080/02796015.1999.12085974",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-41": {
+    "method": "研究163名主要来自低收入家庭的学前儿童，结合教师参与评分与前读写测量。",
+    "findings": "家长参与与较强前读写能力相关，社会经济及单亲条件与参与机会也有联系。",
+    "application": "提供能适应工作和照护限制的参与方式，关注支持机会。",
+    "limitations": "教师评分和家庭条件可能共同影响结果，关联不能用于责备参与较少的家庭。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1080%2F02796015.2008.12087910&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-42": {
+    "method": "据教育研究机构综述中的研究注释整理：研究涉及华盛顿特区三批共708名低收入家庭四岁儿童。",
+    "findings": "教师报告的家长参与与沟通、日常生活及入学准备等能力相关，部分联系在男孩中更突出。",
+    "application": "提供多种参与途径，分别记录家长行动与儿童实际表现。",
+    "limitations": "当前内容依据机构研究综述，原始论文全文尚未取得；相关关系不能解释为干预因果。",
+    "sourceUrl": "https://files.eric.ed.gov/fulltext/ED536946.pdf",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-43": {
+    "method": "4个Head Start项目的1131名家长与59名教师参与，结合志愿记录、访谈和课堂观察。",
+    "findings": "家长就业、课堂质量及教师经验与参与有关，教师和家长自报与实际记录的一致程度不同。",
+    "application": "结合实际联系记录了解参与情况，核对工作时间与可用支持。",
+    "limitations": "项目背景限制外推，自报和记录之间差异提示测量偏差。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.ecresq.2004.07.005&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-45": {
+    "method": "利用443人横断样本及118人纵向样本，研究中国幼儿家庭关系与师生关系。",
+    "findings": "入园初期亲子关系与师生关系的关联较明显，社会能力参与解释，随在园经验增加该关联减弱。",
+    "application": "新情境开始时多了解家庭和孩子的适应经历，并持续观察变化。",
+    "limitations": "样本、时间和统计中介限制因果解释，早期关联不意味着关系长期固定。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.ecresq.2010.09.001&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-46": {
+    "method": "纵向分析165名幼儿园至一年级儿童及其家庭，考察入学前家庭互动与外化行为的关联。",
+    "findings": "总体互动评价比逐事件指标更具预测力，负向强制互动与后续问题的联系较突出。",
+    "application": "询问持续互动模式及家庭压力，结合学校观察共同讨论支持方案。",
+    "limitations": "预测关系不能用于归责家庭或认定因果，家庭结构差异不构成个体风险判定。",
+    "sourceUrl": "https://eric.ed.gov/?id=EJ486044",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-47": {
+    "method": "基于澳大利亚2616名儿童纵向资料，控制家庭背景后建立结构方程模型。",
+    "findings": "一年级学校参与与三年级阅读的联系由自我调节学习解释，数学联系也存在间接路径及背景差异。",
+    "application": "将家校支持落在孩子自我管理、学习安排和反馈行动上。",
+    "limitations": "纵向模型无法排除所有混杂，不能保证单纯增加学校参与就提高成绩。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.ecresq.2015.12.016&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-49": {
+    "method": "分析芝加哥1539名儿童的纵向资料，比较学前经历、家庭及中心层面因素。",
+    "findings": "学前参与较为重要，中心家长参与与早期及后续学校表现相关，低收入区域面临更大困难。",
+    "application": "把家庭沟通与学校及社区资源协同考虑，支持资源不足的家庭。",
+    "limitations": "项目和地区特定，站点层面的关联不能用于判断某位家长的责任。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1016%2Fj.ecresq.2004.04.005&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-parents-50": {
+    "method": "全国217名家长评价33类参与活动，学校心理工作者评价未来五年的实施可行性。",
+    "findings": "双方均重视了解学校如何运作，活动优先次序总体相近；多数活动上家长使用意愿高于专业人员的可行性判断。",
+    "application": "清楚介绍学校流程和联系入口，并共同协调家庭需求与学校资源。",
+    "limitations": "意愿与可行性评价不同于实际参与或儿童成效，历史样本不能代表当前所有家庭。",
+    "sourceUrl": "https://experts.umn.edu/en/publications/parents-and-school-psychologists-perspectives-on-parent-involveme/",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-01": {
+    "method": "针对2020年大规模K12在线教学开展家校合作的理论与实践分析。",
+    "findings": "内容涵盖学习支持、价值教育、综合素养及身心健康，建议提升合作意识、运用技术并关注农村及留守学生。",
+    "application": "疫情沟通同时了解学习、生活和健康需要，约定双方可以落实的行动。",
+    "limitations": "文章主要提出分析框架与建议，未检验统一方案的效果；历史背景需结合当前条件使用。",
+    "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/73950e7813701c141374f88cc65ef0d2",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-02": {
+    "method": "在陕西、重庆、云南和四川进行教师、家长和学生网络调查。",
+    "findings": "研究发现自主学习、家庭教育、线上教学和教师角色方面的困难，提出学习指导、家校共育及教学改进建议。",
+    "application": "情境任务纳入家庭支持条件、学习困难和跨角色协作。",
+    "limitations": "网络样本及疫情早期背景限制代表性，公开转载未提供可直接复制全文的许可。",
+    "sourceUrl": "https://epc.swu.edu.cn/info/1109/2585.htm",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-08": {
+    "method": "围绕疫情停课对儿童教育、营养及身心支持的影响提出儿科倡议。",
+    "findings": "文章强调依赖学校服务的低收入儿童面临更高资源中断风险，需要教育和健康部门共同支持。",
+    "application": "沟通时核对学习设备、饮食及心理支持需要，并明确可联系的资源。",
+    "limitations": "属于基于当时政策环境的倡议文章，具体服务和措施需按当前本地规定核实。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1542%2Fpeds.2020-1440&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-12": {
+    "method": "2020年观点文章对照流感经验、早期新冠资料与停课的家庭和社会成本。",
+    "findings": "作者质疑将流感停课经验直接迁移至新冠，并强调当时直接证据不足及公平影响。",
+    "application": "解释证据适用条件，区分研究观点、学校权限与公共卫生部门的实际决定。",
+    "limitations": "早期观点和传播认识具有时间限制，不能作为当前停课或返校指令。",
+    "sourceUrl": "https://jamanetwork.com/journals/jamapediatrics/fullarticle/2766114",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-20": {
+    "method": "社论结合儿童心理健康服务利用研究与相关资料，讨论疫情后的服务需求。",
+    "findings": "作者主张系统增加支持，关注远程服务可达性、群体差异及尚未满足的需求。",
+    "application": "沟通时了解情绪和日常功能，协调学校、家庭与专业服务的持续支持。",
+    "limitations": "社论引用既有研究，未产生新调查；就诊记录不能覆盖全部未获服务的需要。",
+    "sourceUrl": "https://jamanetwork.com/journals/jamapediatrics/fullarticle/2788911",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-23": {
+    "method": "社论结合疫情早期学校关闭与远程学习资料，讨论返校决定中的教育和公平问题。",
+    "findings": "作者倡议跨学科共同审阅传播、心理及远程学习证据，并按儿童发展阶段提出建议。",
+    "application": "沟通时分别了解儿童年龄、家庭照护和设备支持，清楚说明决策依据与待确认事项。",
+    "limitations": "属于2020年社论，预测和当时传播认识具有时间限制，当前学校安排需核对现行要求。",
+    "sourceUrl": "https://www.uvm.edu/d10-files/documents/2025-02/VCHIP_CHAMP_2022_LS_school_reopening.pdf",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-28": {
+    "method": "对马萨诸塞州儿童家庭进行四轮调查，使用儿童固定效应比较同一儿童不同学习形式下的行为表现。",
+    "findings": "家长报告的儿童行为随学习形式系统变化，远程学习期间部分行为困难高于面授期间。",
+    "application": "询问学习方式改变前后的具体表现、家庭支持和适应困难，制定跟进安排。",
+    "limitations": "家长报告及观察性设计不能认定远程学习导致行为困难，也不能替代个体心理评估。",
+    "sourceUrl": "https://jamanetwork.com/journals/jamapediatrics/fullarticle/2787966",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-32": {
+    "method": "观点文章讨论疫情期间儿童心理健康数据的异质性及公共解释方式。",
+    "findings": "群体困扰与就医需求反映不同方面，简单归结为全部恶化或全部无碍会掩盖差异。",
+    "application": "分开询问情绪、功能受损与求助障碍，并安排有针对性的持续跟进。",
+    "limitations": "观点综合已有资料，未产生新的患病率估计，群体数据不能诊断个体儿童。",
+    "sourceUrl": "https://jamanetwork.com/journals/jamapediatrics/fullarticle/2791540",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-33": {
+    "method": "评论疫情期间家长对返校的选择，权衡学校支持、安全与家庭差异。",
+    "findings": "残障学生的服务可达性、家庭承受能力和公平问题需要进入返校沟通与跨部门协作。",
+    "application": "先了解家庭具体顾虑，再解释可用支持和共同确认后续安排。",
+    "limitations": "属于2020年的政策评论，不能作为当前停课、返校或医疗处置的直接规则。",
+    "sourceUrl": "https://jamanetwork.com/journals/jamapediatrics/fullarticle/2769633",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-37": {
+    "method": "研究通信提出围绕孕期感染及疫情压力开展多中心、长期儿童发展研究。",
+    "findings": "作者强调同时考虑感染、母亲压力与发展环境，持续研究可帮助制定预防支持。",
+    "application": "面对家庭担忧区分已知证据与研究问题，提供适当的专业咨询渠道。",
+    "limitations": "通信倡议研究方向，本身未报告新的队列因果结论，不能据此预测个别儿童发育。",
+    "sourceUrl": "https://jamanetwork.com/journals/jamapediatrics/fullarticle/2785685",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-41": {
+    "method": "研究评论围绕疫情期间弱势社区学校检测与安全返校的研究及合作需求。",
+    "findings": "学校同时承担膳食、治疗和社会支持功能，安全方案需要社区参与并回应家庭对检测的具体疑问。",
+    "application": "邀请家庭表达服务需求，解释检测信息和结果沟通流程，并协调学校与社区资源。",
+    "limitations": "属于特定时期的研究与政策讨论，检测及公共卫生要求应另核当前当地规定。",
+    "sourceUrl": "https://www.nih.gov/news-events/news-releases/person-school-during-covid-19-must-address-needs-underserved-communities",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-45": {
+    "method": "讨论疫情期间被迫流离失所儿童和家庭的心理健康保护。",
+    "findings": "拥挤居住、卫生及医疗资源不足、创伤经历与制度不信任会增加风险并妨碍公共卫生措施落实。",
+    "application": "了解家庭实际生活条件，以尊重和可信信息协商可行支持。",
+    "limitations": "文章聚焦特定脆弱群体的政策及临床议题，不能据身份推断个人心理状况。",
+    "sourceUrl": "https://api.openaire.eu/search/publications?doi=10.1542%2Fpeds.2020-025346&format=json",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
+  },
+  "kb-scenarios-46": {
+    "method": "回复文章讨论疫情早期将儿童传播特点与流感类比的争议，并回应停课问题。",
+    "findings": "作者结合当时资料支持保持教育服务，同时强调卫生措施及持续流行病学监测。",
+    "application": "呈现学术争议的时间背景，向家庭说明学校行动所依据的当前官方要求。",
+    "limitations": "属于2020年的学术回复，早期结论存在时间和证据局限，不能直接迁移为现行政策。",
+    "sourceUrl": "https://jamanetwork.com/journals/jamapediatrics/fullarticle/2770129",
+    "checkedAt": "2026-11-04",
+    "scope": "abstract"
   }
 }
