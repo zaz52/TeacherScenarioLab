@@ -17,6 +17,7 @@ import { getClientTranslation } from '@/lib/i18n';
 import { practiceFromEvents, practiceSummary } from '@/lib/training/practice-config';
 import { characterLabel } from '@/lib/training/character-presentation';
 import { trainingStateLabel } from '@/lib/training/state-label';
+import { EmergencyBoard } from '@/components/classroom/emergency-board';
 
 interface TrainingInfo {
   id: string;
@@ -203,6 +204,7 @@ export default function TrainingReviewPage() {
           <p>{practiceSummary(practice)}</p>
         </section>
       )}
+      <EmergencyBoard trainingId={trainingId} messages={messages} review />
       <section>
         <h2>{t('reviewMessages')}</h2>
         {messages.length === 0 && <p>{t('reviewEmpty')}</p>}

@@ -52,6 +52,7 @@ export function applyPracticePack(
         : pack.communicationStyle) +
       ' ' +
       channelHint +
+      ' 应急演练中依据自身职责交流，关注人员安全、已确认与待核实的信息、校内报告、分工和后续反馈；一次聚焦一至两个问题。角色只知道原有可见事实，不编造新增病例、诊断、急救结果或外部报告回执，不把学员口头计划描述为已经完成的现实行动。' +
       ' 自定义设置用于本次模拟的沟通背景和风格；角色所知事实、信息权限、隐私及原情境规则始终约束回应，不从设置中推导未披露事实。 本次设置：' +
       practiceSummary(practice),
     scriptedReplies: parent

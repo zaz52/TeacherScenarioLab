@@ -1,6 +1,7 @@
 import { knowledgePrompt } from './knowledge/catalog';
 import { practiceFromEvents, practiceSummary } from './practice-config';
 import { applyPracticeScenario } from './practice-context';
+import { emergencyEvaluationContext } from './emergency-plan';
 /**
  * TeacherScenarioLab — five-dimension training evaluation (server only).
  *
@@ -53,10 +54,12 @@ export interface TrainingEvaluation {
 }
 
 const DIMENSION_RUBRICS: Record<EvaluationDimension, string> = {
-  communication: '是否先接住情绪再讲事实、语言清晰简短、是否安抚而非激化。',
-  'fact-checking': '是否多方核实、不轻信传言、不编造未确认的信息。',
-  judgment: '是否区分事实与推测、不擅自下停课等结论、判断有依据。',
-  coordination: '是否与校医、校长、任课教师对齐口径、分工明确。',
+  communication: '是否回应情绪并清晰说明已知情况、当前措施、待核实事项和下次反馈安排。',
+  'fact-checking': '是否区分已确认信息、待核实线索和传言，核对来源与时间，不编造未确认的信息。',
+  judgment:
+    '是否根据情境先考虑人员安全及紧急需求，及时寻求校医等专业支持；不擅自诊断、开药或决定停复课。',
+  coordination:
+    '是否及时作校内报告并明确接收人；是否避免等待确诊或上级指示后才校内报告；是否明确校医、负责人、教师的职责与反馈节点。',
   responsibility:
     '是否保护学生隐私、不透露他人信息、对外口径以学校为准；当学生问及同桌等他人病情时，是否既保护他人健康隐私（不透露姓名与病情细节）又回应提问学生的担忧。',
 };
@@ -85,6 +88,7 @@ export function buildEvaluationPrompt(
     '五个维度与评分标准（每项 0–100 整数）：',
     ...EVALUATION_DIMENSIONS.map((dimension) => `- ${dimension}：${DIMENSION_RUBRICS[dimension]}`),
     '注意：若对话中学生问及同桌等他人病情，须在 responsibility 维度中考查教师是否保护他人健康隐私、同时安抚提问学生。',
+    '应急表现按情境判断：检查安全保护、核实与校内报告能否及时并行、职责协同、隐私沟通及持续跟进。普通健康填报场景考查应急准备，不推定已发生突发事件。未观察到的行动应说明证据缺口；学员口头承诺或模拟记录不证明现实处置已经完成。',
     '证据只能引用教师消息的 id，且每条证据 id 必须真实出现在对话记录里；不得引用角色消息，不得编造 id。',
     `合法教师消息 ID：${JSON.stringify(teacherIds)}。evidence 必须从此列表逐字复制完整 ID，保留 UUID 连字符。`,
     '以下实训评价提示可用于检查表现，证据仍以本次教师消息为准：\n' +
@@ -257,7 +261,9 @@ async function generateEvaluationInner(
       }
     : configuredScenario;
   const transcript = await store.listMessages(trainingId, { includeSuperseded: false });
-  const { system, prompt } = buildEvaluationPrompt(scenario, transcript);
+  const built = buildEvaluationPrompt(scenario, transcript);
+  const system = built.system;
+  const prompt = built.prompt + emergencyEvaluationContext(events);
   let selection: ModelSelection | undefined;
   const generate =
     deps.generateModelEvaluation ??

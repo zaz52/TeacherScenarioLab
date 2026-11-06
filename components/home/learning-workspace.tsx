@@ -55,6 +55,7 @@ import { TrainingHomeBlock } from './training-home-block';
 import { ScenarioBuilder } from './scenario-builder';
 import { hasAdminPermission } from '@/lib/training/admin-permissions';
 import { PracticeOptions } from './practice-options';
+import { EmergencyIntro } from '@/components/classroom/emergency-board';
 import { useEpidemicComposer, EpidemicRolePill, EpidemicModelPill } from './epidemic-composer';
 import { useMobileLayout } from '@/lib/adaptive/adaptive-provider';
 import { installPageScrollBoundary } from '@/lib/adaptive/page-scroll-boundary';
@@ -1052,6 +1053,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
           </button>
         </div>
         {/* ── Unified input area ── */}
+        {isTraining && <EmergencyIntro />}
         <div
           className={cn(
             'home-input-wrap w-full',

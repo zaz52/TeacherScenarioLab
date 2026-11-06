@@ -17,6 +17,7 @@ const STEPS = [
   { id: 'models', target: 'models', href: '/' },
   { id: 'opening', target: 'composer', href: '/' },
   { id: 'room', target: 'dialogue', href: '/' },
+  { id: 'emergency', target: 'emergency', href: '/' },
   { id: 'voice', target: 'voice', href: '/' },
   { id: 'feedback', target: 'support', href: '/' },
   { id: 'evaluation', target: 'evaluation', href: '/' },
@@ -81,7 +82,9 @@ export function NewcomerGuide() {
       setWelcome(true);
     }
   }, [storageKey, loading]);
-  const needsTraining = ['room', 'voice', 'feedback', 'evaluation', 'review'].includes(current.id);
+  const needsTraining = ['room', 'emergency', 'voice', 'feedback', 'evaluation', 'review'].includes(
+    current.id,
+  );
   const reviewing = current.id === 'review';
   useEffect(() => {
     if (!open || !needsTraining || !account?.authenticated) {

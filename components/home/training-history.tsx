@@ -329,6 +329,7 @@ const eventKeys: Record<string, string> = {
   'model-selected': 'model',
   'model-switched': 'switch',
   'rumor-in-group': 'rumor',
+  'emergency-decision-recorded': 'emergency',
 };
 export function TrainingTimeline({
   events,

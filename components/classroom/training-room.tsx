@@ -43,6 +43,7 @@ import { cn } from '@/lib/utils';
 import type { SettingsSection } from '@/lib/types/settings';
 import { modelSettingsClient } from '@/lib/model-settings/client';
 import { TrainingSupport } from './training-support';
+import { EmergencyBoard } from './emergency-board';
 import { useAccount } from '@/components/account/account-provider';
 import { practiceText, type PracticeConfig } from '@/lib/training/practice-config';
 import type { KnowledgeSupport } from '@/lib/training/knowledge/support';
@@ -539,6 +540,11 @@ export function TrainingRoom() {
               {stateLabel(training.state)}
             </span>
           </div>
+          <EmergencyBoard
+            trainingId={id}
+            refreshKey={messages.length + ':' + training.state}
+            messages={messages}
+          />
           <div className="grid items-start gap-5 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_280px]">
             <aside className="rounded-2xl border border-border/60 bg-background/85 p-4 shadow-sm">
               <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold">
