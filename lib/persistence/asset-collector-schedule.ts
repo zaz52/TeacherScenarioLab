@@ -58,6 +58,8 @@ export interface AssetCollectorScheduleDeps {
 }
 
 export interface AssetCollectorSchedule {
+  /** Host idle admission observes an in-flight maintenance pass. */
+  isRunning?(): boolean;
   /** Stop the schedule and release the pool. */
   stop(): Promise<void>;
   /** Run one pass now, awaiting it. Exposed for tests; the timer does not await. */
@@ -299,6 +301,7 @@ export function startAssetCollectorSchedule(
   timer.unref?.();
 
   const schedule: AssetCollectorSchedule = {
+    isRunning: () => running,
     intervalMs,
     graceMs,
     collectNow,

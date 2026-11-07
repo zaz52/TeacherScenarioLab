@@ -14,7 +14,7 @@
  * id, and the old owner then reads those trainings as not-found through
  * the normal owner binding. The route clears the spent anonymous cookie.
  */
-import { isAnonymousCookieOwnerId } from '@/lib/server/identity/anonymous-cookie';
+import { isAnonymousOwnerId } from '@/lib/server/identity';
 
 import { getTrainingStore } from './server';
 import {
@@ -96,7 +96,7 @@ export async function claimAnonymousTrainings(
   accountOwnerId: string,
   fromOwnerId: string,
 ): Promise<number> {
-  if (!isAnonymousCookieOwnerId(fromOwnerId)) {
+  if (!isAnonymousOwnerId(fromOwnerId)) {
     throw new TrainingServiceError(
       409,
       'TRAINING_NOT_ANONYMOUS_OWNER',

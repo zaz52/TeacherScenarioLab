@@ -1,25 +1,9 @@
 /**
- * TeacherScenarioLab — training account sessions as an OwnerAuthMethod.
- *
- * A training account is an `acct:<uuid>` owner proven by a session cookie,
- * not by the anonymous cookie and not by any core method: the method below
- * implements the {@link OwnerAuthMethod} contract (`name`, `authenticate`,
- * `describeStoredOwner`) so a deployment may register it with
- * `configureOwnerAuthentication`, and the training routes use it through
- * `withTrainingOwner` without registering it globally — classroom, PBL and
- * Pi identity resolution stay exactly as they are.
- *
- * Security shape, mirroring the anonymous cookie:
- * - the cookie value is a random token; only its SHA-256 hex is stored;
- * - the cookie is HttpOnly, SameSite=Lax, Path=/, 30 days, Secure per
- *   `cookiesAreSecure()` (same rule as the anonymous cookie);
- * - a present-but-unknown or expired token answers `invalid` (401), never
- *   a silent downgrade to anonymous — a broken credential must never
- *   quietly become a different identity;
- * - admin is never self-granted: it comes only from the deployment's
- *   `TRAINING_ADMIN_ACCOUNT_IDS` list (comma-separated account ids), merged
- *   at authentication time. Account rows themselves carry only learner
- *   roles; task 9's admin routes read the merged principal.
+ * TeacherScenarioLab account sessions implement the public OwnerAuthMethod.
+ * Instrumentation registers this method for the whole site. Training routes
+ * also use it through withTrainingOwner for their claim and cookie handling.
+ * Session tokens are hashed at rest and use HttpOnly/SameSite cookies.
+ * Admin roles come from bootstrap account IDs or explicit audited admin grants.
  */
 import { createHash, randomBytes } from 'node:crypto';
 
@@ -41,9 +25,7 @@ export const TRAINING_SESSION_TTL_MS = TRAINING_SESSION_MAX_AGE_SECONDS * 1000;
 
 /** The session store surface the method needs (injectable for tests). */
 export interface TrainingSessionLookup {
-  getSessionByTokenHash(
-    tokenHash: string,
-  ): Promise<{
+  getSessionByTokenHash(tokenHash: string): Promise<{
     session: { accountId: string; expiresAt: number };
     account: { accountId: string; displayName: string; roles: string[] };
   } | null>;
@@ -62,7 +44,7 @@ function readCookie(headers: Headers, name: string): string | undefined {
     try {
       return decodeURIComponent(item.slice(separator + 1).trim());
     } catch {
-      return undefined;
+      return '';
     }
   }
   return undefined;
@@ -85,7 +67,9 @@ export function mintTrainingAccountId(): string {
 
 /** Whether an owner id is one this method mints. */
 export function isTrainingAccountOwnerId(ownerId: string): boolean {
-  return ownerId.startsWith(TRAINING_ACCOUNT_PREFIX) && ownerId.length > TRAINING_ACCOUNT_PREFIX.length;
+  return (
+    ownerId.startsWith(TRAINING_ACCOUNT_PREFIX) && ownerId.length > TRAINING_ACCOUNT_PREFIX.length
+  );
 }
 
 function sessionCookieAttributes(maxAge: number): string {
@@ -144,12 +128,14 @@ export interface TrainingSessionMethodDeps {
  * or `invalid` when the token is unknown or expired.
  */
 export function trainingSessionAuthMethod(deps: TrainingSessionMethodDeps = {}): OwnerAuthMethod {
-  const lookupPromise = deps.lookup ?? defaultSessionLookup();
+  let lookupPromise = deps.lookup;
   const adminAccountIds = deps.adminAccountIds ?? resolveTrainingAdminAccountIds();
 
   async function authenticate(req: OwnerAuthRequest): Promise<OwnerAuthMethodResult> {
     const token = readCookie(req.headers, TRAINING_SESSION_COOKIE);
-    if (token === undefined || token === '') return { status: 'not-applicable' };
+    if (token === undefined) return { status: 'not-applicable' };
+    if (token === '') return { status: 'invalid', reason: 'malformed training session' };
+    lookupPromise ??= defaultSessionLookup();
     const lookup = await lookupPromise;
     const found = await lookup.getSessionByTokenHash(hashTrainingSessionToken(token));
     if (!found) {
@@ -157,6 +143,10 @@ export function trainingSessionAuthMethod(deps: TrainingSessionMethodDeps = {}):
     }
     if (found.session.expiresAt <= Date.now()) {
       return { status: 'invalid', reason: 'expired training session' };
+    }
+    const { accountAccess } = await import('@/lib/server/accounts/database');
+    if ((await accountAccess(found.account.accountId))?.disabled) {
+      return { status: 'invalid', reason: 'account disabled' };
     }
     const roles = new Set(found.account.roles);
     if (adminAccountIds.has(found.account.accountId)) roles.add(OWNER_ROLES.admin);

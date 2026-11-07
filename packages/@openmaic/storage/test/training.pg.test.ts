@@ -179,23 +179,15 @@ describePg('PgTrainingStore (PostgreSQL contract)', () => {
       state: 'created',
       now: 1000,
     });
-    expect(await owner.transitionState(training.id, 'briefing', 'fact-checking', 1001)).toBe(
-      false,
-    );
-    expect(await owner.transitionState(training.id, 'created', 'briefing', 1001)).toBe(
-      true,
-    );
+    expect(await owner.transitionState(training.id, 'briefing', 'fact-checking', 1001)).toBe(false);
+    expect(await owner.transitionState(training.id, 'created', 'briefing', 1001)).toBe(true);
     expect((await owner.getTraining(training.id))?.state).toBe('briefing');
-    expect(
-      await owner.transitionState(training.id, 'evaluation', 'completed', 1002),
-    ).toBe(false);
+    expect(await owner.transitionState(training.id, 'evaluation', 'completed', 1002)).toBe(false);
     await owner.transitionState(training.id, 'briefing', 'fact-checking', 1003);
     await owner.transitionState(training.id, 'fact-checking', 'coordination', 1004);
     await owner.transitionState(training.id, 'coordination', 'proposal', 1005);
     await owner.transitionState(training.id, 'proposal', 'evaluation', 1006);
-    expect(await owner.transitionState(training.id, 'evaluation', 'completed', 1007)).toBe(
-      true,
-    );
+    expect(await owner.transitionState(training.id, 'evaluation', 'completed', 1007)).toBe(true);
     const done = await owner.getTraining(training.id);
     expect(done?.state).toBe('completed');
     expect(done?.completedAt).toBe(1007);
@@ -267,16 +259,12 @@ describePg('PgTrainingStore (PostgreSQL contract)', () => {
       idempotencyKey: null,
       createdAt: 1002,
     });
+    expect(await owner.markSuperseded(training.id, old.message.id, replacement.message.id)).toBe(
+      true,
+    );
+    expect((await owner.listMessages(training.id)).map((m) => m.content)).toEqual(['second draft']);
     expect(
-      await owner.markSuperseded(training.id, old.message.id, replacement.message.id),
-    ).toBe(true);
-    expect((await owner.listMessages(training.id)).map((m) => m.content)).toEqual([
-      'second draft',
-    ]);
-    expect(
-      (await owner.listMessages(training.id, { includeSuperseded: true })).map(
-        (m) => m.content,
-      ),
+      (await owner.listMessages(training.id, { includeSuperseded: true })).map((m) => m.content),
     ).toEqual(['first draft', 'second draft']);
   });
 
@@ -353,9 +341,7 @@ describePg('PgTrainingStore scenarios (PostgreSQL contract)', () => {
       rules: ['rule 1'],
       learnerRole: '小学教师',
       characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
-      facts: [
-        { id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' },
-      ],
+      facts: [{ id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' }],
       disclosureConditions: {},
       publishedAt: null,
       ...overrides,
@@ -397,9 +383,7 @@ describePg('PgTrainingStore scenarios (PostgreSQL contract)', () => {
   test('drafts can be overwritten, published versions are frozen', async () => {
     await store.saveScenarioVersion(scenario());
     await store.saveScenarioVersion(scenario({ title: 'Draft v2 text' }));
-    expect((await store.getScenarioVersion('test-scenario', 1))?.title).toBe(
-      'Draft v2 text',
-    );
+    expect((await store.getScenarioVersion('test-scenario', 1))?.title).toBe('Draft v2 text');
     await store.saveScenarioVersion(scenario({ title: 'Published', publishedAt: 3000 }));
     expect((await store.getScenarioVersion('test-scenario', 1))?.publishedAt).toBe(3000);
     await expect(

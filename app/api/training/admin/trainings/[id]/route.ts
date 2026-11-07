@@ -12,10 +12,7 @@ import { withTrainingAdmin } from '@/lib/training/with-training-admin';
 
 export const runtime = 'nodejs';
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   return withTrainingAdmin(req, async () => {
     try {

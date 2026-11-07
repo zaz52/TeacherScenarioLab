@@ -106,6 +106,25 @@ function checkedResult(
 }
 
 /**
+ * Attach the anonymous claim candidate to a principal authenticated by a
+ * credential-bearing method — the same rule core applies to host methods,
+ * as a public helper for entry points that authenticate their own method
+ * (training sessions) outside core's method loop: a non-anonymous
+ * principal, on a request that also carries a valid anonymous owner cookie
+ * naming a different owner, gets `pendingClaim`. Anonymous principals never
+ * get one. The cookie is parsed only here, inside core.
+ */
+export function withAnonymousClaimCandidate(
+  principal: OwnerPrincipal,
+  headers: Headers,
+): OwnerPrincipal {
+  if (principal.kind === 'anonymous') return principal;
+  const fromOwnerId = readAnonymousOwnerId(headers);
+  if (fromOwnerId === undefined || fromOwnerId === principal.ownerId) return principal;
+  return { ...principal, pendingClaim: { fromOwnerId, assurance: 'unverified-legacy' } };
+}
+
+/**
  * The claim candidate rule: a host method's non-anonymous principal, on a
  * request that also carries a valid anonymous owner cookie, gets
  * `pendingClaim` naming that cookie's owner. Not for the anonymous fallback
@@ -120,10 +139,8 @@ async function withPendingClaim(
   method: OwnerAuthMethod,
   claimHeaders: () => Promise<Headers>,
 ): Promise<OwnerPrincipal> {
-  if (principal.kind === 'anonymous' || isSharedTeamAuthMethod(method)) return principal;
-  const fromOwnerId = readAnonymousOwnerId(await claimHeaders());
-  if (fromOwnerId === undefined || fromOwnerId === principal.ownerId) return principal;
-  return { ...principal, pendingClaim: { fromOwnerId, assurance: 'unverified-legacy' } };
+  if (isSharedTeamAuthMethod(method)) return principal;
+  return withAnonymousClaimCandidate(principal, await claimHeaders());
 }
 
 /**

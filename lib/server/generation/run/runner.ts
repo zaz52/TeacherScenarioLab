@@ -17,8 +17,7 @@ import { createLogger } from '@/lib/logger';
 import { resolveAssetPendingTtlMs } from '@/lib/persistence/asset-pending-ttl';
 
 import { generationRunConfig, type GenerationRunConfig } from './config';
-import { executeGenerationRun } from './engine';
-import { defaultRunStepServices, type RunStepServices } from './services';
+import type { RunStepServices } from './services';
 import {
   claimNextGenerationRun,
   compactFinishedGenerationRuns,
@@ -60,7 +59,7 @@ export interface GenerationRunnerOptions {
 /** Execute one claimed run to its next stop, under a heartbeat. Exported for the contract tests. */
 export async function runClaimedGenerationRun(
   claim: ClaimedRun,
-  services: RunStepServices,
+  services: RunStepServices | undefined,
   abort: AbortController,
   heartbeatIntervalMs: number,
 ): Promise<string> {
@@ -89,8 +88,12 @@ export async function runClaimedGenerationRun(
   }, heartbeatIntervalMs);
   heartbeat.unref?.();
   try {
+    // Empty queue scans keep execution dependencies unloaded. The heartbeat
+    // already protects this claim while its execution modules are loading.
+    const { executeGenerationRun } = await import('./engine');
+    const resolvedServices = services ?? (await import('./services')).defaultRunStepServices;
     return await executeGenerationRun(claim, {
-      services,
+      services: resolvedServices,
       signal: abort.signal,
       onLeaseReleased: () => {
         released = true;
@@ -112,7 +115,7 @@ export function startGenerationRunner(
   options: GenerationRunnerOptions = {},
 ): GenerationRunnerHandle {
   const workerId = options.workerId ?? `${process.pid}:${randomUUID()}`;
-  const services = options.services ?? defaultRunStepServices;
+  const services = options.services;
   const running = new Map<string, { abort: AbortController; done: Promise<void> }>();
   let stopping = false;
   let scanning = false;

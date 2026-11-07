@@ -1,3 +1,7 @@
+import {
+  POLL_INTERVAL_MS,
+  TERMINAL_POLL_INTERVAL_MS,
+} from '@/lib/server/agent-runtime/event-stream-config';
 /**
  * Agent runtime control plane — the session event stream (SSE).
  *
@@ -47,12 +51,10 @@ export const runtime = 'nodejs';
 // LISTEN/NOTIFY supplies low latency. Polling remains an explicit correctness
 // fallback for notifications lost during disconnects; terminal streams retain
 // their longer backoff.
-export const POLL_INTERVAL_MS = 5_000;
 // Terminal streams poll less often than active ones, but 10s is the ceiling.
 // The worst case is "session already terminal -> user steers": this is exactly
 // the moment the user is waiting for the result. Terminal streams exist only
 // while the user actually has that session open, so the extra cost is small.
-export const TERMINAL_POLL_INTERVAL_MS = 10_000;
 const HEARTBEAT_INTERVAL_MS = 25_000;
 /** Same default as `readEventsAfter`. A full page means more backlog remains. */
 const BACKLOG_PAGE = 500;

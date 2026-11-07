@@ -31,6 +31,8 @@
     "**/*.mts"
   ],
   "exclude": [
+    "**/.cloudflare-training/**",
+    "**/.wrangler/**",
     "node_modules",
     "dist",
     "packages/*/src",

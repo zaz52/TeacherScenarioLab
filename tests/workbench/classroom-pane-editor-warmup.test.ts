@@ -10,6 +10,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useStageStore } from '@/lib/store/stage';
 import { writeClassroomMode } from '@/lib/workbench/classroom-mode';
+import { warmEditor } from '@/lib/edit/use-editor-warmup';
 
 const probe = vi.hoisted(() => ({
   preload: (() => Promise.resolve()) as () => Promise<void>,
@@ -45,6 +46,8 @@ let root: Root | null = null;
 /** Pending idle callbacks by handle; cancelling one drops it. */
 let idle: Array<() => void> = [];
 let idleHandles = new Map<number, () => void>();
+let idleOrigins = new Map<() => void, () => void>();
+const editorIdle = () => idle.filter((pending) => idleOrigins.get(pending) === warmEditor);
 let nextHandle = 0;
 const cancelIdle = vi.fn((handle: number) => {
   const callback = idleHandles.get(handle);
@@ -94,6 +97,7 @@ async function hoverAndFocusEdit() {
 beforeEach(() => {
   idle = [];
   idleHandles = new Map();
+  idleOrigins = new Map();
   cancelIdle.mockClear();
   probe.calls = 0;
   probe.preloaded = false;
@@ -102,6 +106,7 @@ beforeEach(() => {
   vi.stubGlobal('requestIdleCallback', (callback: () => void) => {
     // A fresh wrapper per request, so the same function scheduled twice is two entries.
     const pending = () => callback();
+    idleOrigins.set(pending, callback);
     idle.push(pending);
     const handle = ++nextHandle;
     idleHandles.set(handle, pending);
@@ -128,7 +133,15 @@ describe('warming the editor from the classroom pane', () => {
   it('loads the editor on idle while the course is shown in Learn mode', async () => {
     await render();
     expect(probe.calls).toBe(0);
-    expect(idle).toHaveLength(1);
+    expect(editorIdle()).toHaveLength(1);
+    await runIdle();
+    expect(probe.calls).toBe(1);
+  });
+
+  it('observes editor warm-up separately from other browser idle work', async () => {
+    requestIdleCallback(() => {});
+    await render();
+    expect(editorIdle()).toHaveLength(1);
     await runIdle();
     expect(probe.calls).toBe(1);
   });
@@ -168,14 +181,14 @@ describe('warming the editor from the classroom pane', () => {
   it('does not schedule a warm-up once the editor is already loaded', async () => {
     probe.preloaded = true;
     await render();
-    expect(idle).toHaveLength(0);
+    expect(editorIdle()).toHaveLength(0);
   });
 
   it('cancels a pending idle warm-up when editing stops being allowed', async () => {
     await render();
-    expect(idle).toHaveLength(1);
+    expect(editorIdle()).toHaveLength(1);
     await act(async () => useStageStore.setState({ courseGenerating: true }));
-    expect(idle).toHaveLength(0);
+    expect(editorIdle()).toHaveLength(0);
     await runIdle();
     expect(probe.calls).toBe(0);
   });
@@ -209,6 +222,6 @@ describe('warming the editor from the classroom pane', () => {
     writeClassroomMode('stage-1', 'editing');
     await render();
     expect(editButton().getAttribute('aria-pressed')).toBe('true');
-    expect(idle).toHaveLength(0);
+    expect(editorIdle()).toHaveLength(0);
   });
 });

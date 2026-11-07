@@ -12,10 +12,7 @@ import { getTraining } from '@/lib/training/store';
 
 export const runtime = 'nodejs';
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   return withTrainingOwner(req, async (principal) => {
     try {

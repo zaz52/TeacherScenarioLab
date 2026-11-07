@@ -1,0 +1,1593 @@
+[
+  {
+    "id": "kb-tutor-01",
+    "category": "tutor",
+    "label": "回应情绪·识别",
+    "dimension": "communication",
+    "application": "先复述对方的一项具体担忧，再说明已经确认的信息。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["情绪", "担心", "安抚"],
+    "reference": {
+      "id": "kb-tutor-01",
+      "title": "Promoting pre-service teachers' professional vision of classroom management during practical school training: Effects of a structured online- and video-based self-reflection and feedback intervention",
+      "authors": [
+        "Kira Elena Weber",
+        "Bernadette Gold",
+        "Christopher Neil Prilop",
+        "Marc Kleinknecht"
+      ],
+      "year": 2018,
+      "url": "https://doi.org/10.1016/j.tate.2018.08.008",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2018.08.008",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Promoting pre-service teachers' professional vision of classroom management during practical school training: Effects of a structured online- and video-based self-reflection and feedback intervention。关联实训主题：回应情绪·识别。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2018.08.008",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-02",
+    "category": "tutor",
+    "label": "回应情绪·追问",
+    "dimension": "communication",
+    "application": "先复述对方的一项具体担忧，再说明已经确认的信息。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["情绪", "担心", "安抚"],
+    "reference": {
+      "id": "kb-tutor-02",
+      "title": "Adaptive feedback from artificial neural networks facilitates pre-service teachers’ diagnostic reasoning in simulation-based learning",
+      "authors": [
+        "Michael Sailer",
+        "Elisabeth Bauer",
+        "Riikka Hofmann",
+        "Jan Kiesewetter",
+        "Julia Glas",
+        "Iryna Gurevych",
+        "Frank Fischer"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.learninstruc.2022.101620",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2022.101620",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Adaptive feedback from artificial neural networks facilitates pre-service teachers’ diagnostic reasoning in simulation-based learning。关联实训主题：回应情绪·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2022.101620",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-03",
+    "category": "tutor",
+    "label": "回应情绪·改写",
+    "dimension": "communication",
+    "application": "先复述对方的一项具体担忧，再说明已经确认的信息。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["情绪", "担心", "安抚"],
+    "reference": {
+      "id": "kb-tutor-03",
+      "title": "Training preservice teachers to use evidence-based practices: Effects of coaching with performance feedback on teacher and child outcomes",
+      "authors": ["Salih Rakap", "Serife Balikci"],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.learninstruc.2023.101755",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2023.101755",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Training preservice teachers to use evidence-based practices: Effects of coaching with performance feedback on teacher and child outcomes。关联实训主题：回应情绪·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2023.101755",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-04",
+    "category": "tutor",
+    "label": "回应情绪·练习",
+    "dimension": "communication",
+    "application": "先复述对方的一项具体担忧，再说明已经确认的信息。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["情绪", "担心", "安抚"],
+    "reference": {
+      "id": "kb-tutor-04",
+      "title": "Standardising coaching of preservice teachers in the classroom: Development and trial of the synchronous online feedback tool (SOFT)",
+      "authors": ["Louise A. Taylor", "Ron Oostdam", "Ruben G. Fukkink"],
+      "year": 2022,
+      "url": "https://doi.org/10.1016/j.tate.2022.103780",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2022.103780",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Standardising coaching of preservice teachers in the classroom: Development and trial of the synchronous online feedback tool (SOFT)。关联实训主题：回应情绪·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2022.103780",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-05",
+    "category": "tutor",
+    "label": "回应情绪·反思",
+    "dimension": "communication",
+    "application": "先复述对方的一项具体担忧，再说明已经确认的信息。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["情绪", "担心", "安抚"],
+    "reference": {
+      "id": "kb-tutor-05",
+      "title": "Effects of real-time adaptivity of scaffolding: Supporting pre-service mathematics teachers’ assessment skills in simulations",
+      "authors": [
+        "Michael Nickl",
+        "Daniel Sommerhoff",
+        "Anika Radkowitsch",
+        "Sina A. Huber",
+        "Elisabeth Bauer",
+        "Stefan Ufer",
+        "Jan L. Plass",
+        "Tina Seidel"
+      ],
+      "year": 2024,
+      "url": "https://doi.org/10.1016/j.learninstruc.2024.101994",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2024.101994",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Effects of real-time adaptivity of scaffolding: Supporting pre-service mathematics teachers’ assessment skills in simulations。关联实训主题：回应情绪·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2024.101994",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-06",
+    "category": "tutor",
+    "label": "区分事实与推测·识别",
+    "dimension": "fact-checking",
+    "application": "标注信息来源与确认状态，对未知事项提出核实问题。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["事实", "核实", "来源"],
+    "reference": {
+      "id": "kb-tutor-06",
+      "title": "Performance-Based Feedback to Enhance Preservice Teachers’ Practice and Preschool Children’s Expressive Communication",
+      "authors": [
+        "Christan Grygas Coogle",
+        "Jennifer R. Ottley",
+        "Sloan Storie",
+        "Naomi L. Rahn",
+        "Amy Kurowski-Burt"
+      ],
+      "year": 2018,
+      "url": "https://doi.org/10.1177/0022487118803583",
+      "venue": "Journal of Teacher Education",
+      "doi": "10.1177/0022487118803583",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Performance-Based Feedback to Enhance Preservice Teachers’ Practice and Preschool Children’s Expressive Communication。关联实训主题：区分事实与推测·识别。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1177/0022487118803583",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-07",
+    "category": "tutor",
+    "label": "区分事实与推测·追问",
+    "dimension": "fact-checking",
+    "application": "标注信息来源与确认状态，对未知事项提出核实问题。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["事实", "核实", "来源"],
+    "reference": {
+      "id": "kb-tutor-07",
+      "title": "Fostering preservice teachers’ noticing with structured video feedback: Results of an online- and video-based intervention study",
+      "authors": ["Marc Kleinknecht", "Alexander Gröschner"],
+      "year": 2016,
+      "url": "https://doi.org/10.1016/j.tate.2016.05.020",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2016.05.020",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Fostering preservice teachers’ noticing with structured video feedback: Results of an online- and video-based intervention study。关联实训主题：区分事实与推测·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2016.05.020",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-08",
+    "category": "tutor",
+    "label": "区分事实与推测·改写",
+    "dimension": "fact-checking",
+    "application": "标注信息来源与确认状态，对未知事项提出核实问题。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["事实", "核实", "来源"],
+    "reference": {
+      "id": "kb-tutor-08",
+      "title": "Use of Web-Based Portfolios as Tools for Reflection in Preservice Teacher Education",
+      "authors": ["Diler Oner", "Emine Adadan"],
+      "year": 2011,
+      "url": "https://doi.org/10.1177/0022487111416123",
+      "venue": "Journal of Teacher Education",
+      "doi": "10.1177/0022487111416123",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Use of Web-Based Portfolios as Tools for Reflection in Preservice Teacher Education。关联实训主题：区分事实与推测·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1177/0022487111416123",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-09",
+    "category": "tutor",
+    "label": "区分事实与推测·练习",
+    "dimension": "fact-checking",
+    "application": "标注信息来源与确认状态，对未知事项提出核实问题。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["事实", "核实", "来源"],
+    "reference": {
+      "id": "kb-tutor-09",
+      "title": "Understanding and assessing preservice teachers’ reflective thinking",
+      "authors": ["Hea-Jin Lee"],
+      "year": 2005,
+      "url": "https://doi.org/10.1016/j.tate.2005.05.007",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2005.05.007",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Understanding and assessing preservice teachers’ reflective thinking。关联实训主题：区分事实与推测·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2005.05.007",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-10",
+    "category": "tutor",
+    "label": "区分事实与推测·反思",
+    "dimension": "fact-checking",
+    "application": "标注信息来源与确认状态，对未知事项提出核实问题。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["事实", "核实", "来源"],
+    "reference": {
+      "id": "kb-tutor-10",
+      "title": "Reflection as a visible outcome for preservice teachers",
+      "authors": ["John R Ward", "Suzanne S McCotter"],
+      "year": 2004,
+      "url": "https://doi.org/10.1016/j.tate.2004.02.004",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2004.02.004",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Reflection as a visible outcome for preservice teachers。关联实训主题：区分事实与推测·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2004.02.004",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-11",
+    "category": "tutor",
+    "label": "保持职责边界·识别",
+    "dimension": "judgment",
+    "application": "说明教师能够执行的事项，相关专业决定向责任人核实。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["职责", "判断", "流程"],
+    "reference": {
+      "id": "kb-tutor-11",
+      "title": "Digital video-based peer feedback training: The effect of expert feedback on pre-service teachers’ peer feedback beliefs and peer feedback quality",
+      "authors": ["Christopher Neil Prilop", "Kira Elena Weber"],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.tate.2023.104099",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2023.104099",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Digital video-based peer feedback training: The effect of expert feedback on pre-service teachers’ peer feedback beliefs and peer feedback quality。关联实训主题：保持职责边界·识别。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2023.104099",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-12",
+    "category": "tutor",
+    "label": "保持职责边界·追问",
+    "dimension": "judgment",
+    "application": "说明教师能够执行的事项，相关专业决定向责任人核实。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["职责", "判断", "流程"],
+    "reference": {
+      "id": "kb-tutor-12",
+      "title": "Characterizing productive reflection among preservice elementary teachers: Seeing what matters",
+      "authors": ["Elizabeth A. Davis"],
+      "year": 2006,
+      "url": "https://doi.org/10.1016/j.tate.2005.11.005",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2005.11.005",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Characterizing productive reflection among preservice elementary teachers: Seeing what matters。关联实训主题：保持职责边界·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2005.11.005",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-13",
+    "category": "tutor",
+    "label": "保持职责边界·改写",
+    "dimension": "judgment",
+    "application": "说明教师能够执行的事项，相关专业决定向责任人核实。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["职责", "判断", "流程"],
+    "reference": {
+      "id": "kb-tutor-13",
+      "title": "Enhancing microteaching through additional feedback from preservice administrators",
+      "authors": ["Gayle A. Wilkinson"],
+      "year": 1996,
+      "url": "https://doi.org/10.1016/0742-051x(95)00035-i",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/0742-051x(95)00035-i",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Enhancing microteaching through additional feedback from preservice administrators。关联实训主题：保持职责边界·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/0742-051x(95)00035-i",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-14",
+    "category": "tutor",
+    "label": "保持职责边界·练习",
+    "dimension": "judgment",
+    "application": "说明教师能够执行的事项，相关专业决定向责任人核实。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["职责", "判断", "流程"],
+    "reference": {
+      "id": "kb-tutor-14",
+      "title": "Interactive equality in peer assessment: The impacts on preservice teachers’ technology-enhanced learning design and feedback uptake",
+      "authors": ["Yi Zhang", "Hui Chen", "Zhongling Pi", "Jiumin Yang"],
+      "year": 2024,
+      "url": "https://doi.org/10.1016/j.tate.2023.104408",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2023.104408",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Interactive equality in peer assessment: The impacts on preservice teachers’ technology-enhanced learning design and feedback uptake。关联实训主题：保持职责边界·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2023.104408",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-15",
+    "category": "tutor",
+    "label": "保持职责边界·反思",
+    "dimension": "judgment",
+    "application": "说明教师能够执行的事项，相关专业决定向责任人核实。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["职责", "判断", "流程"],
+    "reference": {
+      "id": "kb-tutor-15",
+      "title": "Anticipatory reflection while learning to teach: from a temporally truncated to a temporally distributed model of reflection in teacher education",
+      "authors": ["Paul F Conway"],
+      "year": 2001,
+      "url": "https://doi.org/10.1016/s0742-051x(00)00040-8",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/s0742-051x(00)00040-8",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Anticipatory reflection while learning to teach: from a temporally truncated to a temporally distributed model of reflection in teacher education。关联实训主题：保持职责边界·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/s0742-051x(00)00040-8",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-16",
+    "category": "tutor",
+    "label": "明确协同分工·识别",
+    "dimension": "coordination",
+    "application": "提出联系人、可执行步骤和后续反馈时间。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["协调", "校医", "联系"],
+    "reference": {
+      "id": "kb-tutor-16",
+      "title": "Classroom simulations in teacher education to support preservice teachers’ interpersonal competence: A systematic literature review",
+      "authors": ["H. Theelen", "A. van den Beemt", "P. den Brok"],
+      "year": 2019,
+      "url": "https://doi.org/10.1016/j.compedu.2018.10.015",
+      "venue": "Computers & Education",
+      "doi": "10.1016/j.compedu.2018.10.015",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Classroom simulations in teacher education to support preservice teachers’ interpersonal competence: A systematic literature review。关联实训主题：明确协同分工·识别。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.compedu.2018.10.015",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-17",
+    "category": "tutor",
+    "label": "明确协同分工·追问",
+    "dimension": "coordination",
+    "application": "提出联系人、可执行步骤和后续反馈时间。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["协调", "校医", "联系"],
+    "reference": {
+      "id": "kb-tutor-17",
+      "title": "Getting reflection off the page: The challenges of developing support structures for pre-service teacher reflection",
+      "authors": ["Andrea Gelfuso", "Danielle V. Dennis"],
+      "year": 2014,
+      "url": "https://doi.org/10.1016/j.tate.2013.10.012",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2013.10.012",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Getting reflection off the page: The challenges of developing support structures for pre-service teacher reflection。关联实训主题：明确协同分工·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2013.10.012",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-18",
+    "category": "tutor",
+    "label": "明确协同分工·改写",
+    "dimension": "coordination",
+    "application": "提出联系人、可执行步骤和后续反馈时间。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["协调", "校医", "联系"],
+    "reference": {
+      "id": "kb-tutor-18",
+      "title": "The reflective journal: A window to preservice teachers' practical knowledge",
+      "authors": ["Dawn Francis"],
+      "year": 1995,
+      "url": "https://doi.org/10.1016/0742-051x(94)00031-z",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/0742-051x(94)00031-z",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：The reflective journal: A window to preservice teachers' practical knowledge。关联实训主题：明确协同分工·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/0742-051x(94)00031-z",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-19",
+    "category": "tutor",
+    "label": "明确协同分工·练习",
+    "dimension": "coordination",
+    "application": "提出联系人、可执行步骤和后续反馈时间。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["协调", "校医", "联系"],
+    "reference": {
+      "id": "kb-tutor-19",
+      "title": "Enhancing preservice teachers’ noticing via adaptive feedback in a virtual reality classroom",
+      "authors": [
+        "Yizhen Huang",
+        "Mira Hansen",
+        "Eric Richter",
+        "Thilo Kleickmann",
+        "Katharina Scheiter",
+        "Dirk Richter"
+      ],
+      "year": 2025,
+      "url": "https://doi.org/10.1016/j.learninstruc.2024.102053",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2024.102053",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Enhancing preservice teachers’ noticing via adaptive feedback in a virtual reality classroom。关联实训主题：明确协同分工·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2024.102053",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-20",
+    "category": "tutor",
+    "label": "明确协同分工·反思",
+    "dimension": "coordination",
+    "application": "提出联系人、可执行步骤和后续反馈时间。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["协调", "校医", "联系"],
+    "reference": {
+      "id": "kb-tutor-20",
+      "title": "The role of reflection on preservice teachers’ development in the context of a professional development school",
+      "authors": ["Anne Reilley Freese"],
+      "year": 1999,
+      "url": "https://doi.org/10.1016/s0742-051x(99)00029-3",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/s0742-051x(99)00029-3",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：The role of reflection on preservice teachers’ development in the context of a professional development school。关联实训主题：明确协同分工·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/s0742-051x(99)00029-3",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-21",
+    "category": "tutor",
+    "label": "保护健康隐私·识别",
+    "dimension": "responsibility",
+    "application": "个体信息通过适当私密渠道交流，公开回应聚焦总体安排。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["隐私", "公开", "姓名"],
+    "reference": {
+      "id": "kb-tutor-21",
+      "title": "Reflective writing as a window on preservice teachers' thought processes",
+      "authors": ["Linda A. Hoover"],
+      "year": 1994,
+      "url": "https://doi.org/10.1016/0742-051x(94)90042-6",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/0742-051x(94)90042-6",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Reflective writing as a window on preservice teachers' thought processes。关联实训主题：保护健康隐私·识别。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/0742-051x(94)90042-6",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-22",
+    "category": "tutor",
+    "label": "保护健康隐私·追问",
+    "dimension": "responsibility",
+    "application": "个体信息通过适当私密渠道交流，公开回应聚焦总体安排。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["隐私", "公开", "姓名"],
+    "reference": {
+      "id": "kb-tutor-22",
+      "title": "Stimulating teachers' reflection and feedback asking: An interplay of self-efficacy, learning goal orientation, and transformational leadership",
+      "authors": ["Piety Runhaar", "Karin Sanders", "Huadong Yang"],
+      "year": 2010,
+      "url": "https://doi.org/10.1016/j.tate.2010.02.011",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2010.02.011",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Stimulating teachers' reflection and feedback asking: An interplay of self-efficacy, learning goal orientation, and transformational leadership。关联实训主题：保护健康隐私·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2010.02.011",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-23",
+    "category": "tutor",
+    "label": "保护健康隐私·改写",
+    "dimension": "responsibility",
+    "application": "个体信息通过适当私密渠道交流，公开回应聚焦总体安排。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["隐私", "公开", "姓名"],
+    "reference": {
+      "id": "kb-tutor-23",
+      "title": "A framework for facilitating video-mediated reflection: Supporting preservice teachers as they create ‘warranted assertabilities’ about literacy teaching and learning",
+      "authors": ["Andrea Gelfuso"],
+      "year": 2016,
+      "url": "https://doi.org/10.1016/j.tate.2016.04.003",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2016.04.003",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：A framework for facilitating video-mediated reflection: Supporting preservice teachers as they create ‘warranted assertabilities’ about literacy teaching and learning。关联实训主题：保护健康隐私·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2016.04.003",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-24",
+    "category": "tutor",
+    "label": "保护健康隐私·练习",
+    "dimension": "responsibility",
+    "application": "个体信息通过适当私密渠道交流，公开回应聚焦总体安排。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["隐私", "公开", "姓名"],
+    "reference": {
+      "id": "kb-tutor-24",
+      "title": "Preservice Teacher Reflection on Coteaching Implementation: Are We Meeting the Benchmarks?",
+      "authors": ["Megan Guise", "Eric Ambroso", "Katie Paulding", "Courtney Moore", "Sarah Hegg"],
+      "year": 2022,
+      "url": "https://doi.org/10.1177/00224871221105807",
+      "venue": "Journal of Teacher Education",
+      "doi": "10.1177/00224871221105807",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Preservice Teacher Reflection on Coteaching Implementation: Are We Meeting the Benchmarks?。关联实训主题：保护健康隐私·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1177/00224871221105807",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-25",
+    "category": "tutor",
+    "label": "保护健康隐私·反思",
+    "dimension": "responsibility",
+    "application": "个体信息通过适当私密渠道交流，公开回应聚焦总体安排。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["隐私", "公开", "姓名"],
+    "reference": {
+      "id": "kb-tutor-25",
+      "title": "Research on peer coaching in preservice teacher education – A review of literature",
+      "authors": ["Hsiu-Lien Lu"],
+      "year": 2010,
+      "url": "https://doi.org/10.1016/j.tate.2009.10.015",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2009.10.015",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Research on peer coaching in preservice teacher education – A review of literature。关联实训主题：保护健康隐私·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2009.10.015",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-26",
+    "category": "tutor",
+    "label": "开放式追问·识别",
+    "dimension": "communication",
+    "application": "使用一个开放问题邀请对方补充情况，并给出等待时间。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["提问", "表达", "倾听"],
+    "reference": {
+      "id": "kb-tutor-26",
+      "title": "Using arts-based reflection to explore preservice teacher identity development and its reciprocity with resilience and well-being during the second year of university",
+      "authors": ["Loraine McKay"],
+      "year": 2021,
+      "url": "https://doi.org/10.1016/j.tate.2021.103424",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2021.103424",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Using arts-based reflection to explore preservice teacher identity development and its reciprocity with resilience and well-being during the second year of university。关联实训主题：开放式追问·识别。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2021.103424",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-27",
+    "category": "tutor",
+    "label": "开放式追问·追问",
+    "dimension": "communication",
+    "application": "使用一个开放问题邀请对方补充情况，并给出等待时间。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["提问", "表达", "倾听"],
+    "reference": {
+      "id": "kb-tutor-27",
+      "title": "Examining how power is used in instructor feedback to preservice teachers to encourage asset-based thinking",
+      "authors": ["Christopher Meidl", "Christie Vanorsdale", "Kristen Mahony", "Jason Ritter"],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.tate.2022.104007",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2022.104007",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Examining how power is used in instructor feedback to preservice teachers to encourage asset-based thinking。关联实训主题：开放式追问·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2022.104007",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-28",
+    "category": "tutor",
+    "label": "开放式追问·改写",
+    "dimension": "communication",
+    "application": "使用一个开放问题邀请对方补充情况，并给出等待时间。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["提问", "表达", "倾听"],
+    "reference": {
+      "id": "kb-tutor-28",
+      "title": "Facilitating the development of preservice teachers' Pedagogical Content Knowledge of literacy and agentic identities: Examining a teacher Educator's intentional language choices during video-mediated reflection",
+      "authors": ["Andrea Gelfuso"],
+      "year": 2017,
+      "url": "https://doi.org/10.1016/j.tate.2017.03.012",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2017.03.012",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Facilitating the development of preservice teachers' Pedagogical Content Knowledge of literacy and agentic identities: Examining a teacher Educator's intentional language choices during video-mediated reflection。关联实训主题：开放式追问·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2017.03.012",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-29",
+    "category": "tutor",
+    "label": "开放式追问·练习",
+    "dimension": "communication",
+    "application": "使用一个开放问题邀请对方补充情况，并给出等待时间。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["提问", "表达", "倾听"],
+    "reference": {
+      "id": "kb-tutor-29",
+      "title": "Field-based preservice teacher research: Facilitating reflective professional practice",
+      "authors": ["Paul T. Parkison"],
+      "year": 2009,
+      "url": "https://doi.org/10.1016/j.tate.2008.11.017",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2008.11.017",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Field-based preservice teacher research: Facilitating reflective professional practice。关联实训主题：开放式追问·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2008.11.017",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-30",
+    "category": "tutor",
+    "label": "开放式追问·反思",
+    "dimension": "communication",
+    "application": "使用一个开放问题邀请对方补充情况，并给出等待时间。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["提问", "表达", "倾听"],
+    "reference": {
+      "id": "kb-tutor-30",
+      "title": "Charting stages of preservice teacher development and reflection in a multicultural community through dialogue journal analysis",
+      "authors": ["Jan Zulich", "Thomas W. Bean", "Johanna Herrick"],
+      "year": 1992,
+      "url": "https://doi.org/10.1016/0742-051x(92)90061-7",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/0742-051x(92)90061-7",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Charting stages of preservice teacher development and reflection in a multicultural community through dialogue journal analysis。关联实训主题：开放式追问·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/0742-051x(92)90061-7",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-31",
+    "category": "tutor",
+    "label": "核对听到的信息·识别",
+    "dimension": "fact-checking",
+    "application": "用自己的话复述时间、症状或安排，请对方确认。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["核对", "症状", "时间"],
+    "reference": {
+      "id": "kb-tutor-31",
+      "title": "Preservice Elementary Teachers and Self-Reflection: How Innovation in Mathematics Teacher Preparation Challenges Mathematics Beliefs",
+      "authors": ["Anne M. Raymond", "Vania Santos"],
+      "year": 1995,
+      "url": "https://doi.org/10.1177/0022487195046001010",
+      "venue": "Journal of Teacher Education",
+      "doi": "10.1177/0022487195046001010",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Preservice Elementary Teachers and Self-Reflection: How Innovation in Mathematics Teacher Preparation Challenges Mathematics Beliefs。关联实训主题：核对听到的信息·识别。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1177/0022487195046001010",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-32",
+    "category": "tutor",
+    "label": "核对听到的信息·追问",
+    "dimension": "fact-checking",
+    "application": "用自己的话复述时间、症状或安排，请对方确认。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["核对", "症状", "时间"],
+    "reference": {
+      "id": "kb-tutor-32",
+      "title": "The value of systematic, iterative, video-based reflection analysis on preservice teacher actions in Kuwait: A preservice social studies teacher example",
+      "authors": ["Huda S. Alazmi"],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.tate.2022.103910",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2022.103910",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：The value of systematic, iterative, video-based reflection analysis on preservice teacher actions in Kuwait: A preservice social studies teacher example。关联实训主题：核对听到的信息·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2022.103910",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-33",
+    "category": "tutor",
+    "label": "核对听到的信息·改写",
+    "dimension": "fact-checking",
+    "application": "用自己的话复述时间、症状或安排，请对方确认。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["核对", "症状", "时间"],
+    "reference": {
+      "id": "kb-tutor-33",
+      "title": "Agricultural education preservice teachers’ metacognitive processes and reflective observations during a reflection-in-action activity",
+      "authors": ["Amanda Bowling", "Aaron Giorgi", "Caryn Filson", "Tracy Kitchel"],
+      "year": 2022,
+      "url": "https://doi.org/10.1016/j.tate.2022.103695",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2022.103695",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Agricultural education preservice teachers’ metacognitive processes and reflective observations during a reflection-in-action activity。关联实训主题：核对听到的信息·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2022.103695",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-34",
+    "category": "tutor",
+    "label": "核对听到的信息·练习",
+    "dimension": "fact-checking",
+    "application": "用自己的话复述时间、症状或安排，请对方确认。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["核对", "症状", "时间"],
+    "reference": {
+      "id": "kb-tutor-34",
+      "title": "Developing different forms of student feedback to promote teacher reflection: A 10-year collaboration",
+      "authors": ["Garry Hoban", "Geoff Hastings"],
+      "year": 2006,
+      "url": "https://doi.org/10.1016/j.tate.2006.04.006",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2006.04.006",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Developing different forms of student feedback to promote teacher reflection: A 10-year collaboration。关联实训主题：核对听到的信息·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2006.04.006",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-35",
+    "category": "tutor",
+    "label": "核对听到的信息·反思",
+    "dimension": "fact-checking",
+    "application": "用自己的话复述时间、症状或安排，请对方确认。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["核对", "症状", "时间"],
+    "reference": {
+      "id": "kb-tutor-35",
+      "title": "Countering deficit discourse: Preservice teacher experiences of core reflection",
+      "authors": ["Thomas D. Browning"],
+      "year": 2018,
+      "url": "https://doi.org/10.1016/j.tate.2018.01.009",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2018.01.009",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Countering deficit discourse: Preservice teacher experiences of core reflection。关联实训主题：核对听到的信息·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2018.01.009",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-36",
+    "category": "tutor",
+    "label": "表达不确定性·识别",
+    "dimension": "judgment",
+    "application": "说明当前知道什么、还需要核实什么以及由谁核实。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["不确定", "诊断", "核实"],
+    "reference": {
+      "id": "kb-tutor-36",
+      "title": "Collaborative metaphor and anticipatory reflection in preservice teacher education: Is drama the answer?",
+      "authors": ["Günizi Kartal"],
+      "year": 2020,
+      "url": "https://doi.org/10.1016/j.tate.2019.102978",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2019.102978",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Collaborative metaphor and anticipatory reflection in preservice teacher education: Is drama the answer?。关联实训主题：表达不确定性·识别。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2019.102978",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-37",
+    "category": "tutor",
+    "label": "表达不确定性·追问",
+    "dimension": "judgment",
+    "application": "说明当前知道什么、还需要核实什么以及由谁核实。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["不确定", "诊断", "核实"],
+    "reference": {
+      "id": "kb-tutor-37",
+      "title": "Science and mathematics preservice teachers’ perceptions and experiences of practicing dialogic teaching in generative AI-powered virtual reality simulation",
+      "authors": [
+        "Nuodi Zhang",
+        "Fengfeng Ke",
+        "Chih-Pu Dai",
+        "Sherry A. Southerland",
+        "Alex Barrett"
+      ],
+      "year": 2026,
+      "url": "https://doi.org/10.1016/j.tate.2025.105349",
+      "venue": "Teaching and Teacher Education",
+      "doi": "10.1016/j.tate.2025.105349",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Science and mathematics preservice teachers’ perceptions and experiences of practicing dialogic teaching in generative AI-powered virtual reality simulation。关联实训主题：表达不确定性·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.tate.2025.105349",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-38",
+    "category": "tutor",
+    "label": "表达不确定性·改写",
+    "dimension": "judgment",
+    "application": "说明当前知道什么、还需要核实什么以及由谁核实。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["不确定", "诊断", "核实"],
+    "reference": {
+      "id": "kb-tutor-38",
+      "title": "Effects of elicited reflections combined with tutor or peer feedback on self-regulated learning and learning outcomes",
+      "authors": ["Gerard van den Boom", "Fred Paas", "Jeroen J.G. van Merriënboer"],
+      "year": 2007,
+      "url": "https://doi.org/10.1016/j.learninstruc.2007.09.003",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2007.09.003",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Effects of elicited reflections combined with tutor or peer feedback on self-regulated learning and learning outcomes。关联实训主题：表达不确定性·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2007.09.003",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-39",
+    "category": "tutor",
+    "label": "表达不确定性·练习",
+    "dimension": "judgment",
+    "application": "说明当前知道什么、还需要核实什么以及由谁核实。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["不确定", "诊断", "核实"],
+    "reference": {
+      "id": "kb-tutor-39",
+      "title": "Feedback providing improvement strategies and reflection on feedback use: Effects on students’ writing motivation, process, and performance",
+      "authors": ["Hendrien Duijnhouwer", "Frans J. Prins", "Karel M. Stokking"],
+      "year": 2012,
+      "url": "https://doi.org/10.1016/j.learninstruc.2011.10.003",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2011.10.003",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Feedback providing improvement strategies and reflection on feedback use: Effects on students’ writing motivation, process, and performance。关联实训主题：表达不确定性·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2011.10.003",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-40",
+    "category": "tutor",
+    "label": "表达不确定性·反思",
+    "dimension": "judgment",
+    "application": "说明当前知道什么、还需要核实什么以及由谁核实。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["不确定", "诊断", "核实"],
+    "reference": {
+      "id": "kb-tutor-40",
+      "title": "Development of an Inquiry Stance? Perceptions of Preservice Teachers and Teacher Educators Toward Preservice Teacher Inquiry in Dutch Primary Teacher Education",
+      "authors": ["Lidewij van Katwijk", "Ellen Jansen", "Klaas van Veen"],
+      "year": 2021,
+      "url": "https://doi.org/10.1177/00224871211013750",
+      "venue": "Journal of Teacher Education",
+      "doi": "10.1177/00224871211013750",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Development of an Inquiry Stance? Perceptions of Preservice Teachers and Teacher Educators Toward Preservice Teacher Inquiry in Dutch Primary Teacher Education。关联实训主题：表达不确定性·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1177/00224871211013750",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-41",
+    "category": "tutor",
+    "label": "照顾资源差异·识别",
+    "dimension": "coordination",
+    "application": "询问陪护、设备和联系时段，和家长协商可行方案。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["资源", "设备", "陪护"],
+    "reference": {
+      "id": "kb-tutor-41",
+      "title": "Automated essay evaluation software in English Language Arts classrooms: Effects on teacher feedback, student motivation, and writing quality",
+      "authors": ["Joshua Wilson", "Amanda Czik"],
+      "year": 2016,
+      "url": "https://doi.org/10.1016/j.compedu.2016.05.004",
+      "venue": "Computers & Education",
+      "doi": "10.1016/j.compedu.2016.05.004",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Automated essay evaluation software in English Language Arts classrooms: Effects on teacher feedback, student motivation, and writing quality。关联实训主题：照顾资源差异·识别。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.compedu.2016.05.004",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-42",
+    "category": "tutor",
+    "label": "照顾资源差异·追问",
+    "dimension": "coordination",
+    "application": "询问陪护、设备和联系时段，和家长协商可行方案。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["资源", "设备", "陪护"],
+    "reference": {
+      "id": "kb-tutor-42",
+      "title": "Self-fulfilling prophecies in the classroom: Teacher expectations, teacher feedback and student achievement",
+      "authors": ["Sarah Gentrup", "Georg Lorenz", "Cornelia Kristen", "Irena Kogan"],
+      "year": 2020,
+      "url": "https://doi.org/10.1016/j.learninstruc.2019.101296",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2019.101296",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Self-fulfilling prophecies in the classroom: Teacher expectations, teacher feedback and student achievement。关联实训主题：照顾资源差异·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2019.101296",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-43",
+    "category": "tutor",
+    "label": "照顾资源差异·改写",
+    "dimension": "coordination",
+    "application": "询问陪护、设备和联系时段，和家长协商可行方案。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["资源", "设备", "陪护"],
+    "reference": {
+      "id": "kb-tutor-43",
+      "title": "Closing the feedback Loop: Reflections on practical educational implications and future research",
+      "authors": ["E. Caroline Wylie"],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.learninstruc.2023.101801",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2023.101801",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Closing the feedback Loop: Reflections on practical educational implications and future research。关联实训主题：照顾资源差异·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2023.101801",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-44",
+    "category": "tutor",
+    "label": "照顾资源差异·练习",
+    "dimension": "coordination",
+    "application": "询问陪护、设备和联系时段，和家长协商可行方案。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["资源", "设备", "陪护"],
+    "reference": {
+      "id": "kb-tutor-44",
+      "title": "Putting learners at the heart of the feedback process: Reflections on the special issue",
+      "authors": ["Dylan Wiliam"],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.learninstruc.2023.101785",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2023.101785",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Putting learners at the heart of the feedback process: Reflections on the special issue。关联实训主题：照顾资源差异·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2023.101785",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-45",
+    "category": "tutor",
+    "label": "照顾资源差异·反思",
+    "dimension": "coordination",
+    "application": "询问陪护、设备和联系时段，和家长协商可行方案。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["资源", "设备", "陪护"],
+    "reference": {
+      "id": "kb-tutor-45",
+      "title": "Feedback and Self-Regulated Learning: A Theoretical Synthesis",
+      "authors": ["Deborah L. Butler", "Philip H. Winne"],
+      "year": 1995,
+      "url": "https://doi.org/10.3102/00346543065003245",
+      "venue": "Review of Educational Research",
+      "doi": "10.3102/00346543065003245",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Feedback and Self-Regulated Learning: A Theoretical Synthesis。关联实训主题：照顾资源差异·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.3102/00346543065003245",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-46",
+    "category": "tutor",
+    "label": "闭环回访·识别",
+    "dimension": "responsibility",
+    "application": "复述共同约定，留下联系人和回访时间。 指出需要关注的具体措辞，并保留原消息证据。",
+    "tags": ["回访", "责任", "约定"],
+    "reference": {
+      "id": "kb-tutor-46",
+      "title": "Effects of Feedback in a Computer-Based Learning Environment on Students’ Learning Outcomes",
+      "authors": ["Fabienne M. Van der Kleij", "Remco C. W. Feskens", "Theo J. H. M. Eggen"],
+      "year": 2015,
+      "url": "https://doi.org/10.3102/0034654314564881",
+      "venue": "Review of Educational Research",
+      "doi": "10.3102/0034654314564881",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Effects of Feedback in a Computer-Based Learning Environment on Students’ Learning Outcomes。关联实训主题：闭环回访·识别。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.3102/0034654314564881",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-47",
+    "category": "tutor",
+    "label": "闭环回访·追问",
+    "dimension": "responsibility",
+    "application": "复述共同约定，留下联系人和回访时间。 围绕这一点提出一个可以继续沟通的问题。",
+    "tags": ["回访", "责任", "约定"],
+    "reference": {
+      "id": "kb-tutor-47",
+      "title": "Effects of teaching concept mapping using practice, feedback, and relational framing",
+      "authors": ["Kevin M. Roessger", "Barbara J. Daley", "Duaa A. Hafez"],
+      "year": 2018,
+      "url": "https://doi.org/10.1016/j.learninstruc.2018.01.011",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2018.01.011",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Effects of teaching concept mapping using practice, feedback, and relational framing。关联实训主题：闭环回访·追问。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2018.01.011",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-48",
+    "category": "tutor",
+    "label": "闭环回访·改写",
+    "dimension": "responsibility",
+    "application": "复述共同约定，留下联系人和回访时间。 给出一句可参考的说法，结合对方实际答复调整。",
+    "tags": ["回访", "责任", "约定"],
+    "reference": {
+      "id": "kb-tutor-48",
+      "title": "Teacher feedback, disciplinary climate, student self-concept, and reading achievement:A multilevel moderated mediation model",
+      "authors": ["Lihong Ma", "Leifeng Xiao", "Kit-Tai Hau"],
+      "year": 2022,
+      "url": "https://doi.org/10.1016/j.learninstruc.2022.101602",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2022.101602",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Teacher feedback, disciplinary climate, student self-concept, and reading achievement:A multilevel moderated mediation model。关联实训主题：闭环回访·改写。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2022.101602",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-49",
+    "category": "tutor",
+    "label": "闭环回访·练习",
+    "dimension": "responsibility",
+    "application": "复述共同约定，留下联系人和回访时间。 邀请学员补充下一步行动，再观察角色反应。",
+    "tags": ["回访", "责任", "约定"],
+    "reference": {
+      "id": "kb-tutor-49",
+      "title": "Growth mindset mediates perceptions of teachers' and parents' process feedback in digital reading performance: Evidence from 32 OECD countries",
+      "authors": ["Jie Hu", "Yiwei Zhang"],
+      "year": 2024,
+      "url": "https://doi.org/10.1016/j.learninstruc.2024.101874",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2024.101874",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Growth mindset mediates perceptions of teachers' and parents' process feedback in digital reading performance: Evidence from 32 OECD countries。关联实训主题：闭环回访·练习。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2024.101874",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-tutor-50",
+    "category": "tutor",
+    "label": "闭环回访·反思",
+    "dimension": "responsibility",
+    "application": "复述共同约定，留下联系人和回访时间。 回看修改前后措辞，记录仍待核实的信息。",
+    "tags": ["回访", "责任", "约定"],
+    "reference": {
+      "id": "kb-tutor-50",
+      "title": "Rich data, poor information? Teachers’ perceptions of mean differences in graphical feedback from statewide tests",
+      "authors": ["Samuel Merk", "Jana Groß Ophoff", "Augustin Kelava"],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.learninstruc.2022.101717",
+      "venue": "Learning and Instruction",
+      "doi": "10.1016/j.learninstruc.2022.101717",
+      "topics": ["simulation", "teacher-wellbeing"],
+      "summary": "研究主题索引：Rich data, poor information? Teachers’ perceptions of mean differences in graphical feedback from statewide tests。关联实训主题：闭环回访·反思。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.learninstruc.2022.101717",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  }
+]

@@ -12,6 +12,8 @@ import { NextResponse } from 'next/server';
 
 import { getTrainingAccount } from '@/lib/training/accounts';
 import { withTrainingOwner } from '@/lib/training/with-training-owner';
+import { accountAccess } from '@/lib/server/accounts/database';
+import { getAdminAccess } from '@/lib/server/accounts/admin-access';
 
 export const runtime = 'nodejs';
 
@@ -23,13 +25,21 @@ export async function GET(req: NextRequest) {
       const account = await getTrainingAccount(principal.ownerId);
       displayName = account?.displayName ?? null;
     }
-    return NextResponse.json({
-      success: true,
-      authenticated,
-      ownerId: principal.ownerId,
-      kind: principal.kind,
-      roles: [...principal.roles],
-      displayName,
-    });
+    const access = authenticated ? await accountAccess(principal.ownerId) : null;
+    return NextResponse.json(
+      {
+        success: true,
+        authenticated,
+        ownerId: principal.ownerId,
+        kind: principal.kind,
+        roles: [...principal.roles],
+        displayName,
+        email: access?.email ?? null,
+        emailVerified: Boolean(access?.verified_at),
+        passwordConfigured: Boolean(access?.password_configured),
+        adminAccess: await getAdminAccess(principal),
+      },
+      { headers: { 'Cache-Control': 'no-store' } },
+    );
   });
 }

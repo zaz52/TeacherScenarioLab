@@ -12,7 +12,7 @@ for (const method of ['click', 'Enter', 'Space']) {
       providers: { openai: ['gpt-4o', 'gpt-4o-mini'], anthropic: ['claude-sonnet-4-6'] },
       llm: 'openai:gpt-4o',
     });
-    await page.goto('/');
+    await page.goto('/courseware');
     const picker = page.locator('button[aria-label*=" / "]').first();
     await expect(picker).toBeVisible();
     for (let i = 0; i < 10; i++) {
@@ -41,7 +41,7 @@ test('provider switch and repeated dismissal remain usable', async ({ page, mock
     providers: { openai: ['gpt-4o'], anthropic: ['claude-sonnet-4-6'] },
     llm: 'openai:gpt-4o',
   });
-  await page.goto('/');
+  await page.goto('/courseware');
   const picker = page.locator('button[aria-label*=" / "]').first();
   await picker.click();
   let dialog = page.getByRole('dialog');
@@ -67,7 +67,7 @@ test('outside click closes and keyboard dismissal restores trigger focus', async
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await mockApi.mockModelSettings({ providers: { openai: ['gpt-4o'] }, llm: 'openai:gpt-4o' });
-  await page.goto('/');
+  await page.goto('/courseware');
   const picker = page.locator('button[aria-label*=" / "]').first();
   await picker.click();
   const dialog = page.getByRole('dialog');

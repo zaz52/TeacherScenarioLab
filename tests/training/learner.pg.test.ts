@@ -31,9 +31,7 @@ function scenario(overrides: Partial<ScenarioVersionRecord> = {}): ScenarioVersi
     rules: ['rule'],
     learnerRole: '小学教师',
     characters: [{ id: 'parent-1', name: '家长', role: 'parent' }],
-    facts: [
-      { id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' },
-    ],
+    facts: [{ id: 'fact-1', content: 'public fact', category: 'policy', visibility: 'public' }],
     disclosureConditions: {},
     publishedAt: null,
     ...overrides,
@@ -117,9 +115,9 @@ describePg('learner hall, events and records (PostgreSQL contract)', () => {
     const all = await listOwnEvents('acct:learner');
     expect(all.map((event) => event.createdAt)).toEqual([1003, 1002, 1001]);
     expect(all[0]?.scenarioId).toBe('s');
-    expect((await listOwnEvents('acct:learner', { trainingId: first.id })).map((e) => e.type)).toEqual([
-      'training-started',
-    ]);
+    expect(
+      (await listOwnEvents('acct:learner', { trainingId: first.id })).map((e) => e.type),
+    ).toEqual(['training-started']);
     expect(
       (await listOwnEvents('acct:learner', { type: 'user-message' })).map((e) => e.trainingId),
     ).toEqual([second.id]);

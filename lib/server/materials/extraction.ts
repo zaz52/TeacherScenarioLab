@@ -49,7 +49,6 @@ import {
   type OwnerMaterialTruncation,
 } from '@/lib/persistence/owner-materials';
 import { getServerPersistenceProvider } from '@/lib/persistence/server-provider';
-import { ClassroomMaterialsUnavailableError } from '@/lib/server/classroom-materials';
 import { agentRuntimeConfig } from '@/lib/server/agent-runtime/config';
 import {
   classifyHostFailure,
@@ -57,12 +56,9 @@ import {
 } from '@/lib/server/generation-run-hooks/runtime';
 import { STEP_DEADLINES_MS } from '@/lib/server/generation/run/deadline';
 import { StepRefusal } from '@/lib/server/generation/steps/context';
-import { analyzeMaterial } from '@/lib/server/generation/steps/material-analysis';
+import type { analyzeMaterial } from '@/lib/server/generation/steps/material-analysis';
 import { isTransientExtractionError } from '@/lib/server/material-extraction/errors';
-import {
-  resolveExtractionServices,
-  type ExtractionServices,
-} from '@/lib/server/material-extraction/services';
+import type { ExtractionServices } from '@/lib/server/material-extraction/services';
 import { backgroundWorkspaceId } from '@/lib/server/model-config/runtime';
 import type { ParsedPdfContent } from '@/lib/types/pdf';
 
@@ -140,6 +136,7 @@ export function bundleTruncation(
 
 /** The extraction services a material's extraction runs with, for its owner. */
 async function ownerExtractionServices(ownerId: string): Promise<ExtractionServices> {
+  const { resolveExtractionServices } = await import('@/lib/server/material-extraction/services');
   return resolveExtractionServices(await backgroundWorkspaceId(ownerId));
 }
 
@@ -424,7 +421,10 @@ export async function extractOwnerMaterial(
   let result: MaterialExtractionResult;
   let imagesSkipped: number;
   try {
-    parsed = await (dependencies.analyze ?? analyzeMaterial)(
+    const analyze =
+      dependencies.analyze ??
+      (await import('@/lib/server/generation/steps/material-analysis')).analyzeMaterial;
+    parsed = await analyze(
       {
         source: {
           fileName,
@@ -904,6 +904,7 @@ export async function awaitOwnerMaterialExtractions(
     });
     const found = await getReadyOwnerMaterials(pool, owner, ids);
     const byId = new Map(found.map((record) => [record.id, record]));
+    const { ClassroomMaterialsUnavailableError } = await import('@/lib/server/classroom-materials');
     current = ids.map((id) => {
       const record = byId.get(id);
       // Deleted while the run waited on it.

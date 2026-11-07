@@ -1,0 +1,67 @@
+.teacherlab-guide-entry {
+  position: fixed;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  left: 18px;
+  z-index: 35;
+  max-width: calc(100vw - 36px);
+}
+.teacherlab-guide-welcome {
+  width: 310px;
+  max-width: 100%;
+  padding: 18px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--background);
+  box-shadow: 0 8px 36px #00000012;
+}
+.teacherlab-guide-welcome strong {
+  font-size: 15px;
+}
+.teacherlab-guide-welcome p {
+  margin: 8px 0 14px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.teacherlab-guide-welcome > div {
+  display: flex;
+  gap: 8px;
+}
+.teacherlab-guide-panel[data-slot='dialog-content'] {
+  top: auto;
+  left: auto;
+  right: 20px;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  width: 390px;
+  max-width: calc(100vw - 32px);
+  max-height: 80dvh;
+  overflow-y: auto;
+  transform: none;
+  translate: none;
+  gap: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 45px #00000026;
+}
+.teacherlab-guide-highlight {
+  outline: 3px solid var(--primary) !important;
+  outline-offset: 5px;
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary) 12%, transparent) !important;
+  scroll-margin-block: 80px;
+}
+.teacherlab-guide-panel[data-slot='dialog-content'][data-placement='top'] {
+  top: max(20px, env(safe-area-inset-top));
+  bottom: auto;
+}
+@media (max-width: 640px) {
+  .teacherlab-guide-panel[data-slot='dialog-content'] {
+    right: 16px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    max-height: 55dvh;
+    padding: 18px;
+  }
+  .teacherlab-guide-entry {
+    left: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}

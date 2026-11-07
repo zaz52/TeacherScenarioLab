@@ -46,6 +46,8 @@ import {
   verifySavedModel,
 } from './server-settings';
 import { cn } from '@/lib/utils';
+import { SiteProviderEditor } from './site-provider-editor';
+import { useAccount } from '@/components/account/account-provider';
 
 /**
  * A language model service: its key (write-only), its endpoint where the
@@ -54,6 +56,7 @@ import { cn } from '@/lib/utils';
  */
 export function ProviderConfigPanel({ view, apply, entry }: ServicePanelProps) {
   const { t } = useI18n();
+  const { account } = useAccount();
   const registry = PROVIDERS[entry.registryId as ProviderId];
   const provider = entry.provider;
   const signupLinks = PROVIDER_SIGNUP_LINKS[entry.id];
@@ -166,7 +169,12 @@ export function ProviderConfigPanel({ view, apply, entry }: ServicePanelProps) {
   return (
     <div className="space-y-6 max-w-3xl">
       {/* Server-configured notice */}
-      {serverConfigured && <ServerConfiguredNotice view={view} capability="chat" />}
+      {serverConfigured &&
+        (account?.adminAccess?.isOwner ? (
+          <SiteProviderEditor key={entry.id} providerId={entry.id} />
+        ) : (
+          <ServerConfiguredNotice view={view} capability="chat" />
+        ))}
       {entry.state === 'server-only' && <ServerOnlyNotice noUserKeys={!view.allowUserKeys} />}
 
       {/* The server's providers are the operator's: their key and endpoint

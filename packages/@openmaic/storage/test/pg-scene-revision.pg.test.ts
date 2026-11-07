@@ -56,7 +56,7 @@ function makeDoc(stageId: string, scenes: { id: string; order: number }[]): Maic
 }
 
 /** The manifest row for one scene, straight from the companion table. */
-async function sceneRev(pool: Pool, stageId: string, sceneId: string): Promise<number> {
+async function sceneRev(pool: Queryable, stageId: string, sceneId: string): Promise<number> {
   const result = await pool.query<{ rev: number | string }>(
     'SELECT rev FROM document_scene_revision WHERE stage_id = $1 AND scene_id = $2',
     [stageId, sceneId],
@@ -64,7 +64,7 @@ async function sceneRev(pool: Pool, stageId: string, sceneId: string): Promise<n
   return result.rows[0] === undefined ? 0 : Number(result.rows[0].rev);
 }
 
-async function stageRev(pool: Pool, stageId: string): Promise<number> {
+async function stageRev(pool: Queryable, stageId: string): Promise<number> {
   const result = await pool.query<{ rev: number | string }>(
     'SELECT rev FROM document_stage_revision WHERE stage_id = $1',
     [stageId],
@@ -261,19 +261,32 @@ describe.skipIf(!contractUrl)('per-scene monotonic revisions (freshness)', () =>
     await ownerStore.saveDocument(makeDoc(stageId, [{ id: 's1', order: 1 }]));
     expect(await sceneRev(pool, stageId, 's1')).toBe(1);
 
-    await pool.query('DROP TRIGGER IF EXISTS openmaic_scene_revision_trigger ON document_scenes');
-    await pool.query('DROP TRIGGER IF EXISTS openmaic_stage_revision_trigger ON document_stages');
+    const client = await pool.connect();
     try {
-      await pool.query(
+      await client.query('BEGIN');
+      await client.query(
+        'DROP TRIGGER IF EXISTS openmaic_scene_revision_trigger ON document_scenes',
+      );
+      await client.query(
+        'DROP TRIGGER IF EXISTS openmaic_stage_revision_trigger ON document_stages',
+      );
+      await client.query(
         'UPDATE document_scenes SET scene_order = $3 WHERE stage_id = $1 AND id = $2',
         [stageId, 's1', 5],
       );
-      expect(await sceneRev(pool, stageId, 's1')).toBe(1);
-      expect(await stageRev(pool, stageId)).toBe(2);
+      expect(await sceneRev(client, stageId, 's1')).toBe(1);
+      expect(await stageRev(client, stageId)).toBe(2);
     } finally {
-      // Restore the triggers so the next test starts from the provisioned
-      // schema; ensureDocumentSchema is idempotent.
-      await ensureDocumentSchema(pool as Queryable);
+      // A completed migration is not replayed by ensureDocumentSchema.
+      // PostgreSQL rolls back both DDL and writes on this connection.
+      try {
+        await client.query('ROLLBACK');
+      } finally {
+        client.release();
+      }
     }
+    expect(await sceneRev(pool, stageId, 's1')).toBe(1);
+    await pool.query('UPDATE document_scenes SET scene_order = 6 WHERE stage_id = $1', [stageId]);
+    expect(await sceneRev(pool, stageId, 's1')).toBe(2);
   });
 });

@@ -32,12 +32,7 @@ export type DisclosureCondition =
   | { type: 'eventOccurred'; event: string }
   | { type: 'stateReached'; state: TrainingState };
 
-export type TrainingCharacterRole =
-  | 'student'
-  | 'parent'
-  | 'teacher'
-  | 'principal'
-  | 'other';
+export type TrainingCharacterRole = 'student' | 'parent' | 'teacher' | 'principal' | 'other';
 
 export interface ScenarioCharacterConfig {
   id: string;
@@ -75,9 +70,7 @@ export function isPublishedScenario(version: ScenarioVersion): boolean {
  * own shape is corruption, and callers must fail loudly (500), never
  * silently coerce it.
  */
-export function toScenarioVersion(
-  record: ScenarioVersionRecord,
-): ScenarioVersion | null {
+export function toScenarioVersion(record: ScenarioVersionRecord): ScenarioVersion | null {
   const disclosureConditions: Record<string, DisclosureCondition> = {};
   for (const [id, condition] of Object.entries(record.disclosureConditions)) {
     if (condition.type === 'stateReached') {
@@ -133,9 +126,7 @@ export function validateScenarioVersion(version: ScenarioVersion): string[] {
       if (!fact.ownerCharacterId) {
         problems.push(`private fact ${fact.id} has no ownerCharacterId`);
       } else if (!characterIds.has(fact.ownerCharacterId)) {
-        problems.push(
-          `private fact ${fact.id} owner ${fact.ownerCharacterId} is not a character`,
-        );
+        problems.push(`private fact ${fact.id} owner ${fact.ownerCharacterId} is not a character`);
       }
     }
     if (fact.visibility === 'hidden') {

@@ -1,0 +1,35 @@
+name: teacher-scenario-lab
+
+services:
+  openmaic:
+    image: ${TEACHERLAB_IMAGE:?Set the verified VPS image tag}
+    env_file:
+      - .env.production.local
+    environment:
+      OWNER_SINGLE_USER: 'false'
+      HOSTNAME: 0.0.0.0
+      PORT: '3000'
+      NODE_OPTIONS: --max-old-space-size=384
+    ports:
+      - '127.0.0.1:3000:3000'
+    volumes:
+      - ./data:/app/data
+    init: true
+    mem_limit: 640m
+    memswap_limit: 1536m
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'

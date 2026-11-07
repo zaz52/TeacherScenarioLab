@@ -1,0 +1,221 @@
+.teacherlab-auth {
+  width: 100%;
+  min-width: 0;
+  max-width: 440px;
+}
+.teacherlab-auth * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+.teacherlab-auth .auth-tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 26px;
+}
+.teacherlab-auth .auth-tabs a {
+  display: block;
+  padding: 10px 0;
+  color: var(--muted-foreground);
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.teacherlab-auth .auth-tabs a[aria-current='page'] {
+  color: var(--foreground);
+  font-weight: 600;
+  border-color: var(--primary);
+}
+.teacherlab-auth h2 {
+  font-size: 24px;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+.teacherlab-auth .auth-intro {
+  margin: 10px 0 24px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.teacherlab-auth .auth-form {
+  display: grid;
+  gap: 18px;
+}
+.teacherlab-auth label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+.teacherlab-auth input {
+  width: 100%;
+  max-width: 100%;
+  min-height: 46px;
+  margin-top: 7px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--background);
+  padding: 10px 12px;
+  font-size: 15px;
+  color: var(--foreground);
+}
+.teacherlab-auth small {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 400;
+}
+.teacherlab-auth button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 9px 12px;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 13px;
+}
+.teacherlab-auth button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.teacherlab-auth .auth-code-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.teacherlab-auth .auth-code-row button {
+  flex: none;
+  margin-top: 7px;
+}
+.teacherlab-auth .auth-password {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.teacherlab-auth .auth-password input {
+  padding-right: 48px;
+}
+.teacherlab-auth .auth-password button {
+  position: absolute;
+  right: 3px;
+  top: 9px;
+  border: 0;
+  padding: 8px;
+  min-height: 40px;
+  width: 40px;
+  background: transparent;
+}
+.teacherlab-auth .auth-submit {
+  width: 100%;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+  font-weight: 500;
+  min-height: 46px;
+}
+.teacherlab-auth .auth-other {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+.teacherlab-auth .auth-other button,
+.teacherlab-auth .auth-back {
+  border: 0;
+  background: transparent;
+  color: var(--muted-foreground);
+  padding: 6px 0;
+}
+.teacherlab-auth .auth-notice {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+.teacherlab-auth :is(input, button, a):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.teacherlab-auth-page {
+  min-height: 100dvh;
+  background: var(--background);
+  color: var(--foreground);
+  padding: 24px;
+}
+.teacherlab-auth-page .auth-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1160px;
+  margin: 0 auto;
+  font-size: 14px;
+}
+.teacherlab-auth-page .auth-page-header a {
+  text-decoration: none;
+}
+.teacherlab-auth-page .auth-page-layout {
+  max-width: 1100px;
+  margin: 70px auto 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
+  align-items: start;
+  gap: 90px;
+}
+.teacherlab-auth-page .auth-story {
+  padding-top: 65px;
+}
+.teacherlab-auth-page .auth-story h1 {
+  font-size: 34px;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+  max-width: 14ch;
+}
+.teacherlab-auth-page .auth-story p {
+  max-width: 42ch;
+  margin-top: 22px;
+  line-height: 1.9;
+  font-size: 15px;
+  color: var(--muted-foreground);
+}
+.teacherlab-auth-page .auth-story small {
+  display: block;
+  margin-top: 32px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+  .teacherlab-auth-page {
+    padding: 20px;
+  }
+  .teacherlab-auth-page .auth-page-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin: 35px auto;
+    max-width: 440px;
+  }
+  .teacherlab-auth-page .auth-story {
+    padding: 0;
+  }
+  .teacherlab-auth-page .auth-story h1 {
+    font-size: 24px;
+    max-width: none;
+  }
+  .teacherlab-auth-page .auth-story p,
+  .teacherlab-auth-page .auth-story small {
+    display: none;
+  }
+  .teacherlab-auth input {
+    font-size: 16px;
+  }
+}

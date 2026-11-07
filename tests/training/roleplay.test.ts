@@ -33,7 +33,7 @@ describe('buildCharacterPrompt information boundary', () => {
   test('excludes other characters’ private facts and hidden facts', () => {
     expect(system).not.toContain('小雨今早有点咳嗽');
     expect(system).not.toContain('隔壁班也有 2 名学生请假');
-    expect(system).not.toContain('校医已把请假登记情况报给学校负责人');
+    expect(system).not.toContain('校医兼任学校疫情报告人');
     expect(system).not.toContain('学校瞒报');
     expect(system).not.toContain('去过外地');
   });
@@ -115,9 +115,7 @@ describe('getCharacterPack', () => {
     expect(getCharacterPack('epi-class-fever', 'student-1')?.characterId).toBe('student-1');
     expect(getCharacterPack('epi-class-fever', 'teacher-1')?.characterId).toBe('teacher-1');
     expect(getCharacterPack('epi-class-fever', 'doctor-1')?.characterId).toBe('doctor-1');
-    expect(getCharacterPack('epi-class-fever', 'principal-1')?.characterId).toBe(
-      'principal-1',
-    );
+    expect(getCharacterPack('epi-class-fever', 'principal-1')?.characterId).toBe('principal-1');
     expect(getCharacterPack('epi-class-fever', 'no-such-character')).toBeUndefined();
     expect(getCharacterPack('no-such-scenario', 'parent-1')).toBeUndefined();
   });

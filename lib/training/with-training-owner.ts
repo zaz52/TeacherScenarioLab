@@ -16,28 +16,12 @@
  * ignore it behave exactly as they did under `withRequestOwner`.
  */
 import { modelAuthorizationResponse } from '@/lib/server/api-response';
-import { readAnonymousOwnerId } from '@/lib/server/identity/anonymous-cookie';
+import { withAnonymousClaimCandidate } from '@/lib/server/identity';
 import { resolveResponseSetCookies } from '@/lib/server/identity/set-cookie';
 import type { OwnerAuthRequest, OwnerPrincipal } from '@/lib/server/identity/types';
-import {
-  invalidOwnerCredentialResponse,
-  withRequestOwner,
-} from '@/lib/server/identity/with-owner';
+import { invalidOwnerCredentialResponse, withRequestOwner } from '@/lib/server/identity/with-owner';
 
-import {
-  clearTrainingSessionCookieHeader,
-  trainingSessionAuthMethod,
-} from './session-auth';
-
-function attachPendingClaim(
-  principal: OwnerPrincipal,
-  req: OwnerAuthRequest,
-): OwnerPrincipal {
-  if (principal.kind === 'anonymous') return principal;
-  const fromOwnerId = readAnonymousOwnerId(req.headers);
-  if (fromOwnerId === undefined || fromOwnerId === principal.ownerId) return principal;
-  return { ...principal, pendingClaim: { fromOwnerId, assurance: 'unverified-legacy' } };
-}
+import { clearTrainingSessionCookieHeader, trainingSessionAuthMethod } from './session-auth';
 
 export async function withTrainingOwner(
   req: OwnerAuthRequest,
@@ -59,9 +43,19 @@ export async function withTrainingOwner(
     return response;
   }
   if (result.status !== 'authenticated') {
-    return withRequestOwner(req, handler);
+    return withRequestOwner(req, async (principal, headers) => {
+      const path = req.url ? new URL(req.url, 'http://localhost').pathname : '';
+      const publicRead =
+        path === '/api/training/accounts/me' ||
+        path === '/api/auth/session' ||
+        path.startsWith('/api/training/scenarios') ||
+        path.startsWith('/api/training/references');
+      if (principal.kind === 'anonymous' && !publicRead)
+        return Response.json({ success: false, error: 'LOGIN_REQUIRED' }, { status: 401, headers });
+      return handler(principal, headers);
+    });
   }
-  const principal = attachPendingClaim(result.principal, req);
+  const principal = withAnonymousClaimCandidate(result.principal, req.headers);
   const responseHeaders = new Headers();
   try {
     return resolveResponseSetCookies(await handler(principal, responseHeaders));

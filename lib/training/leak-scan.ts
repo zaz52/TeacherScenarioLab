@@ -11,6 +11,9 @@
  * — enough to catch near-verbatim repeats without flagging single shared
  * words. Paraphrase beyond segments can still slip through; the scan is a
  * deterministic net, not a semantic guarantee.
+ * A caller may supply the server-owned public, own-private and disclosed set
+ * to disambiguate policy text duplicated across facts. User messages never
+ * grant knowledge. Other segments and full unknown statements remain checked.
  *
  * Normalization strips whitespace and punctuation so spacing or punctuation
  * differences cannot dodge the check.
@@ -38,17 +41,24 @@ function factSegments(fact: TrainingFact): string[] {
 export function scanReplyForLeaks(
   replyText: string,
   forbiddenFacts: TrainingFact[],
+  knownFacts: readonly TrainingFact[] = [],
 ): string[] {
   const normalized = normalizeForScan(replyText);
   if (!normalized) return [];
+  // Known facts must come from the server's public/own/disclosed set. A shared
+  // policy phrase already supplied to this speaker is not a newly leaked fact.
+  const known = knownFacts.map((fact) => normalizeForScan(fact.content));
+  const alreadyKnown = (text: string) => known.some((content) => content.includes(text));
   const leaked: string[] = [];
   for (const fact of forbiddenFacts) {
     const full = normalizeForScan(fact.content);
-    if (full && normalized.includes(full)) {
+    if (full && normalized.includes(full) && !alreadyKnown(full)) {
       leaked.push(fact.id);
       continue;
     }
-    if (factSegments(fact).some((segment) => normalized.includes(segment))) {
+    if (
+      factSegments(fact).some((segment) => normalized.includes(segment) && !alreadyKnown(segment))
+    ) {
       leaked.push(fact.id);
     }
   }

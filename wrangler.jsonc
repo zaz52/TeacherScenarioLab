@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "teacher-scenario-lab",
+  "main": "cloudflare-worker.mjs",
+  "minify": true,
+  "upload_source_maps": false,
+  "compatibility_date": "2026-10-30",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": true,
+  "routes": [{ "pattern": "teacherlab.weiyiai.top", "custom_domain": true }],
+  "durable_objects": {
+    "bindings": [{ "name": "APPLICATION_HOST", "class_name": "TeacherLabHost" }],
+  },
+  "migrations": [{ "tag": "teacherlab-host-v1", "new_sqlite_classes": ["TeacherLabHost"] }],
+  "images": {
+    "binding": "IMAGES",
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
+  "services": [
+    { "binding": "TRAINING_API", "service": "teacher-scenario-training-api" },
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "teacher-scenario-lab",
+    },
+  ],
+  "vars": {
+    "OWNER_SINGLE_USER": "false",
+    "NEXTJS_ENV": "production",
+  },
+}

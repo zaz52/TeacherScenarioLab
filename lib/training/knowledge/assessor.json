@@ -1,0 +1,1595 @@
+[
+  {
+    "id": "kb-assessor-01",
+    "category": "assessor",
+    "label": "情绪复述的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“情绪复述”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["情绪复述", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-01",
+      "title": "The Use of Exemplars and Formative Feedback when Using Student Derived Marking Criteria in Peer and Self-assessment",
+      "authors": ["Paul Orsmond", "Stephen Merry", "Kevin Reiling"],
+      "year": 2002,
+      "url": "https://doi.org/10.1080/0260293022000001337",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/0260293022000001337",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：The Use of Exemplars and Formative Feedback when Using Student Derived Marking Criteria in Peer and Self-assessment。关联实训主题：情绪复述的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0260293022000001337",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-02",
+    "category": "assessor",
+    "label": "清晰短句的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“清晰短句”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["清晰短句", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-02",
+      "title": "Formative self-and peer assessment for improved student learning: the crucial factors of design, teacher participation and feedback",
+      "authors": ["Thomas Wanner", "Edward Palmer"],
+      "year": 2018,
+      "url": "https://doi.org/10.1080/02602938.2018.1427698",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2018.1427698",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative self-and peer assessment for improved student learning: the crucial factors of design, teacher participation and feedback。关联实训主题：清晰短句的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2018.1427698",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-03",
+    "category": "assessor",
+    "label": "开放提问的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“开放提问”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["开放提问", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-03",
+      "title": "Exploring the role of assessment tasks to promote formative assessment in Key Stage 3 Geography: evidence from twelve teachers",
+      "authors": ["Yonca Tiknaz", "Alan Sutton"],
+      "year": 2006,
+      "url": "https://doi.org/10.1080/09695940601035502",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/09695940601035502",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Exploring the role of assessment tasks to promote formative assessment in Key Stage 3 Geography: evidence from twelve teachers。关联实训主题：开放提问的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/09695940601035502",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-04",
+    "category": "assessor",
+    "label": "倾听回应的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“倾听回应”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["倾听回应", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-04",
+      "title": "Formative Peer Assessment of Academic Writing Between Postgraduate Students",
+      "authors": ["K. J. Topping", "E. F. Smith", "I. Swanson", "A. Elliot"],
+      "year": 2000,
+      "url": "https://doi.org/10.1080/713611428",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/713611428",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative Peer Assessment of Academic Writing Between Postgraduate Students。关联实训主题：倾听回应的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/713611428",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-05",
+    "category": "assessor",
+    "label": "避免指责的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“避免指责”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["避免指责", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-05",
+      "title": "Student perspectives on formative peer assessment: an attempt to deepen learning?",
+      "authors": ["Philip Vickerman"],
+      "year": 2009,
+      "url": "https://doi.org/10.1080/02602930801955986",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602930801955986",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Student perspectives on formative peer assessment: an attempt to deepen learning?。关联实训主题：避免指责的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602930801955986",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-06",
+    "category": "assessor",
+    "label": "确认理解的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“确认理解”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["确认理解", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-06",
+      "title": "‘Finally studying for myself’ – examining student agency in summative and formative self-assessment models",
+      "authors": ["Juuso Henrik Nieminen", "Laura Tuohilampi"],
+      "year": 2020,
+      "url": "https://doi.org/10.1080/02602938.2020.1720595",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2020.1720595",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：‘Finally studying for myself’ – examining student agency in summative and formative self-assessment models。关联实训主题：确认理解的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2020.1720595",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-07",
+    "category": "assessor",
+    "label": "沟通节奏的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“沟通节奏”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["沟通节奏", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-07",
+      "title": "Teacher assessment literacy: a review of international standards and measures",
+      "authors": ["Christopher DeLuca", "Danielle LaPointe-McEwan", "Ulemu Luhanga"],
+      "year": 2015,
+      "url": "https://doi.org/10.1007/s11092-015-9233-6",
+      "venue": "Educational Assessment, Evaluation and Accountability",
+      "doi": "10.1007/s11092-015-9233-6",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Teacher assessment literacy: a review of international standards and measures。关联实训主题：沟通节奏的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1007/s11092-015-9233-6",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-08",
+    "category": "assessor",
+    "label": "回应核心担忧的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“回应核心担忧”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["回应核心担忧", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-08",
+      "title": "A systematic review on factors influencing teachers’ intentions and implementations regarding formative assessment",
+      "authors": ["Zi Yan", "Ziqi Li", "Ernesto Panadero", "Min Yang", "Lan Yang", "Hongling Lao"],
+      "year": 2021,
+      "url": "https://doi.org/10.1080/0969594x.2021.1884042",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2021.1884042",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：A systematic review on factors influencing teachers’ intentions and implementations regarding formative assessment。关联实训主题：回应核心担忧的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2021.1884042",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-09",
+    "category": "assessor",
+    "label": "语气尊重的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“语气尊重”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["语气尊重", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-09",
+      "title": "Formative peer assessment to enhance primary school pupils’ oral skills: Comparison of written feedback without discussion or oral feedback during a discussion",
+      "authors": ["Stéphane Colognesi", "Caroline Vassart", "Benoit Blondeau", "Liesje Coertjens"],
+      "year": 2020,
+      "url": "https://doi.org/10.1016/j.stueduc.2020.100917",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2020.100917",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative peer assessment to enhance primary school pupils’ oral skills: Comparison of written feedback without discussion or oral feedback during a discussion。关联实训主题：语气尊重的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2020.100917",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-10",
+    "category": "assessor",
+    "label": "共同目标的证据核对",
+    "dimension": "communication",
+    "application": "在教师消息中定位与“共同目标”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["共同目标", "communication", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-10",
+      "title": "Beyond the grade: the planning, formative and summative (PFS) model of self-assessment for higher education",
+      "authors": ["Jessica Mannion"],
+      "year": 2021,
+      "url": "https://doi.org/10.1080/02602938.2021.1922874",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2021.1922874",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Beyond the grade: the planning, formative and summative (PFS) model of self-assessment for higher education。关联实训主题：共同目标的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2021.1922874",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-11",
+    "category": "assessor",
+    "label": "核对消息来源的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“核对消息来源”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["核对消息来源", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-11",
+      "title": "We agree on what we see: Teacher and student perceptions of formative assessment practice",
+      "authors": ["M.J. Veugen", "J.T.M. Gulikers", "P. den Brok"],
+      "year": 2021,
+      "url": "https://doi.org/10.1016/j.stueduc.2021.101027",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2021.101027",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：We agree on what we see: Teacher and student perceptions of formative assessment practice。关联实训主题：核对消息来源的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2021.101027",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-12",
+    "category": "assessor",
+    "label": "核对时间顺序的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“核对时间顺序”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["核对时间顺序", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-12",
+      "title": "Are teachers literate in formative assessment? The development and validation of the Teacher Formative Assessment Literacy Scale",
+      "authors": ["Zi Yan", "Serafina Pastore"],
+      "year": 2022,
+      "url": "https://doi.org/10.1016/j.stueduc.2022.101183",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2022.101183",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Are teachers literate in formative assessment? The development and validation of the Teacher Formative Assessment Literacy Scale。关联实训主题：核对时间顺序的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2022.101183",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-13",
+    "category": "assessor",
+    "label": "区分传言事实的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“区分传言事实”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["区分传言事实", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-13",
+      "title": "Reasons for teachers’ successful development of a formative assessment practice through professional development – a motivation perspective",
+      "authors": ["Catarina Andersson", "Torulf Palm"],
+      "year": 2018,
+      "url": "https://doi.org/10.1080/0969594x.2018.1430685",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2018.1430685",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Reasons for teachers’ successful development of a formative assessment practice through professional development – a motivation perspective。关联实训主题：区分传言事实的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2018.1430685",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-14",
+    "category": "assessor",
+    "label": "说明未知事项的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“说明未知事项”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["说明未知事项", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-14",
+      "title": "Aiming for autonomy: formative peer assessment in a final-year undergraduate course",
+      "authors": ["Brent Carnell"],
+      "year": 2015,
+      "url": "https://doi.org/10.1080/02602938.2015.1077196",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2015.1077196",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Aiming for autonomy: formative peer assessment in a final-year undergraduate course。关联实训主题：说明未知事项的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2015.1077196",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-15",
+    "category": "assessor",
+    "label": "核实症状信息的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“核实症状信息”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["核实症状信息", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-15",
+      "title": "Teacher inquiry into formative assessment practices in remedial reading classrooms",
+      "authors": ["Susan M. Brookhart", "Connie M. Moss", "Beverly A. Long"],
+      "year": 2010,
+      "url": "https://doi.org/10.1080/09695940903565545",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/09695940903565545",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Teacher inquiry into formative assessment practices in remedial reading classrooms。关联实训主题：核实症状信息的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/09695940903565545",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-16",
+    "category": "assessor",
+    "label": "询问就医情况的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“询问就医情况”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["询问就医情况", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-16",
+      "title": "Validity evidence for a formative writing engagement assessment in elementary grades",
+      "authors": [
+        "Paul M. Rogers",
+        "Jonathan M. Marine",
+        "Samantha T. Ives",
+        "Seth A. Parsons",
+        "Ashlee Horton",
+        "Chase Young"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1080/0969594x.2022.2054942",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2022.2054942",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Validity evidence for a formative writing engagement assessment in elementary grades。关联实训主题：询问就医情况的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2022.2054942",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-17",
+    "category": "assessor",
+    "label": "多方核实的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“多方核实”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["多方核实", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-17",
+      "title": "Prerequisites for teachers’ technology use in formative assessment practices: A systematic review",
+      "authors": [
+        "Kristin Børte",
+        "Sølvi Lillejord",
+        "Jessica Chan",
+        "Barbara Wasson",
+        "Samuel Greiff"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.edurev.2023.100568",
+      "venue": "Educational Research Review",
+      "doi": "10.1016/j.edurev.2023.100568",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Prerequisites for teachers’ technology use in formative assessment practices: A systematic review。关联实训主题：多方核实的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.edurev.2023.100568",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-18",
+    "category": "assessor",
+    "label": "记录核实进度的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“记录核实进度”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["记录核实进度", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-18",
+      "title": "Aligning formative and summative assessments: A collaborative action research challenging teacher conceptions",
+      "authors": [
+        "Judith T.M. Gulikers",
+        "Harm J.A. Biemans",
+        "Renate Wesselink",
+        "Marjan van der Wel"
+      ],
+      "year": 2013,
+      "url": "https://doi.org/10.1016/j.stueduc.2013.03.001",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2013.03.001",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Aligning formative and summative assessments: A collaborative action research challenging teacher conceptions。关联实训主题：记录核实进度的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2013.03.001",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-19",
+    "category": "assessor",
+    "label": "纠正过度推断的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“纠正过度推断”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["纠正过度推断", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-19",
+      "title": "Policy expectations and support for teacher formative assessment in Australian education reform",
+      "authors": ["Fabienne Michelle Van der Kleij", "Jacqueline Joy Cumming", "Anne Looney"],
+      "year": 2017,
+      "url": "https://doi.org/10.1080/0969594x.2017.1374924",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2017.1374924",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Policy expectations and support for teacher formative assessment in Australian education reform。关联实训主题：纠正过度推断的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2017.1374924",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-20",
+    "category": "assessor",
+    "label": "更新确认状态的证据核对",
+    "dimension": "fact-checking",
+    "application": "在教师消息中定位与“更新确认状态”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["更新确认状态", "fact-checking", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-20",
+      "title": "Investigating the dynamics of formative assessment: relationships between teacher knowledge, assessment practice and learning",
+      "authors": [
+        "Joan Herman",
+        "Ellen Osmundson",
+        "Yunyun Dai",
+        "Cathy Ringstaff",
+        "Michael Timms"
+      ],
+      "year": 2015,
+      "url": "https://doi.org/10.1080/0969594x.2015.1006521",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2015.1006521",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Investigating the dynamics of formative assessment: relationships between teacher knowledge, assessment practice and learning。关联实训主题：更新确认状态的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2015.1006521",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-21",
+    "category": "assessor",
+    "label": "说明职责边界的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“说明职责边界”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["说明职责边界", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-21",
+      "title": "The enactment of formative assessment in English language classrooms in two Chinese universities: teacher and student responses",
+      "authors": ["Qiuxian Chen", "Lyn May", "Val Klenowski", "Margaret Kettle"],
+      "year": 2013,
+      "url": "https://doi.org/10.1080/0969594x.2013.790308",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2013.790308",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：The enactment of formative assessment in English language classrooms in two Chinese universities: teacher and student responses。关联实训主题：说明职责边界的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2013.790308",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-22",
+    "category": "assessor",
+    "label": "避免自行诊断的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“避免自行诊断”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["避免自行诊断", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-22",
+      "title": "Preservice teachers’ implementation of formative assessment in English writing class: Mentoring matters",
+      "authors": ["Qin Xie", "Yi Cui"],
+      "year": 2021,
+      "url": "https://doi.org/10.1016/j.stueduc.2021.101019",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2021.101019",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Preservice teachers’ implementation of formative assessment in English writing class: Mentoring matters。关联实训主题：避免自行诊断的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2021.101019",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-23",
+    "category": "assessor",
+    "label": "避免绝对保证的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“避免绝对保证”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["避免绝对保证", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-23",
+      "title": "Investigating anonymity in formative and summative peer assessment: Effects on university students’ social-affective factors, perceptions and preference",
+      "authors": [
+        "Juan Fraile",
+        "Meritxell Monguillot",
+        "Carles González-Arévalo",
+        "Paula Lehane",
+        "Ernesto Panadero"
+      ],
+      "year": 2024,
+      "url": "https://doi.org/10.1016/j.stueduc.2024.101410",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2024.101410",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Investigating anonymity in formative and summative peer assessment: Effects on university students’ social-affective factors, perceptions and preference。关联实训主题：避免绝对保证的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2024.101410",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-24",
+    "category": "assessor",
+    "label": "解释决策依据的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“解释决策依据”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["解释决策依据", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-24",
+      "title": "Formative assessment in the Grenadian lower secondary school: teachers’ perceptions, attitudes and practices",
+      "authors": ["James E.J. Young", "Mary Grace-Anne Jackman"],
+      "year": 2014,
+      "url": "https://doi.org/10.1080/0969594x.2014.919248",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2014.919248",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative assessment in the Grenadian lower secondary school: teachers’ perceptions, attitudes and practices。关联实训主题：解释决策依据的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2014.919248",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-25",
+    "category": "assessor",
+    "label": "识别信息缺口的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“识别信息缺口”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["识别信息缺口", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-25",
+      "title": "Teacher assessment literacy, formative assessment practices, and their perceived efficacy in Tanzania: A scoping review",
+      "authors": ["Rajabu Abdalah Shafii", "Jean-Louis Berger"],
+      "year": 2025,
+      "url": "https://doi.org/10.1016/j.stueduc.2025.101496",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2025.101496",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Teacher assessment literacy, formative assessment practices, and their perceived efficacy in Tanzania: A scoping review。关联实训主题：识别信息缺口的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2025.101496",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-26",
+    "category": "assessor",
+    "label": "提出可行选项的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“提出可行选项”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["提出可行选项", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-26",
+      "title": "Beginning teacher education and collaborative formative e‐assessment",
+      "authors": ["Mary Webb"],
+      "year": 2010,
+      "url": "https://doi.org/10.1080/02602931003782541",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602931003782541",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Beginning teacher education and collaborative formative e‐assessment。关联实训主题：提出可行选项的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602931003782541",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-27",
+    "category": "assessor",
+    "label": "避免越权决定的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“避免越权决定”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["避免越权决定", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-27",
+      "title": "Teacher outcomes from a statewide initiative to build assessment literacy",
+      "authors": ["Chad M. Gotch", "Cristen McLean"],
+      "year": 2019,
+      "url": "https://doi.org/10.1016/j.stueduc.2019.04.003",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2019.04.003",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Teacher outcomes from a statewide initiative to build assessment literacy。关联实训主题：避免越权决定的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2019.04.003",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-28",
+    "category": "assessor",
+    "label": "承认不确定性的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“承认不确定性”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["承认不确定性", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-28",
+      "title": "Using summative and formative assessments to evaluate EFL teachers’ teaching performance",
+      "authors": ["Wei Wei"],
+      "year": 2014,
+      "url": "https://doi.org/10.1080/02602938.2014.939609",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2014.939609",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Using summative and formative assessments to evaluate EFL teachers’ teaching performance。关联实训主题：承认不确定性的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2014.939609",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-29",
+    "category": "assessor",
+    "label": "优先处理核心问题的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“优先处理核心问题”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["优先处理核心问题", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-29",
+      "title": "Assessment is contagious: the social contagion of formative assessment practices and self-efficacy among teachers",
+      "authors": ["Zi Yan", "Ronnel B. King"],
+      "year": 2023,
+      "url": "https://doi.org/10.1080/0969594x.2023.2198676",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2023.2198676",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Assessment is contagious: the social contagion of formative assessment practices and self-efficacy among teachers。关联实训主题：优先处理核心问题的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2023.2198676",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-30",
+    "category": "assessor",
+    "label": "按当前流程核实的证据核对",
+    "dimension": "judgment",
+    "application": "在教师消息中定位与“按当前流程核实”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["按当前流程核实", "judgment", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-30",
+      "title": "Formative assessment as a collaborative act. Teachers` intention and students` experience: Two sides of the same coin, or?",
+      "authors": ["Gabrielle Hansen"],
+      "year": 2020,
+      "url": "https://doi.org/10.1016/j.stueduc.2020.100904",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2020.100904",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative assessment as a collaborative act. Teachers` intention and students` experience: Two sides of the same coin, or?。关联实训主题：按当前流程核实的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2020.100904",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-31",
+    "category": "assessor",
+    "label": "确认校内联系人的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“确认校内联系人”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["确认校内联系人", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-31",
+      "title": "The ecology of language teacher assessment literacy: Insights from emotional critical incidents",
+      "authors": ["Mostafa Nazari", "Sedigheh Karimpour", "Mohammadali Ranjbar"],
+      "year": 2023,
+      "url": "https://doi.org/10.1016/j.stueduc.2023.101285",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2023.101285",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：The ecology of language teacher assessment literacy: Insights from emotional critical incidents。关联实训主题：确认校内联系人的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2023.101285",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-32",
+    "category": "assessor",
+    "label": "说明学校安排的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“说明学校安排”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["说明学校安排", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-32",
+      "title": "Formative Assessment: revisiting the territory",
+      "authors": ["D. Royce Sadler"],
+      "year": 1998,
+      "url": "https://doi.org/10.1080/0969595980050104",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969595980050104",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative Assessment: revisiting the territory。关联实训主题：说明学校安排的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969595980050104",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-33",
+    "category": "assessor",
+    "label": "约定家长行动的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“约定家长行动”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["约定家长行动", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-33",
+      "title": "Formative assessment: a critical review",
+      "authors": ["Randy Elliot Bennett"],
+      "year": 2011,
+      "url": "https://doi.org/10.1080/0969594x.2010.513678",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2010.513678",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative assessment: a critical review。关联实训主题：约定家长行动的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2010.513678",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-34",
+    "category": "assessor",
+    "label": "邀请专业支持的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“邀请专业支持”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["邀请专业支持", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-34",
+      "title": "Developing the theory of formative assessment",
+      "authors": ["Paul Black", "Dylan Wiliam"],
+      "year": 2009,
+      "url": "https://doi.org/10.1007/s11092-008-9068-5",
+      "venue": "Educational Assessment, Evaluation and Accountability",
+      "doi": "10.1007/s11092-008-9068-5",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Developing the theory of formative assessment。关联实训主题：邀请专业支持的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1007/s11092-008-9068-5",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-35",
+    "category": "assessor",
+    "label": "统一通知渠道的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“统一通知渠道”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["统一通知渠道", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-35",
+      "title": "The use of scoring rubrics for formative assessment purposes revisited: A review",
+      "authors": ["Ernesto Panadero", "Anders Jonsson"],
+      "year": 2013,
+      "url": "https://doi.org/10.1016/j.edurev.2013.01.002",
+      "venue": "Educational Research Review",
+      "doi": "10.1016/j.edurev.2013.01.002",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：The use of scoring rubrics for formative assessment purposes revisited: A review。关联实训主题：统一通知渠道的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.edurev.2013.01.002",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-36",
+    "category": "assessor",
+    "label": "核对支持资源的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“核对支持资源”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["核对支持资源", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-36",
+      "title": "Assessment and Learning: differences and relationships between formative and summative assessment",
+      "authors": ["Wynne Harlen", "Mary James"],
+      "year": 1997,
+      "url": "https://doi.org/10.1080/0969594970040304",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594970040304",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Assessment and Learning: differences and relationships between formative and summative assessment。关联实训主题：核对支持资源的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594970040304",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-37",
+    "category": "assessor",
+    "label": "说明处理进度的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“说明处理进度”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["说明处理进度", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-37",
+      "title": "The impact of formative peer feedback on higher education students’ academic writing: a Meta-Analysis",
+      "authors": ["Bart Huisman", "Nadira Saab", "Paul van den Broek", "Jan van Driel"],
+      "year": 2018,
+      "url": "https://doi.org/10.1080/02602938.2018.1545896",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2018.1545896",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：The impact of formative peer feedback on higher education students’ academic writing: a Meta-Analysis。关联实训主题：说明处理进度的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2018.1545896",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-38",
+    "category": "assessor",
+    "label": "明确下一步的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“明确下一步”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["明确下一步", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-38",
+      "title": "Assessment cycle model: enhancing self-assessment through formative peer assessment in higher education",
+      "authors": ["Elissar Gerges", "Bridget Rice"],
+      "year": 2025,
+      "url": "https://doi.org/10.1080/02602938.2025.2536565",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2025.2536565",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Assessment cycle model: enhancing self-assessment through formative peer assessment in higher education。关联实训主题：明确下一步的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2025.2536565",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-39",
+    "category": "assessor",
+    "label": "约定回访时间的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“约定回访时间”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["约定回访时间", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-39",
+      "title": "Teaching the writing of psychological reports through formative assessment: peer and teacher review",
+      "authors": ["Åsa Eriksson", "Liselotte Maurex"],
+      "year": 2018,
+      "url": "https://doi.org/10.1080/02602938.2018.1459470",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2018.1459470",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Teaching the writing of psychological reports through formative assessment: peer and teacher review。关联实训主题：约定回访时间的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2018.1459470",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-40",
+    "category": "assessor",
+    "label": "检查双方理解的证据核对",
+    "dimension": "coordination",
+    "application": "在教师消息中定位与“检查双方理解”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["检查双方理解", "coordination", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-40",
+      "title": "Formative assessment and feedback: Making learning visible",
+      "authors": ["Anton Havnes", "Kari Smith", "Olga Dysthe", "Kristine Ludvigsen"],
+      "year": 2012,
+      "url": "https://doi.org/10.1016/j.stueduc.2012.04.001",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2012.04.001",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative assessment and feedback: Making learning visible。关联实训主题：检查双方理解的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2012.04.001",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-41",
+    "category": "assessor",
+    "label": "保护个体隐私的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“保护个体隐私”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["保护个体隐私", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-41",
+      "title": "A Model of Formative Assessment in Science Education",
+      "authors": ["BRONWEN COWIE", "BEVERLEY BELL"],
+      "year": 1999,
+      "url": "https://doi.org/10.1080/09695949993026",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/09695949993026",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：A Model of Formative Assessment in Science Education。关联实训主题：保护个体隐私的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/09695949993026",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-42",
+    "category": "assessor",
+    "label": "谨慎公开信息的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“谨慎公开信息”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["谨慎公开信息", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-42",
+      "title": "Informal formative assessment: The role of instructional dialogues in assessing students’ learning",
+      "authors": ["Maria Araceli Ruiz-Primo"],
+      "year": 2011,
+      "url": "https://doi.org/10.1016/j.stueduc.2011.04.003",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2011.04.003",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Informal formative assessment: The role of instructional dialogues in assessing students’ learning。关联实训主题：谨慎公开信息的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2011.04.003",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-43",
+    "category": "assessor",
+    "label": "回应学生利益的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“回应学生利益”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["回应学生利益", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-43",
+      "title": "Formative assessment as practice: the role of students’ motivation",
+      "authors": [
+        "Martijn Leenknecht",
+        "Lisette Wijnia",
+        "Martine Köhlen",
+        "Luke Fryer",
+        "Remy Rikers",
+        "Sofie Loyens"
+      ],
+      "year": 2020,
+      "url": "https://doi.org/10.1080/02602938.2020.1765228",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2020.1765228",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative assessment as practice: the role of students’ motivation。关联实训主题：回应学生利益的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2020.1765228",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-44",
+    "category": "assessor",
+    "label": "尊重家长处境的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“尊重家长处境”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["尊重家长处境", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-44",
+      "title": "Biology students’ utilization of tutors’ formative feedback: a qualitative interview study",
+      "authors": ["Paul Orsmond", "Stephen Merry", "Kevin Reiling"],
+      "year": 2005,
+      "url": "https://doi.org/10.1080/02602930500099177",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602930500099177",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Biology students’ utilization of tutors’ formative feedback: a qualitative interview study。关联实训主题：尊重家长处境的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602930500099177",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-45",
+    "category": "assessor",
+    "label": "关注资源困难的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“关注资源困难”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["关注资源困难", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-45",
+      "title": "Successful Students' Formative and Summative Uses of Assessment Information",
+      "authors": ["Susan M. Brookhart"],
+      "year": 2001,
+      "url": "https://doi.org/10.1080/09695940123775",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/09695940123775",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Successful Students' Formative and Summative Uses of Assessment Information。关联实训主题：关注资源困难的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/09695940123775",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-46",
+    "category": "assessor",
+    "label": "避免污名化的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“避免污名化”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["避免污名化", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-46",
+      "title": "Formative and shared assessment in higher education. Lessons learned and challenges for the future",
+      "authors": ["Victor López-Pastor", "Alvaro Sicilia-Camacho"],
+      "year": 2015,
+      "url": "https://doi.org/10.1080/02602938.2015.1083535",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2015.1083535",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative and shared assessment in higher education. Lessons learned and challenges for the future。关联实训主题：避免污名化的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2015.1083535",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-47",
+    "category": "assessor",
+    "label": "提供联系途径的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“提供联系途径”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["提供联系途径", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-47",
+      "title": "A case study of a formative assessment practice and the effects on students’ self-regulated learning",
+      "authors": ["Carina Granberg", "Torulf Palm", "Björn Palmberg"],
+      "year": 2021,
+      "url": "https://doi.org/10.1016/j.stueduc.2020.100955",
+      "venue": "Studies in Educational Evaluation",
+      "doi": "10.1016/j.stueduc.2020.100955",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：A case study of a formative assessment practice and the effects on students’ self-regulated learning。关联实训主题：提供联系途径的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1016/j.stueduc.2020.100955",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-48",
+    "category": "assessor",
+    "label": "保留具体证据的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“保留具体证据”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["保留具体证据", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-48",
+      "title": "Formative assessment – an optimistic but incomplete vision",
+      "authors": ["Paul Black"],
+      "year": 2015,
+      "url": "https://doi.org/10.1080/0969594x.2014.999643",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2014.999643",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative assessment – an optimistic but incomplete vision。关联实训主题：保留具体证据的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2014.999643",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-49",
+    "category": "assessor",
+    "label": "持续跟进的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“持续跟进”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["持续跟进", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-49",
+      "title": "Formative assessments and teacher professional learning",
+      "authors": ["Lenore Adie"],
+      "year": 2017,
+      "url": "https://doi.org/10.1080/0969594x.2017.1344954",
+      "venue": "Assessment in Education: Principles, Policy & Practice",
+      "doi": "10.1080/0969594x.2017.1344954",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Formative assessments and teacher professional learning。关联实训主题：持续跟进的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/0969594x.2017.1344954",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  },
+  {
+    "id": "kb-assessor-50",
+    "category": "assessor",
+    "label": "反思并修正措辞的证据核对",
+    "dimension": "responsibility",
+    "application": "在教师消息中定位与“反思并修正措辞”相关的原句，区分已经展示的行为、需改进的措辞和尚未观察到的行为，并提出一项下一步建议。",
+    "tags": ["反思并修正措辞", "responsibility", "评价", "证据"],
+    "reference": {
+      "id": "kb-assessor-50",
+      "title": "Exploring formative assessment as a tool for learning: students’ experiences of different methods of formative assessment",
+      "authors": [
+        "Maria Weurlander",
+        "Magnus Söderberg",
+        "Max Scheja",
+        "Håkan Hult",
+        "Annika Wernerson"
+      ],
+      "year": 2012,
+      "url": "https://doi.org/10.1080/02602938.2011.572153",
+      "venue": "Assessment & Evaluation in Higher Education",
+      "doi": "10.1080/02602938.2011.572153",
+      "topics": ["simulation"],
+      "summary": "研究主题索引：Exploring formative assessment as a tool for learning: students’ experiences of different methods of formative assessment。关联实训主题：反思并修正措辞的证据核对。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1080/02602938.2011.572153",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    }
+  }
+]

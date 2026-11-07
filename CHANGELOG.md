@@ -6,6 +6,392 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab Magic UI 统一交互动效（2026-11-07，Asia/Shanghai）
+
+- 用户指定magic-ui，要求按钮与页面带动效。按官方registry源码集成Blur Fade及Ripple Button，登记@magicui注册表，复用已安装motion；保持当前紫色主题与布局。
+- 首页应急介绍使用轻量淡入，进入实训、处置提交等主要按钮加入点击波纹，键盘激活从按钮中心扩散。全站原生按钮、标签和可操作摘要加入按压反馈，卡片悬停与输入焦点采用短过渡。
+- 页面进入、训练列表切换、设置后台面板和弹窗加入短动效。页面与设置面板保留组件身份和业务回调，路由过渡不额外重建表单；账号、权限、模型、应急保存及训练核心流程沿用。
+- 系统减少动态效果时关闭位移、波纹和持续CSS动画；Blur Fade提供无脚本可见回退，波纹层不接收输入，保留键盘焦点与禁用状态。移动端不启用依赖鼠标悬停的效果。
+- 涉及app/layout.tsx、app/site-motion.css、components/ui/{site-motion,blur-fade,ripple-button}.tsx、首页/训练列表/应急组件、设置容器及components.json。格式、源码核对和生产构建按发布流程记录；功能、浏览器及模型测试继续由用户执行。
+
+### TeacherScenarioLab 校园疫情应急处置训练（2026-11-06，Asia/Shanghai）
+
+- 用户要求突出“应急”。首页保留原对话框，明确校园疫情应急目标；实训新增安全保护、核实信息、校内报告、协同处置、家长沟通、持续跟进六项任务。前三项从开始可填写并行推进；进阶任务结合对话轮次、既有传言事件和处置阶段开放。
+- 处置表单记录已知信息、待核事项、行动依据、责任分工和反馈节点，可关联当前训练最多3条教师对话。记录追加至既有事件账本，保存时校验账号归属、当前状态、选项、证据与幂等请求；修订保留历史。进入评价后只读，方案阶段提示遗漏。
+- 复盘展示六环节记录、提交顺序、选项反馈、修订及对话锚点；正式五维评价读取模拟决策背景，继续以合法教师消息ID作为证据。常规健康填报标为应急准备，实际疫情情境标为应急处置；模拟提交与现实完成情况分别呈现。
+- 新人指引自动定位应急处置台，事件中心使用中文事件名称。12种语言补齐键，简体中文及英文回退沿用现有约定。核心状态机、披露规则、模型适配器、发布情境版本和数据库schema保持原实现。
+- 涉及首页/实训/复盘组件、独立training-practice应急接口与服务、评价提示、角色上下文、语言资源及docs/emergency-practice.md。功能、单元、E2E、浏览器和模型调用测试按用户要求由用户执行；代理执行数0。首次本地TypeScript检查触及2GB堆上限，调整到4GB后暴露本地依赖缺失（next、vitest等模块不可解析），本地全量检查未通过；云端完整依赖生产构建结果记入交付记录。
+
+### TeacherScenarioLab 继续补充文献研究内容（2026-11-04，Asia/Shanghai）
+
+- 用户要求继续补充剩余176篇文献。本次增加172篇有来源的中文研究读解，包括方法、发现、实训应用和局限；原74篇保留。总计246篇具备研究内容，4篇因缺少可取得的摘要或原文继续标记待补。
+- 为ref-36增加核对CC BY 4.0许可的开放正文，当前13篇含开放正文、233篇含摘要或公开研究说明读解。保留出版方、DOI及内容核对来源链接；ref-31补充已核实的书目入口。
+- 待补为Barr学位论文ref-31、Raymond与Santos论文kb-tutor-31、Wylie评论kb-tutor-43及Adie书评kb-assessor-49。作者访谈和机构综述来源在对应条目中注明，观察性关联、评论建议与实验结论分别表述。
+- 文献ID、训练核心引擎、数据结构和既有页面流程沿用。内容数量、来源与许可进行数据核对，功能、单元、E2E、浏览器和模型测试由用户执行；生产构建及发布结果记入交付记录。
+
+### TeacherScenarioLab 自定义实训设置与文献正文（2026-11-04，Asia/Shanghai）
+
+- 用户反馈情境下拉框持续占位、实训选项无法自定义、文献缺少研究内容。首页情境切换改为默认折叠的“当前情境／更换”，保留已有选择联动。
+- 训练范围、年级、沟通方式、家长画像和疫情沟通重点增加自定义填写，逐项限制600字。设置随原创建事务和事件保存，模型对话、评价、实训室和复盘读取同一设置；再次训练沿用原设置。自定义沟通方式同时选择基础隐私范围，沿用角色事实、公开信息及披露规则；脚本继续采用安全预设回复。原训练核心引擎与数据库结构沿用。
+- 文献内容新增74篇中文研究读解，包含方法、主要发现、实训应用、证据局限及内容核对来源；12篇同时收录经CC BY许可核对的开放正文，按原文章节展示并链接许可及原文。原有250条题录和引用ID保留，176篇标注正文待补充；付费或许可不明确的全文仍需取得可用来源。
+- 列表新增内容状态、研究内容摘要和筛选，完整正文按详情请求提供。12种语言资源补齐新增键，简体中文及英文回退沿用现有约定。
+- 功能、单元、E2E、浏览器和模型测试按用户要求继续由用户执行，代理执行数0；改动文件格式、生产构建及部署结果记入发布报告。涉及首页与实训设置、文献内容数据/接口/阅读组件、语言资源和知识库说明。
+
+### TeacherScenarioLab 新人指引自动跟随定位（2026-11-03，Asia/Shanghai）
+
+- 用户要求指引进入哪一步就自动定位哪一步。移除手动定位按钮，打开、前后切换和目录选择均触发自动页面导航、区域滚动及持续高亮，步骤切换或关闭时清理定位与观察器。
+- 情境、记录和事件按步骤自动切到对应分区；首页自动切回实训模式。登录、训练室、语音、进度、复盘和列表使用专门锚点，目标异步挂载后继续跟随，指引面板按目标位置调整上下位置。
+- 训练与复盘定位基于当前账号实际记录；优先保留当前可用训练，复盘限定已保存评价。缺少前置记录时定位创建入口或训练记录，并显示等待说明。导航过程保持指引步骤，沿用原账号权限，指引不提交训练消息或生成评价。
+- 功能、浏览器及模型测试继续由用户执行；改动文件格式、生产构建与部署状态另记交付记录。
+
+### TeacherScenarioLab 删除恢复、训练归组与新人指引（2026-11-03，Asia/Shanghai）
+
+- 用户要求情境列表和训练记录支持删除、训练过程归组折叠，并提供逐步介绍网站功能的新人指引。
+- 新增按账号隔离的“移至已删除”和恢复接口及确认弹窗，情境在当前账号的列表与实训选择器同步移除；训练从记录、趋势与事件中心同步移除，恢复后重新计入。发布冻结版本、消息、评价与权威事件账本保留。原账号schema初始化锁新增兼容的teacherlab_library_removed表，原表与数据保留。
+- 训练记录按情境/版本折叠归组，每组先显示5条；事件中心每次训练汇总成一张折叠卡片，含时间、事件数与发言数，展开后每批20条，保留搜索及训练筛选。
+- 新增全站常驻新人指引、首次访问提示、步骤目录、前后导航及定位高亮，覆盖注册登录、情境选择、实训设置、模型、对话与语音、助教/阶段反馈、正式评价、复盘、记录、事件、知识库、设置及按权限显示的管理功能。文案提供简体中文与英文回退，沿用既有语言资源结构。
+- 功能、单元、E2E、浏览器和模型测试按用户要求执行数0；格式、生产编译、部署连通结果另记交付报告。删除采用可恢复的个人列表管理，站点全局发布情境的冻结与管理权限保持。
+
+### TeacherScenarioLab 智能路由与站点模型编辑（2026-11-03，Asia/Shanghai）
+
+- 用户反馈默认模型不可用、Magpie模型列表过长及服务器供应商无法编辑。核对生产配置DEFAULT_MODEL为glm:glm-4.7-flash；独立训练资源池的固定OpenRouter路由已脱离有效策略，其他候选存在资格失败或额度确认过期。Magpie原配置有AMD七模型、无路由组。
+- 首页显示统一智能路由入口，个人指定模型收起至设置维护；默认实训槽位接入受保护Magpie组，沿用原模型适配器、消息账本、输出及评价证据验证。Magpie smart组按可用成员调度，故障和限额切换由现有网关实现。
+- 模型服务新增所有者专用站点供应商编辑入口，支持密钥替换、API地址及模型清单增减；全局覆盖加密保存于已有模型控制表，写入采用版本检查并撤销旧资格。普通用户个人模型及受委派管理员权限沿用。
+- 功能、模型生成及故障注入验收由用户执行，本轮不重复已失败供应商请求。生产构建与部署结果另记发布报告。当前Magpie七模型共用AMD凭据，其费用与共享额度未确认，无法承诺全供应商均耗尽后仍可成功。
+
+### TeacherScenarioLab 四类知识库与家校沟通设置（2026-11-03，Asia/Shanghai）
+
+- 用户要求新增助教、助评、家长和疫情沟通场景知识库，每类50条，中外期刊兼收；追加图片反馈要求家长类型、年级和聊天方式可选，家校沟通默认面向家长。
+- 新增200张带独立文献出处的知识卡，原50篇和ID保留。196条DOI题录经Crossref核对，4条中文文献以原刊/机构页核对；199条具有公开核心/SCIE/SSCI收录依据，目录版本在界面标明，1条收录状态待单独核验。实训建议为编辑整理，全文证据审阅边界随详情展示。
+- 首页原对话框新增12个年级、50种组合家长画像、私聊/电话练习/群聊与情境重点。设置和训练创建在同一事务写入事件账本，重复训练复制其原设置；原发布版本、数据与引擎沿用。家校沟通筛选家长，综合情境保留学生。
+- 助教按已保存消息检索待复核措辞、给出参考说法和阅读依据；助评每10轮完整互动显示带原消息锚点的规则辅助五维阶段反馈。正式模型评价继续走原证据校验及保存流程。群聊提示词按公开事实组织，输出继续经过原信息泄露扫描。
+- 涉及知识数据与检索页面、原引用服务、实训设置/支持接口、首页/实训/复盘组件及12种语言键；新增文案使用中文和英文回退。功能、单元、E2E、浏览器及真实模型调用验收由用户执行，代理执行数0；编译与生产构建状态另记交付报告。详见docs/knowledge-base.md。
+- 本地全量TypeScript检查因现有依赖安装缺少Next、Vitest、sharp等模块返回退出码2；生产构建交由GitHub完整依赖环境核验，此本地检查保留为未通过记录。
+- 源码审阅补齐综合情境的群聊角色背景，按实际选中角色交流；实训设置摘要明确标注训练范围及家长画像。
+
+### TeacherScenarioLab 反向代理共享模型保存修复（2026-11-03，Asia/Shanghai）
+
+- 共享模型连接保存实际返回403，原Origin比较受Cloudflare后内部HTTP地址影响。复用现有同源JSON请求校验，管理员权限、请求大小、模型与地址限制继续沿用。
+- AMD真实模型目录返回HTTP200，Magpie已配置7个文本模型；个人模型连接已保存。生成、评价、密码及邮件功能验收由用户执行，代理功能测试执行数0。生产构建与最终发布状态记入交付报告。
+
+### TeacherScenarioLab 训练历史、独立登录与 Magpie 网关（2026-11-03 05:34，Asia/Shanghai）
+
+- 用户要求整理训练记录、事件中心，接入VPS统一模型网关，并补充独立登录与密码登录。训练历史展示情境名称、状态、评价摘要、继续训练和复盘入口；没有评价时显示未评价，事件使用中文时间线，技术ID收进详情。
+- 记录和事件按账号及当前分区懒加载，取消过期请求、校验数据所属账号，并同步URL分区，修复登录后未重新加载。
+- 新增 /login、/register 和密码登录接口；邮箱验证码与8–128位密码完成注册后前往登录。保留已有邮箱验证码登录及原账号绑定，验证码重设密码时撤销该账号旧会话。密码使用随机盐scrypt哈希，按邮箱和IP限制尝试、限制哈希并发，新增独立密码和尝试表，沿用schema锁兼容初始化。
+- 新增资源受限的Magpie Docker配置与鉴权OpenAI兼容代理，上游固定为项目私有网关，限制路由、模型前缀、请求体和输出长度，保留全局SSRF限制。凭据使用受保护配置，VPS容器状态另记报告。
+- AMD需通过站内模型服务安全保存供应商Key后完成目录及统一入口接入。未将尚未完成的配置或生成调用标为通过。
+- 功能、单元、E2E、浏览器、密码/SMTP验收及模型生成调用由用户操作，本轮代理执行数0；生产构建和发布另记报告。新增文案使用中文和英文回退，原训练引擎、账本及管理员权限沿用。
+
+### TeacherScenarioLab 情境编辑页统一后台样式（2026-11-03 04:16，Asia/Shanghai）
+
+- 同轮后台设计补齐情境新建、编辑页：接入统一标题、表单控件、角色与事实分区、手机端单列布局，并同步按情境管理权限展示编辑器。
+- 涉及 training-scenario-editor.tsx、admin-console.css；原保存接口、草稿校验与版本冻结逻辑沿用。补齐移动端统计条奇数项布局。
+- 用户保留功能验收，单元、浏览器、E2E及模型调用测试执行数0；使用最终提交的生产镜像交付。
+
+### TeacherScenarioLab 后台界面与分级授权（2026-11-03 04:05，Asia/Shanghai）
+
+- 用户要求重做后台 UI，验证码邮件由本人管理，并可选择其他管理员能使用的功能。保留现有设置入口，后台使用统一标题、分区面板、成员搜索、权限勾选、状态与记录详情；手机端使用分区选择，表单自适应，宽表格在独立容器滚动。
+- 站点所有者独占验证码 SMTP 配置读取与修改、授予或撤销管理员、分配权限。所有者取受保护环境变量 TEACHERLAB_OWNER_ACCOUNT_ID，未设置时兼容 TRAINING_ADMIN_ACCOUNT_IDS 首项；服务端同时要求有效用户会话和管理员角色。
+- 新增5项可委派模块：情境管理、训练抽查、文献检查、共享模型管理、人员管理。默认空授权；现有委派管理员需由所有者显式分配。权限保存在新增独立表 teacherlab_admin_permissions，现有训练表和历史数据沿用。
+- 设置导航、首页情境创建、后台各 API 同步校验模块权限；人员管理可添加与启停普通成员，授权与管理其他管理员仍由所有者完成。撤销管理员清空其模块权限，变更写入原审计表；后续请求实时读取授权。
+- 涉及 components/settings、账号权限服务、管理包装器、会话响应与文案、部署说明及环境变量模板。训练服务端状态机、消息账本、披露与模型引擎沿用。功能、单元、E2E、浏览器、模型调用测试执行数0，按用户要求由用户验收；生产构建与部署结果另记交付报告。新增文案采用中文和英文回退。
+
+### TeacherScenarioLab 角色默认名称与可选显示名称（2026-11-03 03:12，Asia/Shanghai）
+
+- 用户要求学生、家长、老师等角色默认显示类型，姓名改为可选自定义。首页下拉框、训练大厅与实训室消息标签统一使用角色类型，实训室侧栏移除原始姓名的默认展示。
+- 首页与实训室新增自定义角色名称入口，覆盖当前情境全部角色，支持逐项填写和清空后保存；名称按账号、情境及版本保存在当前浏览器，首页和实训室共用。界面明确显示名称与原情境人物设定的范围，存储失败显示错误。
+- 涉及 character-presentation.ts、role-name-settings.tsx、epidemic-composer.tsx、training-room.tsx 和12种语言文案（其他语言使用英文回退）。权限、训练后端、模型提示与事件账本沿用。
+- 功能、单元、浏览器、E2E及模型调用测试由用户执行，本轮执行数0；生产构建与部署状态另记工作区交付报告。
+
+### TeacherScenarioLab 实训室交互与情境创建（2026-11-02，Asia/Shanghai）
+
+- 角色统一展示类型与姓名，使用“学生 · 小雨、家长 · 乐乐妈妈”等标签，角色头像与选择对应。
+- 实训室补齐场景简报、角色侧栏、消息气泡、输入与发送、显式启用浏览器语音输入和浏览器朗读、阶段推进、已披露信息和五维评价证据定位。created 状态允许输入，首次发送复用现有 start 接口；模型失败保留已落账消息，提供单独重试回复与显式脚本切换。
+- 管理员可按公开背景与学生、家长、教师化名生成结构化草稿，确认后使用现有发布接口冻结版本。新情境的通用角色包仅包含公开背景与安全脚本，原角色包、提示事实筛选、信息扫描、状态机、幂等及事件账本继续使用。
+- 按用户要求，本轮功能测试和模型调用测试留给用户；生产构建与部署结果记录于工作区交付报告。
+
+### TeacherScenarioLab 恢复原首页并接入疫情实训（2026-11-02，Asia/Shanghai）
+
+- 用户明确要求沿用原首页 UI 并融合训练功能。恢复原渐变背景、标题、头像胶囊、中央输入框、模型栏、语音与设置，疫情实训和课程学习共用原页面。
+- 原输入框连接现有训练创建接口，情境、对话角色与模型在输入框内选择；开场内容作为待发送草稿带入训练室，保持原简介与状态推进流程。
+- 情境卡片选择后回填同一输入区域；已增加的邮箱账号、人员权限、个人模型与管理员设置保留。匿名首页展示原 UI，操作时引导登录，课程后台列表订阅按模式与登录状态启用。
+- 按用户要求，功能测试由用户执行，本轮继续使用生产构建交付模式；构建和部署结果记录于工作区交付报告。
+
+### TeacherScenarioLab 统一疫情实训与邮箱账号（2026-11-02，Asia/Shanghai）
+
+- 首次生产编译定位到课程页迁移后相对 CSS 路径失效，修正为原样式文件的绝对别名引用；补齐疫情情境同事教师的个人角色模型选项。构建失败属于编译依赖路径问题，功能测试执行数为 0。
+
+- 用户要求统一原首页与训练入口，主题围绕疫情开展。首页提供校园疫情实训、训练记录和复盘入口，原课程生成迁至辅助入口，设置共用原设置窗口。
+- 新增邮箱验证码注册、登录与原账号绑定，复用现有服务端会话。验证码哈希存储、过期、次数与频率限制，SMTP 授权码通过现有密钥盒加密；管理员可在站内配置 QQ、163 或企业邮箱 SMTP。
+- 新增人员管理：预建邮箱账号、授予或撤销管理员、停用或恢复账号与审计记录。新注册默认普通用户，初始化管理员受保护。
+- 全部登录用户可通过原模型设置维护个人供应商、自定义 API、密钥与模型，并选择训练角色和评价模型；个人设置按 owner 隔离，训练输出继续经过原验证器与信息隔离规则。
+- 按用户要求，本轮功能测试交由用户执行。手动交付增加构建模式，使用 `run_account_checks=false` 跳过运行、浏览器及其他测试步骤；正常 CI 入口保留。构建、部署与用户验收分别记录实际结果。
+
+### TeacherScenarioLab 账号创建入口修复（2026-11-02，Asia/Shanghai）
+
+- 用户反馈找不到创建账号；首页账号标签原先显示匿名提示，创建表单缺失。补齐显示名输入、创建按钮、提交状态和失败重试，创建成功后使用现有会话接口展示账户 ID；后端身份与管理员授权机制沿用。
+- 补齐 12 种语言的三项账号表单文案，增加浏览器表单失败恢复、创建账号、会话刷新保留、管理权限和登出定点回归。
+- CI 增加功能分支手动账号定点检查，复用现有生产镜像构建、运行验证和校验和 Artifact。正常 PR 与集成事件的检查保持；本次提交跳过自动批量检查，随后手动执行账号回归与镜像任务。
+- 生产访问码保持关闭；本轮网站发布结果和实际检查数据另记于工作区上线验收记录。
+- 首轮账号浏览器检查已完成创建与 ID 展示，随后 HTTP 测试客户端未携带 Secure Cookie 导致权限断言返回401；会话与权限断言改由浏览器发起，403标准保留。专项镜像缓存采用最小上传范围，常规构建保持原设置。
+
+### TeacherScenarioLab 1GB VPS 接入准备（2026-11-02，Asia/Shanghai）
+
+- 用户提供已创建的 teacherlab-vps Tunnel Token；密钥以受限本地文件接收并通过 SFTP 保存至主机只读挂载，UID 65532、权限 400。cloudflared 已启动、配置自动重启并建立 4 条新加坡连接，原 x-ui/xray 运行正常；监控绑定本机。
+- 批量准备 VPS Compose、现有 CI 镜像导出和部署/恢复说明。镜像沿用已验收 runner，新增功能分支树匹配、镜像 ID 和 SHA-256 清单，Artifact 保留一天；生产变量与模型密钥在部署机注入。
+- 当前源站 3000 尚未启动，Cloudflare 管理 API 对隧道详情返回 401、DNS 返回 403，现有域名仍绑定原 Worker；网站迁移和最终容量验收待实际完成。
+- 用户提供部署主机并授权继续部署；SSH 登录成功，实际核对 Debian 12、2 核、972MiB 内存、约 17GB 可用磁盘，原有 x-ui/xray 服务及端口记录保留。
+- 按 Docker 官方 Debian 安装源完成 Engine 与 Compose 安装，新增项目专用 1GiB 交换文件及持久化项；原有 x-ui 服务仍 active，原监听端口保持。应用镜像交付与完整运行验收尚未完成。
+- 现有 Cloudflare Token 读取隧道成功，新建隧道及读取 DNS 实际返回 403；用户选择手动配置。隧道 Token 本地保护文件已准备，域名与 DNS 尚未切换。
+- 用户控制台界面与说明不同；浏览器导航超时后，电脑操作工具因无法可靠确认 Windows 当前网址而停止。后续按用户页面截图定位入口，镜像与域名验收继续记录实际结果。
+
+### TeacherScenarioLab 长模型资格请求的连接保活（2026-11-01，Asia/Shanghai）
+
+- 799a0a4 的 CI、PostgreSQL 与 Cloudflare 三项检查全部成功，冷启动等待修正版已发布；线上并发与完整页面复测单独记录。
+- 长角色资格请求发生客户端断开，三个真实调用已落账但完整资格尚未更新。资格响应超过 15 秒后发送 JSON 合法空白保活，最终完整结果仍由原资格函数产生；快速拒绝继续通过原错误处理返回。
+- 管理后台等待完整 JSON 后刷新资格；长操作失败时响应流失败，失败资格保持 passed=false。权限、同源校验、调用预算、信息扫描和资格标准沿用。
+- 保活、快速错误、长操作失败、取消清理与管理 API 回归合计 14 通过、0 失败；新增代码定点 TypeScript、ESLint 和格式检查通过。云端与真实六用例资格仍待新版本核验。
+
+### TeacherScenarioLab 前端冷启动并发检查（2026-11-01，Asia/Shanghai）
+
+- 7e728a3 的单元与 Workers 集成通过，云端 TypeScript 发现新增启动函数漏补配套 .d.mts 导出，门禁继续拦截发布；补齐声明并定点核对新测试的类型。
+- fb8e1d9 的三项 GitHub 工作流成功，18981 项测试执行通过、0 失败、776 跳过（含跨作业重复），162 项 E2E 通过；新模型管理功能已实际发布，前端版本 e1622842、训练接口版本 7d5cca1b。
+- 生产 /api/model-config 曾返回 500，平台日志确认前端 Durable Object 内存超限；同次冷启动包含 HTTP 请求与定时维护。后续配置、健康与首页请求恢复 200，内存稳定性继续列为未通过。
+- 前端 HTTP 与定时维护共用启动等待，启动失败传递给全部等待者并允许后续重试；保留原健康检查、请求计数、空闲维护及业务处理函数。并发启动、失败重试与现有生命周期回归 22 通过、0 失败；生产复测待新版本发布。
+- 生产自定义 HTTPS API 和密钥保存成功，真实评价已有 HTTP 200 调用落账；完整资格仍待长用例结束。免费角色模型仍在校医用例被信息扫描拦截，保留失败资格与安全检查，尚未完成真实训练评价全流程。
+
+### TeacherScenarioLab PostgreSQL 并发验收修复（2026-11-01，Asia/Shanghai）
+
+- ecb274d 的 CI 全部通过，Cloudflare 生产构建、公网 DNS/私网拒绝预检与双服务产品集成通过；发布门禁因 PostgreSQL 合约失败而停止。
+- PostgreSQL 合约的 394 项应用断言通过，但并发额度测试延迟接收预期拒绝，Vitest 报未处理异常。测试改为启动请求时立即接收拒绝，保留锁等待、额度错误类型和最终入库数量断言；生产额度实现与迁移沿用。
+- 本地 PostgreSQL 16 定点回归 9 通过、0 失败、0 跳过，未出现未处理异常。新提交的云端完整检查和正式发布结果待核验。
+
+### TeacherScenarioLab 云端凭据提示与网络诊断（2026-11-01，Asia/Shanghai）
+
+- 6eeb947浏览器验收161通过、1失败；失败来自新断言同时选中页面错误提示和Next路由播报器，已按错误文本收紧定位。新8a15b1b的Linux workerd公网DNS/私网拒绝预检已通过，继续执行完整构建与集成。
+- 新workerd预检复现明确根因：运行时不支持fetch的redirect:error；DoH改用manual并拒绝全部非2xx，补充302私网目标拒绝回归。相关22项检查通过；Windows外网fetch另报内部网络错误，保留失败证据并交由云端独立核验。
+- 6eeb947的PostgreSQL合约通过，CI单元分片发现新密码输入缺少共享CredentialStorageHint；补回统一加密存储提示，相关22项回归通过、0失败。
+- Cloudflare产品回归在自定义连接保存时实际返回409，发布门禁保留阻断。增加固定原因码区分地址、DNS、实例密钥、版本冲突和换址密钥要求，返回内容不包含凭据。
+- 把公网DNS查询/私网拒绝的workerd预检提前到生产构建之前，使用现有测试Worker目录与停止机制；集成失败的响应记录限制长度并使用隔离合成凭据。此次未宣称自定义API已上线通过。
+
+### TeacherScenarioLab 已知流程文本的扫描误报修复（2026-11-01，Asia/Shanghai）
+
+- 真实角色资格在校医用例反复命中fact-principal-decision；源码确认校医自身已知资料和校长资料重复包含“需上级部门决定”。原扫描将已提供给说话者的同一政策片段当作新增泄露。
+- 扫描增加服务端已知事实参数，来源限定为公开、本人专属和权威披露集合；共享片段按实际已知内容判定，其他专属片段和完整未知陈述继续检查。运行前后两次扫描与资格用例使用一致来源，原可见性、披露条件、状态机、事件与事务逻辑沿用。
+- 新增重复政策、其他专属/隐藏内容继续拦截及PostgreSQL双扫描后消息/角色事件保存回归；训练测试245通过、0失败、0跳过。线上真实资格需在修正版发布后重跑，历史失败记录保留。
+
+### TeacherScenarioLab 模型管理表单回归（2026-11-01，Asia/Shanghai）
+
+- 编辑已有连接时将展示字段与提交载荷分开，提交符合严格API结构；省略密钥可保留原加密值。
+- 新增三项Playwright浏览器回归，覆盖自定义表单密码输入、保存后清空密钥及再次编辑、按角色选择保持评价与其他角色设置、403时编辑入口不可用。使用明确标记的模拟API，真实后端与供应商验收分别记录；测试发现3项，执行结果待云端核验。
+
+### TeacherScenarioLab 自定义模型与角色路由（2026-11-01，Asia/Shanghai）
+
+- 管理员可登记自定义HTTPS API、独立密钥、协议及模型ID，复用OpenMAIC设置校验、AES-GCM密钥封装、模型解析与callLLM；连接使用独立custom命名空间，保留现有预设。Mistral从本次资源中心必需供应商列表移除。
+- 密钥与审计分开保存，浏览器响应不返回密钥；改地址/协议要求重新输入密钥。连接采用版本比较写入，修改后暂停关联策略并清除旧资格；模型注册与真实资格验证分别记录，手工模型清单不生成供应商HTTP成功记录。
+- 后台增加自定义连接表单及情境角色模型选择，角色对话按characterId保留选择记录，管理员新路由作用于后续请求，评价独立。付费自定义模型须明确授权及双预算，通过资格后可手工选用，自动免费回退不纳入付费自定义候选。
+- 12种语言增加11个对应标签。训练测试242通过、0失败；DNS适配及原SSRF/重定向回归86通过、0失败。新增协议映射断言曾1项失败，核实原预设映射到openai后修正并复测通过。
+- Workers DNS适配使用官方DoH接口查询A/AAAA，保留原公网判定；Node沿用系统解析及原连接地址固定机制。当前Windows workerd原生DNS报EBADQUERY，公网DoH本地集成尚待验证，云端双服务回归增加真实公网地址注册和权限/密钥脱敏检查。
+- 1521db2的CI、PG与Cloudflare均成功并实际发布。生产免费OpenRouter角色资格2例通过后因信息边界失败，GLM免费型号限流，Google评价网络失败；真实资格与训练评价全流程继续列为未通过，PR保持Draft。
+
+### TeacherScenarioLab 训练接口运行隔离（2026-11-01，Asia/Shanghai）
+
+- 3232165的三项GitHub工作流成功，生产真实模型资格仍触发128MB宿主内存超限，平台tail证据保留。
+- Cloudflare入口将训练请求通过私有Service Binding转发到独立TrainingApiHost，复用29个原有路由、原访问码中间件与原NextRequest/NextResponse；训练核心与业务处理函数沿用现有实现。独立包预构建约8.7MB，正式运行内存需云端验收。
+- 发布按私有API服务、前端的顺序注入受保护环境变量；API服务关闭workers.dev及预览URL。CI增加独立包dry-run，并在双服务本地workerd环境执行现有产品回归。
+- 本地独立PostgreSQL库通过账号、管理员、情境导入发布、owner隔离、管理403、脚本训练、消息幂等、状态/事件账本、无模型评价拒绝与50条文献详情检查。路由及空闲生命周期回归18通过、0失败；云端结果另行核验。
+- 用户确认自定义API地址/密钥/模型ID与按角色选模需求；站内管理员账号ID稍后提供，Mistral退出本次验收必需清单，现有供应商预设保留。
+
+### TeacherScenarioLab 后台执行依赖延迟加载（2026-11-01 14:40，Asia/Shanghai）
+
+- 3c6d4e5的CI、PostgreSQL与Cloudflare三项工作流全部成功，18950项测试执行通过、0失败、774跳过（包含50项离线合约与跨作业重复）；159项E2E通过。生产Docker构建及数据库运行检查通过，修正版已实际发布到teacherlab.weiyiai.top，版本a67f14b9-7d09-4a5f-a30c-c46fe2a23780。
+- SDK去重使Workers上传从56178.60降为54314.29KiB、启动21ms；生产GLM实际请求返回HTTP429并按失败落账，Google评价上游HTTP503，OpenRouter角色单次HTTP200但完整资格套件仍因宿主内存重启中断。完整模型验收继续阻塞。
+- 空课程队列的轮询改为领取任务并启动心跳后加载原engine与默认services；材料轮询把解析实现和课堂错误类型的依赖延迟到实际工作路径。原执行函数、SQL、租约、状态、存储和训练后端保持当前实现。
+- 增加空队列依赖加载与模块加载期间心跳的回归，并验证材料调度器加载时不引入文档执行依赖。首轮本地回归读到私有模型配置，30失败/14通过；在D盘不含私有配置的同版源码副本中复测，45通过/0失败，ESLint与改动文件格式通过。原私有配置完整保留。
+
+### TeacherScenarioLab 生产域名绑定与实际验收（2026-11-01 14:05，Asia/Shanghai）
+
+- 用户最终确认teacherlab.weiyiai.top，已成功绑定当前账号weiyiai.top区域的teacher-scenario-lab Worker；Wrangler自定义域名、页面metadataBase与环境模板同步此域名。
+- 34cd18f的三项GitHub工作流成功，标准Docker/Next与OpenNext生产构建完成；平台实际发布成功，上传56178.60KiB、启动25ms。云端测试执行汇总18950通过/0失败/774跳过（跨作业重复另计），159项Chromium E2E通过。
+- 生产六处页面及健康接口HTTP200、50条文献详情通过；管理员初始化、情境v1导入发布、创建训练、脚本对话、消息幂等与普通账号管理API403通过。生产验收账户和训练记录保留，密钥与会话均存于忽略文件或受保护变量。
+- 根据生产内存失败与构建中重复大块的证据，Workers构建将AI SDK与Zod留到OpenNext统一打包，减少Next服务端路由层重复依赖；标准Node构建依赖策略沿用原配置。体积变化与生产复测待本次工作流验证。
+- 真实模型资格验证触发Cloudflare宿主128MB内存上限，tail确认isolate重启；GLM和OpenRouter资格未通过，实际评价保存及五维证据验收仍阻塞。初次文献500证据保留，完整域名复测通过；生产浏览器操作验收因工具超时尚未完成。PR继续Draft，合并待批。
+
+### TeacherScenarioLab 源码映射上传限制（2026-11-01 13:26，Asia/Shanghai）
+
+- 用户提供新部署Token，已通过隐藏输入更新忽略文件并同步GitHub加密Secrets。账户API、workers.dev子域和目标资源查询正常，原403授权阻塞解除；新凭据可见7个原有服务。
+- 8da55e4第二次Cloudflare运行通过生产构建与完整隔离验收，静态资产2432个上传成功；Worker发布被平台以10021拒绝，原因为源码映射104472KiB超过60MiB上限。目标服务已初始化，部署列表为空；网站未上线，数据库与DNS未在本轮改变。
+- 在Wrangler配置中显式设置upload_source_maps=false，采用官方开关关闭源码映射上传。Wrangler4.150.0起默认上传源码映射，部署脚本及业务实现保持当前版本；后续平台发布结果另行核验。
+
+### TeacherScenarioLab 平台发布权限核验（2026-11-01 10:00，Asia/Shanghai）
+
+- d4d38a3 的标准 CI 与 PostgreSQL 合约成功；159 项 E2E、生产 Next.js/Docker 镜像及容器数据库检查成功。Cloudflare 构建、56178.65KiB 体积门槛、账号/产品/50条文献详情和空闲暂停、维护、并发恢复检查通过。
+- 工作流已使用用户授权的现有凭据实际尝试发布；目标 Worker Secrets 请求返回 `No access to the specified resource`。随后对不存在的目标 Worker 执行一次不含密钥、统一503响应的初始化上传，平台同样返回HTTP403；未创建服务，域名与生产数据库均未在本轮改变。
+- 部署入口关闭Wrangler磁盘日志，并沿用CLI的OpenNext递归保护标记，直接上传已验证的自定义宿主产物。发布权限需由账号持有人补充：首次创建需要Workers产品级Admin；自定义域名需要限定到weiyi.top的Workers Routes Write。PR保持Draft，合并待批。
+
+### TeacherScenarioLab Workers 空闲调度（2026-11-01，Asia/Shanghai）
+
+- 用户明确要求使用此前凭据继续部署，撤销本次部署前置轮换要求。现有凭据通过sealed-box写入该仓库Actions Secrets；部署按一次性的精确SHA变量授权，先等待同一提交CI与PostgreSQL成功，再由已通过workerd验收的Linux产物执行Wrangler发布。PR继续保持Draft，域名指向确认与线上结果另行记录。
+- dd41f95的三项工作流已全部成功。发布前Cloudflare凭据只读验证为active、账号服务数0；用户随后明确授权本次复用现有凭据。平台上传与域名验收结果按实际运行补记。
+- 为Neon免费容量增加宿主空闲调度：默认10分钟无请求且无后台工作时暂停轮询，每30分钟沿用原维护入口执行回收与压缩；请求恢复后台任务。流响应、执行中/等待确认的课程、材料提取、旧课程导入、启动维护及资产回收纳入保活判断，训练API、权限、账本和迁移保持原样。
+- 新增串行暂停/恢复与故障拦截、只读队列元数据查询、维护和流生命周期测试；本地相关回归127通过/1失败，失败为Windows目录POSIX权限断言，断言保留。隔离PostgreSQL的38项队列状态检查通过，测试事务已回滚；ESLint与YAML检查通过，完整workerd和Linux回归由本次推送的工作流验收。
+
+### TeacherScenarioLab Workers 路由构建契约（2026-11-01，Asia/Shanghai）
+
+- bf08689的CI、Cloudflare与Storage PostgreSQL工作流全部成功，标准Next.js/Docker生产构建及16项容器检查通过，完整Workers应用后台错误观测为0；Workers产物56150.58KiB，16项账号、76项产品及50条文献详情检查通过。云端测试汇总18919通过、0失败、774跳过，含跨作业重复执行；Chromium E2E为159通过、0失败。原训练API、服务端存储、迁移及82个受保护文件与9a990da一致，指定24个删除文件核对通过。
+- 文档补充当前可验证检查点、请求作用域旧方案的历史标记及Neon持续轮询容量缺口。正式平台部署、生产凭据轮换、免费容量和真实模型评价仍待验收；2026-11-01公开域名查询仍为NXDOMAIN。
+- 10f6e01的三项工作流成功：Workers未压缩包56246.18KiB，16项账号及76项产品检查通过；运行日志另发现原课程后台任务跨请求数据库错误，整体上线继续阻塞。改用单个SQLite Durable Object宿主验证现有Next后台任务，4处Pool导入恢复原值，增加后台错误门槛。
+- 本机workerd探针确认Durable Object的跨请求连接与响应结束后后台SQL成功。首次探针遇到Windows SQLite长路径错误，状态目录缩短后通过。免费账号能力及Neon空闲轮询用量继续核验，尚未上传平台资源。
+- 本地广泛回归首轮891通过、4失败；相同断言串行复测96通过、0失败，消除了两项超时及一项日志断言失败。Windows POSIX文件权限断言仍按失败记录；Linux全仓单元、类型、格式和PostgreSQL合约通过。
+- 458e072的标准CI与Storage PostgreSQL工作流成功；Cloudflare工作流因8个路由的辅助导出未满足Next入口类型契约失败。
+- 修复后静态核查111个路由，非法导出为0；persistence处理器迁移前后内容一致。改动文件格式与目标ESLint通过，权限、身份、事件流和存储回归继续按实际执行结果记录。
+- 本地隔离验收库从环境中断恢复，日志移至数据目录外，原数据保留。生产凭据仍待用户轮换；实际部署要求已收到，Workers平台限制、生产连通与上线验收继续作为部署前置条件。
+
+### TeacherScenarioLab 免费 Workers 兼容适配（2026-10-31，Asia/Shanghai）
+
+- Webpack聚合导入问题消除后，类型检查发现8个既有路由导出额外辅助成员。流轮询常量迁至服务端共享契约、批量场景上限沿用stage-limits模块；无外部调用的辅助成员改为模块内声明。persistence处理器逐字节迁至lib/persistence/request-handler.ts，HTTP入口保留原方法导出；相关测试改从服务模块导入，行为断言保留。
+- 29f5e8的Webpack构建发现浏览器从storage总入口解析到未使用的服务端node:crypto，属于编译依赖边界问题。采用Next官方optimizePackageImports对storage入口按导出拆分，继续原断言复验；原库及客户端业务源码保持原样。
+- c9f7903压缩后92113.05KiB仍超64MiB，体积门槛按失败记录；16项账号与76项产品检查继续通过。诊断显示多份重复服务端大块，Workers专用构建改用Webpack并沿用图片入口映射，继续云端比较体积及运行回归。
+- 核对Cloudflare2026-10-29官方限制后确认Workers未压缩包上限64MiB；1a7cba2的128060.41KiB dry-run产物超限，开启Wrangler压缩并增加实际上传体积门槛与依赖体积诊断。平台上传、启动/CPU和免费账号能力继续独立验收。
+- 1a7cba2的Cloudflare工作流通过：完整OpenNext构建、Wrangler dry-run、真实workerd图片/PostgreSQL检查及应用目录3次并发和3次连续请求成功；Storage PostgreSQL工作流通过。主CI的供应商中立守卫发现pg旧计数，按实际移除的1处导入将12缩减为11，继续复验。
+- Workers独立数据库增加合成情境和账号验收，覆盖访问码、会话隔离、脚本对话、消息幂等、状态事件、无模型凭据时评价失败不落账、6处页面HTTP响应及50条文献详情；最终结果以本次工作流执行记录为准。生产凭据轮换由用户稍后完成。
+- 宿主连接边界本地回归658/658、请求生命周期6/6通过；真实workerd与独立PostgreSQL完成2次顺序和3次并发请求、连接区分及事务回滚。首次本机回归受并行下载资源占用影响失败，停下载后按原断言复验通过；云端完整应用验收继续执行。
+- 3f779f8的OpenNext构建与Wrangler dry-run成功，完整workerd在第二次目录请求出现跨请求连接挂起。新增宿主PostgreSQL构造边界和流结束清理，Node构造方式、原事务/权限/迁移与训练API保持原行为；运行验证继续执行。
+- 根据Next.js官方GHSA-2464-fhr4-w9xw公告，将项目与私有图片包的直接sharp固定为0.35.5；Next.js16.4.1已使用该修复版，其他依赖声明保持原值。
+- 8813794的云端图片workerd检查、全仓格式/ESLint/TypeScript通过；pg-cloudflare错误消除。完整Workers打包仍有4项sharp错误，继续明确指定Workers构建的图片入口并保留依赖诊断。
+- 用户确认继续免费Cloudflare Workers路径，撤回VPS选择；Neon Free与teacherlab.weiyi.top保持既定方案，合并继续等待批准。
+- 增加私有图片运行时条件导出：Node沿用sharp，Workers通过Images绑定执行转换，保留PDF像素转PNG、WebP衍生图片、视觉附件大小和无效输入检查；训练API与核心引擎保持原样。
+- 补充pg-cloudflare条件入口的standalone文件追踪。新增真实workerd图片操作检查，原图像处理回归保留；完整OpenNext、数据库跨请求与免费运行额度仍需云端验收。
+- 免费Images每月5000次独立转换，超额拒绝新转换；未开通付费服务。实际部署、DNS和模型生产密钥配置仍待完成。
+
+### TeacherScenarioLab 旧树清理与 Workers 适配（2026-10-30 19:36，Asia/Shanghai）
+
+- 2026-10-30 20:13验收补充：b858937的标准CI与PostgreSQL工作流成功，159项浏览器回归和16项最终容器检查通过；Next.js16.4.1生产编译与镜像成功。Cloudflare独立构建因pg-cloudflare解析与sharp原生.node依赖共5项打包错误失败，未进入workerd运行，日志未显示OOM。
+- Neon free_v3项目的teacherlab数据库已通过TLS证书校验连接，复用既有应用bootstrap创建38张表；训练、消息、评价均为0。连接通过本机既有代理的临时TLS隧道验证，系统与域名DNS配置保持原状。生产密码已在聊天交接，上线前需轮换。
+- Workers实际部署、目标域名切换、真实模型全流程及线上逐页验收尚未完成。保留原图片处理功能和训练核心实现，后续部署方案需结合原生模块兼容性决定。
+
+- 用户确认生产数据库采用Neon免费PostgreSQL，首页品牌为教师情境实训实验室 / TeacherScenarioLab，目标域名更新为teacherlab.weiyi.top。
+- 基于9a990da删除指定24个旧页面、组件与导航文件，受保护新树和训练API保持校验值一致；旧引用为0。归档过期Next路由类型缓存后重新生成，全量TypeScript为0错误；28个训练测试文件229项通过、0失败、0跳过。删除检查点6a7a332的CI与PostgreSQL工作流均成功。
+- 增加OpenNext、Wrangler与独立Linux构建/Workers运行验证流程。当前适配器要求Next.js至少16.4.1，按该最低兼容版本调整，原业务依赖声明保持不变；新增环境模板使用空占位。
+- 按确认更新首页品牌及站点metadata，保留新路由、原课程入口与上游署名。训练后端、核心引擎、权限、迁移和事件账本保持原实现。
+- Neon独立项目TeacherScenarioLab已创建，PostgreSQL16、Singapore、0.25CU；生产连接串和既有迁移连通仍待验证。Cloudflare可读服务列表，workers.dev子域名查询403，实际部署权限尚待核实。Mistral生产凭据缺失，聊天密钥需先轮换。
+- 本地删除验证已完成；适配提交的完整CI、生产构建与workerd结果在推送后单独记录。PR保持Draft，合并、正式部署与DNS修改尚未执行。
+
+### TeacherScenarioLab 评价提示契约修复（2026-10-30 13:53，Asia/Shanghai）
+
+- 实测 JSON 失败的输出 Token 为899，未触及2048输出上限；源码核对发现旧提示使用无效省略号示例，并同时要求评语与 JSON 外无内容。
+- 改为完整五维 JSON 结构示例和真实教师消息 ID 白名单，明确复制完整 UUID；历史叙述加 JSON 的解析兼容性、证据校验与事务保存规则保留。
+- 增加示例可解析与证据白名单回归测试；本地对应测试、ESLint 和完整 TypeScript 通过。新模板的版本2真实资格回归按次数上限执行，结果在交付报告中独立记录。
+
+### TeacherScenarioLab 业务质量门槛收紧（2026-10-30 13:33，Asia/Shanghai）
+
+- 冷却后真实业务评价先返回不合格 JSON，单次修复后出现无效证据引用；两次 HTTP 200 均按失败记录，评价入库数保持0。修正前一条记录中对恢复阻塞原因的概括。
+- 业务隐私/证据失败与重复 JSON 失败撤销对应任务资格，其他任务资格保持独立；在隔离 PostgreSQL 重放已观测失败，确认撤销入库且无新增供应商请求。
+- 资格套件升级到版本2，评价增加使用 UUID 消息锚点的20条多角色消息案例；角色六例、评价三例及版本校验形成运行门槛。此前两次短案例通过作为历史证据保留，真实版本2长对话仍待供应商验收。
+- 管理页将旧版资格标为待重新实测，长对话资格案例使用与业务一致的 UUID 消息锚点。
+- 本地格式、类型、目标 ESLint、模型单元及 PostgreSQL 合约完成对应验证；最终结果由本次提交的 GitHub Actions 和独立验收报告记录。
+
+### TeacherScenarioLab 模型验收可审阅性（2026-10-30 13:23，Asia/Shanghai）
+
+- 管理后台新增固定虚构测试的合格输出详情、跳过数和拦截事实 ID；拦截文本保持不入库，表单校验失败显示提示，12种语言补齐相应文案。
+- 调用元数据从实际 fetch 响应记录 HTTP 状态；补充201状态和隐私元数据透传测试。
+- GitHub 第二轮 TypeScript、ESLint、PostgreSQL、生产镜像及159项浏览器测试通过；单元作业出现课堂编辑器预热回调全局计数失败。测试改为观察目标预热函数，执行/取消断言保留，追加独立浏览器 idle 工作的回归案例。
+- GLM Flash 评价完成2次真实请求，五维结构、证据 ID 与分数波动检查通过；业务评价请求遇到429，按冷却规则保留失败状态并执行一次恢复核验，恢复请求先出现 JSON 失败，格式修复后证据校验仍失败，评价入库数为0。完整真实角色模型资格仍受供应商状态和严格输出边界约束。
+- 本次变更继续使用原功能分支与 Draft PR，合并、部署和生产域名修改保持关闭。
+
+### TeacherScenarioLab 资源池契约与验收补充（2026-10-30 13:01，Asia/Shanghai）
+
+- `94ec62e` 的生产 Next.js 构建、最终 Docker 镜像和16项 PostgreSQL 运行检查通过，159项 Chromium 浏览器回归通过，PostgreSQL 合约通过；CI 中旧部署模板断言和新增测试函数类型检查失败，修正为当前 GLM/Google 分工和明确类型。
+- 真实资格测试对瞬时网络/服务错误增加一次预算内重试，保留权限、额度、隐私和安全拒绝的终止规则，并补充自动化验证。
+- 7张模型资源池表在独立数据库完成备份恢复，全部行数一致；观测余额与本地日/月预算的恢复规则在文档中分开说明。
+- 真实供应商请求仍有超时、限流和输出扫描阻塞；失败及跳过按实际记录。PR 保持 Draft，最新提交的完整 CI 需以本次推送后的结果为准。
+
+### TeacherScenarioLab 多供应商训练模型池（2026-10-30 12:46，Asia/Shanghai）
+
+- 新增七家训练供应商连接档案，复用现有原生/兼容适配器、槽位标识与 callLLM；保留原有 provider preset。
+- 角色与评价独立资格、免费额度优先、模型固定、有限重试、分类冷却、JSON 单次修复、安全拒绝终止及预算预留接入训练服务；新增 PostgreSQL 元数据与管理审计。
+- 新增模型总览、供应商、额度、调度、日志五页，覆盖12种语言；区分本地预算、供应商观测余额、官方数据与估算，NVIDIA 保持独立授权门槛。
+- 本地 TypeScript 和全仓 Prettier 检查通过；训练/配置/身份与 PostgreSQL 回归通过。新增浏览器和 PostgreSQL 工作流合约随本次推送在 GitHub 验证。
+- 真实请求取得 GLM Flash 角色回复和一次 Gemini 五维 JSON 评价；完整真实训练受限流、服务错误、超时及输出扫描拦截阻塞，资格失败保留原状态。NVIDIA 本轮无生成调用，Mistral 待密钥，Cloudflare 待账号额度与 Neurons 核验。
+- 凭据保存于 Git 忽略的本地环境配置；PR 保持 Draft，部署、合并、DNS 和生产数据变更均未执行。
+
+### TeacherScenarioLab 容器验收访问码登录（2026-10-30 08:48，Asia/Shanghai）
+
+- `7b00235` 的生产镜像构建、UID 1001 启动及健康探针通过；目录请求因缺少访问码认证返回 401，运行检查按失败记录。其余 CI 与 PostgreSQL 作业成功，158 项浏览器回归通过。
+- 运行脚本通过现有 `/api/access-code/verify` 取得访问凭据；追加无凭据、错误访问码的 401 检查，并在后续账号请求中同时发送访问凭据与独立账号会话。访问码保护及 cookie 安全属性保留。
+- 本地语法、格式核验后推送复验。真实 NVIDIA 成功、GLM 429 / 1113 阻塞及生产外部条件保持上一记录。
+
+### TeacherScenarioLab 真实模型联调与容器启动验收（2026-10-30 08:26，Asia/Shanghai）
+
+- 用户提供的 NVIDIA/GLM 密钥写入 Git 忽略的本地环境文件；`openmaic.yml` 引用环境变量，保留角色/评价独立槽位。凭据曾通过聊天提供，生产使用前需轮换。
+- 两家模型目录均 HTTP 200。首个 NVIDIA 目录模型推理 HTTP 404；更换为目录与官方文档均列出的 `nvidia/nemotron-3.5-lightning-30b-a3b` 后，通过原 resolveModel/callLLM/角色服务真实调用成功（HTTP 200，约 50.5 秒）。中文输出通过泄露扫描，消息与事件保存于独立本地测试库。
+- GLM `glm-4.7` 通用 API 返回 HTTP 429 / 1113（余额不足或无可用资源包）；评价与完成事件均未保存。用户要求保留此阻塞，标准 API 资源可用后继续五维评价真实联调。
+- Main image CI 追加最终镜像加载、非 root 启动及独立 PostgreSQL 的健康、账号隔离、会话撤销与管理权限检查；真实模型密钥继续保留在本地。
+- 本轮容器启动检查的云端结果待运行。条件合并/部署授权已收到，生产服务器、数据库与域名信息仍待核实。
+
+### TeacherScenarioLab 训练状态本地化（2026-10-30 07:50，Asia/Shanghai）
+
+- 模拟室、训练记录、复盘页使用本地化状态标签；七种状态在 12 个语言包中补齐，每个语言包现有 196 个训练键。
+- 状态机、API 和数据库继续使用原有标识，未知状态保留可见原值。新增回归覆盖每个语言的全部状态与未知标识处理。
+- 验证：本地化与状态机 41 项通过、0 失败、0 跳过；TypeScript 与 12 语言键检查通过。浏览器训练流程追加实际状态显示断言，继续在原 PR 完整套件中验证。
+- 上线授权延续：用户允许验收满足后合并和部署；真实模型密钥、生产服务器与域名配置仍待安全提供。
+
+### TeacherScenarioLab 完成度补齐与条件上线授权（2026-10-30 07:41，Asia/Shanghai）
+
+- 用户已授权：验收满足后允许合并 PR #1 并正式部署。真实模型验收仍缺少 NVIDIA/GLM 密钥、可用模型 ID；生产服务器与域名变更信息已请求，待提供后继续相应操作。
+- 复核远程 HEAD `974ddbb`、目标分支及现有两个工作流，均与上轮交付一致；145 项 Chromium 回归、生产 Build 和完整 runner 镜像通过。
+- 补齐 9 个语言包的训练界面译文，以及繁体中文的 34 条英文回退；每个语言包保留 189 个训练键，其他模块内容经结构比较保持一致。
+- 新增本地化回归：修改前 10 项失败、修改后 23 项通过；覆盖键、非空值、插值与学员/管理说明文案，12 语言全局键检查通过。
+- 新增管理后台真实表单的新建、编辑、删除、发布冻结、非管理员提示验收，以及 12 个语言的首页、记录和导航浏览器检查。新增用例进入原有完整 E2E 套件。
+- 验证：TypeScript、相关格式和本地回归通过；当前提交的 GitHub 完整 CI 与新增浏览器用例待云端运行。上线条件满足前 PR 保持 Draft，现阶段未合并、未部署。
+
+### TeacherScenarioLab 最终验收提交（2026-10-30 01:40，Asia/Shanghai）
+
+- `a974572` 的 Next.js 生产 Build、完整 Docker runner 镜像、全部单测与 PostgreSQL 工作流通过；浏览器训练闭环通过，总计 144 项通过、1 项文献夹具失败。
+- 文献列表的年份附注与详情标题分别按真实 API 元数据验证，保持精确标题和年份断言。
+- 生产覆盖配置在数据库口令、访问码或加密根密钥缺失时拒绝配置；官方 Compose 实测缺失拒绝、补齐后合并成功、数据库口令一致。
+- 生产服务器、数据库和 Cloudflare 状态按尚未取得权威配置记录，公开 DNS 为 NXDOMAIN。最终报告按本提交的云端复验结果出具，真实 NVIDIA/GLM 联调保留密钥阻塞。
+
+### TeacherScenarioLab 生产配置与验收收敛（2026-10-30 01:30，Asia/Shanghai）
+
+- 本地完整 Storage 套件 1491 项通过、0 失败、7 跳过；独立 PostgreSQL 写入审计通过，13 张表的插入计数均增加。故障注入遗留的本地测试触发器已恢复，原行数据保留。
+- `9733791` 云端 PostgreSQL 合约工作流成功，35 个应用套件 382 项通过；浏览器 143 项通过、1 项失败。剩余夹具把 `/training/hall` 提前识别为详情地址，现改为 UUID 路由等待并增加本人读取成功校验。
+- 新增 `docker-compose.teacher-scenario.yml`：只读模型配置挂载、缺失源文件拒绝自动创建、多用户 owner 模式。官方 Compose v5.6.1 二进制经发布校验和核验后，实际配置合并检查通过，全程未联系 Docker daemon。
+- 主镜像 CI 验证扩展到 runner 阶段，包含运行层依赖与 standalone 文件复制；镜像发布保持关闭。
+- 最新 TypeScript、全仓 Prettier、54 项工作流/身份/stage 检查通过。备份恢复结果与外部阻塞延续上一记录；最终验收报告附精确 SHA、逐项 Actions 结果和测试统计。
+- 本机跨盘依赖缓存及 Webpack 开发编译存在环境兼容限制，浏览器最终验收使用 GitHub 的生产构建与 Chromium。NVIDIA/GLM 实际调用仍需本地密钥与可用模型 ID；正式部署、合并及 DNS 修改均待用户授权。
+
+### TeacherScenarioLab CI 验收跟进（2026-10-30 01:15，Asia/Shanghai）
+
+- `dc5dcf4` 云端生产 Build、镜像、Lint/Typecheck、全部单测作业及 PostgreSQL 合约工作流通过；浏览器 142 项通过、2 项失败、1 项未运行。
+- 修复两个浏览器失败：视频缩略图夹具切换至 `/courseware`；中文产品流程明确设置 `zh-CN` 浏览器语言，数据库连接必须显式配置。
+- 修复 Storage 故障注入测试清理：触发器删除与模拟写入放在同一事务，回滚后再次验证触发器生效。独立 PostgreSQL 库连续执行两次，每次 8 项通过；保留全部原有断言。
+- 备份恢复演练通过：本地独立空库恢复 PostgreSQL 自定义格式备份，27 张表行数一致，校验和已记录。生产加密根密钥与备份要求补入变量模板和部署文档。
+- 待办：修复提交对应的完整云端浏览器复验、Storage 完整本地复验。真实供应商调用等待 NVIDIA/GLM 密钥；正式部署仍待用户批准。
+
+### TeacherScenarioLab 回归修复与上线准备（2026-10-30 00:51，Asia/Shanghai）
+
+- 需求：完成部署前可执行的开发、回归、模型链路与上线准备，现有 PR #1 保持 Draft。
+- 修复：评价 JSON 字符串中的花括号解析；损坏或空会话凭据返回 invalid；无凭据请求延迟初始化训练会话存储；模型失败响应使用固定信息，原始供应商错误不进入 API 响应。
+- 功能回归：保留产品首页，恢复上游课程生成和课程库界面至 `/courseware`，新增首页与训练导航入口，12 种语言的导航键保持一致；原课程 E2E 的入口定位同步到该路由，断言保持原值。
+- 启动兼容：Node 启动逻辑保持原内容，迁入 `lib/server/startup.ts`，由 instrumentation 的明确 Node 运行时分支导入，隔离 Edge 打包的 Node SDK。启动和身份边界复测 91 项通过。
+- 自动验收：新增 3 项真实数据库/浏览器产品流程；模型配置测试隔离开发者导出的其他供应商配置。训练 121 项、配置/身份/模型/工作流 987 项通过；TypeScript 已通过，最新修改继续复验。
+- 文档配置：补充 NVIDIA/GLM 独立槽位示例；生产变量模板补齐 Compose 数据库口令插值；更新 Windows、备份恢复、管理员及上线前核验说明。真实模型调用等待 NVIDIA/GLM 密钥，用户选择先继续无密钥验收。
+- 外部核验：Google 公共 DNS 查询 `zhiwei.weiyi.top` 的 A/AAAA/CNAME 均返回 NXDOMAIN；生产服务器、生产数据库与 Cloudflare 账号配置仍需当前权威信息。
+- 待办：当前提交的云端完整 CI、生产 Build、镜像与 E2E 结果，Storage 本地完整退出码与恢复演练，真实供应商调用。
+- 涉及文件：训练服务与回归测试、课程入口及 E2E、启动入口、i18n 导航、模型示例与部署文档。
+
+### TeacherScenarioLab 预部署验收（2026-10-29 23:58，Asia/Shanghai）
+
+- 任务：接管剩余开发、回归与上线准备；现有 PR #1 保持 Draft。
+- 已核验 Muse 提交 `3fb5cfb` 的格式、训练 stage 例外与身份公共服务修复；最新 GitHub Lint/Typecheck 检查通过。
+- 补齐 PostgreSQL 合约工作流缺失的 6 个训练测试；与 Git 跟踪清单核验为 35 个应用测试文件。
+- 根据 CI 的 `Playwright does not support chromium on ubuntu26.04-x64` 实际错误，将 E2E 作业固定为 Ubuntu 24.04。触发分支及权限配置保持原值。
+- 验证：两个 YAML 解析、工作流结构范围、PostgreSQL 清单一致性与 diff 检查通过；后续 GitHub 全量结果待运行。
+- 待办：训练/身份/配置/数据库回归、浏览器验收、真实模型密钥条件核验、生产构建与部署文档审查。
+- 涉及文件：`.github/workflows/ci.yml`、`.github/workflows/storage-pg-contract.yml`、`CHANGELOG.md`。
+
 ### Features
 
 - `@openmaic/generation` exports `renderScenePrompt('slide-content', { imageElementEnabled, generatedImageEnabled, generatedVideoEnabled })`, which returns the slide content system prompt without running generation. Slide generation builds its system prompt through the same code, so the two cannot drift. `@openmaic/generation` 0.3.26.
@@ -91,8 +477,8 @@ The full list of storage, schema and API changes behind the knowledge base, for 
 - `@openmaic/storage` 0.38.0: the entry lifecycle statements (the document-write stamp and the collector's sweep, legacy mark and release check) now read `asset_root_refs`, and the reference-tracking marker gains a `rule_version` column. A host that provisions `ASSET_PG_SCHEMA` through its own migrations must create that table and its index, and add `asset_reference_tracking.rule_version INTEGER NOT NULL DEFAULT 1`, before upgrading, or document writes that drop an asset reference, and the collector's entry pass, fail with `relation "asset_root_refs" does not exist` (or a missing column); see the schema additions and release conditions below.
 - The first start adds two nullable columns, `agent_sessions.locale` and `agent_session_materials.extraction_reason_code` (`ADD COLUMN IF NOT EXISTS`; existing rows stay empty and read as before). A host that provisions `AGENT_SESSION_PG_SCHEMA` or `AGENT_SESSION_MATERIAL_PG_SCHEMA` through its own migrations must add `locale TEXT` to `agent_sessions` and `extraction_reason_code TEXT` to `agent_session_materials` before upgrading; without them, session reads and extraction settlement fail with `column ... does not exist`.
 - The first start adds `asset_root_refs` to the asset schema, and to `owner_material` the nullable `asset_id`, `folder_id` and `display_name` columns, the `material_folders` table and the `owner_material_folder_fk` foreign key. Claims move folder rows and update `folder_id`. The shipped owner-material v2 migration remains unchanged; v5 adds the pool pointer after that one-time migration. **Release conditions.** Two separate hazards come from processes of an earlier release, and each has its own condition:
-  - *Older collectors do not know about roots.* An older collector's sweep stamps any committed entry no document references and releases it one grace period later, so an entry only a root keeps alive is at risk while an older process runs. Upgrade all instances together and let the rollout finish well within `ASSET_COLLECTION_GRACE_MS` (an older collector needs at least one grace period between stamping and releasing an entry). Deployments that store users' original files may want a longer grace period than the one-hour default.
-  - *Old bootstraps predating schema versioning can drop `owner_material.asset_id`.* Once pool pointers exist, starting those versions can erase them. Builds with a schema-version boot check instead refuse a newer schema, but that does not stop an old process already running. Stop every old instance before accepting new writes; do not use a rolling deployment with mixed versions.
+  - _Older collectors do not know about roots._ An older collector's sweep stamps any committed entry no document references and releases it one grace period later, so an entry only a root keeps alive is at risk while an older process runs. Upgrade all instances together and let the rollout finish well within `ASSET_COLLECTION_GRACE_MS` (an older collector needs at least one grace period between stamping and releasing an entry). Deployments that store users' original files may want a longer grace period than the one-hour default.
+  - _Old bootstraps predating schema versioning can drop `owner_material.asset_id`._ Once pool pointers exist, starting those versions can erase them. Builds with a schema-version boot check instead refuse a newer schema, but that does not stop an old process already running. Stop every old instance before accepting new writes; do not use a rolling deployment with mixed versions.
   - Do not roll back before the material-pool Phase 1a boundary. A host that provisions the asset schema through its own migrations must create `asset_root_refs`; the lifecycle statements name it.
 - The first start also adds owner-level extraction columns to `owner_material` (`extraction_token`, `extraction_claims` (default 0), `extraction_lease_at`, `extraction_error`, `extraction_result`, `extraction_cache_key`) and two partial indexes (`owner_material_extraction_queue_idx`, `owner_material_extraction_cache_idx`). Claims move the new columns with their rows.
 - The material library's tools (RFC #1716 Phase 2) add the `agent_session_material_links` table (`session_id` referencing `agent_sessions(id)` with `ON DELETE CASCADE`, `material_id`, `created_at`; provisioned as its own versioned migration store) and two partial indexes on `owner_material`: `owner_material_derived_from_idx` (`derived_from`) and `owner_material_owner_folder_idx` (`owner_id, folder_id`, which also serves the folder foreign key's `ON DELETE RESTRICT` check). Every instance with the agent runtime starts the owner-level extraction runner beside the session one (`OPENMAIC_AGENT_RUNTIME_SCAN_INTERVAL_MS` and `OPENMAIC_AGENT_RUNTIME_MAX_CONCURRENT` apply to both); on shutdown it waits for its runs as the session runner does, and logs when one is still in a provider call it cannot cancel. Conversations and their copies from before keep working unchanged.
@@ -277,15 +663,16 @@ Design: RFC [#1754](https://github.com/THU-MAIC/OpenMAIC/discussions/1754) (rele
   - `slots` are server defaults that users may change.
   - `lock` fixes slots (or `all`) for everyone.
   - `allowUserKeys: false` keeps users from adding their own providers.
-  - The settings take the matching shape: *set it up yourself*, *choose a model* or *configured by the administrator*.
+  - The settings take the matching shape: _set it up yourself_, _choose a model_ or _configured by the administrator_.
   - Keys are stored encrypted on the server and never leave it. [#1727](https://github.com/THU-MAIC/OpenMAIC/pull/1727) [#1733](https://github.com/THU-MAIC/OpenMAIC/pull/1733) [#1767](https://github.com/THU-MAIC/OpenMAIC/pull/1767) [#1793](https://github.com/THU-MAIC/OpenMAIC/pull/1793)
 - **Materials are parsed as soon as they are attached.** The composer uploads and parses each file in place and shows progress, Ready, or Failed with Retry. Generate waits until every file is ready, and the preview then opens without a material-analysis step. Re-uploading the same file reuses the earlier parse. [#1796](https://github.com/THU-MAIC/OpenMAIC/pull/1796)
 - **Identity.** There are three modes:
   - single-user for personal installations (the Docker Compose default);
   - anonymous visitors, whose cookie now lasts 400 days and is renewed while in use;
   - accounts, through host auth methods.
-  
+
   Anonymous work can be claimed into an account with `POST /api/identity/claim`.
+
 - **Custom agents are stored on the server** (`/api/agents`). [#1758](https://github.com/THU-MAIC/OpenMAIC/pull/1758)
 - **The database schema is versioned** (`openmaic_schema_migrations`). [#1757](https://github.com/THU-MAIC/OpenMAIC/pull/1757)
 - **Upgrades carry browser data to the server.** The first load after the upgrade moves the browser's courses, chat, progress, folders, media, custom agents and model settings to the server, once per browser.
@@ -311,8 +698,9 @@ Design: RFC [#1754](https://github.com/THU-MAIC/OpenMAIC/discussions/1754) (rele
   - `/api/extract-document`
   - `/api/web-search`
   - `GET` / `POST /api/classroom`
-  
+
   Use `/api/generation-runs` instead.
+
 - **A course is read-only while it is being generated.** Other writers get `409 COURSE_GENERATING` until its run completes or ends. Deleting the course and moving it between folders stay allowed.
 - **Runtime sessions are keyed by the resolved owner.** `PERSISTENCE_DEV_TOKEN`, `NEXT_PUBLIC_PERSISTENCE_TOKEN` and `PERSISTENCE_ALLOW_INSECURE_DEV_AUTH` are removed.
   - If the token was your only access gate, put the deployment behind `ACCESS_CODE`, a gateway or owner auth methods first.
@@ -444,6 +832,7 @@ Design: RFC [#1754](https://github.com/THU-MAIC/OpenMAIC/discussions/1754) (rele
 - Startup: a configuration refused by the boot validation in `instrumentation.ts` (a malformed `ASSET_QUOTA_BYTES`, `ASSET_PENDING_TTL_MS`, `OWNER_WRITE_LOCK_WAIT_MS` or `OWNER_CLAIM_LOCK_WAIT_MS`; an `OWNER_CLAIM_TRIGGER` other than `explicit` / `auto`; the removed `OWNER_AUTHENTICATOR` / `TRUSTED_PROXY_*` variables; a malformed `PERSISTENCE_SHARED_OWNER_ID`, one without `ACCESS_CODE` or beside a registration that leaves out `sharedTeamAuthMethod()`, or `sharedTeamAuthMethod()` registered without it or not last; `ASSET_S3_BUCKET` beside a registered asset byte store, or `ASSET_BYTE_EGRESS=redirect` with a byte store that does not declare `signsReadUrls`) now exits the Node.js server with code `1` after one `[boot] Invalid server configuration` line carrying the original message. Any other boot failure (a module missing from the build, a host registration call that throws) also exits with code `1`, printed as `[boot] Server startup failed` with its stack. Previously the server logged "Failed to prepare server", kept listening, and answered every request with `500`. Warnings never stop the server.
 - Server persistence: two concurrent creates of one new course id by the same owner no longer refuse the second as `reserved-document`: creates of one id take turns, and the second saves as an update without running the create hooks again.
 - Server persistence: instances starting at the same time against one database no longer fail schema setup on a catalog race (`duplicate key value violates unique constraint "pg_class_relname_nsp_index"` / `pg_type_typname_nsp_index`, `tuple concurrently updated`), which made an instance's first request answer `500`. Every schema bootstrap (documents, `stage_meta` and its ownership backfill, owner materials, assets, runtime, agent sessions, session materials, user skills, and the asset collector's) now runs under one PostgreSQL advisory lock held on a dedicated connection.
+
 #### Security
 
 - Server persistence: operations on one owner-bound document store no longer share mutable state, so concurrent calls on a store an agent run shares with its tools each gate their own stage; `create_stage` also runs sequentially within a tool batch.
@@ -964,6 +1353,7 @@ Breaking Changes section first, as this release tightens two defaults.
 ## [0.1.1] - 2026-04-14
 
 ### Features
+
 - Add inline language inference for outline and PBL generation, replacing manual language selector [#412](https://github.com/THU-MAIC/OpenMAIC/pull/412) (by @cosarah)
 - Add ACCESS_CODE site-level authentication for shared deployments [#411](https://github.com/THU-MAIC/OpenMAIC/pull/411)
 - Add classroom export and import as ZIP [#418](https://github.com/THU-MAIC/OpenMAIC/pull/418)
@@ -980,6 +1370,7 @@ Breaking Changes section first, as this release tightens two defaults.
 - Add end-to-end generation happy path test [#405](https://github.com/THU-MAIC/OpenMAIC/pull/405)
 
 ### Bug Fixes
+
 - Fix DNS rebinding bypass in SSRF validation [#386](https://github.com/THU-MAIC/OpenMAIC/pull/386) (by @YizukiAme)
 - Add ALLOW_LOCAL_NETWORKS env var for self-hosted deployments [#366](https://github.com/THU-MAIC/OpenMAIC/pull/366)
 - Fix custom provider baseUrl not persisting on creation [#417](https://github.com/THU-MAIC/OpenMAIC/pull/417) (by @YizukiAme)
@@ -994,6 +1385,7 @@ Breaking Changes section first, as this release tightens two defaults.
 - Fix breathing bar background color in roundtable [#307](https://github.com/THU-MAIC/OpenMAIC/pull/307)
 
 ### Other Changes
+
 - Add missing Ollama and Doubao provider names for ru-RU [#389](https://github.com/THU-MAIC/OpenMAIC/pull/389) (by @cosarah)
 - Update Ollama logo to official version [#400](https://github.com/THU-MAIC/OpenMAIC/pull/400) (by @cosarah)
 - Remove deprecated Gemini 3 Pro Preview model [#142](https://github.com/THU-MAIC/OpenMAIC/pull/142) (by @Orinameh)

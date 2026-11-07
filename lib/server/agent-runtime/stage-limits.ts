@@ -7,3 +7,6 @@
  * client-side (reference semantics).
  */
 export const STAGE_NAME_MAX_LENGTH = 120;
+
+/** Upper bound on scene ids in one batch-read request. */
+export const MAX_BATCH_SCENE_IDS = 200;

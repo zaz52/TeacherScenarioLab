@@ -1,0 +1,7 @@
+{
+  "name": "teacherlab-image-contract",
+  "main": "./worker.mjs",
+  "compatibility_date": "2026-10-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "images": { "binding": "IMAGES" },
+}

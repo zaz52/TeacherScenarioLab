@@ -22,8 +22,8 @@ vi.mock('@/lib/server/model-config/runtime', async (importOriginal) => ({
   lookupStage: vi.fn(async () => state.lookup),
 }));
 
-const { lookupFromLayers, SlotDisabledError, SlotUnassignedError } =
-  await import('@/lib/server/model-config/runtime');
+const runtime = await import('@/lib/server/model-config/runtime');
+const { lookupFromLayers, SlotDisabledError, SlotUnassignedError } = runtime;
 const { resolveStageModel } = await import('@/lib/server/model-config/llm');
 
 const layer = (source: ModelConfigLayer['source'], config: ModelConfigLayer['config']) => ({
@@ -36,6 +36,10 @@ const legacyModel = { modelString: 'openai:from-header' } as ResolvedModel;
 describe('resolveStageModel', () => {
   beforeEach(() => {
     vi.stubEnv('ALLOW_LOCAL_NETWORKS', '');
+    // Each test supplies synthetic slot layers. Keep legacy defaults from the
+    // developer's environment out of the request-override decision.
+    const { setDeploymentConfigForTests } = runtime;
+    setDeploymentConfigForTests({ layer: null, legacy: false, notices: [] });
   });
 
   it('builds the configured model with its options', async () => {

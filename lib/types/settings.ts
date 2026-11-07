@@ -5,6 +5,12 @@
  * own values (`providers`, `image`, ...) so an opener can go straight to one.
  */
 export type SettingsSection =
+  | 'account'
+  | 'training-routing'
+  | 'training-admin'
+  | 'people'
+  | 'mail'
+  | 'platform-models'
   | 'general'
   | 'token-plan'
   | 'providers'

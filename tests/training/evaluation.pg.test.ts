@@ -15,6 +15,7 @@ import {
   appendUserMessage,
   createTraining,
   listMessages,
+  listEvents,
   startTraining,
   transitionTraining,
 } from '@/lib/training/store';
@@ -113,6 +114,20 @@ describePg('training evaluation (PostgreSQL contract)', () => {
       }),
     ).rejects.toMatchObject({ status: 502 });
     expect(await getEvaluation('owner-1', trainingId)).toBeNull();
+  });
+
+  test('upstream failures disclose no provider detail and persist no evaluation', async () => {
+    await expect(
+      generateEvaluation('owner-1', trainingId, {
+        generateModelEvaluation: async () => {
+          throw new Error('sensitive-upstream-detail');
+        },
+      }),
+    ).rejects.toMatchObject({ status: 503, message: 'evaluation model is not available' });
+    expect(await getEvaluation('owner-1', trainingId)).toBeNull();
+    expect(
+      (await listEvents('owner-1', trainingId)).filter((e) => e.type === 'evaluation-completed'),
+    ).toHaveLength(0);
   });
 
   test('wrong states fail with 409', async () => {

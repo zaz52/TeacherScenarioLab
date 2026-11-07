@@ -1,0 +1,2104 @@
+[
+  {
+    "id": "kb-scenarios-01",
+    "category": "scenarios",
+    "label": "发热请假后的首次沟通｜小学一年级",
+    "application": "班级有学生因发热请假，具体病因尚未核实。 训练任务：核实已确认信息，说明报告联系人和后续回访。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["发热", "请假", "核实", "就医"],
+    "reference": {
+      "id": "kb-scenarios-01",
+      "title": "规模化K12在线教学中家校合作的实施逻辑、内容与建议",
+      "authors": ["郑旭东", "万昆"],
+      "year": 2020,
+      "url": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/73950e7813701c141374f88cc65ef0d2",
+      "venue": "中国电化教育",
+      "locator": "2020(04):16-21",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：规模化K12在线教学中家校合作的实施逻辑、内容与建议。关联实训主题：发热请假后的首次沟通｜小学一年级。"
+    },
+    "journal": {
+      "label": "中文核心（原刊网站标注）",
+      "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/021b96a74f0d29c70d4c981620b04434",
+      "edition": "原刊网站，2026-11-03核对",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "原刊或机构来源页",
+      "sourceUrl": "https://zdjy.cbpt.cnki.net/portal/journal/portal/client/paper/73950e7813701c141374f88cc65ef0d2",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "fever-g1",
+      "label": "发热请假后的首次沟通｜小学一年级",
+      "context": "班级有学生因发热请假，具体病因尚未核实。",
+      "task": "核实已确认信息，说明报告联系人和后续回访。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["发热", "请假", "核实", "就医"]
+    }
+  },
+  {
+    "id": "kb-scenarios-02",
+    "category": "scenarios",
+    "label": "发热请假后的首次沟通｜小学三年级",
+    "application": "班级有学生因发热请假，具体病因尚未核实。 训练任务：核实已确认信息，说明报告联系人和后续回访。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["发热", "请假", "核实", "就医"],
+    "reference": {
+      "id": "kb-scenarios-02",
+      "title": "重大疫情下的中小学教育审思：基于实证分析的视角",
+      "authors": ["张辉蓉", "刘燚"],
+      "year": 2020,
+      "url": "https://epc.swu.edu.cn/info/1109/2585.htm",
+      "venue": "教育与经济",
+      "locator": "2020年第2期；西南大学原文转载页",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：重大疫情下的中小学教育审思：基于实证分析的视角。关联实训主题：发热请假后的首次沟通｜小学三年级。"
+    },
+    "journal": {
+      "label": "期刊文献，收录状态待单独核验",
+      "sourceUrl": "https://epc.swu.edu.cn/info/1109/2585.htm",
+      "edition": "原文转载页",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "原刊或机构来源页",
+      "sourceUrl": "https://epc.swu.edu.cn/info/1109/2585.htm",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "fever-g3",
+      "label": "发热请假后的首次沟通｜小学三年级",
+      "context": "班级有学生因发热请假，具体病因尚未核实。",
+      "task": "核实已确认信息，说明报告联系人和后续回访。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["发热", "请假", "核实", "就医"]
+    }
+  },
+  {
+    "id": "kb-scenarios-03",
+    "category": "scenarios",
+    "label": "发热请假后的首次沟通｜小学五年级",
+    "application": "班级有学生因发热请假，具体病因尚未核实。 训练任务：核实已确认信息，说明报告联系人和后续回访。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["发热", "请假", "核实", "就医"],
+    "reference": {
+      "id": "kb-scenarios-03",
+      "title": "Changes in Depression and Anxiety Among Children and Adolescents From Before to During the COVID-19 Pandemic",
+      "authors": [
+        "Sheri Madigan",
+        "Nicole Racine",
+        "Tracy Vaillancourt",
+        "Daphne J. Korczak",
+        "Jackson M. A. Hewitt",
+        "Paolo Pador",
+        "Joanne L. Park",
+        "Brae Anne McArthur",
+        "Celeste Holy",
+        "Ross D. Neville"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1001/jamapediatrics.2023.0846",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2023.0846",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Changes in Depression and Anxiety Among Children and Adolescents From Before to During the COVID-19 Pandemic。关联实训主题：发热请假后的首次沟通｜小学五年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2023.0846",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "fever-g5",
+      "label": "发热请假后的首次沟通｜小学五年级",
+      "context": "班级有学生因发热请假，具体病因尚未核实。",
+      "task": "核实已确认信息，说明报告联系人和后续回访。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["发热", "请假", "核实", "就医"]
+    }
+  },
+  {
+    "id": "kb-scenarios-04",
+    "category": "scenarios",
+    "label": "发热请假后的首次沟通｜初中一年级",
+    "application": "班级有学生因发热请假，具体病因尚未核实。 训练任务：核实已确认信息，说明报告联系人和后续回访。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["发热", "请假", "核实", "就医"],
+    "reference": {
+      "id": "kb-scenarios-04",
+      "title": "Impact of COVID‐19 Pandemic on the Mental Health of Students From 2 Semi‐Rural High Schools in Georgia*",
+      "authors": [
+        "Julie Gazmararian",
+        "Rachel Weingart",
+        "Katherine Campbell",
+        "Thomas Cronin",
+        "Jasleen Ashta"
+      ],
+      "year": 2021,
+      "url": "https://doi.org/10.1111/josh.13007",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13007",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Impact of COVID‐19 Pandemic on the Mental Health of Students From 2 Semi‐Rural High Schools in Georgia*。关联实训主题：发热请假后的首次沟通｜初中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13007",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "fever-g7",
+      "label": "发热请假后的首次沟通｜初中一年级",
+      "context": "班级有学生因发热请假，具体病因尚未核实。",
+      "task": "核实已确认信息，说明报告联系人和后续回访。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["发热", "请假", "核实", "就医"]
+    }
+  },
+  {
+    "id": "kb-scenarios-05",
+    "category": "scenarios",
+    "label": "发热请假后的首次沟通｜高中一年级",
+    "application": "班级有学生因发热请假，具体病因尚未核实。 训练任务：核实已确认信息，说明报告联系人和后续回访。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["发热", "请假", "核实", "就医"],
+    "reference": {
+      "id": "kb-scenarios-05",
+      "title": "Teachers and School Health Leaders' Perspectives on Distance Learning Physical Education During the COVID‐19 Pandemic",
+      "authors": ["Jocelyn A. Vilchez", "John Kruse", "Maryjane Puffer", "Rebecca N. Dudovitz"],
+      "year": 2021,
+      "url": "https://doi.org/10.1111/josh.13030",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13030",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Teachers and School Health Leaders' Perspectives on Distance Learning Physical Education During the COVID‐19 Pandemic。关联实训主题：发热请假后的首次沟通｜高中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13030",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "fever-g10",
+      "label": "发热请假后的首次沟通｜高中一年级",
+      "context": "班级有学生因发热请假，具体病因尚未核实。",
+      "task": "核实已确认信息，说明报告联系人和后续回访。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["发热", "请假", "核实", "就医"]
+    }
+  },
+  {
+    "id": "kb-scenarios-06",
+    "category": "scenarios",
+    "label": "家长群出现未经核实的消息｜小学一年级",
+    "application": "家长转发了有关班级健康情况的截图，来源尚未确认。 训练任务：核对消息来源，以学校确认的信息回应。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["家长群", "传言", "来源", "核实"],
+    "reference": {
+      "id": "kb-scenarios-06",
+      "title": "Longitudinal trajectories of mental health and loneliness for Australian adolescents with‐or‐without neurodevelopmental disorders: the impact of COVID‐19 school lockdowns",
+      "authors": [
+        "Stephen Houghton",
+        "Michael Kyron",
+        "David Lawrence",
+        "Simon Charles Hunter",
+        "John Hattie",
+        "Annemaree Carroll",
+        "Corinne Zadow",
+        "Wai Chen"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1111/jcpp.13579",
+      "venue": "Journal of Child Psychology and Psychiatry",
+      "doi": "10.1111/jcpp.13579",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Longitudinal trajectories of mental health and loneliness for Australian adolescents with‐or‐without neurodevelopmental disorders: the impact of COVID‐19 school lockdowns。关联实训主题：家长群出现未经核实的消息｜小学一年级。"
+    },
+    "journal": {
+      "label": "SCIE / SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/jcpp.13579",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "rumor-g1",
+      "label": "家长群出现未经核实的消息｜小学一年级",
+      "context": "家长转发了有关班级健康情况的截图，来源尚未确认。",
+      "task": "核对消息来源，以学校确认的信息回应。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["家长群", "传言", "来源", "核实"]
+    }
+  },
+  {
+    "id": "kb-scenarios-07",
+    "category": "scenarios",
+    "label": "家长群出现未经核实的消息｜小学三年级",
+    "application": "家长转发了有关班级健康情况的截图，来源尚未确认。 训练任务：核对消息来源，以学校确认的信息回应。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["家长群", "传言", "来源", "核实"],
+    "reference": {
+      "id": "kb-scenarios-07",
+      "title": "Effects of Remote Education During the COVID ‐19 Pandemic on Young Children's Learning and Academic Behavior in Georgia: Perceptions of Parents and School Administrators",
+      "authors": ["Jill V. Klosky", "Julie A. Gazmararian", "Olivia Casimir", "Sarah C. Blake"],
+      "year": 2022,
+      "url": "https://doi.org/10.1111/josh.13185",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13185",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Effects of Remote Education During the COVID ‐19 Pandemic on Young Children's Learning and Academic Behavior in Georgia: Perceptions of Parents and School Administrators。关联实训主题：家长群出现未经核实的消息｜小学三年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13185",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "rumor-g3",
+      "label": "家长群出现未经核实的消息｜小学三年级",
+      "context": "家长转发了有关班级健康情况的截图，来源尚未确认。",
+      "task": "核对消息来源，以学校确认的信息回应。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["家长群", "传言", "来源", "核实"]
+    }
+  },
+  {
+    "id": "kb-scenarios-08",
+    "category": "scenarios",
+    "label": "家长群出现未经核实的消息｜小学五年级",
+    "application": "家长转发了有关班级健康情况的截图，来源尚未确认。 训练任务：核对消息来源，以学校确认的信息回应。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["家长群", "传言", "来源", "核实"],
+    "reference": {
+      "id": "kb-scenarios-08",
+      "title": "Advocating for Children During the COVID-19 School Closures",
+      "authors": ["Abbey R. Masonbrink", "Emily Hurley"],
+      "year": 2020,
+      "url": "https://doi.org/10.1542/peds.2020-1440",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2020-1440",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Advocating for Children During the COVID-19 School Closures。关联实训主题：家长群出现未经核实的消息｜小学五年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2020-1440",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "rumor-g5",
+      "label": "家长群出现未经核实的消息｜小学五年级",
+      "context": "家长转发了有关班级健康情况的截图，来源尚未确认。",
+      "task": "核对消息来源，以学校确认的信息回应。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["家长群", "传言", "来源", "核实"]
+    }
+  },
+  {
+    "id": "kb-scenarios-09",
+    "category": "scenarios",
+    "label": "家长群出现未经核实的消息｜初中一年级",
+    "application": "家长转发了有关班级健康情况的截图，来源尚未确认。 训练任务：核对消息来源，以学校确认的信息回应。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["家长群", "传言", "来源", "核实"],
+    "reference": {
+      "id": "kb-scenarios-09",
+      "title": "Developmental Milestone Attainment in US Children Before and During the COVID-19 Pandemic",
+      "authors": [
+        "Sara B. Johnson",
+        "Molly Kuehn",
+        "Jennifer O. Lambert",
+        "J. Paul Spin",
+        "Lauren M. Klein",
+        "Barbara Howard",
+        "Raymond Sturner",
+        "Eliana M. Perrin"
+      ],
+      "year": 2024,
+      "url": "https://doi.org/10.1001/jamapediatrics.2024.0683",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2024.0683",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Developmental Milestone Attainment in US Children Before and During the COVID-19 Pandemic。关联实训主题：家长群出现未经核实的消息｜初中一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2024.0683",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "rumor-g7",
+      "label": "家长群出现未经核实的消息｜初中一年级",
+      "context": "家长转发了有关班级健康情况的截图，来源尚未确认。",
+      "task": "核对消息来源，以学校确认的信息回应。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["家长群", "传言", "来源", "核实"]
+    }
+  },
+  {
+    "id": "kb-scenarios-10",
+    "category": "scenarios",
+    "label": "家长群出现未经核实的消息｜高中一年级",
+    "application": "家长转发了有关班级健康情况的截图，来源尚未确认。 训练任务：核对消息来源，以学校确认的信息回应。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["家长群", "传言", "来源", "核实"],
+    "reference": {
+      "id": "kb-scenarios-10",
+      "title": "The Experience of 2 Independent Schools With In‐Person Learning During the COVID ‐19 Pandemic",
+      "authors": [
+        "Darria L. Gillespie",
+        "Lauren A. Meyers",
+        "Michael Lachmann",
+        "Stephen C. Redd",
+        "Jonathan M. Zenilman"
+      ],
+      "year": 2021,
+      "url": "https://doi.org/10.1111/josh.13008",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13008",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：The Experience of 2 Independent Schools With In‐Person Learning During the COVID ‐19 Pandemic。关联实训主题：家长群出现未经核实的消息｜高中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13008",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "rumor-g10",
+      "label": "家长群出现未经核实的消息｜高中一年级",
+      "context": "家长转发了有关班级健康情况的截图，来源尚未确认。",
+      "task": "核对消息来源，以学校确认的信息回应。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["家长群", "传言", "来源", "核实"]
+    }
+  },
+  {
+    "id": "kb-scenarios-11",
+    "category": "scenarios",
+    "label": "请假后学习支持｜小学一年级",
+    "application": "学生因健康原因暂时请假，家长担心学习安排。 训练任务：商量适量任务、获取材料方式和反馈节点。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["请假", "学习", "作业", "支持"],
+    "reference": {
+      "id": "kb-scenarios-11",
+      "title": "Factors Associated with Caregiver Preferences for Children's Return to School during the COVID‐19 Pandemic",
+      "authors": ["Christine A. Limbers"],
+      "year": 2020,
+      "url": "https://doi.org/10.1111/josh.12971",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.12971",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Factors Associated with Caregiver Preferences for Children's Return to School during the COVID‐19 Pandemic。关联实训主题：请假后学习支持｜小学一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.12971",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "absence-g1",
+      "label": "请假后学习支持｜小学一年级",
+      "context": "学生因健康原因暂时请假，家长担心学习安排。",
+      "task": "商量适量任务、获取材料方式和反馈节点。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["请假", "学习", "作业", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-12",
+    "category": "scenarios",
+    "label": "请假后学习支持｜小学三年级",
+    "application": "学生因健康原因暂时请假，家长担心学习安排。 训练任务：商量适量任务、获取材料方式和反馈节点。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["请假", "学习", "作业", "支持"],
+    "reference": {
+      "id": "kb-scenarios-12",
+      "title": "School Closure During the Coronavirus Disease 2019 (COVID-19) Pandemic",
+      "authors": ["Susanna Esposito", "Nicola Principi"],
+      "year": 2020,
+      "url": "https://doi.org/10.1001/jamapediatrics.2020.1892",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2020.1892",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School Closure During the Coronavirus Disease 2019 (COVID-19) Pandemic。关联实训主题：请假后学习支持｜小学三年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2020.1892",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "absence-g3",
+      "label": "请假后学习支持｜小学三年级",
+      "context": "学生因健康原因暂时请假，家长担心学习安排。",
+      "task": "商量适量任务、获取材料方式和反馈节点。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["请假", "学习", "作业", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-13",
+    "category": "scenarios",
+    "label": "请假后学习支持｜小学五年级",
+    "application": "学生因健康原因暂时请假，家长担心学习安排。 训练任务：商量适量任务、获取材料方式和反馈节点。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["请假", "学习", "作业", "支持"],
+    "reference": {
+      "id": "kb-scenarios-13",
+      "title": "School‐Based Health Center Utilization During COVID‐19 Pandemic‐Related School Closures",
+      "authors": [
+        "Michelle Gallardo",
+        "Alex Zepeda",
+        "Christopher Biely",
+        "Nicholas Jackson",
+        "Maryjane Puffer",
+        "Patricia Anton",
+        "Rebecca Dudovitz"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1111/josh.13226",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13226",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School‐Based Health Center Utilization During COVID‐19 Pandemic‐Related School Closures。关联实训主题：请假后学习支持｜小学五年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13226",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "absence-g5",
+      "label": "请假后学习支持｜小学五年级",
+      "context": "学生因健康原因暂时请假，家长担心学习安排。",
+      "task": "商量适量任务、获取材料方式和反馈节点。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["请假", "学习", "作业", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-14",
+    "category": "scenarios",
+    "label": "请假后学习支持｜初中一年级",
+    "application": "学生因健康原因暂时请假，家长担心学习安排。 训练任务：商量适量任务、获取材料方式和反馈节点。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["请假", "学习", "作业", "支持"],
+    "reference": {
+      "id": "kb-scenarios-14",
+      "title": "“School of hard knocks” – what can mental health researchers learn from the COVID‐19 crisis?",
+      "authors": ["Edmund J.S. Sonuga‐Barke"],
+      "year": 2020,
+      "url": "https://doi.org/10.1111/jcpp.13364",
+      "venue": "Journal of Child Psychology and Psychiatry",
+      "doi": "10.1111/jcpp.13364",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：“School of hard knocks” – what can mental health researchers learn from the COVID‐19 crisis?。关联实训主题：请假后学习支持｜初中一年级。"
+    },
+    "journal": {
+      "label": "SCIE / SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/jcpp.13364",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "absence-g7",
+      "label": "请假后学习支持｜初中一年级",
+      "context": "学生因健康原因暂时请假，家长担心学习安排。",
+      "task": "商量适量任务、获取材料方式和反馈节点。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["请假", "学习", "作业", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-15",
+    "category": "scenarios",
+    "label": "请假后学习支持｜高中一年级",
+    "application": "学生因健康原因暂时请假，家长担心学习安排。 训练任务：商量适量任务、获取材料方式和反馈节点。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["请假", "学习", "作业", "支持"],
+    "reference": {
+      "id": "kb-scenarios-15",
+      "title": "Utilization of Physician-Based Mental Health Care Services Among Children and Adolescents Before and During the COVID-19 Pandemic in Ontario, Canada",
+      "authors": [
+        "Natasha Ruth Saunders",
+        "Paul Kurdyak",
+        "Therese A. Stukel",
+        "Rachel Strauss",
+        "Longdi Fu",
+        "Jun Guan",
+        "Lisa Fiksenbaum",
+        "Eyal Cohen",
+        "Astrid Guttmann",
+        "Simone Vigod",
+        "Maria Chiu",
+        "Charlotte Moore Hepburn",
+        "Kimberly Moran",
+        "William Gardner",
+        "Mario Cappelli",
+        "Purnima Sundar",
+        "Alene Toulany"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1001/jamapediatrics.2021.6298",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2021.6298",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Utilization of Physician-Based Mental Health Care Services Among Children and Adolescents Before and During the COVID-19 Pandemic in Ontario, Canada。关联实训主题：请假后学习支持｜高中一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2021.6298",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "absence-g10",
+      "label": "请假后学习支持｜高中一年级",
+      "context": "学生因健康原因暂时请假，家长担心学习安排。",
+      "task": "商量适量任务、获取材料方式和反馈节点。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["请假", "学习", "作业", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-16",
+    "category": "scenarios",
+    "label": "健康信息公开争议｜小学一年级",
+    "application": "有家长要求在群里提供其他学生的姓名和健康细节。 训练任务：回应担忧，协商个体信息的私密沟通渠道。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["隐私", "姓名", "家长群", "健康"],
+    "reference": {
+      "id": "kb-scenarios-16",
+      "title": "School-Academic Partnerships in Support of Safe Return to Schools During the COVID-19 Pandemic",
+      "authors": [
+        "Emily M. D’Agostino",
+        "Emily E. Haroz",
+        "Sandra Linde",
+        "Marcus Layer",
+        "Melissa Green",
+        "Linda K. Ko"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1542/peds.2021-054268c",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2021-054268c",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School-Academic Partnerships in Support of Safe Return to Schools During the COVID-19 Pandemic。关联实训主题：健康信息公开争议｜小学一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2021-054268c",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "privacy-g1",
+      "label": "健康信息公开争议｜小学一年级",
+      "context": "有家长要求在群里提供其他学生的姓名和健康细节。",
+      "task": "回应担忧，协商个体信息的私密沟通渠道。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["隐私", "姓名", "家长群", "健康"]
+    }
+  },
+  {
+    "id": "kb-scenarios-17",
+    "category": "scenarios",
+    "label": "健康信息公开争议｜小学三年级",
+    "application": "有家长要求在群里提供其他学生的姓名和健康细节。 训练任务：回应担忧，协商个体信息的私密沟通渠道。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["隐私", "姓名", "家长群", "健康"],
+    "reference": {
+      "id": "kb-scenarios-17",
+      "title": "Caregiver and Child Mental Health During 3 Years of the COVID-19 Pandemic",
+      "authors": [
+        "Anna M.H. Price",
+        "Mary-Anne Measey",
+        "Monsurul Hoq",
+        "Anthea Rhodes",
+        "Sharon Goldfeld"
+      ],
+      "year": 2024,
+      "url": "https://doi.org/10.1542/peds.2023-064658",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2023-064658",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Caregiver and Child Mental Health During 3 Years of the COVID-19 Pandemic。关联实训主题：健康信息公开争议｜小学三年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2023-064658",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "privacy-g3",
+      "label": "健康信息公开争议｜小学三年级",
+      "context": "有家长要求在群里提供其他学生的姓名和健康细节。",
+      "task": "回应担忧，协商个体信息的私密沟通渠道。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["隐私", "姓名", "家长群", "健康"]
+    }
+  },
+  {
+    "id": "kb-scenarios-18",
+    "category": "scenarios",
+    "label": "健康信息公开争议｜小学五年级",
+    "application": "有家长要求在群里提供其他学生的姓名和健康细节。 训练任务：回应担忧，协商个体信息的私密沟通渠道。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["隐私", "姓名", "家长群", "健康"],
+    "reference": {
+      "id": "kb-scenarios-18",
+      "title": "Engagement, Mental Health, and Substance Use Under In‐Person or Remote School Instruction During the COVID‐19 Pandemic",
+      "authors": [
+        "Benjamin W. Chaffee",
+        "Jing Cheng",
+        "Elizabeth T. Couch",
+        "Bonnie Halpern‐Felsher"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1111/josh.13418",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13418",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Engagement, Mental Health, and Substance Use Under In‐Person or Remote School Instruction During the COVID‐19 Pandemic。关联实训主题：健康信息公开争议｜小学五年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13418",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "privacy-g5",
+      "label": "健康信息公开争议｜小学五年级",
+      "context": "有家长要求在群里提供其他学生的姓名和健康细节。",
+      "task": "回应担忧，协商个体信息的私密沟通渠道。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["隐私", "姓名", "家长群", "健康"]
+    }
+  },
+  {
+    "id": "kb-scenarios-19",
+    "category": "scenarios",
+    "label": "健康信息公开争议｜初中一年级",
+    "application": "有家长要求在群里提供其他学生的姓名和健康细节。 训练任务：回应担忧，协商个体信息的私密沟通渠道。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["隐私", "姓名", "家长群", "健康"],
+    "reference": {
+      "id": "kb-scenarios-19",
+      "title": "School‐Based Mental Health Service Utilization Through the COVID‐19 Pandemic and Beyond",
+      "authors": [
+        "Mackenzie Stuenkel",
+        "Caitlin Koob",
+        "Emily Richardson",
+        "Sarah F. Griffin",
+        "Kerry K. Sease"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1111/josh.13384",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13384",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School‐Based Mental Health Service Utilization Through the COVID‐19 Pandemic and Beyond。关联实训主题：健康信息公开争议｜初中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13384",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "privacy-g7",
+      "label": "健康信息公开争议｜初中一年级",
+      "context": "有家长要求在群里提供其他学生的姓名和健康细节。",
+      "task": "回应担忧，协商个体信息的私密沟通渠道。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["隐私", "姓名", "家长群", "健康"]
+    }
+  },
+  {
+    "id": "kb-scenarios-20",
+    "category": "scenarios",
+    "label": "健康信息公开争议｜高中一年级",
+    "application": "有家长要求在群里提供其他学生的姓名和健康细节。 训练任务：回应担忧，协商个体信息的私密沟通渠道。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["隐私", "姓名", "家长群", "健康"],
+    "reference": {
+      "id": "kb-scenarios-20",
+      "title": "Sounding the Alarm for Children’s Mental Health During the COVID-19 Pandemic",
+      "authors": ["Tami Benton", "Wanjikũ F. M. Njoroge", "Warren Y. K. Ng"],
+      "year": 2022,
+      "url": "https://doi.org/10.1001/jamapediatrics.2021.6295",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2021.6295",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Sounding the Alarm for Children’s Mental Health During the COVID-19 Pandemic。关联实训主题：健康信息公开争议｜高中一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2021.6295",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "privacy-g10",
+      "label": "健康信息公开争议｜高中一年级",
+      "context": "有家长要求在群里提供其他学生的姓名和健康细节。",
+      "task": "回应担忧，协商个体信息的私密沟通渠道。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["隐私", "姓名", "家长群", "健康"]
+    }
+  },
+  {
+    "id": "kb-scenarios-21",
+    "category": "scenarios",
+    "label": "返校信息尚待确认｜小学一年级",
+    "application": "家长希望知道返校安排，学校仍有事项需要核实。 训练任务：说明已确认步骤、待确认事项和通知渠道。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["返校", "复课", "通知", "条件"],
+    "reference": {
+      "id": "kb-scenarios-21",
+      "title": "From Research to Policy: Reopening K–12 Schools in North Carolina During the COVID-19 Pandemic",
+      "authors": ["Kanecia O. Zimmerman", "Jennifer G. Jackman", "Daniel K. Benjamin"],
+      "year": 2022,
+      "url": "https://doi.org/10.1542/peds.2021-054268e",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2021-054268e",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：From Research to Policy: Reopening K–12 Schools in North Carolina During the COVID-19 Pandemic。关联实训主题：返校信息尚待确认｜小学一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2021-054268e",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "return-g1",
+      "label": "返校信息尚待确认｜小学一年级",
+      "context": "家长希望知道返校安排，学校仍有事项需要核实。",
+      "task": "说明已确认步骤、待确认事项和通知渠道。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["返校", "复课", "通知", "条件"]
+    }
+  },
+  {
+    "id": "kb-scenarios-22",
+    "category": "scenarios",
+    "label": "返校信息尚待确认｜小学三年级",
+    "application": "家长希望知道返校安排，学校仍有事项需要核实。 训练任务：说明已确认步骤、待确认事项和通知渠道。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["返校", "复课", "通知", "条件"],
+    "reference": {
+      "id": "kb-scenarios-22",
+      "title": "Mental Health Status of Rhode Island Middle School and High School Students Before Versus During the COVID‐19 Pandemic",
+      "authors": [
+        "Abigail R. Murdock",
+        "Michelle L. Rogers",
+        "Tracy L. Jackson",
+        "Karine Monteiro",
+        "Laura C. Chambers"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1111/josh.13424",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13424",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Mental Health Status of Rhode Island Middle School and High School Students Before Versus During the COVID‐19 Pandemic。关联实训主题：返校信息尚待确认｜小学三年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13424",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "return-g3",
+      "label": "返校信息尚待确认｜小学三年级",
+      "context": "家长希望知道返校安排，学校仍有事项需要核实。",
+      "task": "说明已确认步骤、待确认事项和通知渠道。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["返校", "复课", "通知", "条件"]
+    }
+  },
+  {
+    "id": "kb-scenarios-23",
+    "category": "scenarios",
+    "label": "返校信息尚待确认｜小学五年级",
+    "application": "家长希望知道返校安排，学校仍有事项需要核实。 训练任务：说明已确认步骤、待确认事项和通知渠道。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["返校", "复课", "通知", "条件"],
+    "reference": {
+      "id": "kb-scenarios-23",
+      "title": "School Reopening—The Pandemic Issue That Is Not Getting Its Due",
+      "authors": ["Dimitri A. Christakis"],
+      "year": 2020,
+      "url": "https://doi.org/10.1001/jamapediatrics.2020.2068",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2020.2068",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School Reopening—The Pandemic Issue That Is Not Getting Its Due。关联实训主题：返校信息尚待确认｜小学五年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2020.2068",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "return-g5",
+      "label": "返校信息尚待确认｜小学五年级",
+      "context": "家长希望知道返校安排，学校仍有事项需要核实。",
+      "task": "说明已确认步骤、待确认事项和通知渠道。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["返校", "复课", "通知", "条件"]
+    }
+  },
+  {
+    "id": "kb-scenarios-24",
+    "category": "scenarios",
+    "label": "返校信息尚待确认｜初中一年级",
+    "application": "家长希望知道返校安排，学校仍有事项需要核实。 训练任务：说明已确认步骤、待确认事项和通知渠道。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["返校", "复课", "通知", "条件"],
+    "reference": {
+      "id": "kb-scenarios-24",
+      "title": "Comparing the initial impact of COVID-19 on burden and psychological distress among family caregivers of children with and without developmental disabilities.",
+      "authors": ["Sandra M. Chafouleas", "Emily A. Iovino"],
+      "year": 2021,
+      "url": "https://doi.org/10.1037/spq0000426",
+      "venue": "School Psychology",
+      "doi": "10.1037/spq0000426",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Comparing the initial impact of COVID-19 on burden and psychological distress among family caregivers of children with and without developmental disabilities.。关联实训主题：返校信息尚待确认｜初中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/spq0000426",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "return-g7",
+      "label": "返校信息尚待确认｜初中一年级",
+      "context": "家长希望知道返校安排，学校仍有事项需要核实。",
+      "task": "说明已确认步骤、待确认事项和通知渠道。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["返校", "复课", "通知", "条件"]
+    }
+  },
+  {
+    "id": "kb-scenarios-25",
+    "category": "scenarios",
+    "label": "返校信息尚待确认｜高中一年级",
+    "application": "家长希望知道返校安排，学校仍有事项需要核实。 训练任务：说明已确认步骤、待确认事项和通知渠道。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["返校", "复课", "通知", "条件"],
+    "reference": {
+      "id": "kb-scenarios-25",
+      "title": "School‐Based Health Center Use for Mental and Behavioral Health Disorders Before and After the COVID ‐19 Pandemic: A Mixed‐Methods Study",
+      "authors": [
+        "Connie Cai",
+        "Alvina Pan",
+        "Brandon M. Smith",
+        "Gabriela Calderon",
+        "Sara B. Johnson",
+        "Katherine A. Connor"
+      ],
+      "year": 2025,
+      "url": "https://doi.org/10.1111/josh.70090",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.70090",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School‐Based Health Center Use for Mental and Behavioral Health Disorders Before and After the COVID ‐19 Pandemic: A Mixed‐Methods Study。关联实训主题：返校信息尚待确认｜高中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.70090",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "return-g10",
+      "label": "返校信息尚待确认｜高中一年级",
+      "context": "家长希望知道返校安排，学校仍有事项需要核实。",
+      "task": "说明已确认步骤、待确认事项和通知渠道。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["返校", "复课", "通知", "条件"]
+    }
+  },
+  {
+    "id": "kb-scenarios-26",
+    "category": "scenarios",
+    "label": "居家照护与设备困难｜小学一年级",
+    "application": "家长提出照护、设备或网络方面的实际困难。 训练任务：了解可用资源，协商学校能够提供的支持。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["设备", "网络", "照护", "困难"],
+    "reference": {
+      "id": "kb-scenarios-26",
+      "title": "School support, chaos, routines, and parents’ mental health during COVID-19 remote schooling.",
+      "authors": [
+        "Lucy McGoron",
+        "Julie Wargo Aikins",
+        "Christopher J. Trentacosta",
+        "Jennifer M. Gómez",
+        "Marjorie Beeghly"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1037/spq0000467",
+      "venue": "School Psychology",
+      "doi": "10.1037/spq0000467",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School support, chaos, routines, and parents’ mental health during COVID-19 remote schooling.。关联实训主题：居家照护与设备困难｜小学一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/spq0000467",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "resources-g1",
+      "label": "居家照护与设备困难｜小学一年级",
+      "context": "家长提出照护、设备或网络方面的实际困难。",
+      "task": "了解可用资源，协商学校能够提供的支持。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["设备", "网络", "照护", "困难"]
+    }
+  },
+  {
+    "id": "kb-scenarios-27",
+    "category": "scenarios",
+    "label": "居家照护与设备困难｜小学三年级",
+    "application": "家长提出照护、设备或网络方面的实际困难。 训练任务：了解可用资源，协商学校能够提供的支持。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["设备", "网络", "照护", "困难"],
+    "reference": {
+      "id": "kb-scenarios-27",
+      "title": "Assessment of Changes in Child and Adolescent Screen Time During the COVID-19 Pandemic",
+      "authors": [
+        "Sheri Madigan",
+        "Rachel Eirich",
+        "Paolo Pador",
+        "Brae Anne McArthur",
+        "Ross D. Neville"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1001/jamapediatrics.2022.4116",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2022.4116",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Assessment of Changes in Child and Adolescent Screen Time During the COVID-19 Pandemic。关联实训主题：居家照护与设备困难｜小学三年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2022.4116",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "resources-g3",
+      "label": "居家照护与设备困难｜小学三年级",
+      "context": "家长提出照护、设备或网络方面的实际困难。",
+      "task": "了解可用资源，协商学校能够提供的支持。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["设备", "网络", "照护", "困难"]
+    }
+  },
+  {
+    "id": "kb-scenarios-28",
+    "category": "scenarios",
+    "label": "居家照护与设备困难｜小学五年级",
+    "application": "家长提出照护、设备或网络方面的实际困难。 训练任务：了解可用资源，协商学校能够提供的支持。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["设备", "网络", "照护", "困难"],
+    "reference": {
+      "id": "kb-scenarios-28",
+      "title": "School Learning Format and Children’s Behavioral Health During the COVID-19 Pandemic",
+      "authors": ["Emily C. Hanno", "Lily S. Fritz", "Stephanie M. Jones", "Nonie K. Lesaux"],
+      "year": 2022,
+      "url": "https://doi.org/10.1001/jamapediatrics.2021.5698",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2021.5698",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School Learning Format and Children’s Behavioral Health During the COVID-19 Pandemic。关联实训主题：居家照护与设备困难｜小学五年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2021.5698",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "resources-g5",
+      "label": "居家照护与设备困难｜小学五年级",
+      "context": "家长提出照护、设备或网络方面的实际困难。",
+      "task": "了解可用资源，协商学校能够提供的支持。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["设备", "网络", "照护", "困难"]
+    }
+  },
+  {
+    "id": "kb-scenarios-29",
+    "category": "scenarios",
+    "label": "居家照护与设备困难｜初中一年级",
+    "application": "家长提出照护、设备或网络方面的实际困难。 训练任务：了解可用资源，协商学校能够提供的支持。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["设备", "网络", "照护", "困难"],
+    "reference": {
+      "id": "kb-scenarios-29",
+      "title": "Parental burnout and remote learning at home during the COVID-19 pandemic: Parents’ motivations for involvement.",
+      "authors": ["Juliet M. Nyanamba", "Jeffrey Liew", "Danni Li"],
+      "year": 2022,
+      "url": "https://doi.org/10.1037/spq0000483",
+      "venue": "School Psychology",
+      "doi": "10.1037/spq0000483",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Parental burnout and remote learning at home during the COVID-19 pandemic: Parents’ motivations for involvement.。关联实训主题：居家照护与设备困难｜初中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/spq0000483",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "resources-g7",
+      "label": "居家照护与设备困难｜初中一年级",
+      "context": "家长提出照护、设备或网络方面的实际困难。",
+      "task": "了解可用资源，协商学校能够提供的支持。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["设备", "网络", "照护", "困难"]
+    }
+  },
+  {
+    "id": "kb-scenarios-30",
+    "category": "scenarios",
+    "label": "居家照护与设备困难｜高中一年级",
+    "application": "家长提出照护、设备或网络方面的实际困难。 训练任务：了解可用资源，协商学校能够提供的支持。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["设备", "网络", "照护", "困难"],
+    "reference": {
+      "id": "kb-scenarios-30",
+      "title": "Association of Supplemental Nutrition Assistance Program Retailers With Child Food Insecurity During the COVID-19 Pandemic",
+      "authors": ["Qingxiao Li", "Shuoli Zhao", "Metin Çakır", "Zhixiu Yu"],
+      "year": 2023,
+      "url": "https://doi.org/10.1001/jamapediatrics.2022.5984",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2022.5984",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Association of Supplemental Nutrition Assistance Program Retailers With Child Food Insecurity During the COVID-19 Pandemic。关联实训主题：居家照护与设备困难｜高中一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2022.5984",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "resources-g10",
+      "label": "居家照护与设备困难｜高中一年级",
+      "context": "家长提出照护、设备或网络方面的实际困难。",
+      "task": "了解可用资源，协商学校能够提供的支持。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["设备", "网络", "照护", "困难"]
+    }
+  },
+  {
+    "id": "kb-scenarios-31",
+    "category": "scenarios",
+    "label": "家长与孩子共同焦虑｜小学一年级",
+    "application": "家长担心健康、学习和同伴关系，表达了明显压力。 训练任务：倾听具体担忧，确认可以立即执行的一步。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["担心", "压力", "情绪", "支持"],
+    "reference": {
+      "id": "kb-scenarios-31",
+      "title": "Distance learning during the COVID-19 lockdown in Italy: The role of family, school, and individual factors.",
+      "authors": ["Tiziana Pozzoli", "Gianluca Gini", "Sara Scrimin"],
+      "year": 2022,
+      "url": "https://doi.org/10.1037/spq0000437",
+      "venue": "School Psychology",
+      "doi": "10.1037/spq0000437",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Distance learning during the COVID-19 lockdown in Italy: The role of family, school, and individual factors.。关联实训主题：家长与孩子共同焦虑｜小学一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/spq0000437",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "emotion-g1",
+      "label": "家长与孩子共同焦虑｜小学一年级",
+      "context": "家长担心健康、学习和同伴关系，表达了明显压力。",
+      "task": "倾听具体担忧，确认可以立即执行的一步。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["担心", "压力", "情绪", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-32",
+    "category": "scenarios",
+    "label": "家长与孩子共同焦虑｜小学三年级",
+    "application": "家长担心健康、学习和同伴关系，表达了明显压力。 训练任务：倾听具体担忧，确认可以立即执行的一步。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["担心", "压力", "情绪", "支持"],
+    "reference": {
+      "id": "kb-scenarios-32",
+      "title": "Data Divide—Disentangling the Role of the COVID-19 Pandemic on Child Mental Health and Well-being",
+      "authors": ["Daphne J. Korczak", "Sheri Madigan", "Tracy Vaillancourt"],
+      "year": 2022,
+      "url": "https://doi.org/10.1001/jamapediatrics.2022.0791",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2022.0791",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Data Divide—Disentangling the Role of the COVID-19 Pandemic on Child Mental Health and Well-being。关联实训主题：家长与孩子共同焦虑｜小学三年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2022.0791",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "emotion-g3",
+      "label": "家长与孩子共同焦虑｜小学三年级",
+      "context": "家长担心健康、学习和同伴关系，表达了明显压力。",
+      "task": "倾听具体担忧，确认可以立即执行的一步。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["担心", "压力", "情绪", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-33",
+    "category": "scenarios",
+    "label": "家长与孩子共同焦虑｜小学五年级",
+    "application": "家长担心健康、学习和同伴关系，表达了明显压力。 训练任务：倾听具体担忧，确认可以立即执行的一步。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["担心", "压力", "情绪", "支持"],
+    "reference": {
+      "id": "kb-scenarios-33",
+      "title": "Returning to School in the Era of COVID-19",
+      "authors": ["Danielle G. Dooley", "Joelle N. Simpson", "Nathaniel S. Beers"],
+      "year": 2020,
+      "url": "https://doi.org/10.1001/jamapediatrics.2020.3874",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2020.3874",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Returning to School in the Era of COVID-19。关联实训主题：家长与孩子共同焦虑｜小学五年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2020.3874",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "emotion-g5",
+      "label": "家长与孩子共同焦虑｜小学五年级",
+      "context": "家长担心健康、学习和同伴关系，表达了明显压力。",
+      "task": "倾听具体担忧，确认可以立即执行的一步。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["担心", "压力", "情绪", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-34",
+    "category": "scenarios",
+    "label": "家长与孩子共同焦虑｜初中一年级",
+    "application": "家长担心健康、学习和同伴关系，表达了明显压力。 训练任务：倾听具体担忧，确认可以立即执行的一步。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["担心", "压力", "情绪", "支持"],
+    "reference": {
+      "id": "kb-scenarios-34",
+      "title": "Home-learning during COVID-19: The psychological adjustment of minority and majority adolescents.",
+      "authors": ["Mădălina A. Paizan", "Alison E. F. Benbow", "Lara Aumann", "Peter F. Titzmann"],
+      "year": 2022,
+      "url": "https://doi.org/10.1037/spq0000489",
+      "venue": "School Psychology",
+      "doi": "10.1037/spq0000489",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Home-learning during COVID-19: The psychological adjustment of minority and majority adolescents.。关联实训主题：家长与孩子共同焦虑｜初中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/spq0000489",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "emotion-g7",
+      "label": "家长与孩子共同焦虑｜初中一年级",
+      "context": "家长担心健康、学习和同伴关系，表达了明显压力。",
+      "task": "倾听具体担忧，确认可以立即执行的一步。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["担心", "压力", "情绪", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-35",
+    "category": "scenarios",
+    "label": "家长与孩子共同焦虑｜高中一年级",
+    "application": "家长担心健康、学习和同伴关系，表达了明显压力。 训练任务：倾听具体担忧，确认可以立即执行的一步。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["担心", "压力", "情绪", "支持"],
+    "reference": {
+      "id": "kb-scenarios-35",
+      "title": "Influences of prepandemic bullying victimization and COVID-19 peer discrimination on Chinese American adolescents’ mental health during the COVID-19 pandemic.",
+      "authors": ["Chunyan Yang"],
+      "year": 2024,
+      "url": "https://doi.org/10.1037/spq0000554",
+      "venue": "School Psychology",
+      "doi": "10.1037/spq0000554",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Influences of prepandemic bullying victimization and COVID-19 peer discrimination on Chinese American adolescents’ mental health during the COVID-19 pandemic.。关联实训主题：家长与孩子共同焦虑｜高中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/spq0000554",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "emotion-g10",
+      "label": "家长与孩子共同焦虑｜高中一年级",
+      "context": "家长担心健康、学习和同伴关系，表达了明显压力。",
+      "task": "倾听具体担忧，确认可以立即执行的一步。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["担心", "压力", "情绪", "支持"]
+    }
+  },
+  {
+    "id": "kb-scenarios-36",
+    "category": "scenarios",
+    "label": "多方消息不一致｜小学一年级",
+    "application": "家长收到的班级、学校及其他渠道信息存在差异。 训练任务：梳理已确认信息，核对责任人和统一通知渠道。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["口径", "学校", "校医", "协调"],
+    "reference": {
+      "id": "kb-scenarios-36",
+      "title": "Social media use, cyber victimization, and adjustment during COVID-19 virtual learning: A short-term longitudinal study among Chinese middle school students.",
+      "authors": ["Cixin Wang", "Ting Gao", "Xueqian Cheng", "Beilei Li"],
+      "year": 2024,
+      "url": "https://doi.org/10.1037/spq0000582",
+      "venue": "School Psychology",
+      "doi": "10.1037/spq0000582",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Social media use, cyber victimization, and adjustment during COVID-19 virtual learning: A short-term longitudinal study among Chinese middle school students.。关联实训主题：多方消息不一致｜小学一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1037/spq0000582",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "coordination-g1",
+      "label": "多方消息不一致｜小学一年级",
+      "context": "家长收到的班级、学校及其他渠道信息存在差异。",
+      "task": "梳理已确认信息，核对责任人和统一通知渠道。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["口径", "学校", "校医", "协调"]
+    }
+  },
+  {
+    "id": "kb-scenarios-37",
+    "category": "scenarios",
+    "label": "多方消息不一致｜小学三年级",
+    "application": "家长收到的班级、学校及其他渠道信息存在差异。 训练任务：梳理已确认信息，核对责任人和统一通知渠道。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["口径", "学校", "校医", "协调"],
+    "reference": {
+      "id": "kb-scenarios-37",
+      "title": "The Need to Study Developmental Outcomes of Children Born During the COVID-19 Pandemic",
+      "authors": ["Livio Provenzi", "Serena Grumi"],
+      "year": 2022,
+      "url": "https://doi.org/10.1001/jamapediatrics.2021.4342",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2021.4342",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：The Need to Study Developmental Outcomes of Children Born During the COVID-19 Pandemic。关联实训主题：多方消息不一致｜小学三年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2021.4342",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "coordination-g3",
+      "label": "多方消息不一致｜小学三年级",
+      "context": "家长收到的班级、学校及其他渠道信息存在差异。",
+      "task": "梳理已确认信息，核对责任人和统一通知渠道。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["口径", "学校", "校医", "协调"]
+    }
+  },
+  {
+    "id": "kb-scenarios-38",
+    "category": "scenarios",
+    "label": "多方消息不一致｜小学五年级",
+    "application": "家长收到的班级、学校及其他渠道信息存在差异。 训练任务：梳理已确认信息，核对责任人和统一通知渠道。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["口径", "学校", "校医", "协调"],
+    "reference": {
+      "id": "kb-scenarios-38",
+      "title": "School Disengagement Among Children With Mental Health Conditions Pre- and Intra-COVID-19 Pandemic",
+      "authors": [
+        "Fiorella B. Castillo",
+        "Elisa Muñiz",
+        "Ellen J. Silver",
+        "Blanche Benenson",
+        "Maria Valicenti-McDermott",
+        "Ruth E. K. Stein"
+      ],
+      "year": 2025,
+      "url": "https://doi.org/10.1542/peds.2024-068387",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2024-068387",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School Disengagement Among Children With Mental Health Conditions Pre- and Intra-COVID-19 Pandemic。关联实训主题：多方消息不一致｜小学五年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2024-068387",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "coordination-g5",
+      "label": "多方消息不一致｜小学五年级",
+      "context": "家长收到的班级、学校及其他渠道信息存在差异。",
+      "task": "梳理已确认信息，核对责任人和统一通知渠道。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["口径", "学校", "校医", "协调"]
+    }
+  },
+  {
+    "id": "kb-scenarios-39",
+    "category": "scenarios",
+    "label": "多方消息不一致｜初中一年级",
+    "application": "家长收到的班级、学校及其他渠道信息存在差异。 训练任务：梳理已确认信息，核对责任人和统一通知渠道。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["口径", "学校", "校医", "协调"],
+    "reference": {
+      "id": "kb-scenarios-39",
+      "title": "School Readiness, Learning Challenges, and Lifestyle Changes Among Children During the COVID ‐19 Pandemic",
+      "authors": [
+        "Jean‐Christophe Goulet‐Pelletier",
+        "Ophélie A. Collet",
+        "Tianna Loose",
+        "Catherine Haeck",
+        "Simon Larose",
+        "Patrick Charland",
+        "Sylvana M. Côté"
+      ],
+      "year": 2026,
+      "url": "https://doi.org/10.1111/josh.70204",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.70204",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：School Readiness, Learning Challenges, and Lifestyle Changes Among Children During the COVID ‐19 Pandemic。关联实训主题：多方消息不一致｜初中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.70204",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "coordination-g7",
+      "label": "多方消息不一致｜初中一年级",
+      "context": "家长收到的班级、学校及其他渠道信息存在差异。",
+      "task": "梳理已确认信息，核对责任人和统一通知渠道。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["口径", "学校", "校医", "协调"]
+    }
+  },
+  {
+    "id": "kb-scenarios-40",
+    "category": "scenarios",
+    "label": "多方消息不一致｜高中一年级",
+    "application": "家长收到的班级、学校及其他渠道信息存在差异。 训练任务：梳理已确认信息，核对责任人和统一通知渠道。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["口径", "学校", "校医", "协调"],
+    "reference": {
+      "id": "kb-scenarios-40",
+      "title": "Recovery and Response: Responding to Mental Health Needs That Emerged in the Wake of the COVID‐19 Pandemic in Chicago Public Schools*",
+      "authors": ["Julia Liu", "B. Marshall", "K. Cisneros", "E. Jarpe‐Ratner"],
+      "year": 2025,
+      "url": "https://doi.org/10.1111/josh.13545",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13545",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Recovery and Response: Responding to Mental Health Needs That Emerged in the Wake of the COVID‐19 Pandemic in Chicago Public Schools*。关联实训主题：多方消息不一致｜高中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13545",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "coordination-g10",
+      "label": "多方消息不一致｜高中一年级",
+      "context": "家长收到的班级、学校及其他渠道信息存在差异。",
+      "task": "梳理已确认信息，核对责任人和统一通知渠道。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["口径", "学校", "校医", "协调"]
+    }
+  },
+  {
+    "id": "kb-scenarios-41",
+    "category": "scenarios",
+    "label": "康复后同伴接纳｜小学一年级",
+    "application": "家长担心孩子回到集体后被议论和疏远。 训练任务：保护隐私，讨论班级支持和持续观察安排。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["同伴", "康复", "隐私", "议论"],
+    "reference": {
+      "id": "kb-scenarios-41",
+      "title": "Building the Evidence for Safe Return to School During the COVID-19 Pandemic",
+      "authors": ["Alison N. Cernich", "Sonia Lee", "Diana W. Bianchi"],
+      "year": 2022,
+      "url": "https://doi.org/10.1542/peds.2021-054268b",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2021-054268b",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Building the Evidence for Safe Return to School During the COVID-19 Pandemic。关联实训主题：康复后同伴接纳｜小学一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2021-054268b",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "stigma-g1",
+      "label": "康复后同伴接纳｜小学一年级",
+      "context": "家长担心孩子回到集体后被议论和疏远。",
+      "task": "保护隐私，讨论班级支持和持续观察安排。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["同伴", "康复", "隐私", "议论"]
+    }
+  },
+  {
+    "id": "kb-scenarios-42",
+    "category": "scenarios",
+    "label": "康复后同伴接纳｜小学三年级",
+    "application": "家长担心孩子回到集体后被议论和疏远。 训练任务：保护隐私，讨论班级支持和持续观察安排。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["同伴", "康复", "隐私", "议论"],
+    "reference": {
+      "id": "kb-scenarios-42",
+      "title": "Shifting Epidemiology and Severity of Respiratory Syncytial Virus in Children During the COVID-19 Pandemic",
+      "authors": [
+        "Suchitra Rao",
+        "Isaac Armistead",
+        "Kevin Messacar",
+        "Nisha B. Alden",
+        "Emma Schmoll",
+        "Elizabeth Austin",
+        "Samuel R. Dominguez"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1001/jamapediatrics.2023.1088",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2023.1088",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Shifting Epidemiology and Severity of Respiratory Syncytial Virus in Children During the COVID-19 Pandemic。关联实训主题：康复后同伴接纳｜小学三年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2023.1088",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "stigma-g3",
+      "label": "康复后同伴接纳｜小学三年级",
+      "context": "家长担心孩子回到集体后被议论和疏远。",
+      "task": "保护隐私，讨论班级支持和持续观察安排。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["同伴", "康复", "隐私", "议论"]
+    }
+  },
+  {
+    "id": "kb-scenarios-43",
+    "category": "scenarios",
+    "label": "康复后同伴接纳｜小学五年级",
+    "application": "家长担心孩子回到集体后被议论和疏远。 训练任务：保护隐私，讨论班级支持和持续观察安排。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["同伴", "康复", "隐私", "议论"],
+    "reference": {
+      "id": "kb-scenarios-43",
+      "title": "Family vulnerability and disruption during the COVID‐19 pandemic: prospective pathways to child maladjustment",
+      "authors": ["Gregory M. Fosco", "Carlie J. Sloan", "Shichen Fang", "Mark E. Feinberg"],
+      "year": 2021,
+      "url": "https://doi.org/10.1111/jcpp.13458",
+      "venue": "Journal of Child Psychology and Psychiatry",
+      "doi": "10.1111/jcpp.13458",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Family vulnerability and disruption during the COVID‐19 pandemic: prospective pathways to child maladjustment。关联实训主题：康复后同伴接纳｜小学五年级。"
+    },
+    "journal": {
+      "label": "SCIE / SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/jcpp.13458",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "stigma-g5",
+      "label": "康复后同伴接纳｜小学五年级",
+      "context": "家长担心孩子回到集体后被议论和疏远。",
+      "task": "保护隐私，讨论班级支持和持续观察安排。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["同伴", "康复", "隐私", "议论"]
+    }
+  },
+  {
+    "id": "kb-scenarios-44",
+    "category": "scenarios",
+    "label": "康复后同伴接纳｜初中一年级",
+    "application": "家长担心孩子回到集体后被议论和疏远。 训练任务：保护隐私，讨论班级支持和持续观察安排。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["同伴", "康复", "隐私", "议论"],
+    "reference": {
+      "id": "kb-scenarios-44",
+      "title": "Association Between the COVID-19 Pandemic and Early Childhood Development",
+      "authors": ["Koryu Sato", "Taiyo Fukai", "Keiko K. Fujisawa", "Makiko Nakamuro"],
+      "year": 2023,
+      "url": "https://doi.org/10.1001/jamapediatrics.2023.2096",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2023.2096",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Association Between the COVID-19 Pandemic and Early Childhood Development。关联实训主题：康复后同伴接纳｜初中一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2023.2096",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "stigma-g7",
+      "label": "康复后同伴接纳｜初中一年级",
+      "context": "家长担心孩子回到集体后被议论和疏远。",
+      "task": "保护隐私，讨论班级支持和持续观察安排。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["同伴", "康复", "隐私", "议论"]
+    }
+  },
+  {
+    "id": "kb-scenarios-45",
+    "category": "scenarios",
+    "label": "康复后同伴接纳｜高中一年级",
+    "application": "家长担心孩子回到集体后被议论和疏远。 训练任务：保护隐私，讨论班级支持和持续观察安排。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["同伴", "康复", "隐私", "议论"],
+    "reference": {
+      "id": "kb-scenarios-45",
+      "title": "Protecting the Global Mental Health of Forcibly Displaced Children From the COVID-19 Pandemic",
+      "authors": ["Suzan J. Song"],
+      "year": 2021,
+      "url": "https://doi.org/10.1542/peds.2020-025346",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2020-025346",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Protecting the Global Mental Health of Forcibly Displaced Children From the COVID-19 Pandemic。关联实训主题：康复后同伴接纳｜高中一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2020-025346",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "stigma-g10",
+      "label": "康复后同伴接纳｜高中一年级",
+      "context": "家长担心孩子回到集体后被议论和疏远。",
+      "task": "保护隐私，讨论班级支持和持续观察安排。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["同伴", "康复", "隐私", "议论"]
+    }
+  },
+  {
+    "id": "kb-scenarios-46",
+    "category": "scenarios",
+    "label": "多日后的回访沟通｜小学一年级",
+    "application": "首次沟通结束后，家长对后续安排的执行仍有疑问。 训练任务：核对双方行动进度，记录新问题并约定回访。 使用简短具体的说明，与照护者确认孩子能理解的安排。",
+    "tags": ["回访", "安排", "记录", "进度"],
+    "reference": {
+      "id": "kb-scenarios-46",
+      "title": "Debates Around the Role of School Closures in the Coronavirus 2019 Pandemic—Reply",
+      "authors": ["Susanna Esposito", "Nicola Principi"],
+      "year": 2021,
+      "url": "https://doi.org/10.1001/jamapediatrics.2020.3552",
+      "venue": "JAMA Pediatrics",
+      "doi": "10.1001/jamapediatrics.2020.3552",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Debates Around the Role of School Closures in the Coronavirus 2019 Pandemic—Reply。关联实训主题：多日后的回访沟通｜小学一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1001/jamapediatrics.2020.3552",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "followup-g1",
+      "label": "多日后的回访沟通｜小学一年级",
+      "context": "首次沟通结束后，家长对后续安排的执行仍有疑问。",
+      "task": "核对双方行动进度，记录新问题并约定回访。",
+      "grade": "g1",
+      "gradeHint": "使用简短具体的说明，与照护者确认孩子能理解的安排。",
+      "tags": ["回访", "安排", "记录", "进度"]
+    }
+  },
+  {
+    "id": "kb-scenarios-47",
+    "category": "scenarios",
+    "label": "多日后的回访沟通｜小学三年级",
+    "application": "首次沟通结束后，家长对后续安排的执行仍有疑问。 训练任务：核对双方行动进度，记录新问题并约定回访。 关注初步自主表达，和家长约定可执行的小步骤。",
+    "tags": ["回访", "安排", "记录", "进度"],
+    "reference": {
+      "id": "kb-scenarios-47",
+      "title": "Suicide Risk in Adolescents During the COVID-19 Pandemic",
+      "authors": [
+        "John D. Lantos",
+        "Hung-Wen Yeh",
+        "Fajar Raza",
+        "Mark Connelly",
+        "Kathy Goggin",
+        "Shayla A. Sullivant"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1542/peds.2021-053486",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2021-053486",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Suicide Risk in Adolescents During the COVID-19 Pandemic。关联实训主题：多日后的回访沟通｜小学三年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2021-053486",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "followup-g3",
+      "label": "多日后的回访沟通｜小学三年级",
+      "context": "首次沟通结束后，家长对后续安排的执行仍有疑问。",
+      "task": "核对双方行动进度，记录新问题并约定回访。",
+      "grade": "g3",
+      "gradeHint": "关注初步自主表达，和家长约定可执行的小步骤。",
+      "tags": ["回访", "安排", "记录", "进度"]
+    }
+  },
+  {
+    "id": "kb-scenarios-48",
+    "category": "scenarios",
+    "label": "多日后的回访沟通｜小学五年级",
+    "application": "首次沟通结束后，家长对后续安排的执行仍有疑问。 训练任务：核对双方行动进度，记录新问题并约定回访。 关注学习自主性、同伴关系与适量的任务支持。",
+    "tags": ["回访", "安排", "记录", "进度"],
+    "reference": {
+      "id": "kb-scenarios-48",
+      "title": "Prescription Drug Dispensing to US Children During the COVID-19 Pandemic",
+      "authors": ["Kao-Ping Chua", "Anna Volerman", "Rena M. Conti"],
+      "year": 2021,
+      "url": "https://doi.org/10.1542/peds.2021-049972",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2021-049972",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Prescription Drug Dispensing to US Children During the COVID-19 Pandemic。关联实训主题：多日后的回访沟通｜小学五年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2021-049972",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "followup-g5",
+      "label": "多日后的回访沟通｜小学五年级",
+      "context": "首次沟通结束后，家长对后续安排的执行仍有疑问。",
+      "task": "核对双方行动进度，记录新问题并约定回访。",
+      "grade": "g5",
+      "gradeHint": "关注学习自主性、同伴关系与适量的任务支持。",
+      "tags": ["回访", "安排", "记录", "进度"]
+    }
+  },
+  {
+    "id": "kb-scenarios-49",
+    "category": "scenarios",
+    "label": "多日后的回访沟通｜初中一年级",
+    "application": "首次沟通结束后，家长对后续安排的执行仍有疑问。 训练任务：核对双方行动进度，记录新问题并约定回访。 关注青春期自主性、隐私和家长沟通边界。",
+    "tags": ["回访", "安排", "记录", "进度"],
+    "reference": {
+      "id": "kb-scenarios-49",
+      "title": "The COVID-19 Pandemic and Parental Attitudes Toward Routine Childhood Vaccines",
+      "authors": ["David M. Higgins", "Angela Moss", "Sarah Blackwell", "Sean T. O’Leary"],
+      "year": 2023,
+      "url": "https://doi.org/10.1542/peds.2023-062927",
+      "venue": "Pediatrics",
+      "doi": "10.1542/peds.2023-062927",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：The COVID-19 Pandemic and Parental Attitudes Toward Routine Childhood Vaccines。关联实训主题：多日后的回访沟通｜初中一年级。"
+    },
+    "journal": {
+      "label": "SCIE（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1542/peds.2023-062927",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "followup-g7",
+      "label": "多日后的回访沟通｜初中一年级",
+      "context": "首次沟通结束后，家长对后续安排的执行仍有疑问。",
+      "task": "核对双方行动进度，记录新问题并约定回访。",
+      "grade": "g7",
+      "gradeHint": "关注青春期自主性、隐私和家长沟通边界。",
+      "tags": ["回访", "安排", "记录", "进度"]
+    }
+  },
+  {
+    "id": "kb-scenarios-50",
+    "category": "scenarios",
+    "label": "多日后的回访沟通｜高中一年级",
+    "application": "首次沟通结束后，家长对后续安排的执行仍有疑问。 训练任务：核对双方行动进度，记录新问题并约定回访。 关注学习压力、协商参与和学生适龄知情。",
+    "tags": ["回访", "安排", "记录", "进度"],
+    "reference": {
+      "id": "kb-scenarios-50",
+      "title": "Adherence to Masking Requirement During the COVID‐19 Pandemic by Early Elementary School Children",
+      "authors": [
+        "Geoffrey E. Mickells",
+        "Janet Figueroa",
+        "Kelly Withers West",
+        "Anna Wood",
+        "Barbara O. McElhanon"
+      ],
+      "year": 2021,
+      "url": "https://doi.org/10.1111/josh.13033",
+      "venue": "Journal of School Health",
+      "doi": "10.1111/josh.13033",
+      "topics": ["epidemic-school", "home-school"],
+      "summary": "研究主题索引：Adherence to Masking Requirement During the COVID‐19 Pandemic by Early Elementary School Children。关联实训主题：多日后的回访沟通｜高中一年级。"
+    },
+    "journal": {
+      "label": "SSCI（JCR 2024目录）",
+      "sourceUrl": "https://www.cnfis.ro/wp-content/uploads/2025/04/clasament_2023_JIF_AIS.pdf",
+      "edition": "2024年6月公开目录，历史收录依据",
+      "verifiedAt": "2026-11-03"
+    },
+    "verification": {
+      "method": "Crossref DOI元数据",
+      "sourceUrl": "https://api.crossref.org/works/10.1111/josh.13033",
+      "checkedAt": "2026-11-03",
+      "contentScope": "题录与研究主题；实训建议为编辑整理"
+    },
+    "scenarioCase": {
+      "id": "followup-g10",
+      "label": "多日后的回访沟通｜高中一年级",
+      "context": "首次沟通结束后，家长对后续安排的执行仍有疑问。",
+      "task": "核对双方行动进度，记录新问题并约定回访。",
+      "grade": "g10",
+      "gradeHint": "关注学习压力、协商参与和学生适龄知情。",
+      "tags": ["回访", "安排", "记录", "进度"]
+    }
+  }
+]

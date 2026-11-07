@@ -35,6 +35,19 @@ export function principalFromStoredOwner(ownerId: string): OwnerPrincipal {
   };
 }
 
+/**
+ * Whether a stored owner id is an anonymous owner: the anonymous cookie
+ * method recognizes it, and no other method claims `anonymous` kinds. An
+ * unrecognized or malformed id is not anonymous. The shape check stays
+ * inside core (`describeStoredOwnerId`); callers learn only the kind, never
+ * the cookie or its prefix — the same boundary `principalFromStoredOwner`
+ * already keeps.
+ */
+export function isAnonymousOwnerId(ownerId: string): boolean {
+  if (!isStorableOwnerId(ownerId)) return false;
+  return describeStoredOwnerId(ownerId)?.kind === 'anonymous';
+}
+
 const NO_ROLES: ReadonlySet<string> = new Set<string>();
 const KINDS: ReadonlySet<SubjectKind> = new Set<SubjectKind>([
   'anonymous',

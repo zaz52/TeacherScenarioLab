@@ -1,0 +1,401 @@
+/* TeacherScenarioLab administration shares the existing theme and settings shell. */
+.teacherlab-admin {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  color: var(--foreground);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.teacherlab-admin *,
+.teacherlab-admin *::before,
+.teacherlab-admin *::after {
+  box-sizing: border-box;
+  min-width: 0;
+}
+.teacherlab-admin h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+.teacherlab-admin h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.teacherlab-admin h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.teacherlab-admin p,
+.teacherlab-admin code,
+.teacherlab-admin li {
+  overflow-wrap: anywhere;
+}
+.teacherlab-admin .admin-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.teacherlab-admin .admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+.teacherlab-admin .admin-description {
+  max-width: 68ch;
+  margin-top: 6px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.teacherlab-admin .admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.teacherlab-admin .admin-panel {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--background);
+}
+.teacherlab-admin .admin-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.teacherlab-admin button,
+.teacherlab-admin .admin-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  max-width: 100%;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 13px;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+}
+.teacherlab-admin button:hover,
+.teacherlab-admin .admin-button:hover {
+  background: var(--muted);
+}
+.teacherlab-admin button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.teacherlab-admin .admin-primary {
+  background: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
+}
+.teacherlab-admin .admin-primary:hover {
+  background: var(--foreground);
+  opacity: 0.9;
+}
+.teacherlab-admin .admin-danger {
+  color: var(--destructive);
+}
+.teacherlab-admin :is(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.teacherlab-admin input:not([type='checkbox']):not([type='radio']),
+.teacherlab-admin select,
+.teacherlab-admin textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 40px;
+  margin-top: 6px;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--foreground);
+  font: inherit;
+}
+.teacherlab-admin input[type='checkbox'] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--foreground);
+  flex-shrink: 0;
+}
+.teacherlab-admin label {
+  font-size: 13px;
+}
+.teacherlab-admin .admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.teacherlab-admin .admin-wide {
+  grid-column: 1 / -1;
+}
+.teacherlab-admin .admin-inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 10px;
+}
+.teacherlab-admin .admin-inline-form label {
+  flex: 1 1 220px;
+}
+.teacherlab-admin .admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.teacherlab-admin .admin-stat {
+  padding: 16px 20px;
+}
+.teacherlab-admin .admin-stat + .admin-stat {
+  border-left: 1px solid var(--border);
+}
+.teacherlab-admin .admin-stat dt {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+.teacherlab-admin .admin-stat dd {
+  font-size: 26px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+.teacherlab-admin .admin-list {
+  display: grid;
+  gap: 0;
+}
+.teacherlab-admin .admin-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.teacherlab-admin .admin-row:first-child {
+  padding-top: 0;
+}
+.teacherlab-admin .admin-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.teacherlab-admin .admin-row-info {
+  flex: 1 1 220px;
+}
+.teacherlab-admin .admin-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+.teacherlab-admin .admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--muted);
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+.teacherlab-admin .admin-notice,
+.teacherlab-admin .admin-empty {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
+.teacherlab-admin .admin-error {
+  color: var(--destructive);
+}
+.teacherlab-admin .admin-permission-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.teacherlab-admin .admin-permission {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.teacherlab-admin .admin-permission small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted-foreground);
+}
+.teacherlab-admin .admin-detail {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--muted);
+}
+.teacherlab-admin .admin-detail dl {
+  display: grid;
+  gap: 12px;
+}
+.teacherlab-admin .admin-detail dt {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+.teacherlab-admin .admin-detail dd {
+  margin-top: 3px;
+  white-space: pre-wrap;
+}
+.teacherlab-admin nav {
+  max-width: 100%;
+  gap: 6px;
+}
+.teacherlab-admin nav [aria-current='page'] {
+  background: var(--muted);
+  color: var(--foreground);
+  font-weight: 600;
+  text-decoration: none;
+}
+.teacherlab-admin table {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.teacherlab-admin th {
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+.teacherlab-admin td,
+.teacherlab-admin th {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.teacherlab-admin td:not(:first-child),
+.teacherlab-admin th:not(:first-child) {
+  text-align: right;
+}
+.teacherlab-admin summary {
+  cursor: pointer;
+}
+.teacherlab-admin.admin-scenario-editor > p {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.teacherlab-admin.admin-scenario-editor > p > label:only-child {
+  grid-column: 1 / -1;
+}
+.teacherlab-admin.admin-scenario-editor > section {
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.teacherlab-admin.admin-scenario-editor > section > p {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 10px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.teacherlab-admin.admin-scenario-editor textarea {
+  min-height: 100px;
+  grid-column: 1 / -1;
+}
+.teacherlab-admin pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.teacherlab-settings-shell .admin-mobile-nav {
+  display: none;
+}
+@media (max-width: 639px) {
+  .teacherlab-admin.admin-scenario-editor > p,
+  .teacherlab-admin.admin-scenario-editor > section > p {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .teacherlab-admin h1 {
+    font-size: 21px;
+  }
+  .teacherlab-admin .admin-panel {
+    padding: 16px;
+  }
+  .teacherlab-admin .admin-heading {
+    margin-bottom: 18px;
+  }
+  .teacherlab-admin .admin-form-grid,
+  .teacherlab-admin .admin-permission-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .teacherlab-admin .admin-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .teacherlab-admin .admin-stat {
+    padding: 12px 14px;
+    border-left: 0;
+  }
+  .teacherlab-admin .admin-stat:nth-child(even) {
+    border-left: 1px solid var(--border);
+  }
+  .teacherlab-admin .admin-stat:nth-child(n + 3) {
+    border-top: 1px solid var(--border);
+  }
+  .teacherlab-admin .admin-stat:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    border-left: 0;
+  }
+  .teacherlab-admin button,
+  .teacherlab-admin .admin-button {
+    min-height: 44px;
+  }
+  .teacherlab-admin input:not([type='checkbox']),
+  .teacherlab-admin select,
+  .teacherlab-admin textarea {
+    font-size: 16px;
+  }
+  .teacherlab-settings-shell .admin-desktop-nav {
+    display: none;
+  }
+  .teacherlab-settings-shell .admin-mobile-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+  }
+  .teacherlab-settings-shell .admin-mobile-nav select {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--background);
+    padding: 8px;
+    font-size: 14px;
+  }
+}

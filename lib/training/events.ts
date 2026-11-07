@@ -11,6 +11,7 @@
 import type { TrainingEventRecord } from '@openmaic/storage/training/pg';
 
 import { getTrainingStore } from './server';
+import { removedKeys } from './library';
 
 export interface LearnerEvent {
   id: string;
@@ -33,22 +34,25 @@ export async function listOwnEvents(
   filters: LearnerEventFilters = {},
 ): Promise<LearnerEvent[]> {
   const store = (await getTrainingStore()).forOwner(ownerId);
-  const trainings = await store.listTrainings();
+  const removed = await removedKeys(ownerId, 'training');
+  const trainings = (await store.listTrainings()).filter((training) => !removed.has(training.id));
   const wanted = trainings.filter(
     (training) => filters.trainingId === undefined || training.id === filters.trainingId,
   );
   const perTraining = await Promise.all(
     wanted.map(async (training) => {
       const events = await store.listEvents(training.id);
-      return events.map((event: TrainingEventRecord): LearnerEvent => ({
-        id: event.id,
-        trainingId: training.id,
-        scenarioId: training.scenarioId,
-        scenarioVersion: training.scenarioVersion,
-        type: event.type,
-        payload: event.payload,
-        createdAt: event.createdAt,
-      }));
+      return events.map(
+        (event: TrainingEventRecord): LearnerEvent => ({
+          id: event.id,
+          trainingId: training.id,
+          scenarioId: training.scenarioId,
+          scenarioVersion: training.scenarioVersion,
+          type: event.type,
+          payload: event.payload,
+          createdAt: event.createdAt,
+        }),
+      );
     }),
   );
   return perTraining

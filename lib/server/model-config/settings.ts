@@ -469,8 +469,10 @@ function sourceFor(
 }
 
 /** The view of the settings for a workspace's stored configuration (or none). */
-export function modelSettingsView(stored: StoredWorkspaceConfig | null): ModelSettingsView {
-  const { layer: deployment } = deploymentConfig();
+export function modelSettingsView(
+  stored: StoredWorkspaceConfig | null,
+  deployment: ModelConfigLayer | null = deploymentConfig().layer,
+): ModelSettingsView {
   const workspace: ModelConfigLayer | null = stored
     ? { source: 'workspace', config: stored.config }
     : null;
@@ -663,8 +665,8 @@ function dropAssignmentsNaming(
 export async function applyModelSettingsChange(
   current: ModelConfigFile | null,
   change: ModelSettingsChange,
+  deployment: ModelConfigLayer | null = deploymentConfig().layer,
 ): Promise<ModelConfigFile> {
-  const { layer: deployment } = deploymentConfig();
   const deploymentProviders = deployment?.config.providers ?? {};
   const allowProviders = userKeysAllowed(deployment);
   const next: ModelConfigFile = {

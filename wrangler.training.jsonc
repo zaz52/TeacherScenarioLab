@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "teacher-scenario-training-api",
+  "main": ".cloudflare-training/worker.mjs",
+  "minify": true,
+  "upload_source_maps": false,
+  "compatibility_date": "2026-10-30",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "durable_objects": {
+    "bindings": [{ "name": "TRAINING_HOST", "class_name": "TrainingApiHost" }],
+  },
+  "migrations": [{ "tag": "training-api-v1", "new_sqlite_classes": ["TrainingApiHost"] }],
+  "images": { "binding": "IMAGES" },
+  "vars": { "OWNER_SINGLE_USER": "false", "NEXTJS_ENV": "production" },
+}

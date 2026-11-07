@@ -1,0 +1,209 @@
+# TeacherScenarioLab 生产部署方案
+
+> 目标域名：`https://teacherlab.weiyiai.top`；品牌：教师情境实训实验室 / TeacherScenarioLab。
+> 2026-10-30 用户确认采用 Neon 免费 PostgreSQL，推进 OpenNext/Workers 部署验证。
+> [Cloudflare 与 Neon 操作说明](cloudflare.md)记录该路径及运行门槛。
+> 本文保留已验证的 Node.js standalone / Docker 部署能力；训练API、核心引擎与迁移沿用现有实现。
+
+## 2026-11-02 统一账号、模型与邮件设置
+
+当前首页以校园疫情情境实训为主入口，原课程生成保留在 `/courseware/create`。
+账号、个人模型服务、训练角色模型、情境管理、人员与邮件配置共用首页设置窗口。
+普通注册用户可维护自己的供应商、API 地址、密钥和模型清单；配置以账户 owner 隔离。
+管理员维护平台资源池及人员权限，环境管理员列表作为受保护的初始化入口。
+
+邮件由管理员在“设置 → 验证码邮件”配置。QQ 可填写 `smtp.qq.com`、465，
+163 可填写 `smtp.163.com`、465，企业邮箱使用服务商提供的 TLS SMTP 地址。
+用户名和发信地址填写完整邮箱，授权码填入密码框。保存后密码框保持空白，服务端
+使用现有实例密钥 AES-256-GCM 加密落库。SMTP 配置使用强制 TLS 和公网地址校验，
+不输出邮件正文、验证码、授权码或服务器原始错误。传输选项参照
+[Nodemailer SMTP 文档](https://nodemailer.com/smtp)。
+
+现有管理员会话保留。管理员先配置邮件，再在“账号”绑定本人邮箱，账户 ID、
+历史训练和权限继续沿用。新用户通过邮件中的六位验证码注册或登录：验证码
+10 分钟有效、最多五次验证，每邮箱一分钟一次、每小时五次，并有 IP 限流。
+人员管理可预建邮箱账号、授予或撤销管理员、停用或启用账号；预建用户仍需邮箱验证。
+验证码邮件实际送达需要有效 SMTP 授权码和服务商发信额度。
+
+新增账号、验证码、权限审计、邮件设置及个人角色路由表在现有引导锁下创建。
+部署沿用当前数据库和 `OPENMAIC_SECRET_KEY`，备份需包含新增表及加密根密钥。
+本轮按用户要求将功能验收交由用户，手动 CI 传 `run_account_checks=false` 执行
+生产镜像构建及完整性导出。自动化测试与网站功能验收的状态记为“未执行”。
+
+## 1. 部署形态（已验证的仓库能力）
+
+### 1GB VPS 与现有 Neon
+
+2026-11-02 用户确认使用 1GB VPS，实际为 Debian 12、2 核、972MiB 内存。
+Docker 与 Compose 已安装，项目专用 1GiB 交换文件已启用，既有 x-ui/xray 服务保留。
+生产构建由 GitHub 完成，CI 在最终镜像通过隔离运行检查后导出 Artifact；
+`manifest.json` 记录功能分支 SHA、镜像 ID 和压缩包 SHA-256。PR 合并树与功能分支树
+须一致，仓库内实际密钥由 Docker ignore 排除。使用镜像前核对提交、校验和与镜像 ID。
+
+VPS 将 `docker-compose.teacherlab-vps.yml` 放在应用目录，生产变量保存于权限为 600 的
+`.env.production.local`，数据目录由 UID 1001 持有。沿用现有 Neon 的 DATABASE_URL、
+OPENMAIC_SECRET_KEY、访问码与管理员列表。`TEACHERLAB_IMAGE` 指向验收镜像标签。
+容器限制 640MiB 内存、1536MiB 内存加交换空间，V8 堆限制 384MiB；实际容量仍需运行验收。
+
+```bash
+cd /opt/teacher-scenario-lab
+docker compose --env-file .env.production.local -f docker-compose.teacherlab-vps.yml config --quiet
+docker compose --env-file .env.production.local -f docker-compose.teacherlab-vps.yml up -d
+curl --fail http://127.0.0.1:3000/api/health
+```
+
+应用端口绑定 127.0.0.1，外部入口复用 `teacherlab-vps` 命名隧道。
+cloudflared 使用官方镜像的已解析 digest、非 root 用户、只读 Token 文件和
+unless-stopped 重启策略；监控端口绑定本机。Token 不进入镜像、命令参数或 Git。
+隧道连接、源站健康与域名切流分别核验，保留原 Worker 绑定作为切流前状态记录。
+已有 Token 缺少 Tunnel/DNS 写权限时，记录实际接口错误并完成服务器侧工作；
+凭据授权或控制台操作到位后再配置路由，核对现有记录后更新。
+
+### 原有 Docker 与本地 PostgreSQL 形态
+
+仓库自带多阶段 `Dockerfile`（node:22-alpine，pnpm 10.28.0，standalone
+输出，runner 以 `nextjs` 用户执行 `node server.js`，监听 3000）和
+`docker-compose.yml`（`openmaic` + `postgres:16` 两个服务，postgres 健康
+检查通过后应用才启动）。生产部署复用这两件，不另写部署脚本。
+
+```bash
+# 在部署机上（需要 Docker）
+cp openmaic.teacher-scenario.example.yml openmaic.yml   # 只有文件存在时才能挂载；缺失文件会被挂载成目录
+cp .env.production.example .env.local  # 再填入真实值（见第 2 节）
+docker compose --env-file .env.local -f docker-compose.yml -f docker-compose.teacher-scenario.yml config --quiet
+docker compose --env-file .env.local -f docker-compose.yml -f docker-compose.teacher-scenario.yml up -d --build
+docker compose --env-file .env.local ps                      # openmaic 与 postgres 均为 healthy/running
+curl -s http://127.0.0.1:3000/api/health   # {"status":"ok",...}，该接口不依赖数据库
+```
+
+`docker-compose.teacher-scenario.yml` 将本地配置只读挂载至 `/app/openmaic.yml`，
+并固定多用户身份模式。配置文件缺失时，bind 的 `create_host_path: false`
+使 Compose 报错；数据库口令、访问码和加密根密钥缺失时也会拒绝配置。
+填好密钥与精确模型 ID 后再启动。基础 Compose 中的可选
+配置挂载仍保留原注释状态。以上命令供验收批准后的部署使用。
+
+## 2. 必需的服务端环境变量（`.env.local`，不进 Git）
+
+| 变量                             | 说明                                                                                                                                                                             |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`                   | 必填。示例通过 `PERSISTENCE_POSTGRES_PASSWORD` 构造连接串；使用外部库时覆盖该值，特殊字符需 URL 编码。                                                                           |
+| `PERSISTENCE_POSTGRES_PASSWORD`  | 使用 bundled PostgreSQL 时必填。通过 `--env-file .env.local` 同时传入 Compose 插值和应用环境；已有卷的口令变更需要单独操作与验证。                                               |
+| `OPENMAIC_SECRET_KEY`            | 保存用户模型密钥所用的加密根密钥。生产设置高熵值、所有副本一致，并与数据库一起保留受保护备份；轮换前验证旧密文的恢复方案。未设置时生成的 `data/instance-secret.key` 需要持久化。 |
+| `OWNER_SINGLE_USER`              | **生产必须设为 `false`**。Compose 默认是 `true`（单人自用模式：所有请求解析为同一个 owner，不发匿名 cookie），会破坏训练的账号/匿名/认领模型。                                   |
+| `TRAINING_ADMIN_ACCOUNT_IDS`     | 管理员账号 ID 列表（逗号分隔，形如 `acct:<uuid>`）。初始化管理员列表；其他管理员由现有管理员在人员设置中明确授予。                                                                                             |
+| `NVIDIA_API_KEY` / `GLM_API_KEY` | 模型密钥，只进 `.env.local`，不进 YAML 明文、不进源码、不进 Git。                                                                                                                |
+| `OPENMAIC_CONFIG`                | 不设时默认读工作目录的 `openmaic.yml`；需要换位置时设为文件路径。                                                                                                                |
+| `ACCESS_CODE`                    | 当前邮箱登录部署保持为空；容器端口绑定本机并由现有 HTTPS 隧道接入。                                                                                                           |
+| `OPENMAIC_PUBLISH_ADDRESS`       | 需要对外发布时设为 `0.0.0.0`（或指定网卡），并配合反代/隧道做 HTTPS。                                                                                                            |
+
+模型配置用 `openmaic.yml`。GLM / Google 参考 `openmaic.teacher-scenario.example.yml`，
+通用供应商参考 `openmaic.example.yml`；已有配置应合并需要的 provider 和 slot。
+智谱 GLM 与 Google 分别使用原生 `glm`、`google` preset；角色对话与训练评价分别走
+`classroom.roleplay` / `classroom.evaluation` 槽位。**`openmaic.yml` 一旦
+存在，legacy 的 `*_API_KEY` 三元组、`DEFAULT_MODEL` 全部失效**，两套不可
+混用；且 yml 里 `${VAR}` 引用的变量未设置时，服务器拒绝启动。
+
+## 3. 数据库：迁移、备份、恢复
+
+- 迁移自动执行：首次访问训练存储时，`getTrainingStore()` 会在引导
+  advisory lock 下执行 `ensureTrainingSchema`（`training_scenarios` 等
+  表按版本化迁移创建），无需单独跑迁移命令。部署后第一次打开训练页
+  即完成建表；失败时看应用日志，不要手动改表结构。
+- 备份（部署机上，示例）：
+
+```bash
+docker compose --env-file .env.local exec -T postgres pg_dump -U openmaic -Fc openmaic > tsl-backup-$(date +%F).dump
+sha256sum tsl-backup-*.dump
+```
+
+- 恢复演练：在独立空库用 `pg_restore --exit-on-error` 恢复上述自定义格式备份；
+  验证迁移版本与数据后再制定生产恢复窗口。生产恢复前保留当前库备份。恢复后核对
+  `training_scenarios` 里已发布版本、`trainings` 数量与管理员账号。
+- 已发布情境版本是冻结的：恢复后历史训练仍绑定原版本，不会被新
+  版本覆盖；不要直接 UPDATE 已发布行。
+
+## 4. 健康检查与进程管理
+
+- 健康检查：`GET /api/health`（不依赖数据库）。Compose 的 postgres
+  服务自带健康检查；应用容器建议再加 `restart: unless-stopped`。
+- 日志：`docker compose logs -f openmaic`。模型调用失败时日志只含
+  错误码与厂商状态，不含密钥。
+- 进程自动重启：用 Compose 的 restart 策略；不要用 `pm2` 之外再套一层。
+
+## 5. HTTPS 与域名接入（`teacherlab.weiyiai.top`）
+
+1. 先在部署机上把应用跑起来并通过第 6 节回归（不要先切流量）。
+2. Node.js部署时，将 `teacherlab.weiyiai.top` 指到用户确认的部署机：A 记录到服务器公网 IP，或
+   Cloudflare Tunnel（`cloudflared`）指向 `127.0.0.1:3000`；二选一，
+   以实际服务器条件为准。
+3. HTTPS 由反代（Caddy/Nginx）或 Cloudflare 代理层终止；应用本身只
+   监听 3000，不直接处理证书。
+4. **切流前确认该子域名当前承载的应用**：如果仍有旧服务在跑，先记
+   录旧服务的配置、数据与恢复路径，准备好回滚（把 DNS 指回旧目标），
+   未完成验收前不切换现有流量。
+
+## 6. 部署后回归（必须逐项通过才算上线）
+
+1. `GET /api/health` 返回 ok。
+2. 首页标题为“教师情境实训实验室”，开始训练/记录/文献/管理入口可达。
+3. 两个浏览器（或两个账号）训练记录互不可见（owner 隔离）。
+4. 匿名训练 → 创建账号 → 账号页认领，记录归属转移。
+5. 管理后台：非管理员打开只看到权限提示，直接调管理 API 返回 403。
+6. 情境：新建草稿 → 发布 → 大厅可见；已发布版本编辑/删除均被 409 拒绝。
+7. 模型：脚本模式全程可用；模型池默认角色为GLM Flash、评价为Google Flash，
+   各自通过真实资格和完整训练验收，评价证据定位回原始对话。NVIDIA按独立授权托底。
+8. 文献：关键词检索与详情页返回真实收录条目，无编造。
+
+## 7. 上线前仍待外部条件（截至本文档编写时，诚实标注）
+
+- 代码通过现有 Draft PR #1 审核：`feat/teacher-scenario-lab-product` → `dev/teacher-scenario-lab`。每次验收记录精确 head SHA。
+- 生产构建以最新 head 对应的 Next.js Build 与 Main image 作业为准；历史 OOM 记录保留在验收报告中。镜像 builder 成功与网站运行验收分别记录。
+- 生产密钥由用户在受保护环境配置，聊天交接过的密钥上线前轮换；Mistral凭据尚缺。
+  Neon账号授权、生产数据库连接与迁移，以及Cloudflare Workers权限和域名目标需实际核实。
+- 上线是六个分开的操作：① 代码推送到 GitHub ② 构建和部署应用
+  ③ 配置目标子域名 ④ 初始化生产数据库 ⑤ 配置生产模型密钥
+  ⑥ 生产环境最终验收。GitHub 上有代码 ≠ 网站已上线。
+
+## 8. 发布前配置核验
+
+- 使用第 1 节包含两个 `-f` 参数的 `config --quiet` 命令校验后，核验应用与 PostgreSQL 使用同一口令；完整 `config` 输出含敏感值，应保留在受保护环境。
+- NVIDIA 的 `NVIDIA_MODEL_ID` 由携带本地密钥的 `GET https://integrate.api.nvidia.com/v1/models` 目录核验。GLM 的 `GLM_MODEL_ID` 按账号可用目录填写；两项真实调用分别验收。
+- 健康探针 `/api/health` 不检查数据库。数据库就绪还需以数据库连接、训练目录和真实写入读取回归核验。
+- Main image CI 将最终 runner 镜像加载到临时 Docker daemon，使用独立 PostgreSQL 库启动，以 UID 1001 运行。`scripts/teacher-scenario-runtime-smoke.mjs` 检查健康、访问码拒绝/登录、目录、账号创建/读取、隔离、会话撤销、cookie 属性与管理权限；不向镜像注入真实模型密钥。实际部署机仍需执行第 6 节回归。
+- 普通账号访问管理 API 返回 403；跨 owner 的训练返回 404；无效会话返回 401。复核 HTTPS 下 cookie 的 Secure、HttpOnly、SameSite 属性。
+- 正式部署以完成验收和取得用户授权为前提。域名 DNS、服务器归属、Cloudflare 路由、生产 PostgreSQL 和备份位置须由可核验的当前配置确认；当次授权范围记录于项目进度。
+
+## 训练资源池上线门槛
+
+详见 [模型资源池](model-pool.md)。管理员先刷新模型目录，核对免费资格、
+额度来源及隐私政策，再执行角色和评价各自的真实资格测试。通过后资源池按
+免费资源、任务默认、备用及 NVIDIA 最终授权顺序调度。训练默认角色为
+`glm-4.7-flash`，默认评价为 `gemini-3.8-flash`。资格与目录过期后需要复核。
+
+资源池可从同名 `openmaic.yml` provider 读取凭据，缺省连接使用本环境模板
+中的对应变量。该训练入口的凭据读取规则独立于 OpenMAIC 的 legacy 槽位翻译。
+Google 免费账号资格须在控制台确认；供应商目录成功不能证明免费资格。
+NVIDIA 默认停用，管理员授权、价格上界与预算齐备后才可进入最终候选。
+
+模型管理 API 需要训练管理员身份，生产同时保留访问码、HTTPS 和多用户身份隔离。
+模型管理页、真实评价、账号隔离和最终镜像回归通过后，方可进入部署验收。
+当前PR保持Draft，合并等待用户批准；部署与生产回归按本轮明确授权及实际条件执行。
+
+
+## 站点所有者与后台模块授权
+
+- `TEACHERLAB_OWNER_ACCOUNT_ID` 指定唯一站点所有者的 `acct:` 账号 ID，该账号同时需要管理员角色或位于 `TRAINING_ADMIN_ACCOUNT_IDS`。变量缺省时兼容使用 `TRAINING_ADMIN_ACCOUNT_IDS` 的第一个账号；调整顺序会影响所有者归属，应将所有者固定在受保护环境配置中。
+- 站点所有者独占 `/api/admin/mail` 的 GET/PUT、授予或撤销管理员、管理员权限分配。SMTP 授权码继续加密保存，响应不包含授权码。
+- 其他管理员默认无后台模块授权，在“人员与权限”中逐项开通情境管理、训练抽查、文献检查、共享模型管理和人员管理。邮件配置及管理员授权不在可委派列表。
+- 委派的人员管理可查看成员、添加普通成员及启停普通成员；不能修改管理员身份或权限、不能停用其他管理员。初始化账号与本人账号保留保护。
+- `teacherlab_admin_permissions` 由账号模块在原 schema 锁下兼容创建；原数据保留。撤销角色时清空模块权限，变更进入账号审计表。后台请求读取当前授权，浏览器刷新更新导航；普通用户训练及个人模型配置保持原 owner 隔离。
+- 回滚到上一版镜像将恢复上一版授权逻辑，包括较宽的管理员能力。回滚前评估已有委派管理员；新增权限表保留即可，禁止重置生产库。
+- 本轮权限、邮箱及移动端功能验收由用户执行；构建和容器状态与功能验收分别记录。
+
+ 
+## 邮箱注册与密码登录
+
+- /register 使用邮箱验证码和新密码注册，完成后前往 /login。登录页保留已注册邮箱的验证码登录，验证码登录不再隐式创建账号。
+- 既有验证码账号可在账号设置中用已验证邮箱设置密码；旧的未绑定账号在原会话中绑定邮箱和密码，保留原账号及训练数据。管理员角色和模块权限保持原授予机制。
+- 密码保存随机盐scrypt哈希；新增 teacherlab_password_credentials 与 teacherlab_password_attempts，沿用schema锁按需创建。登录尝试按邮箱/IP限制、哈希并发受限；重设密码校验并原子消费验证码，撤销该账号旧会话。
+- 用户验收新注册、密码登录、验证码登录、邮箱绑定和重设密码。构建与容器健康不代表这些流程已实际验收。

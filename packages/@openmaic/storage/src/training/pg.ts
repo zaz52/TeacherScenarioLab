@@ -24,10 +24,7 @@
  * call site, never in a user route.
  */
 
-import {
-  applySchemaMigrations,
-  type SchemaMigrationSet,
-} from '../pg-migrations.js';
+import { applySchemaMigrations, type SchemaMigrationSet } from '../pg-migrations.js';
 import type { Queryable, WithTransaction } from '../runtime/pg.js';
 
 export type { QueryResult, Queryable, WithTransaction } from '../runtime/pg.js';
@@ -159,9 +156,7 @@ export class TrainingAccountNotFoundError extends Error {
 /** A published scenario version is frozen: it can never be overwritten. */
 export class TrainingScenarioFrozenError extends Error {
   constructor(scenarioId: string, version: number) {
-    super(
-      `@openmaic/storage: scenario ${scenarioId} version ${version} is published and frozen`,
-    );
+    super(`@openmaic/storage: scenario ${scenarioId} version ${version} is published and frozen`);
     this.name = 'TrainingScenarioFrozenError';
   }
 }
@@ -377,9 +372,7 @@ function mapSnapshotRow(row: TrainingSnapshotRow): TrainingSnapshotRecord {
 
 function isUniqueViolation(error: unknown): boolean {
   return (
-    typeof error === 'object' &&
-    error !== null &&
-    (error as { code?: unknown }).code === '23505'
+    typeof error === 'object' && error !== null && (error as { code?: unknown }).code === '23505'
   );
 }
 
@@ -451,14 +444,7 @@ export class PgTrainingStore {
        VALUES ($1, $2, $3, $4, $5, $6, $6, NULL)
        RETURNING id, owner_id, scenario_id, scenario_version, state,
                  created_at, updated_at, completed_at`,
-      [
-        input.id,
-        input.ownerId,
-        input.scenarioId,
-        input.scenarioVersion,
-        input.state,
-        input.now,
-      ],
+      [input.id, input.ownerId, input.scenarioId, input.scenarioVersion, input.state, input.now],
     );
     const row = result.rows[0];
     if (!row) throw new TrainingNotFoundError(input.id);
@@ -470,9 +456,7 @@ export class PgTrainingStore {
     return row ? mapTrainingRow(row) : null;
   }
 
-  async listTrainings(options?: {
-    includeAllOwners?: boolean;
-  }): Promise<TrainingRecord[]> {
+  async listTrainings(options?: { includeAllOwners?: boolean }): Promise<TrainingRecord[]> {
     if (this.ownerId !== null) {
       const result = await this.queryable.query<TrainingRow>(
         `SELECT id, owner_id, scenario_id, scenario_version, state,
@@ -709,9 +693,7 @@ export class PgTrainingStore {
    * it throws TrainingScenarioFrozenError, enforced both by a pre-check and
    * by the upsert's WHERE clause so concurrent publishes cannot slip past.
    */
-  async saveScenarioVersion(
-    record: ScenarioVersionRecord,
-  ): Promise<ScenarioVersionRecord> {
+  async saveScenarioVersion(record: ScenarioVersionRecord): Promise<ScenarioVersionRecord> {
     const existing = await this.getScenarioVersion(record.scenarioId, record.version);
     if (existing && existing.publishedAt !== null) {
       throw new TrainingScenarioFrozenError(record.scenarioId, record.version);
@@ -773,15 +755,59 @@ export class PgTrainingStore {
   }
 
   /**
+   * Create a scenario version, and only create it: a single INSERT with
+   * no ON CONFLICT fallback, so two concurrent creates for the same
+   * (scenarioId, version) cannot overwrite each other — PostgreSQL
+   * resolves the PK race and exactly one insert wins. Returns the
+   * created row, or null when a row (draft or published) already
+   * exists; the service layer maps null to a 409. A unique violation
+   * (23505) carries the conflict; the query surface exposes no
+   * rowCount, so the RETURNING row carries the success signal.
+   */
+  async createScenarioVersion(
+    record: ScenarioVersionRecord,
+  ): Promise<ScenarioVersionRecord | null> {
+    try {
+      const result = await this.queryable.query<TrainingScenarioRow>(
+        `INSERT INTO training_scenarios (scenario_id, version, data, published_at)
+         VALUES ($1, $2, $3, $4)
+         RETURNING scenario_id, version, data, published_at`,
+        [record.scenarioId, record.version, record, record.publishedAt],
+      );
+      return result.rows[0] ? mapScenarioRow(result.rows[0]) : null;
+    } catch (error) {
+      if (error instanceof Error && (error as { code?: unknown }).code === '23505') {
+        return null;
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Delete a draft scenario version. Published versions are never deleted:
+   * the WHERE clause only matches drafts, so deleting a published version
+   * (or a version that became published concurrently) deletes nothing and
+   * returns false; the service layer maps that to a conflict. The query
+   * surface exposes no rowCount, so RETURNING carries the signal.
+   */
+  async deleteScenarioVersion(scenarioId: string, version: number): Promise<boolean> {
+    const result = await this.queryable.query<{ scenario_id: string }>(
+      `DELETE FROM training_scenarios
+        WHERE scenario_id = $1 AND version = $2 AND published_at IS NULL
+        RETURNING scenario_id`,
+      [scenarioId, version],
+    );
+    return result.rows.length > 0;
+  }
+
+  /**
    * Evaluations are owner data: the upsert only fires when the training
    * belongs to the bound owner (or when unbound), and reads join trainings
    * for the same check. The service layer loads the training first, so a
    * failed upsert here surfaces as TrainingNotFoundError, never as a
    * silent no-op.
    */
-  async saveEvaluation(
-    record: TrainingEvaluationRecord,
-  ): Promise<TrainingEvaluationRecord> {
+  async saveEvaluation(record: TrainingEvaluationRecord): Promise<TrainingEvaluationRecord> {
     const ownerClause = this.ownerId !== null ? ` AND t.owner_id = $5` : '';
     const params: unknown[] = [
       record.trainingId,
@@ -830,9 +856,7 @@ export class PgTrainingStore {
       [record.accountId, record.displayName, record.roles, record.createdAt],
     );
     if (!result.rows[0]) {
-      throw new Error(
-        `@openmaic/storage: could not create training account ${record.accountId}`,
-      );
+      throw new Error(`@openmaic/storage: could not create training account ${record.accountId}`);
     }
     return mapAccountRow(result.rows[0]);
   }

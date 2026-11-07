@@ -1,3 +1,4 @@
+import { STAGE_FRESHNESS_POLL_INTERVAL_MS } from '@/lib/server/agent-runtime/event-stream-config';
 /**
  * GET /api/stages/[id]/freshness — volatile freshness SSE for one course (the
  * reference's `stages/:id/freshness`, ported onto the owner-bound store).
@@ -32,12 +33,10 @@ import { ownerNotFound } from '@/lib/server/agent-runtime/route-response';
 export const runtime = 'nodejs';
 // The 25s heartbeat keeps this sparse stream active through idle periods.
 
-/** How often the stream re-checks the stage's revision. */
-export const STAGE_FRESHNESS_POLL_INTERVAL_MS = 5_000;
 /** Same ceiling as the sibling SSE streams. */
-export const STAGE_FRESHNESS_HEARTBEAT_MS = 25_000;
+const STAGE_FRESHNESS_HEARTBEAT_MS = 25_000;
 /** Browser reconnect delay, sent as the SSE `retry:` field. */
-export const STAGE_FRESHNESS_RETRY_MS = 3_000;
+const STAGE_FRESHNESS_RETRY_MS = 3_000;
 
 type Params = { params: Promise<{ id: string }> };
 

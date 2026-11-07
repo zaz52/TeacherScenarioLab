@@ -1,4 +1,24 @@
 /* Phone-only presentation. Desktop structure and business controllers are shared. */
+.home-page[data-mobile='true'][data-training='true'] {
+  position: relative;
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+}
+.home-page[data-mobile='true'][data-training='true'] .home-hero {
+  flex: none;
+}
+.home-page[data-mobile='true'][data-training='true'] .home-desktop-generation {
+  display: block;
+  flex: 1 1 100%;
+  margin-bottom: 8px;
+}
+.home-page[data-mobile='true'][data-training='true'] .home-desktop-settings {
+  display: block;
+}
+.home-page[data-mobile='true'][data-training='true'] .home-composer-controls {
+  flex-wrap: wrap;
+}
 .home-page[data-mobile='true'] {
   --home-safe-inline-start: var(--safe-area-left);
   --home-safe-inline-end: var(--safe-area-right);

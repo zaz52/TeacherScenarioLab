@@ -103,7 +103,7 @@ describePg('single-role reply (PostgreSQL contract)', () => {
     });
     expect(result.director).toMatchObject({
       characterId: 'principal-1',
-      reason: '话题：停课与上报决策',
+      reason: '话题：停课决策与学校安排',
     });
     expect(result.message.characterId).toBe('principal-1');
     expect(result.message.content).toContain('要按流程报上级决定');
@@ -112,7 +112,7 @@ describePg('single-role reply (PostgreSQL contract)', () => {
     expect(reply?.payload).toMatchObject({
       characterId: 'principal-1',
       mode: 'scripted',
-      director: { characterId: 'principal-1', reason: '话题：停课与上报决策' },
+      director: { characterId: 'principal-1', reason: '话题：停课决策与学校安排' },
     });
   });
 
@@ -130,8 +130,7 @@ describePg('single-role reply (PostgreSQL contract)', () => {
     const events = await listEvents('owner-1', trainingId);
     expect(events.filter((e) => e.type === 'rumor-in-group')).toHaveLength(1);
     const disclosed = await getDisclosedFactsForTraining('owner-1', trainingId);
-    expect(disclosed.facts.map((f) => f.id)).toContain('fact-rumor');
-    expect(disclosed.facts.map((f) => f.id)).not.toContain('fact-travel');
+    expect(disclosed.facts.map((f) => f.id)).toEqual(['fact-rumor']);
     // A further reply must not re-fire the event.
     await appendUserMessage('owner-1', trainingId, { content: '第四条消息' });
     await generateCharacterReply('owner-1', trainingId, {
@@ -150,8 +149,7 @@ describePg('single-role reply (PostgreSQL contract)', () => {
         trainingId,
         { characterId: 'parent-1', mode: 'model' },
         {
-          generateModelReply: async () =>
-            '听说小雨今早有点咳嗽，怕被同学笑话，我很担心。',
+          generateModelReply: async () => '听说小雨今早有点咳嗽，怕被同学笑话，我很担心。',
         },
       ),
     ).rejects.toMatchObject({ status: 502 });
@@ -159,6 +157,26 @@ describePg('single-role reply (PostgreSQL contract)', () => {
     expect(after).toHaveLength(before.length);
     const events = await listEvents('owner-1', trainingId);
     expect(events.filter((e) => e.type === 'character-reply')).toHaveLength(0);
+  });
+
+  test('upstream failures disclose no provider detail and persist no success', async () => {
+    const before = await listMessages('owner-1', trainingId, false);
+    await expect(
+      generateCharacterReply(
+        'owner-1',
+        trainingId,
+        { characterId: 'parent-1', mode: 'model' },
+        {
+          generateModelReply: async () => {
+            throw new Error('sensitive-upstream-detail');
+          },
+        },
+      ),
+    ).rejects.toMatchObject({ status: 503, message: 'roleplay model is not available' });
+    expect(await listMessages('owner-1', trainingId, false)).toHaveLength(before.length);
+    expect(
+      (await listEvents('owner-1', trainingId)).filter((e) => e.type === 'character-reply'),
+    ).toHaveLength(0);
   });
 
   test('unknown characters, pack-less characters, wrong states, foreign owners fail', async () => {

@@ -32,7 +32,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 /** The fallback poll: NOTIFY wakes the stream within ~100 ms; this catches a lost one. */
-export const RUN_EVENTS_POLL_INTERVAL_MS = 5_000;
+const RUN_EVENTS_POLL_INTERVAL_MS = 5_000;
 const PAGE = 500;
 
 function parseCursor(value: string | null): number {

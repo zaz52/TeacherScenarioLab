@@ -24,7 +24,7 @@ import { authenticateRequestOwner } from '@/lib/server/identity/with-owner';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export const OWNER_RUN_EVENTS_POLL_INTERVAL_MS = 30_000;
+const OWNER_RUN_EVENTS_POLL_INTERVAL_MS = 30_000;
 /**
  * How far before the newest change already sent each read looks back: a
  * transaction's `updated_at` is its start, so one that committed late can

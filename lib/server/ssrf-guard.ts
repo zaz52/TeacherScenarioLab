@@ -4,7 +4,7 @@
  * Validates URLs to prevent requests to internal/private network addresses.
  * Used by any API route that fetches a user-supplied URL server-side.
  */
-import { promises as dns } from 'node:dns';
+import { lookupAddresses } from './dns-lookup';
 import { isIP } from 'node:net';
 import ipaddr from 'ipaddr.js';
 
@@ -210,7 +210,7 @@ async function lookupWithTimeout(
     timer = setTimeout(() => resolve(null), timeoutMs);
   });
   try {
-    return await Promise.race([dns.lookup(hostname, { all: true, verbatim: true }), timeout]);
+    return await Promise.race([lookupAddresses(hostname), timeout]);
   } finally {
     if (timer) clearTimeout(timer);
   }
@@ -563,7 +563,7 @@ export async function validateUrlForSSRFWithPolicy(
 
   let resolvedAddresses: Array<{ address: string; family: number }>;
   try {
-    resolvedAddresses = await dns.lookup(hostname, { all: true, verbatim: true });
+    resolvedAddresses = await lookupAddresses(hostname);
   } catch {
     return 'Unable to verify hostname safety';
   }

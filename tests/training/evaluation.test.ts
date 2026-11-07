@@ -3,10 +3,12 @@ import { describe, expect, test } from 'vitest';
 import type { TrainingMessageRecord } from '@openmaic/storage/training/pg';
 
 import {
+  buildEvaluationPrompt,
   parseEvaluation,
   verifyEvaluationCitations,
   type TrainingEvaluation,
 } from '@/lib/training/evaluation';
+import { EPIDEMIC_SCENARIO_V1_DRAFT } from '@/lib/training/scenarios/epidemic-v1';
 
 function validJson(overrides: Record<string, unknown> = {}): string {
   const dimensions = [
@@ -38,6 +40,28 @@ function message(id: string, role: string): TrainingMessageRecord {
 }
 
 describe('parseEvaluation', () => {
+  test('evaluation prompt contains a complete parseable schema example and an exact teacher ID allowlist', () => {
+    const teacherId = '00000000-0000-4000-8000-000000000001';
+    const { system } = buildEvaluationPrompt(EPIDEMIC_SCENARIO_V1_DRAFT, [
+      message(teacherId, 'user'),
+      message('character-id', 'character'),
+    ]);
+    expect(system).toContain(`合法教师消息 ID：["${teacherId}"]`);
+    const example = system
+      .split('\n')
+      .find((line) => line.startsWith('结构示例：'))!
+      .slice('结构示例：'.length);
+    const parsed = parseEvaluation('t1', example, 1);
+    expect(parsed?.dimensions).toHaveLength(5);
+    expect(verifyEvaluationCitations(parsed!, [message(teacherId, 'user')])).toEqual([]);
+  });
+  test.each(['请核对符号 } 的含义。', '保留 { 作为原始证据。', '引文包含 "引号" 与 \\ 转义。'])(
+    'preserves valid JSON string content: %s',
+    (summary) => {
+      expect(parseEvaluation('t1', validJson({ summary }), 1)?.summary).toBe(summary);
+    },
+  );
+
   test('parses a narrative plus JSON tail', () => {
     const parsed = parseEvaluation('t1', validJson(), 123);
     expect(parsed?.trainingId).toBe('t1');
@@ -47,9 +71,7 @@ describe('parseEvaluation', () => {
   });
 
   test('rejects missing dimensions, bad scores, and garbage', () => {
-    expect(
-      parseEvaluation('t1', validJson({ dimensions: [] }), 1),
-    ).toBeNull();
+    expect(parseEvaluation('t1', validJson({ dimensions: [] }), 1)).toBeNull();
     expect(
       parseEvaluation(
         't1',
@@ -81,14 +103,21 @@ describe('verifyEvaluationCitations', () => {
     const bad: TrainingEvaluation = {
       ...base,
       dimensions: base.dimensions.map((d) =>
-        d.dimension === 'communication'
-          ? { ...d, evidence: ['no-such', 'c1'] }
-          : d,
+        d.dimension === 'communication' ? { ...d, evidence: ['no-such', 'c1'] } : d,
       ),
     };
     const problems = verifyEvaluationCitations(bad, transcript);
     expect(problems).toHaveLength(2);
     expect(problems[0]).toContain('unknown evidence id no-such');
     expect(problems[1]).toContain('not a teacher message');
+  });
+});
+
+describe('buildEvaluationPrompt privacy assessment', () => {
+  test('the prompt tells the evaluator to score peer-privacy handling', () => {
+    const { system } = buildEvaluationPrompt(EPIDEMIC_SCENARIO_V1_DRAFT, []);
+    expect(system).toContain('同桌');
+    expect(system).toContain('健康隐私');
+    expect(system).toContain('responsibility');
   });
 });

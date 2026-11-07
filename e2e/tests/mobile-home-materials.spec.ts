@@ -38,7 +38,7 @@ test.describe('course material navigation and scrolling', () => {
       const library = await mockApi.mockMaterials({ pollsUntilReady: 1 });
       await page.setViewportSize({ width: size.width, height: size.height });
       await page.addInitScript(() => localStorage.setItem('locale', 'en-US'));
-      await page.goto('/');
+      await page.goto('/courseware');
       const options = page.getByTestId('home-mobile-options');
       if (size.mobile) await page.getByTestId('home-options-open').click();
       if (size.mobile)
@@ -161,7 +161,7 @@ test.describe('phone options motion', () => {
       await page.setViewportSize({ width: 390, height: 844 });
       await page.emulateMedia({ reducedMotion });
       await page.addInitScript(() => localStorage.setItem('locale', 'en-US'));
-      await page.goto('/');
+      await page.goto('/courseware');
       await page.getByTestId('home-options-open').click();
       const options = page.getByTestId('home-mobile-options');
       await expect(options).toHaveCSS(
@@ -209,7 +209,7 @@ test.describe('transient course material feedback', () => {
       page,
     }) => {
       await page.addInitScript(() => localStorage.setItem('locale', 'en-US'));
-      await page.goto('/');
+      await page.goto('/courseware');
       await page.getByTestId('home-options-open').click();
       await page.getByTestId('course-material-button').click();
       const options = page.getByTestId('home-mobile-options');
@@ -274,7 +274,7 @@ test('parser changes while settings is open notify once and leave a transient ma
       json: createModelSettingsView({ ...DEFAULT_MODEL_SETTINGS, media: { document: parser } }),
     }),
   );
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-options-open').click();
   await page.getByTestId('course-material-button').click();
   const options = page.getByTestId('home-mobile-options');
@@ -317,7 +317,7 @@ test('parser changes while settings is open notify once and leave a transient ma
 test('a supported upload clears the previous material notice', async ({ page, mockApi }) => {
   await mockApi.mockMaterials({ pollsUntilReady: 1 });
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-options-open').click();
   await page.getByTestId('course-material-button').click();
   const options = page.getByTestId('home-mobile-options');
@@ -349,7 +349,7 @@ test('a late policy refusal does not restore a notice after returning from mater
     await route.fulfill({ status: 503, json: { error: 'Late policy refusal' } });
   });
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('home-options-open').click();
   await page.getByTestId('course-material-button').click();
   const options = page.getByTestId('home-mobile-options');
@@ -368,7 +368,7 @@ test('a late policy refusal does not restore a notice after returning from mater
 
 test('desktop material feedback clears when its popover closes', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto('/');
+  await page.goto('/courseware');
   await page.getByTestId('course-material-button').click();
   await page.locator('input[type="file"][multiple]').setInputFiles({
     name: 'bad.docx',

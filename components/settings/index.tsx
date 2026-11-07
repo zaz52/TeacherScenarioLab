@@ -1,5 +1,7 @@
 'use client';
 
+import { MotionSurface } from '@/components/ui/site-motion';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -22,6 +24,14 @@ import {
 } from './model-services';
 import { ServerSettingsGate } from './server-settings';
 import type { SettingsSection } from '@/lib/types/settings';
+import { AccountPanel } from '@/components/account/account-panel';
+import { useAccount } from '@/components/account/account-provider';
+import { PeopleSettings } from './people-settings';
+import { MailSettings } from './mail-settings';
+import { UserTrainingModels } from './user-training-models';
+import TrainingAdmin from './training-admin';
+import { ModelCenter as TrainingModelCenter } from './training-model-center';
+import { hasAdminPermission } from '@/lib/training/admin-permissions';
 
 export { SERVICE_TAB_LABELS, type ServiceTab } from './model-services';
 
@@ -32,9 +42,15 @@ interface SettingsDialogProps {
 }
 
 const NAV: { id: SettingsSection; icon: typeof Settings; label: string }[] = [
+  { id: 'account', icon: Settings, label: 'teacherlab.account' },
   { id: 'token-plan', icon: CreditCard, label: 'settings.tokenPlan.nav' },
   { id: 'model-services', icon: Boxes, label: 'settings.modelServices.nav' },
   { id: 'course-models', icon: GraduationCap, label: 'settings.courseModels.nav' },
+  { id: 'training-routing', icon: GraduationCap, label: 'teacherlab.trainingModels' },
+  { id: 'training-admin', icon: Settings, label: 'teacherlab.scenarioAdmin' },
+  { id: 'people', icon: Settings, label: 'teacherlab.people' },
+  { id: 'mail', icon: Settings, label: 'teacherlab.mail' },
+  { id: 'platform-models', icon: Boxes, label: 'teacherlab.platformModels' },
   { id: 'skills', icon: Sparkles, label: 'settings.skills.nav' },
   { id: 'general', icon: Settings, label: 'settings.systemSettings' },
 ];
@@ -48,9 +64,24 @@ const NAV: { id: SettingsSection; icon: typeof Settings; label: string }[] = [
  */
 export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsDialogProps) {
   const { t } = useI18n();
+  const { account } = useAccount();
+  const isAdmin = account?.roles.includes('admin') === true;
+  const access = account?.adminAccess;
+  const canUseAdminSection = (id: SettingsSection) => {
+    if (!isAdmin) return false;
+    if (id === 'mail') return access?.isOwner === true;
+    if (id === 'people') return hasAdminPermission(access, 'people.manage');
+    if (id === 'platform-models') return hasAdminPermission(access, 'models.manage');
+    return ['scenarios.manage', 'trainings.audit', 'references.inspect'].some((permission) =>
+      hasAdminPermission(
+        access,
+        permission as 'scenarios.manage' | 'trainings.audit' | 'references.inspect',
+      ),
+    );
+  };
 
   // Navigation
-  const [requestedSection, setActiveSection] = useState<SettingsSection>('token-plan');
+  const [requestedSection, setActiveSection] = useState<SettingsSection>('account');
   // Skills are served by the agent runtime (`/api/agent/skills` 404s without
   // it), so the section is offered only once the server says the runtime is
   // available. Until then — and on a deployment without it — the item is
@@ -64,13 +95,17 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
     ? SERVICE_TABS.filter((tab) => sections.modelServices.includes(TAB_CAPABILITY[tab]))
     : SERVICE_TABS;
   const listed = (id: SettingsSection) =>
-    id === 'skills'
-      ? skillsAvailable
-      : id === 'token-plan'
-        ? !sections || sections.tokenPlan
-        : id === 'model-services'
-          ? serviceTabs.length > 0
-          : true;
+    !NAV.some((item) => item.id === id)
+      ? false
+      : ['training-admin', 'people', 'mail', 'platform-models'].includes(id)
+        ? canUseAdminSection(id)
+        : id === 'skills'
+          ? skillsAvailable
+          : id === 'token-plan'
+            ? !sections || sections.tokenPlan
+            : id === 'model-services'
+              ? serviceTabs.length > 0
+              : true;
   const nav = NAV.filter(({ id }) => listed(id));
   // A section that is not listed (asked for, or the default) lands on the first one.
   const activeSection = listed(requestedSection) ? requestedSection : nav[0].id;
@@ -163,7 +198,11 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
       case 'token-plan':
         return <h2 className="text-lg font-semibold">{t('settings.tokenPlan.nav')}</h2>;
       default:
-        return null;
+        return (
+          <h2 className="text-lg font-semibold">
+            {t(NAV.find((item) => item.id === activeSection)?.label ?? 'settings.title')}
+          </h2>
+        );
     }
   };
 
@@ -172,18 +211,40 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
+        data-training-guide="settings-panel"
+        data-training-guide-host=""
         className="home-settings-dialog h-[85vh] p-0 gap-0 block max-sm:h-[100dvh] max-sm:max-w-none max-sm:rounded-none"
         showCloseButton={false}
       >
         <DialogTitle className="sr-only">{t('settings.title')}</DialogTitle>
         <DialogDescription className="sr-only">{t('settings.description')}</DialogDescription>
         {/* Below `sm` the nav becomes a strip above the panel. */}
-        <div className="flex h-full flex-col overflow-hidden sm:flex-row">
+        <div className="teacherlab-settings-shell flex h-full flex-col overflow-hidden sm:flex-row">
+          <label className="admin-mobile-nav">
+            <Settings size={18} className="shrink-0 text-muted-foreground" />
+            <select
+              aria-label={t('teacherlab.adminUi.chooseSection')}
+              value={activeSection}
+              onChange={(event) => setActiveSection(event.target.value as SettingsSection)}
+            >
+              {nav.map(({ id, label }) => (
+                <option key={id} value={id}>
+                  {t(label)}
+                </option>
+              ))}
+            </select>
+          </label>
           {/* Left Sidebar - Navigation */}
           <div
-            className="flex flex-shrink-0 gap-1 overflow-x-auto border-b bg-muted/30 p-2 sm:block sm:w-[var(--settings-nav-width)] sm:space-y-1 sm:overflow-visible sm:border-b-0 sm:p-3"
+            className="admin-desktop-nav flex-shrink-0 bg-muted/20 sm:w-[var(--settings-nav-width)] sm:space-y-1 sm:overflow-y-auto sm:p-3"
             style={{ '--settings-nav-width': `${sidebarWidth}px` } as React.CSSProperties}
           >
+            <div className="mb-4 px-3 pt-2">
+              <p className="text-sm font-semibold">TeacherScenarioLab</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {t('teacherlab.adminUi.settingsScope')}
+              </p>
+            </div>
             {nav.map(({ id, icon: Icon, label }) => (
               <button
                 key={id}
@@ -214,7 +275,7 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
           <div className="flex-1 flex flex-col overflow-hidden min-w-0">
             {/* Header */}
             <div className="flex items-center justify-between gap-3 border-b p-4 sm:p-5">
-              <div className="flex items-center gap-3">{getHeaderContent()}</div>
+              <div className="min-w-0">{getHeaderContent()}</div>
               <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
@@ -228,51 +289,70 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
             </div>
 
             {/* Content */}
-            <div
+            <MotionSurface
+              motionKey={activeSection}
               className={cn(
-                'p-3 sm:p-5',
+                'min-w-0 overflow-x-hidden p-4 sm:p-6',
                 fillsHeight ? 'flex min-h-0 flex-1 flex-col pt-3' : 'flex-1 overflow-y-auto',
               )}
             >
-              {activeSection === 'general' && <GeneralSettings />}
-
-              {activeSection === 'skills' && <SkillSettings />}
-
-              {activeSection === 'token-plan' && (
-                <ServerSettingsGate>
-                  {(view, apply) => <TokenPlanSettings view={view} apply={apply} />}
-                </ServerSettingsGate>
-              )}
-
-              {activeSection === 'course-models' && (
-                <ServerSettingsGate>
-                  {(view, apply) => (
-                    <CourseModelMap
-                      view={view}
-                      apply={apply}
-                      onManageProviders={() => {
-                        setServiceTab('providers');
-                        setActiveSection('model-services');
-                      }}
-                    />
+              {activeSection === 'account' && <AccountPanel />}
+              {activeSection !== 'account' &&
+                activeSection !== 'general' &&
+                !account?.authenticated && <AccountPanel />}
+              {account?.authenticated && (
+                <>
+                  {activeSection === 'people' && canUseAdminSection('people') && <PeopleSettings />}
+                  {activeSection === 'mail' && canUseAdminSection('mail') && <MailSettings />}
+                  {activeSection === 'training-admin' && canUseAdminSection('training-admin') && (
+                    <TrainingAdmin />
                   )}
-                </ServerSettingsGate>
-              )}
-
-              {activeSection === 'model-services' && (
-                <ServerSettingsGate>
-                  {(view, apply) => (
-                    <ModelServicesPanel
-                      view={view}
-                      apply={apply}
-                      tabs={serviceTabs}
-                      tab={serviceTab}
-                      onTabChange={setServiceTab}
-                    />
+                  {activeSection === 'platform-models' && canUseAdminSection('platform-models') && (
+                    <TrainingModelCenter view="overview" embedded />
                   )}
-                </ServerSettingsGate>
+                  {activeSection === 'training-routing' && <UserTrainingModels />}
+                  {activeSection === 'general' && <GeneralSettings />}
+
+                  {activeSection === 'skills' && <SkillSettings />}
+
+                  {activeSection === 'token-plan' && (
+                    <ServerSettingsGate>
+                      {(view, apply) => <TokenPlanSettings view={view} apply={apply} />}
+                    </ServerSettingsGate>
+                  )}
+
+                  {activeSection === 'course-models' && (
+                    <ServerSettingsGate>
+                      {(view, apply) => (
+                        <CourseModelMap
+                          view={view}
+                          apply={apply}
+                          onManageProviders={() => {
+                            setServiceTab('providers');
+                            setActiveSection('model-services');
+                          }}
+                        />
+                      )}
+                    </ServerSettingsGate>
+                  )}
+
+                  {activeSection === 'model-services' && (
+                    <ServerSettingsGate>
+                      {(view, apply) => (
+                        <ModelServicesPanel
+                          view={view}
+                          apply={apply}
+                          tabs={serviceTabs}
+                          tab={serviceTab}
+                          onTabChange={setServiceTab}
+                        />
+                      )}
+                    </ServerSettingsGate>
+                  )}
+                </>
               )}
-            </div>
+              {activeSection === 'general' && !account?.authenticated && <GeneralSettings />}
+            </MotionSurface>
 
             {/* Footer: every change is saved as it is made; only close here. */}
             <div className="flex items-center justify-end gap-3 px-5 py-3 border-t bg-muted/30">

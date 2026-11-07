@@ -9,8 +9,7 @@
  * and scope keys; enforcement lives in the migration + store.
  */
 
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /** Whether `key` is a well-formed UUID (v4 shape not enforced beyond format). */
 export function isValidIdempotencyKey(key: unknown): key is string {

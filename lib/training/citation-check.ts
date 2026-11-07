@@ -6,11 +6,7 @@
  * 只做确定性校验，不联网、不改写任何数据；命中问题时返回问题列表，
  * 不抛错，调用方按 valid 决定是否放行。
  */
-import {
-  findReferenceByDoi,
-  getReferenceById,
-  type TrainingReference,
-} from './references';
+import { findReferenceByDoi, getReferenceById, type TrainingReference } from './references';
 
 export interface CitationInput {
   id?: string;

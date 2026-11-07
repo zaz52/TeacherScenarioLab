@@ -1,0 +1,986 @@
+{
+  "ref-01": {
+    "status": "abstract",
+    "summary": "模型中每多停课一周，流行峰值通常延后约4—6天；效果受监测能力和疫情严重程度影响。"
+  },
+  "ref-02": {
+    "status": "abstract",
+    "summary": "研究提出便于学校操作的数据驱动工具，回应既有指南缺乏实证依据的问题。"
+  },
+  "ref-03": {
+    "status": "open-text",
+    "summary": "作者估计中学停止上课后，传播下降约25%。"
+  },
+  "ref-06": {
+    "status": "abstract",
+    "summary": "限制损失教学周数时，多种响应式方案效果接近；适当实施通常涉及较短、可重复的关闭。"
+  },
+  "ref-07": {
+    "status": "abstract",
+    "summary": "多项研究报告焦虑、抑郁、屏幕使用增加及活动减少等关联。"
+  },
+  "ref-09": {
+    "status": "abstract",
+    "summary": "心理困扰、儿童保护转介减少和就诊减少等现象反复出现，弱势群体风险值得关注。"
+  },
+  "ref-10": {
+    "status": "open-text",
+    "summary": "估计学习损失约0.08个标准差；低教育背景家庭学生的损失更大。"
+  },
+  "ref-11": {
+    "status": "open-text",
+    "summary": "资料同时呈现传播控制收益及学业、心理、照护负担等方面的代价。"
+  },
+  "ref-14": {
+    "status": "open-text",
+    "summary": "初步资料支持电话获取基础数感信息，并强调简短说明、练习题、关系建立与样本偏差。"
+  },
+  "ref-30": {
+    "status": "open-text",
+    "summary": "家长会、与服务者会面及参与辅导有助于联结；家长参与也可能产生隐私冲突。"
+  },
+  "ref-35": {
+    "status": "open-text",
+    "summary": "模拟组的SEGUE沟通框架中位得分为22，对照组为18；摘要报告沟通表现改善。"
+  },
+  "ref-43": {
+    "status": "open-text",
+    "summary": "69.6%的参与者呈现倦怠症状，情绪耗竭等维度也有明显负担。"
+  },
+  "ref-44": {
+    "status": "abstract",
+    "summary": "韧性在疫情压力与抑郁、主观福祉的关系中呈统计中介作用。"
+  },
+  "ref-45": {
+    "status": "abstract",
+    "summary": "超过六成报告较高压力；工作过载、不确定性和环境问题突出，压力与不适及倦怠相关。"
+  },
+  "ref-48": {
+    "status": "abstract",
+    "summary": "72%感到很大或极大压力，57%感到严重倦怠，工作与家庭平衡亦存在困难。"
+  },
+  "ref-49": {
+    "status": "open-text",
+    "summary": "信息搜寻与态度、主观规范相关；群体规范强化态度与线上辟谣的联系。"
+  },
+  "ref-50": {
+    "status": "open-text",
+    "summary": "游戏组在健康谣言识别上表现较好，效果与年龄和教育背景有关。"
+  },
+  "kb-tutor-06": {
+    "status": "abstract",
+    "summary": "延迟反馈改善师范生的教学实践，增加即时反馈后进一步改善，儿童沟通亦出现积极变化。"
+  },
+  "kb-tutor-08": {
+    "status": "abstract",
+    "summary": "第二次任务中的高水平反思指标较第一次增加，参与者认可平台对材料积累的帮助。"
+  },
+  "kb-tutor-24": {
+    "status": "abstract",
+    "summary": "研究以共同备课、教学和评价的理想基准识别实施差距，并讨论及时的配对支持。"
+  },
+  "kb-tutor-40": {
+    "status": "abstract",
+    "summary": "双方认可探究价值，但对实施有不同认识；约半数学生不预期在今后教学中继续探究。"
+  },
+  "kb-tutor-45": {
+    "status": "abstract",
+    "summary": "模型把监控过程置于核心，讨论反馈如何影响任务投入及成就。"
+  },
+  "kb-tutor-46": {
+    "status": "abstract",
+    "summary": "解释性反馈的平均效应高于单纯告知正误或给正确答案，尤其涉及高阶学习时。"
+  },
+  "kb-parents-04": {
+    "status": "abstract",
+    "summary": "家长动机信念与较好适应相关，家校关系质量呈统计中介作用。"
+  },
+  "kb-parents-08": {
+    "status": "abstract",
+    "summary": "数据支持三个因素，包括家长感知关系、教师舒适感及对家长能力的看法。"
+  },
+  "kb-parents-11": {
+    "status": "abstract",
+    "summary": "较高家长自我效能与两年后较好家校沟通及师生关系相关，儿童行为是部分路径。"
+  },
+  "kb-parents-17": {
+    "status": "abstract",
+    "summary": "识别四种父母联合教养模式；严格而有情感支持的模式在多数结果上未明显差于权威型。"
+  },
+  "kb-parents-21": {
+    "status": "abstract",
+    "summary": "母亲心理控制与问题增加相关；较低心理控制条件下的行为规则与较少外显问题相关。"
+  },
+  "kb-parents-22": {
+    "status": "abstract",
+    "summary": "权威型教养与较多亲社会行为相关，亲社会行为又与较好学业结果相关。"
+  },
+  "kb-parents-23": {
+    "status": "abstract",
+    "summary": "家校共同咨询组在若干行为指标及家校关系上改善更快，关系质量呈部分中介作用。"
+  },
+  "kb-parents-36": {
+    "status": "abstract",
+    "summary": "识别家校联系、在校和在家参与、关系质量等六维；不同家庭风险与各维联系不同。"
+  },
+  "kb-parents-44": {
+    "status": "abstract",
+    "summary": "较好导师关系通过改善亲子及师生关系，与若干积极结果间接相关。"
+  },
+  "kb-parents-48": {
+    "status": "open-text",
+    "summary": "增加家庭指导的组通过家长维持、延伸共同注意的能力，显示对儿童努力控制的间接收益。"
+  },
+  "kb-scenarios-03": {
+    "status": "abstract",
+    "summary": "疫情期间抑郁症状增加的证据较明确，焦虑症状有较小幅度增加。"
+  },
+  "kb-scenarios-04": {
+    "status": "abstract",
+    "summary": "近四分之一非常担忧疫情，性别、年级和社会经济背景间存在差异。"
+  },
+  "kb-scenarios-05": {
+    "status": "abstract",
+    "summary": "个性化、创造性与包容性被认为重要，教师培训、管理支持和器材是实施条件。"
+  },
+  "kb-scenarios-06": {
+    "status": "open-text",
+    "summary": "不同群体的变化并不一致；部分封校期间变化在复课后回落，友谊质量较稳定。"
+  },
+  "kb-scenarios-07": {
+    "status": "abstract",
+    "summary": "受访者报告学习和行为困难，网络、设备与数字素养障碍对弱势家庭更突出。"
+  },
+  "kb-scenarios-09": {
+    "status": "abstract",
+    "summary": "沟通、问题解决和个人社会领域出现小幅下降，粗细动作领域未显示相同变化。"
+  },
+  "kb-scenarios-10": {
+    "status": "abstract",
+    "summary": "多数可追踪的外来病例未引发校内传播；聚集事件常涉及校外活动或措施执行偏差。"
+  },
+  "kb-scenarios-11": {
+    "status": "abstract",
+    "summary": "家长偏好随学段而异，健康与安全担忧是关联返校选择的重要因素。"
+  },
+  "kb-scenarios-13": {
+    "status": "abstract",
+    "summary": "中心在停课期间仍提供大量服务，心理健康就诊占比出现上升。"
+  },
+  "kb-scenarios-14": {
+    "status": "abstract",
+    "summary": "文章强调实际与心理挑战复杂，需审视措施影响的证据及假设。"
+  },
+  "kb-scenarios-15": {
+    "status": "abstract",
+    "summary": "心理门诊早期下降，随后高于预期；远程服务迅速增加，青少年女生增幅突出。"
+  },
+  "kb-scenarios-16": {
+    "status": "abstract",
+    "summary": "文章展示学校与学术机构建立社区联结的促进因素和障碍。"
+  },
+  "kb-scenarios-17": {
+    "status": "abstract",
+    "summary": "负面心理体验在封控高峰增加，解封后减弱，但社会梯度仍然存在。"
+  },
+  "kb-scenarios-18": {
+    "status": "abstract",
+    "summary": "远程学习与较低学校联结、自我效能及较多部分心理问题相关。"
+  },
+  "kb-scenarios-19": {
+    "status": "abstract",
+    "summary": "心理健康相关就诊的可能性逐年提高，疫情相关学年增幅较明显。"
+  },
+  "kb-scenarios-21": {
+    "status": "abstract",
+    "summary": "校内传播和措施执行资料通过多方共享，支持了当地线下返校政策讨论与报告机制。"
+  },
+  "kb-scenarios-22": {
+    "status": "abstract",
+    "summary": "初中生部分风险指标增加，高中生的不同指标呈现不同方向变化。"
+  },
+  "kb-scenarios-24": {
+    "status": "abstract",
+    "summary": "有自闭症或注意缺陷多动症儿童的照护者报告更高负担、抑郁、焦虑与压力。"
+  },
+  "kb-scenarios-25": {
+    "status": "abstract",
+    "summary": "有心理或行为诊断的学生就诊占比从11.2%升至17.6%，凸显身心服务衔接。"
+  },
+  "kb-scenarios-26": {
+    "status": "abstract",
+    "summary": "学校支持与较少抑郁焦虑相关；疫情影响较重时，这种关联未达到相同显著水平。"
+  },
+  "kb-scenarios-27": {
+    "status": "abstract",
+    "summary": "平均每日增加约84分钟，青春期及不同设备之间变化幅度不同。"
+  },
+  "kb-scenarios-29": {
+    "status": "abstract",
+    "summary": "倦怠与较不理想的参与动机模式相关，家庭仍可能保持自主支持学习的动机。"
+  },
+  "kb-scenarios-30": {
+    "status": "abstract",
+    "summary": "公开摘要仅说明研究问题和资料来源，未披露具体效应数值。"
+  },
+  "kb-scenarios-31": {
+    "status": "abstract",
+    "summary": "较少远程学习困难与积极家庭氛围、较好师生关系及情绪调节能力相关。"
+  },
+  "kb-scenarios-34": {
+    "status": "abstract",
+    "summary": "两组适应轨迹不同，纳入学习条件后组间差异减弱；家庭环境和师生沟通重要。"
+  },
+  "kb-scenarios-35": {
+    "status": "abstract",
+    "summary": "疫情前欺凌经历与后续内外化问题相关，不同欺凌形式的交互关系复杂。"
+  },
+  "kb-scenarios-36": {
+    "status": "abstract",
+    "summary": "社交媒体使用增加，网络受欺凌与较差学校适应之间存在抑郁症状相关路径。"
+  },
+  "kb-scenarios-38": {
+    "status": "abstract",
+    "summary": "疫情期间学校疏离的报告比例较高，有心理健康状况的学生尤其需要关注。"
+  },
+  "kb-scenarios-39": {
+    "status": "abstract",
+    "summary": "疫情学习困难与之后成绩相关，并部分解释早期脆弱性与学业结果的联系。"
+  },
+  "kb-scenarios-40": {
+    "status": "abstract",
+    "summary": "容量不足、污名和专业人员代表性不足是主要障碍，学校随后强化培训及资源沟通。"
+  },
+  "kb-scenarios-42": {
+    "status": "abstract",
+    "summary": "当前摘要仅说明比较目标，未提供具体变化方向或数值。"
+  },
+  "kb-scenarios-43": {
+    "status": "abstract",
+    "summary": "家庭凝聚力下降、冲突及严厉或放任管教增加与后续儿童适应问题相关。"
+  },
+  "kb-scenarios-44": {
+    "status": "open-text",
+    "summary": "五岁时暴露组估计落后约4.39个月，三岁组未出现同样结果，个体差异也增大。"
+  },
+  "kb-scenarios-47": {
+    "status": "abstract",
+    "summary": "阳性筛查比例由11.1%升至12.2%，不同人群和就诊类型差异明显。"
+  },
+  "kb-scenarios-48": {
+    "status": "abstract",
+    "summary": "2020年4至12月总量较2019同期减少27.1%，不同药物类别变化不同。"
+  },
+  "kb-scenarios-49": {
+    "status": "abstract",
+    "summary": "整体疫苗犹豫未出现显著时期差异，但对疫苗信息的信任及态度分化有变化。"
+  },
+  "kb-scenarios-50": {
+    "status": "abstract",
+    "summary": "接近千名学生、1048个班级日的资料中，正确戴口罩时间平均约76.9%。"
+  },
+  "kb-assessor-01": {
+    "status": "abstract",
+    "summary": "样例帮助理解标准，并为形成性反馈提供共同参照，互评判断可能更客观。"
+  },
+  "kb-assessor-02": {
+    "status": "abstract",
+    "summary": "学生认可其对理解评价和改进作品的帮助；设计、反馈能力与教师持续参与被认为关键。"
+  },
+  "kb-assessor-07": {
+    "status": "abstract",
+    "summary": "标准随时间发展，但多数工具仍依赖早期概念，标准与测量之间存在不一致。"
+  },
+  "kb-assessor-08": {
+    "status": "abstract",
+    "summary": "个人态度、自我效能和培训，以及校内支持、政策和工作条件都与实施有关。"
+  },
+  "ref-04": {
+    "status": "abstract",
+    "summary": "报告约44%的师生发病，停课、临时诊疗及社区健康教育共同实施，可能限制了向周边学校扩散。"
+  },
+  "ref-05": {
+    "status": "abstract",
+    "summary": "确认4例乙型流感并发现响应预案与沟通网络存在缺口，团队随后协调学校建立信息联系和预防宣传。"
+  },
+  "ref-08": {
+    "status": "abstract",
+    "summary": "父母心理健康、亲子互动和养育压力与儿童情绪及行为问题相联系，研究质量与指标存在差异。"
+  },
+  "ref-12": {
+    "status": "abstract",
+    "summary": "师生沟通与多项学习表现相关，家校沟通与动机及学习进展相关；学生投入和家庭资源也具有独立关联。"
+  },
+  "ref-13": {
+    "status": "abstract",
+    "summary": "短信与电话组合使学习结果提高约0.12个标准差，展示了低技术家庭支持的潜力。"
+  },
+  "ref-15": {
+    "status": "abstract",
+    "summary": "接受短信家庭的儿童认知技能提升约0.11–0.12个标准差，家长参与增加；未发现信息在网络内自然扩散的证据。"
+  },
+  "ref-16": {
+    "status": "abstract",
+    "summary": "手机帮助传递材料并维持联系，设备、网络费用及家长教学支持能力仍构成障碍。"
+  },
+  "ref-17": {
+    "status": "abstract",
+    "summary": "疫情促使联系渠道调整，参与者报告更深入的合作及相互理解，同时仍有资源和接触障碍。"
+  },
+  "ref-18": {
+    "status": "abstract",
+    "summary": "邮件用于传递事实、说明决定和表达关怀，但大量信息仍偏单向且可读性不一，研究强调社区关怀。"
+  },
+  "ref-19": {
+    "status": "abstract",
+    "summary": "教师期待家长帮助获取资源、参与或监督学习活动，但弱势家庭面临更多参与障碍。"
+  },
+  "ref-20": {
+    "status": "abstract",
+    "summary": "小学阶段信任通常较高，互动质量比联系次数或人口特征更能预测信任，信任也与学校表现指标相关。"
+  },
+  "ref-21": {
+    "status": "abstract",
+    "summary": "不同资源背景的家长都关心子女教育并采取参与策略，但参与学校活动的程度存在差异。"
+  },
+  "ref-22": {
+    "status": "abstract",
+    "summary": "教师描述的做法包括关注与观察、保持中立、共情、澄清提问和复述家长主要观点。"
+  },
+  "ref-23": {
+    "status": "abstract",
+    "summary": "家长整体对教师持积极态度，背景特征未充分反映态度及实践，研究建议扩大参与机会并解释伙伴关系。"
+  },
+  "ref-24": {
+    "status": "abstract",
+    "summary": "家长参与涵盖家庭支持、沟通、志愿活动、居家学习、决策与社区资源协作。"
+  },
+  "ref-25": {
+    "status": "abstract",
+    "summary": "文章梳理建立伙伴关系的价值与障碍，并关注残障、低收入及特殊才能学生家庭的差异。"
+  },
+  "ref-26": {
+    "status": "abstract",
+    "summary": "双周学习行为反馈改善学业表现，向家长同步反馈对部分低龄留守儿童带来额外数学收益。"
+  },
+  "ref-27": {
+    "status": "abstract",
+    "summary": "家庭支持和家校沟通与成绩联系较强，志愿参与和决策参与受到当地资源及文化条件制约。"
+  },
+  "ref-28": {
+    "status": "abstract",
+    "summary": "两套量表具有较高内部一致性，沟通与参与程度显著相关，提供当地情境的测量工具。"
+  },
+  "ref-29": {
+    "status": "abstract",
+    "summary": "两组共情水平均较高且未见显著组间差异，教师组内观察到性别关联。"
+  },
+  "ref-32": {
+    "status": "abstract",
+    "summary": "家庭支持、学校联系和参与与部分社会情绪表现相关，未发现对学业成绩的相应解释，相关程度总体有限。"
+  },
+  "ref-33": {
+    "status": "abstract",
+    "summary": "三轮练习后，参与者更关注学生已有理解及误解，提问策略出现幅度有限的提升。"
+  },
+  "ref-34": {
+    "status": "abstract",
+    "summary": "两组部分语音及自我效能指标改善，加入虚拟情境训练者的沟通信心提升更多。"
+  },
+  "ref-36": {
+    "status": "open-text",
+    "summary": "培训后识别心理困扰、沟通和转介的准备与自我效能评分较高，部分随访人员报告转介增加。"
+  },
+  "ref-37": {
+    "status": "abstract",
+    "summary": "危机责任判断和既往情境影响公众反应，回应策略需要结合具体责任与利益相关者需要。"
+  },
+  "ref-38": {
+    "status": "abstract",
+    "summary": "领导者通过连接、协调和缓冲等适应性策略，迅速调整教育供给及沟通协作。"
+  },
+  "ref-39": {
+    "status": "abstract",
+    "summary": "校长依托既有团队提供情感及道德支持，并对家长、教职工、学生和外部机构采取灵活沟通方式。"
+  },
+  "ref-40": {
+    "status": "abstract",
+    "summary": "及时清晰的沟通和福祉支持是共同实践，危机时长、社区需求及政府要求形成不同应对方式。"
+  },
+  "ref-41": {
+    "status": "abstract",
+    "summary": "资源不足和规则执行困难带来挑战，参与者强调韧性、灵活性、职责分担和有效沟通。"
+  },
+  "ref-42": {
+    "status": "abstract",
+    "summary": "教学指导、协作决策和适应性规划与维持学习连续性及降低辍学风险相联系。"
+  },
+  "ref-46": {
+    "status": "abstract",
+    "summary": "同时承担线上和线下任务的教师报告更高压力、焦虑及抑郁症状和较低福祉。"
+  },
+  "ref-47": {
+    "status": "abstract",
+    "summary": "情绪耗竭和去人格化与个人、学校和学生因素共同相关，工作负担及既有健康困难需要受到关注。"
+  },
+  "kb-tutor-01": {
+    "status": "abstract",
+    "summary": "同伴反馈支持课堂管理专业观察，增加专家反馈的组在总表现及监控、节奏管理方面进步更大。"
+  },
+  "kb-tutor-02": {
+    "status": "abstract",
+    "summary": "自适应反馈提高书面论证质量，未提高诊断准确性；静态反馈在双人学习中可能妨碍过程。"
+  },
+  "kb-tutor-03": {
+    "status": "abstract",
+    "summary": "培训及表现反馈增加有计划教学尝试的使用，并出现维持和迁移；实施频率、准确性与儿童目标反应相联系。"
+  },
+  "kb-tutor-04": {
+    "status": "abstract",
+    "summary": "教师角色编码的一致性较好，反馈层级达到可接受水平，参与者对工具给予积极评价。"
+  },
+  "kb-tutor-05": {
+    "status": "abstract",
+    "summary": "未发现自适应支架对判断准确性具有显著优势；过程分析提示需要核验适应依据和支持机制。"
+  },
+  "kb-tutor-07": {
+    "status": "abstract",
+    "summary": "视频组对积极教学事件的反思更深入，同伴和专家解释促进第二次反思形成更平衡的判断。"
+  },
+  "kb-tutor-09": {
+    "status": "abstract",
+    "summary": "反思主题和深化速度受个人背景、实践环境及交流方式影响。"
+  },
+  "kb-tutor-10": {
+    "status": "abstract",
+    "summary": "有意义的反思关注学习过程与教学道德，能够与明确的培养结果相结合。"
+  },
+  "kb-tutor-11": {
+    "status": "abstract",
+    "summary": "两种培训均改善反馈信念和质量，额外专家反馈带来的反馈质量提升更大。"
+  },
+  "kb-tutor-12": {
+    "status": "abstract",
+    "summary": "将不同教学因素联系起来与简单并列观点存在差别，整合性反思有助于形成更复杂的教学理解。"
+  },
+  "kb-tutor-13": {
+    "status": "abstract",
+    "summary": "师范生从反馈中认识教学技能，重视督导过程及有经验教师的支持，并调整对教学的理解。"
+  },
+  "kb-tutor-14": {
+    "status": "abstract",
+    "summary": "互动组在学习设计、反馈质量和反馈采纳方面表现更好，采纳反馈与干预效果存在中介关联。"
+  },
+  "kb-tutor-15": {
+    "status": "abstract",
+    "summary": "预期与现实差距、文化叙事和希望构成重要主题，反思应兼顾事后回顾与事前设想。"
+  },
+  "kb-tutor-16": {
+    "status": "abstract",
+    "summary": "多数研究报告课堂管理或一般教学技能收益，4项显示自我效能改善；技术故障和缺少易用界面构成障碍。"
+  },
+  "kb-tutor-17": {
+    "status": "abstract",
+    "summary": "有经验者能帮助讨论聚焦教学与学习，但研究所界定的深层反思仍未充分发生。"
+  },
+  "kb-tutor-18": {
+    "status": "abstract",
+    "summary": "反思需要观察、重构及理解，迎合督导期望的写作可能掩盖真实思考。"
+  },
+  "kb-tutor-19": {
+    "status": "abstract",
+    "summary": "两种反馈均提升主观注意表现感受，客观视觉注意改善主要见于自适应反馈。"
+  },
+  "kb-tutor-20": {
+    "status": "abstract",
+    "summary": "持续使用框架与主动思考及改进教学的理解相联系。"
+  },
+  "kb-tutor-21": {
+    "status": "abstract",
+    "summary": "写作更能显化思考过程，对主动建构教学知识的推动仍有限；任务类型与读者值得关注。"
+  },
+  "kb-tutor-22": {
+    "status": "abstract",
+    "summary": "自我效能和学习目标取向与反思、寻求反馈正相关，目标取向参与解释其关系。"
+  },
+  "kb-tutor-23": {
+    "status": "abstract",
+    "summary": "有针对性的引导帮助参与者形成关于识字教学与学习的有依据判断，并据此提出促进反思的框架。"
+  },
+  "kb-tutor-25": {
+    "status": "abstract",
+    "summary": "研究在教练关系、持续时间和策略上有共同点，也在目标、实践背景、培训及效果上存在差异。"
+  },
+  "kb-tutor-26": {
+    "status": "abstract",
+    "summary": "个人与专业身份联结的意识与韧性、福祉及应对学习障碍的能力相联系。"
+  },
+  "kb-tutor-27": {
+    "status": "abstract",
+    "summary": "文章用强制、权威和劝说等权力视角分析反馈，讨论如何支持以学习者资源为基础的思考。"
+  },
+  "kb-tutor-28": {
+    "status": "abstract",
+    "summary": "积极话语分析识别出3类对话模式，可为教学内容知识和能动身份的表达提供空间。"
+  },
+  "kb-tutor-29": {
+    "status": "abstract",
+    "summary": "有结构的真实观察与学习共同体帮助参与者在既有印象、理论和课堂经验之间重新协商理解。"
+  },
+  "kb-tutor-30": {
+    "status": "abstract",
+    "summary": "发展呈现初始、中间和沉浸三个阶段，个人经历、学科文化及实践质量共同影响反思。"
+  },
+  "kb-tutor-32": {
+    "status": "abstract",
+    "summary": "结构化录像反思、重复循环和协作反馈与意识、问题解决、自信及自我调节的发展相联系。"
+  },
+  "kb-tutor-33": {
+    "status": "abstract",
+    "summary": "研究发现观察范围偏窄、依赖近期零散知识及缺少可行动改变等问题。"
+  },
+  "kb-tutor-34": {
+    "status": "abstract",
+    "summary": "学生访谈对反思最有个人意义，日志、观察表和问卷可能更适合启动较低压力的反思。"
+  },
+  "kb-tutor-35": {
+    "status": "abstract",
+    "summary": "反思帮助参与者识别、质疑及超越以不足定义学生或自己的表达方式。"
+  },
+  "kb-tutor-36": {
+    "status": "abstract",
+    "summary": "参与者关注从教师套话转向教学过程，教师身份认同及从教意向有所增加。"
+  },
+  "kb-tutor-37": {
+    "status": "abstract",
+    "summary": "研究从参与者经验说明模拟练习的潜力，并形成支持互动学习和虚拟学生设计的启示。"
+  },
+  "kb-tutor-38": {
+    "status": "abstract",
+    "summary": "反思配合反馈有利于自我调节学习，导师反馈条件的学习结果优于其他两组。"
+  },
+  "kb-tutor-39": {
+    "status": "abstract",
+    "summary": "反馈是否提供改进策略与反思任务存在交互，策略反馈也可能降低部分低自我效能学生的信心。"
+  },
+  "kb-tutor-41": {
+    "status": "abstract",
+    "summary": "组合反馈与更多高层次教师反馈、较强学习坚持相关，研究报告节省反馈时间且写作质量未受损。"
+  },
+  "kb-tutor-42": {
+    "status": "abstract",
+    "summary": "不准确的教师预期仍与年末成绩关联，反馈方式随预期变化，但未充分解释预期效应。"
+  },
+  "kb-tutor-44": {
+    "status": "abstract",
+    "summary": "作者强调反馈应支持学习者后续发展，反馈的理解、实际运用和关系条件值得持续关注。"
+  },
+  "kb-tutor-47": {
+    "status": "abstract",
+    "summary": "重复练习与反馈改善结构质量；关系框架教学进一步影响关系表达质量的变化。"
+  },
+  "kb-tutor-48": {
+    "status": "abstract",
+    "summary": "反馈与阅读成绩之间存在经阅读自我概念的间接关联，积极课堂氛围也与自我概念相关。"
+  },
+  "kb-tutor-49": {
+    "status": "abstract",
+    "summary": "多数国家的过程反馈感知与成长型思维及数字阅读成绩正相关，中介关系存在国家差异。"
+  },
+  "kb-tutor-50": {
+    "status": "abstract",
+    "summary": "教师判断准确度较高，但通常只把中大型差异视为有意义；重复接触和图形类型影响表现。"
+  },
+  "kb-assessor-03": {
+    "status": "abstract",
+    "summary": "形成性评价的理解、课程标准与教师实践知识共同影响任务设计，形成性和总结性用途之间存在张力。"
+  },
+  "kb-assessor-04": {
+    "status": "abstract",
+    "summary": "双方评价的正负比例相近，但具体关注点仅部分重合；学生觉得费时且有社交压力，同时认可学习价值。"
+  },
+  "kb-assessor-05": {
+    "status": "abstract",
+    "summary": "大多数参与者评价积极，少数学生认为帮助较小，设计需照顾学习方式差异。"
+  },
+  "kb-assessor-06": {
+    "status": "abstract",
+    "summary": "两种方案均给学习者能动性提供空间，面向未来的能动表达主要见于总结性自评组。"
+  },
+  "kb-assessor-09": {
+    "status": "abstract",
+    "summary": "讨论式口头互评组的口语进步更多，反馈也更常包含建议；书面反馈多为描述。"
+  },
+  "kb-assessor-10": {
+    "status": "abstract",
+    "summary": "模型强调学习自评方法、共同制定评分表、反思指导及形成性练习。"
+  },
+  "kb-assessor-11": {
+    "status": "abstract",
+    "summary": "双方大部分感知相近，评价活动更多用于说明要求和获取回应，较少用于调整后续学习。"
+  },
+  "kb-assessor-12": {
+    "status": "abstract",
+    "summary": "概念、实践和社会情感三个维度得到结构支持，量表与评价实践的关联提供外部效度证据。"
+  },
+  "kb-assessor-13": {
+    "status": "abstract",
+    "summary": "参与者对价值与可实现性的信念，以及试用、反思、专家和同伴支持，与实践发展相联系。"
+  },
+  "kb-assessor-14": {
+    "status": "abstract",
+    "summary": "案例显示同伴评价具有学习潜力，同时涉及实施中的收益和困难，需要结合课程设计理解。"
+  },
+  "kb-assessor-15": {
+    "status": "abstract",
+    "summary": "教师反思及督导观察显示专业成长，一年级风险学生在某项音韵阅读指标上优于非项目教师班级。"
+  },
+  "kb-assessor-16": {
+    "status": "abstract",
+    "summary": "量表在研究群体中显示可接受信效度，教师认为有助于形成性写作评价。"
+  },
+  "kb-assessor-17": {
+    "status": "abstract",
+    "summary": "成功使用需要清楚的评价定义、工具与教学一致以及解读数据并调整学习的能力。"
+  },
+  "kb-assessor-18": {
+    "status": "abstract",
+    "summary": "迭代探究揭示既有观念与所需观念的差距，观念转变是调整实践的重要前提。"
+  },
+  "kb-assessor-19": {
+    "status": "abstract",
+    "summary": "政策倡导较强，但支持教师有效实施的条件不足，评价需要与课程整体衔接。"
+  },
+  "kb-assessor-20": {
+    "status": "abstract",
+    "summary": "形成性评价实践与学生学习正相关，教师知识与实践之间的关系呈混合结果。"
+  },
+  "kb-assessor-21": {
+    "status": "abstract",
+    "summary": "分析重点是反馈内容、反馈指向及学生评价参与，呈现政策在具体课堂中的情境化实施。"
+  },
+  "kb-assessor-22": {
+    "status": "abstract",
+    "summary": "参与者能够把原则转为策略，但学校问责文化形成阻力，导师开放态度与支持十分关键。"
+  },
+  "kb-assessor-23": {
+    "status": "abstract",
+    "summary": "匿名与非匿名组多项社会情感指标未见显著差异，匿名的安全感和非匿名的澄清对话各有价值。"
+  },
+  "kb-assessor-24": {
+    "status": "abstract",
+    "summary": "受训与未受训教师的看法及态度存在差异，报告的实践频率却相近。"
+  },
+  "kb-assessor-25": {
+    "status": "abstract",
+    "summary": "评价素养不足、班级规模、资源限制和高利害考试文化妨碍形成性实践，部分反馈偏重评判。"
+  },
+  "kb-assessor-26": {
+    "status": "abstract",
+    "summary": "计划、行动、观察及反思的循环促进初任教师协作学习，并揭示系统中的矛盾。"
+  },
+  "kb-assessor-27": {
+    "status": "abstract",
+    "summary": "教师评价任务自我效能提高，评价概念知识未见改变，信心与实际知识仅有有限关联。"
+  },
+  "kb-assessor-28": {
+    "status": "abstract",
+    "summary": "缺少共同的良好教学定义或有用反馈时，形成性建议可能难以转化为教学改进。"
+  },
+  "kb-assessor-29": {
+    "status": "abstract",
+    "summary": "研究提供同事间形成性评价实践及信念相互关联、可能传播的证据，强调学校和同伴支持。"
+  },
+  "kb-assessor-30": {
+    "status": "abstract",
+    "summary": "双方看法在多数方面一致，研究强调双向对话、自评和共同参与的作用。"
+  },
+  "kb-assessor-31": {
+    "status": "abstract",
+    "summary": "个人、制度及社会文化环境共同塑造评价中的情绪劳动、能动性和表达空间。"
+  },
+  "kb-assessor-32": {
+    "status": "abstract",
+    "summary": "反馈还需让学习者理解、联系作品特征并能够行动；清晰标准与稳定参照有助于识别实际进步。"
+  },
+  "kb-assessor-33": {
+    "status": "abstract",
+    "summary": "不同实施方式被同一术语涵盖，部分常见效果量主张依据薄弱，评价设计需要学科和测量基础。"
+  },
+  "kb-assessor-34": {
+    "status": "abstract",
+    "summary": "提出统整不同形成性实践的理论依据，并连接动态评价及其他教学方法。"
+  },
+  "kb-assessor-35": {
+    "status": "abstract",
+    "summary": "量规具有促进学习的潜力，但作用路径和调节条件多样，仍有问题待研究。"
+  },
+  "kb-assessor-36": {
+    "status": "abstract",
+    "summary": "简单累加过程分数不足以形成可靠的总结判断，两类评价的独立功能需要保留。"
+  },
+  "kb-assessor-37": {
+    "status": "abstract",
+    "summary": "同伴反馈总体优于无反馈，与教师反馈效果相近；结论受合格研究数量限制。"
+  },
+  "kb-assessor-38": {
+    "status": "abstract",
+    "summary": "自评与教师评分的一致性随时间改善，学生认为互评有助于反思及承担学习责任。"
+  },
+  "kb-assessor-39": {
+    "status": "abstract",
+    "summary": "群体上初稿到终稿各维度改善，师生评价说明反馈及修订具有学习价值。"
+  },
+  "kb-assessor-40": {
+    "status": "abstract",
+    "summary": "师生、不同性别及学科之间的反馈感知有差异，学生在职业训练中感受到更多反馈。"
+  },
+  "kb-assessor-41": {
+    "status": "abstract",
+    "summary": "计划式评价侧重引出、解释和采取行动，互动式评价侧重即时注意、识别和回应。"
+  },
+  "kb-assessor-42": {
+    "status": "abstract",
+    "summary": "对话能够自然显化学生思考，随后通过提问、核查和共同建构支持学习。"
+  },
+  "kb-assessor-43": {
+    "status": "abstract",
+    "summary": "较多感知的形成性评价与自主、胜任感及自主学习动机相关，心理需要参与解释其关联。"
+  },
+  "kb-assessor-44": {
+    "status": "abstract",
+    "summary": "反馈用于激励、学习、反思、澄清理解及丰富学习环境，使用方式具有差异。"
+  },
+  "kb-assessor-45": {
+    "status": "abstract",
+    "summary": "参与者持续开展自评，并整合利用形成性和总结性信息理解自己的学习。"
+  },
+  "kb-assessor-46": {
+    "status": "abstract",
+    "summary": "明确目标、指导学习、学生参与以及将反馈作为对话，是文章总结的核心实践。"
+  },
+  "kb-assessor-47": {
+    "status": "abstract",
+    "summary": "学生自我调节学习的动机信念和课堂行为出现积极变化，实践同时整合多个评价要素。"
+  },
+  "kb-assessor-48": {
+    "status": "abstract",
+    "summary": "实践常只取得部分成功，制度压力、教师改变的时间及学生责任转变影响实施。"
+  },
+  "kb-assessor-50": {
+    "status": "abstract",
+    "summary": "形成性评价帮助参与者认识已掌握内容及仍需学习的部分，两种形式带来不同体验。"
+  },
+  "kb-parents-01": {
+    "status": "abstract",
+    "summary": "家长感知的家校合作分为6类，课外活动、评价导向、教学方式和教师理念均与类型相关。"
+  },
+  "kb-parents-02": {
+    "status": "abstract",
+    "summary": "不同陪伴背景下居家学习表现有差异，研究区分陪伴、指导和旁观三类参与，并提出制度、技术、学校和研究支持。"
+  },
+  "kb-parents-03": {
+    "status": "abstract",
+    "summary": "干预组适应行为和社交技能改善较大，教师报告的亲师关系改善参与解释积极行为变化。"
+  },
+  "kb-parents-05": {
+    "status": "abstract",
+    "summary": "开放沟通、相互支持及对照护实践的协商是共同照护关系的重要主题。"
+  },
+  "kb-parents-06": {
+    "status": "abstract",
+    "summary": "文章强调共同目标、持续支持、关注合作过程及学生学业、社会和情绪发展的机会。"
+  },
+  "kb-parents-07": {
+    "status": "abstract",
+    "summary": "联合问题解决有助于识别跨家庭与学校的情境因素，促进一致支持与效果迁移。"
+  },
+  "kb-parents-09": {
+    "status": "abstract",
+    "summary": "双方对沟通质量看法的一致性调节了干预对教师报告社交技能的作用。"
+  },
+  "kb-parents-10": {
+    "status": "abstract",
+    "summary": "受访者普遍支持家校合作，超过95%曾咨询家庭如何支持儿童学习与行为；活动参与与年级及合作信念有关。"
+  },
+  "kb-parents-12": {
+    "status": "abstract",
+    "summary": "沟通与较高家长自我效能相关，后者与较少行为问题及冲突相联系，高资源家庭的关联更强。"
+  },
+  "kb-parents-13": {
+    "status": "abstract",
+    "summary": "学前接触较多，进入幼儿园后接触减少且更偏学校发起；项目间家访与书面信息形式不同。"
+  },
+  "kb-parents-14": {
+    "status": "abstract",
+    "summary": "结合研究依据与家庭文化特点的合作方式获得参与家长和教师认可，并显示持续实施潜力。"
+  },
+  "kb-parents-15": {
+    "status": "abstract",
+    "summary": "早期指导质量、后续家长期望和儿童既往成绩相互关联，显示家庭支持与儿童发展存在动态联系。"
+  },
+  "kb-parents-16": {
+    "status": "abstract",
+    "summary": "部分学生的外部或能力不足归因与随后较低课堂投入、作业参与相联系，归因未完全解释家庭影响。"
+  },
+  "kb-parents-18": {
+    "status": "abstract",
+    "summary": "父亲和母亲的参与方式均与部分学业及社会表现相关，父亲的学校联系具有独立关联。"
+  },
+  "kb-parents-19": {
+    "status": "abstract",
+    "summary": "共同照护质量参与解释师幼关系与母亲养育困扰的关联；师幼冲突也与母亲感知儿童难以照料有关。"
+  },
+  "kb-parents-20": {
+    "status": "abstract",
+    "summary": "一至二年级养育自我效能与亲师联系存在相互关联；二年级自我效能可预测后续部分儿童表现，联系本身未显示相同直接预测。"
+  },
+  "kb-parents-24": {
+    "status": "abstract",
+    "summary": "在学业、行为和社会情绪问题上，双方总体更偏好家校联合咨询。"
+  },
+  "kb-parents-25": {
+    "status": "abstract",
+    "summary": "家长与孩子对教养方式的感知有差异，分歧尤其涉及个人自主范围，并与冲突及情绪自主性相关。"
+  },
+  "kb-parents-26": {
+    "status": "abstract",
+    "summary": "传统权威和专制分类未充分体现华人“管教”观念的含义，文化特定概念有助于补充理解。"
+  },
+  "kb-parents-27": {
+    "status": "abstract",
+    "summary": "控制社会经济条件后，模型仍能解释家庭及学校参与差异，不同学段的预测因素有所不同。"
+  },
+  "kb-parents-28": {
+    "status": "abstract",
+    "summary": "双方参与与成绩的关联总体相近，母亲平均参与水平较高，不同参与类型的关联存在差异。"
+  },
+  "kb-parents-29": {
+    "status": "abstract",
+    "summary": "直接关联在族群间存在差异，经教育期望等因素体现的间接关联较为一致。"
+  },
+  "kb-parents-30": {
+    "status": "abstract",
+    "summary": "平等参与、信任、清晰可达的沟通及任务共享是扩大服务覆盖的重要议题。"
+  },
+  "kb-parents-31": {
+    "status": "abstract",
+    "summary": "教师感知的良好亲师沟通与两类投入评价均相关；部分儿童家庭特征的关联只出现在教师评分中。"
+  },
+  "kb-parents-32": {
+    "status": "abstract",
+    "summary": "中心之间差异明显，多数交流很短，约一半超过日常寒暄并涉及孩子行为、健康或当日经历。"
+  },
+  "kb-parents-33": {
+    "status": "abstract",
+    "summary": "照护者报告的沟通频率和重要性通常高于家长，沟通与照护质量呈正相关。"
+  },
+  "kb-parents-34": {
+    "status": "abstract",
+    "summary": "辅导加家长参与组数学计算正确性更高，单独辅导组也优于对照组。"
+  },
+  "kb-parents-35": {
+    "status": "abstract",
+    "summary": "两类咨询可分别围绕儿童支持与家长信念情绪展开，需要区分服务目标和专业职责。"
+  },
+  "kb-parents-37": {
+    "status": "abstract",
+    "summary": "入学时师生冲突与行为问题更快增长相关，亲近关系与部分高风险儿童问题减少相联系。"
+  },
+  "kb-parents-38": {
+    "status": "abstract",
+    "summary": "干预后口语表现改善，包含家庭阅读的条件收益较大。"
+  },
+  "kb-parents-39": {
+    "status": "abstract",
+    "summary": "支持、监督和心理自主性与较好表现相关，家长参与的关联也随家庭教养环境变化。"
+  },
+  "kb-parents-40": {
+    "status": "abstract",
+    "summary": "家长对游戏与促进学习的理解与儿童独立性、创造性相关；较高烦躁与严厉程度与部分不利表现相关。"
+  },
+  "kb-parents-41": {
+    "status": "abstract",
+    "summary": "家长参与与较强前读写能力相关，社会经济及单亲条件与参与机会也有联系。"
+  },
+  "kb-parents-42": {
+    "status": "abstract",
+    "summary": "教师报告的家长参与与沟通、日常生活及入学准备等能力相关，部分联系在男孩中更突出。"
+  },
+  "kb-parents-43": {
+    "status": "abstract",
+    "summary": "家长就业、课堂质量及教师经验与参与有关，教师和家长自报与实际记录的一致程度不同。"
+  },
+  "kb-parents-45": {
+    "status": "abstract",
+    "summary": "入园初期亲子关系与师生关系的关联较明显，社会能力参与解释，随在园经验增加该关联减弱。"
+  },
+  "kb-parents-46": {
+    "status": "abstract",
+    "summary": "总体互动评价比逐事件指标更具预测力，负向强制互动与后续问题的联系较突出。"
+  },
+  "kb-parents-47": {
+    "status": "abstract",
+    "summary": "一年级学校参与与三年级阅读的联系由自我调节学习解释，数学联系也存在间接路径及背景差异。"
+  },
+  "kb-parents-49": {
+    "status": "abstract",
+    "summary": "学前参与较为重要，中心家长参与与早期及后续学校表现相关，低收入区域面临更大困难。"
+  },
+  "kb-parents-50": {
+    "status": "abstract",
+    "summary": "双方均重视了解学校如何运作，活动优先次序总体相近；多数活动上家长使用意愿高于专业人员的可行性判断。"
+  },
+  "kb-scenarios-01": {
+    "status": "abstract",
+    "summary": "内容涵盖学习支持、价值教育、综合素养及身心健康，建议提升合作意识、运用技术并关注农村及留守学生。"
+  },
+  "kb-scenarios-02": {
+    "status": "abstract",
+    "summary": "研究发现自主学习、家庭教育、线上教学和教师角色方面的困难，提出学习指导、家校共育及教学改进建议。"
+  },
+  "kb-scenarios-08": {
+    "status": "abstract",
+    "summary": "文章强调依赖学校服务的低收入儿童面临更高资源中断风险，需要教育和健康部门共同支持。"
+  },
+  "kb-scenarios-12": {
+    "status": "abstract",
+    "summary": "作者质疑将流感停课经验直接迁移至新冠，并强调当时直接证据不足及公平影响。"
+  },
+  "kb-scenarios-20": {
+    "status": "abstract",
+    "summary": "作者主张系统增加支持，关注远程服务可达性、群体差异及尚未满足的需求。"
+  },
+  "kb-scenarios-23": {
+    "status": "abstract",
+    "summary": "作者倡议跨学科共同审阅传播、心理及远程学习证据，并按儿童发展阶段提出建议。"
+  },
+  "kb-scenarios-28": {
+    "status": "abstract",
+    "summary": "家长报告的儿童行为随学习形式系统变化，远程学习期间部分行为困难高于面授期间。"
+  },
+  "kb-scenarios-32": {
+    "status": "abstract",
+    "summary": "群体困扰与就医需求反映不同方面，简单归结为全部恶化或全部无碍会掩盖差异。"
+  },
+  "kb-scenarios-33": {
+    "status": "abstract",
+    "summary": "残障学生的服务可达性、家庭承受能力和公平问题需要进入返校沟通与跨部门协作。"
+  },
+  "kb-scenarios-37": {
+    "status": "abstract",
+    "summary": "作者强调同时考虑感染、母亲压力与发展环境，持续研究可帮助制定预防支持。"
+  },
+  "kb-scenarios-41": {
+    "status": "abstract",
+    "summary": "学校同时承担膳食、治疗和社会支持功能，安全方案需要社区参与并回应家庭对检测的具体疑问。"
+  },
+  "kb-scenarios-45": {
+    "status": "abstract",
+    "summary": "拥挤居住、卫生及医疗资源不足、创伤经历与制度不信任会增加风险并妨碍公共卫生措施落实。"
+  },
+  "kb-scenarios-46": {
+    "status": "abstract",
+    "summary": "作者结合当时资料支持保持教育服务，同时强调卫生措施及持续流行病学监测。"
+  }
+}
