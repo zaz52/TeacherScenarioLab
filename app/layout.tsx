@@ -5,6 +5,8 @@ import { cookies, headers } from 'next/headers';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import './globals.css';
+import './site-motion.css';
+import { SiteMotion } from '@/components/ui/site-motion';
 import '@openmaic/renderer/fonts.css';
 import 'animate.css';
 import 'katex/dist/katex.min.css';
@@ -74,6 +76,9 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <noscript>
+          <style>{`.magic-blur-fade { opacity: 1 !important; filter: none !important; transform: none !important; }`}</style>
+        </noscript>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body
@@ -83,17 +88,19 @@ export default async function RootLayout({
         <AdaptiveProvider initialMobileLayout={initialMobileLayout}>
           <ThemeProvider>
             <I18nProvider initialLocale={locale} initialResources={resources}>
-              <AccountProvider>
-                <AccessCodeGuard>
-                  {children}
-                  <NewcomerGuide />
-                </AccessCodeGuard>
-                <Toaster position="top-center" />
-                {/* After the Toaster: this one raises a toast on mount when
+              <SiteMotion>
+                <AccountProvider>
+                  <AccessCodeGuard>
+                    {children}
+                    <NewcomerGuide />
+                  </AccessCodeGuard>
+                  <Toaster position="top-center" />
+                  {/* After the Toaster: this one raises a toast on mount when
                 persistence is already broken, and a toast raised before its
                 host exists has nowhere to go. */}
-                <AuthenticatedInit />
-              </AccountProvider>
+                  <AuthenticatedInit />
+                </AccountProvider>
+              </SiteMotion>
             </I18nProvider>
           </ThemeProvider>
         </AdaptiveProvider>

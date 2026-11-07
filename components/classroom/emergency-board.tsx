@@ -1,5 +1,7 @@
 'use client';
 
+import { BlurFade } from '@/components/ui/blur-fade';
+import { RippleButton } from '@/components/ui/ripple-button';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { ArrowRight, AlertTriangle, ClipboardList, CheckCircle2, Loader2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -21,27 +23,29 @@ export function EmergencyIntro() {
   const { t } = useI18n();
   const text = (key: string) => t('teacherlab.emergency.' + key);
   return (
-    <section
-      data-training-guide="emergency-intro"
-      className="mb-4 w-full rounded-2xl border border-border/60 bg-background/85 px-5 py-4 text-left"
-    >
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="flex items-center gap-2 text-sm font-semibold">
-          <AlertTriangle size={17} className="text-amber-600" />
-          {text('homeTitle')}
-        </h2>
-        <span className="text-xs text-muted-foreground">{text('homeScope')}</span>
-      </div>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">{text('homeIntro')}</p>
-      <ol className="mt-3 grid grid-cols-3 gap-2 text-xs sm:grid-cols-6">
-        {EMERGENCY_ACTIONS.map((id, index) => (
-          <li key={id} className="flex items-center gap-1.5">
-            <span className="text-violet-600">{index + 1}.</span>
-            {text('tasks.' + id + '.short')}
-          </li>
-        ))}
-      </ol>
-    </section>
+    <BlurFade className="w-full" duration={0.35} offset={4} blur="3px">
+      <section
+        data-training-guide="emergency-intro"
+        className="mb-4 w-full rounded-2xl border border-border/60 bg-background/85 px-5 py-4 text-left"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="flex items-center gap-2 text-sm font-semibold">
+            <AlertTriangle size={17} className="text-amber-600" />
+            {text('homeTitle')}
+          </h2>
+          <span className="text-xs text-muted-foreground">{text('homeScope')}</span>
+        </div>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">{text('homeIntro')}</p>
+        <ol className="mt-3 grid grid-cols-3 gap-2 text-xs sm:grid-cols-6">
+          {EMERGENCY_ACTIONS.map((id, index) => (
+            <li key={id} className="flex items-center gap-1.5">
+              <span className="text-violet-600">{index + 1}.</span>
+              {text('tasks.' + id + '.short')}
+            </li>
+          ))}
+        </ol>
+      </section>
+    </BlurFade>
   );
 }
 
@@ -295,7 +299,7 @@ function EmergencyBoardView({
                       </p>
                     )}
                   </div>
-                  <button
+                  <RippleButton
                     type="button"
                     onClick={edit}
                     disabled={!task.available || board.readOnly || Boolean(error)}
@@ -303,7 +307,7 @@ function EmergencyBoardView({
                   >
                     {text(task.record ? 'edit' : 'act')}
                     <ArrowRight size={14} />
-                  </button>
+                  </RippleButton>
                 </div>
               )}
               {board.state === 'proposal' && board.missing.length > 0 && (
@@ -496,14 +500,14 @@ function EmergencyBoardView({
                   {text(notice)}
                 </p>
               )}
-              <button
+              <RippleButton
                 disabled={saving}
                 type="submit"
                 className="inline-flex items-center gap-2 rounded-xl bg-violet-600 px-5 py-2.5 text-sm text-white disabled:opacity-40"
               >
                 {saving && <Loader2 size={15} className="animate-spin" />}
                 {text(saving ? 'saving' : 'save')}
-              </button>
+              </RippleButton>
             </fieldset>
           </form>
         </DialogContent>

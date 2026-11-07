@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### TeacherScenarioLab Magic UI 统一交互动效（2026-11-07，Asia/Shanghai）
+
+- 用户指定magic-ui，要求按钮与页面带动效。按官方registry源码集成Blur Fade及Ripple Button，登记@magicui注册表，复用已安装motion；保持当前紫色主题与布局。
+- 首页应急介绍使用轻量淡入，进入实训、处置提交等主要按钮加入点击波纹，键盘激活从按钮中心扩散。全站原生按钮、标签和可操作摘要加入按压反馈，卡片悬停与输入焦点采用短过渡。
+- 页面进入、训练列表切换、设置后台面板和弹窗加入短动效。页面与设置面板保留组件身份和业务回调，路由过渡不额外重建表单；账号、权限、模型、应急保存及训练核心流程沿用。
+- 系统减少动态效果时关闭位移、波纹和持续CSS动画；Blur Fade提供无脚本可见回退，波纹层不接收输入，保留键盘焦点与禁用状态。移动端不启用依赖鼠标悬停的效果。
+- 涉及app/layout.tsx、app/site-motion.css、components/ui/{site-motion,blur-fade,ripple-button}.tsx、首页/训练列表/应急组件、设置容器及components.json。格式、源码核对和生产构建按发布流程记录；功能、浏览器及模型测试继续由用户执行。
+
 ### TeacherScenarioLab 校园疫情应急处置训练（2026-11-06，Asia/Shanghai）
 
 - 用户要求突出“应急”。首页保留原对话框，明确校园疫情应急目标；实训新增安全保护、核实信息、校内报告、协同处置、家长沟通、持续跟进六项任务。前三项从开始可填写并行推进；进阶任务结合对话轮次、既有传言事件和处置阶段开放。

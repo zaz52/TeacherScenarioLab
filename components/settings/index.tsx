@@ -1,5 +1,7 @@
 'use client';
 
+import { MotionSurface } from '@/components/ui/site-motion';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -287,7 +289,8 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
             </div>
 
             {/* Content */}
-            <div
+            <MotionSurface
+              motionKey={activeSection}
               className={cn(
                 'min-w-0 overflow-x-hidden p-4 sm:p-6',
                 fillsHeight ? 'flex min-h-0 flex-1 flex-col pt-3' : 'flex-1 overflow-y-auto',
@@ -349,7 +352,7 @@ export function SettingsDialog({ open, onOpenChange, initialSection }: SettingsD
                 </>
               )}
               {activeSection === 'general' && !account?.authenticated && <GeneralSettings />}
-            </div>
+            </MotionSurface>
 
             {/* Footer: every change is saved as it is made; only close here. */}
             <div className="flex items-center justify-end gap-3 px-5 py-3 border-t bg-muted/30">

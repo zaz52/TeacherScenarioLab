@@ -300,7 +300,7 @@ export function TrainingHomeBlock({
       </p>
 
       {tab === 'hall' && (
-        <div className="mt-4" data-training-guide="scenarios">
+        <div data-motion-panel className="mt-4" data-training-guide="scenarios">
           <div className="mb-3 flex justify-end">
             <LibraryTrash kind="scenario" />
           </div>
@@ -315,7 +315,7 @@ export function TrainingHomeBlock({
                 <li
                   key={`${scenario.scenarioId}-${scenario.version}`}
                   data-testid={`training-scenario-${scenario.scenarioId}`}
-                  className="rounded-lg border border-border p-4"
+                  className="teacherlab-motion-card rounded-lg border border-border p-4"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="font-medium">{scenario.title}</h3>
@@ -363,7 +363,7 @@ export function TrainingHomeBlock({
       )}
 
       {tab === 'records' && (
-        <div className="mt-6">
+        <div data-motion-panel className="mt-6">
           {!account?.authenticated ? (
             <AccountPanel />
           ) : recordsLoading || recordsOwner !== account.ownerId ? (
@@ -387,13 +387,13 @@ export function TrainingHomeBlock({
       )}
 
       {tab === 'account' && (
-        <div className="mt-4">
+        <div data-motion-panel className="mt-4">
           <AccountPanel />
         </div>
       )}
 
       {tab === 'events' && (
-        <div className="mt-6">
+        <div data-motion-panel className="mt-6">
           {!account?.authenticated ? (
             <AccountPanel />
           ) : eventsLoading || eventsOwner !== account.ownerId ? (

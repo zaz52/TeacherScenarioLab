@@ -1,5 +1,7 @@
 'use client';
 
+import { RippleButton } from '@/components/ui/ripple-button';
+
 import {
   Suspense,
   useState,
@@ -984,6 +986,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
 
       {/* ═══ Hero section: title + input (centered, wider) ═══ */}
       <div
+        data-page-motion
         className={cn(
           'home-hero relative z-20 w-full max-w-[800px] flex flex-col items-center mt-[10vh]',
           heroEnter('fade-in slide-in-from-bottom-5 duration-600'),
@@ -1241,7 +1244,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
               />
 
               {/* Send button */}
-              <button
+              <RippleButton
                 data-training-guide={isTraining ? 'start' : undefined}
                 data-testid="home-generate"
                 aria-label={
@@ -1269,7 +1272,7 @@ function HomePage({ trainingEntry }: { trainingEntry: boolean }) {
                 ) : (
                   <ArrowUp className="size-3.5" />
                 )}
-              </button>
+              </RippleButton>
             </div>
           </div>
         </div>
